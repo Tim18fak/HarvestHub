@@ -5,7 +5,7 @@ const express = require('express');
 
 const app = express();
 // Routes
-const authRoutes = require('./Routes/auth.js')
+/* const authRoutes = require('./Routes/auth.js') */
 const options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem'),
@@ -14,7 +14,7 @@ const options = {
 
 const server = https.createServer(options, app);
 
-server.listen(443, () => {
+server.listen(8080, () => {
   console.log('Server is running on https://localhost');
 });
 // route links
