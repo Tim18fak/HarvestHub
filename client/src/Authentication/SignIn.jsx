@@ -115,6 +115,7 @@ const [form, setform] = useState(InitialFormState)
  const [showPass,setshowPass] = useState(true)
  const [showConPass,setConshowPass] = useState(true)
  const [code , setCode] = useState(false)
+ const [reset,setReset] = useState(false)
 
 const GetForm = (e) => {
     e.preventDefault();
@@ -124,7 +125,7 @@ const GetForm = (e) => {
     
 }
 ///
-
+console.log(reset)
 setTimeout(() => {
   setinValid(false)
 },6000)
@@ -225,6 +226,10 @@ const handleSubmit = async (e) => {
       <p>{signUp && (
         <p>Already have an account  <span onClick={() => setsignUp(!signUp)}>{signUp ? "Sign IN" : "Sign Up"}</span></p>
       )}</p>
+      <p on>Forgot your password: <button disabled={reset} onClick={() => setReset(!reset)}>Reset It</button></p>
+      {reset && (
+        <h2>HEllo</h2>
+      )}
     </section>
     )}
     {code && (
