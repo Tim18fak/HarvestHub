@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 // Define your schemas
-const farmerSchema = new mongoose.Schema({
   // MongoDB Schema for Farmers
 const farmerSchema = new Schema({
   firstName: String,
