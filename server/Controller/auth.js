@@ -1,4 +1,5 @@
 
+const {User} = require('../Model/DB_structure')
 
 const activationCode = () => {
     const min = 1000
@@ -23,6 +24,10 @@ const signup = (req,res) => {
         confirmpassword,
         code,
         Code})
+        if(Code !== code){
+            res.status(400).json({ error: 'Invalid activation code', message: 'The activation code provided is not valid. Please check and try again.' });
+        }
+
 
 }
 const login = () => {

@@ -1,4 +1,7 @@
-function CodeConfirmation({ form }) {
+import React from "react";
+import { useState,useRef } from "react";
+import axios from 'axios';
+const CodeConfirmation = ({ form }) => {
     const [digit1, setDigit1] = useState('');
     const [digit2, setDigit2] = useState('');
     const [digit3, setDigit3] = useState('');
@@ -33,8 +36,8 @@ function CodeConfirmation({ form }) {
   const SignIn =  async (code,Code, form) => {
     const {fullname, username, email, password, confirmpassword} = form
   
-    const URL = 'https://localhost/auth/signup'
-    const {data} = await axios.post(`${URL}`,{
+    const URL = 'https://localhost/auth'
+    const {data} = await axios.post(`${URL}/signup`,{
       fullname,
       username,
       email,

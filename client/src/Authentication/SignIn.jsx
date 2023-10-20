@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import axios from 'axios';
 import CodeConfirmation from './CodeConfirmation';
+
 const InitialFormState = {
 fullname: "",
 username: "",
@@ -10,9 +11,6 @@ email: "",
 password: "",
 confirmpassword: ""
 }
-
-
-////////////// 
 
 
 const SignIn = () => {
@@ -33,13 +31,42 @@ const GetForm = (e) => {
     
 }
 ///
-console.log(reset)
+
+//
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+  console.log(reset)
 setTimeout(() => {
   setinValid(false)
 },6000)
-//
+  const delay = 60000
+  try {
+   if(signUp)
+     if(form.password !== form.confirmpassword && signUp){
+       throw new Error('Invalid password')
+     }
+     const {data} = await axios.get('https://localhost/auth/code')
 
+     sessionStorage.setItem('code',data)
+     setCode(!code)
+     const Code = emailjs.send('service_8j5w9uo','template_6u3tdjn',{
+      to_email: form.email,
+      to_name: form.username,
+      message: data,
+      from_name: 'HarvestHub'
+     },'SUr8z-MuiQP8fGoSl')
+     console.log(Code)
 
+     /* setTimeout(() => {
+      sessionStorage.clear()
+     },) */// delay
+
+  } catch (error) {
+    setinValid(!invalid)
+    console.log(error)
+  }
+}
 
   return (
     <>
@@ -49,7 +76,7 @@ setTimeout(() => {
       {signUp && (
           <div>
             <label htmlFor="fullname">FullName</label>
-            <input type="text" name='fullname' placeholder='fullname' required onChange={GetForm} />
+            <input  type="text" name='fullname' placeholder='fullname' required onChange={GetForm} />
           </div>  
             )}
             {signUp && (
