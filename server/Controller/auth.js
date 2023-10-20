@@ -8,25 +8,31 @@ const activationCode = () => {
     return code
     console.log(code)
 }
+////////////
 
+const activationCodeCompare = (code,Code) => {
+    if(code !== Code)
+     return false;
+}
 const signup = (req,res) => {
-   const {fullname,
+   try {
+    const {fullname,
         username,
         email,
         password,
         confirmpassword,
         code,
         Code} = req.body 
-    console.log({fullname,
-        username,
-        email,
-        password,
-        confirmpassword,
-        code,
-        Code})
-        if(Code !== code){
-            res.status(400).json({ error: 'Invalid activation code', message: 'The activation code provided is not valid. Please check and try again.' });
+    
+        if(activationCodeCompare(code, Code)){
+            throw new TypeError('Invalid activation code','The activation code provided is not valid. Please check and try again.')
         }
+
+
+
+   } catch (error) {
+    res.status(400).json({ 'error': error.message });
+   }
 
 
 }
