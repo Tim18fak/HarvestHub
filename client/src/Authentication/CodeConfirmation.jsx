@@ -91,3 +91,5 @@ function CodeConfirmation({ form }) {
       </form>
     );
   }
+
+  export default CodeConfirmation;
