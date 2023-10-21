@@ -4,6 +4,7 @@ import emailjs from 'emailjs-com';
 import axios from 'axios';
 import CodeConfirmation from './CodeConfirmation';
 import Cookies from 'universal-cookie'
+import Home from '../Dashboard/Home';
 
 const cookies = new Cookies();
 
@@ -26,25 +27,54 @@ const [form, setform] = useState(InitialFormState)
  const [code , setCode] = useState(false)
  const [statusCode,setStatusCode] = useState('')
  const [responseData,setResponseData] = useState('')
- const [reset,setReset] = useState(false)
+ const [reset,setReset] = useState(true)
 const [dashboard,setDashboard] = useState(false)
-
+const [r,setR] = useState(true)
 
 const GetForm = (e) => {
     e.preventDefault();
-    if(e.target.name === 'email')
-     console.log('hell')
     setform({ ...form, [e.target.name]: e.target.value})
-    
 }
-///
 
+
+///
+/* const defResponse = useRef()
+defResponse.current = responseData
+console.log(defResponse)
+console.log(responseData)
+ */
 //
+const resetPass = (e) => {
+  e.preventDefault()
+  const {email} = form;
+  const Url = 'https://localhost/auth/reset'
+  fetch(`${Url}`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({email}),
+  })
+  .then(response => {
+    if(response.ok)
+      response.json() // Read response body as JSON
+    .then(data => {
+      console.log('Response Message:', data.message);
+      setResponseData(data.message)
+    })
+    .catch(error => {
+      console.error('Error reading response as JSON:', error);
+    });
+  })
+  .then(error => {})
+}
+
 const handleLogin = (e) => {
   e.preventDefault()
   console.log('fff')
   const {username, password} = form
-  fetch('https://localhost/auth/login', {
+  const Url = 'https://localhost/auth/login'
+  fetch(`${Url}`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -67,7 +97,7 @@ const handleLogin = (e) => {
       cookies.set('fullName', fullname);
       cookies.set('username', username);
       const re = cookies.getAll({username,_id, fullname})
-      console.log(re)
+      re ? setDashboard((prevdash) => !dashboard):  setDashboard((prevdash) => dashboard)
     })
     .catch(error => {
       console.error('Error reading response as JSON:', error);
@@ -125,10 +155,16 @@ setTimeout(() => {
     console.log(error)
   }
 }
-dashboard ? return  
-  return (
+if(cookies.get('username' && cookies.get('fullname' && cookies.get('userId')))){
+ setDashboard((dash) => !dashboard)
+}
+
+
+if(dashboard)
+  return <Home />;
+return (
     <>
-    {!code && (
+    {!code && reset &&(
     <section>
       <form onSubmit={signUp ? handleSignUp : handleLogin}>
       {signUp && (
@@ -169,12 +205,15 @@ dashboard ? return
           </div>  
             )}
              {!signUp && (
+              <>
           <div>
             <label htmlFor="password">Password</label>
             <input type={showPass ? 'password' : 'text'} name='password' placeholder='password' required onChange={GetForm} /> <span onClick={() => setshowPass(!showPass)}>show</span>
-          </div>  
+          </div>
+          <p>{responseData}</p>
+          </>
             )}
-            {/* <p>{responseData}</p> */}
+            
            <button disabled={invalid}>{signUp ? "Sign IN" : "Sign Up"}</button>
       </form>
       {signUp && (
@@ -191,14 +230,21 @@ dashboard ? return
       <p>{signUp && (
         <p>Already have an account  <span onClick={() => setsignUp(!signUp)}>{signUp ? "Sign IN" : "Sign Up"}</span></p>
       )}</p>
-      <p on>Forgot your password: <button disabled={reset} onClick={() => setReset(!reset)}>Reset It</button></p>
-      {reset && (
-        <h2>HEllo</h2>
-      )}
+      <p on>Forgot your password: <button onClick={() => setReset(!reset)}>Reset It</button></p>
     </section>
     )}
     {code && (
       <CodeConfirmation form={form}/>
+    )}
+    {!reset && (
+      <section>
+        <form onSubmit={resetPass}>
+          <input type="text" name='email' onChange={GetForm}/>
+          <label htmlFor="email">Email</label>
+          <button>Reset Password</button>
+        </form>
+        <p>{responseData}</p>
+      </section>
     )}
     </>
   )
