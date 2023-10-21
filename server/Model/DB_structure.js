@@ -28,8 +28,13 @@ const productSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
+  fullname: { type: String, required: true},
+  username: { type: String, required: true},
+  hashedPassword: {type: String, required: true},
+  email: {type: String, required: true},
+  Ip: { type: String, required: true},
+  Code: { type: Number, required: true}
+
   // ... other fields
 });
 
@@ -41,16 +46,17 @@ const reviewSchema = new mongoose.Schema({
   // ... fields
   remark: { type: Object}
 });
-const BanUser = mongoose.Schema({
+const Banned  = new mongoose.Schema({
+  // ... fields
   username: { type: String, required: true},
-  email: {type: String,required:  true}
-})
+  email: { type: String, required: true}
+});
 // Define models based on the schemas
-const BlockedUser = mongoose.model('BlockedUsers', BanUser)
+const BlockedUser = mongoose.model('BannedUser', Banned );
 const Farmer = mongoose.model('Farmer', farmerSchema);
 const Product = mongoose.model('Product', productSchema);
 const User = mongoose.model('User', userSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
 
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser };
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser  };
