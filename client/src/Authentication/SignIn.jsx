@@ -3,6 +3,9 @@ import { useEffect, useState, useRef } from 'react';
 import emailjs from 'emailjs-com';
 import axios from 'axios';
 import CodeConfirmation from './CodeConfirmation';
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies();
 
 const InitialFormState = {
 fullname: "",
@@ -21,7 +24,11 @@ const [form, setform] = useState(InitialFormState)
  const [showPass,setshowPass] = useState(true)
  const [showConPass,setConshowPass] = useState(true)
  const [code , setCode] = useState(false)
+ const [statusCode,setStatusCode] = useState('')
+ const [responseData,setResponseData] = useState('')
  const [reset,setReset] = useState(false)
+const [dashboard,setDashboard] = useState(false)
+
 
 const GetForm = (e) => {
     e.preventDefault();
@@ -33,8 +40,59 @@ const GetForm = (e) => {
 ///
 
 //
+const handleLogin = (e) => {
+  e.preventDefault()
+  console.log('fff')
+  const {username, password} = form
+  fetch('https://localhost/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({username, password}),
+})
+.then(response => {
+  if (response.ok) {
+    // The request was successful
+    console.log('Status Code:', response.status);
+    setStatusCode(response.status)
+    
+    
+    response.json() // Read response body as JSON
+    .then(data => {
+      console.log('Response Message:', data.message);
+      const {username, fullname, _id} = data.message;
 
-const handleSubmit = async (e) => {
+      cookies.set('userId', _id);
+      cookies.set('fullName', fullname);
+      cookies.set('username', username);
+      const re = cookies.getAll({username,_id, fullname})
+      console.log(re)
+    })
+    .catch(error => {
+      console.error('Error reading response as JSON:', error);
+    });
+  } else {
+    // The request encountered an error (e.g., 404 Not Found)
+    console.error('Error Status Code:', response.status);
+    response.json()
+    .then(data => {
+      console.error('Error Message:', data.message);
+      setResponseData(data.message)
+    })
+    .catch(error => {
+      console.error('Error reading error response as JSON:', error);
+    });
+  }
+})
+.catch(error => {
+  console.error('Request error:', error);
+});
+
+
+}
+
+const handleSignUp = async (e) => {
   e.preventDefault()
   console.log(reset)
 setTimeout(() => {
@@ -67,12 +125,12 @@ setTimeout(() => {
     console.log(error)
   }
 }
-
+dashboard ? return  
   return (
     <>
     {!code && (
     <section>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={signUp ? handleSignUp : handleLogin}>
       {signUp && (
           <div>
             <label htmlFor="fullname">FullName</label>
@@ -83,7 +141,7 @@ setTimeout(() => {
           <div>
             <label htmlFor="username">Username</label>
             <input type="text" name='username' placeholder='username' required onChange={GetForm} />
-          </div>  
+          </div>
             )}
             {signUp && (
           <div>
@@ -116,6 +174,7 @@ setTimeout(() => {
             <input type={showPass ? 'password' : 'text'} name='password' placeholder='password' required onChange={GetForm} /> <span onClick={() => setshowPass(!showPass)}>show</span>
           </div>  
             )}
+            {/* <p>{responseData}</p> */}
            <button disabled={invalid}>{signUp ? "Sign IN" : "Sign Up"}</button>
       </form>
       {signUp && (

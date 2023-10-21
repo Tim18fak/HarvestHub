@@ -1,12 +1,16 @@
 import React from "react";
 import { useState,useRef } from "react";
 import axios from 'axios';
+import Account from "./Account";
+
 const CodeConfirmation = ({ form }) => {
     const [digit1, setDigit1] = useState('');
     const [digit2, setDigit2] = useState('');
     const [digit3, setDigit3] = useState('');
     const [digit4, setDigit4] = useState('');
-  
+
+    const [response, setResponse] = useState('')
+    const [acctCreate,setAcctCreate] = useState(true)
     const inputRefs = {
       digit1Ref: useRef(),
       digit2Ref: useRef(),
@@ -33,31 +37,29 @@ const CodeConfirmation = ({ form }) => {
         
       }
     }
-  const SignIn =  async (code,Code, form) => {
-    const {fullname, username, email, password, confirmpassword} = form
-  
-    const URL = 'https://localhost/auth'
-    const {data} = await axios.post(`${URL}/signup`,{
-      fullname,
-      username,
-      email,
-      password,
-      confirmpassword,
-      code,
-      Code
-     }) 
-     
-     return  data;
-     
-  }
-  
-    const submit = (e) => {
+    const submit = async (e) => {
       e.preventDefault()
     try {
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
-      const data = SignIn(code,Code,form)
-      console.log()
+      
+      const {fullname, username, email, password} = form
+  
+      const URL = 'https://localhost/auth/signup'
+      const {data} = await axios.post(`${URL}`,{
+        fullname,
+        username,
+        email,
+        password,
+        code,
+        Code
+       })
+      console.log(UserId)
+      
+      /*  typeof data === 'Object'? setResponse(data) : setResponse('h')
+      console.log(response)
+ */
+      /* console.log(SignIn(code,Code,form)) */
     } catch (error) {
       
     }
@@ -65,7 +67,9 @@ const CodeConfirmation = ({ form }) => {
     ;
   
     return (
-      <form onSubmit={submit}>
+      <>
+      { acctCreate && (
+        <form onSubmit={submit}>
         <input
           ref={inputRefs.digit1Ref}
           value={digit1}
@@ -92,6 +96,13 @@ const CodeConfirmation = ({ form }) => {
         />
         <button>Check Code</button>
       </form>
+      )}
+      {!acctCreate && (
+        <section>
+          <h1>Account</h1>
+        </section>
+      )}
+      </>
     );
   }
 
