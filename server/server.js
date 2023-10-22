@@ -13,6 +13,7 @@ const corsOptions = {
 const app = express();
 app.use(express.json()); // this is important to be able eto send info from the client to my server
 // Routes
+const chat = require('./Routes/Chat')
 const authRoutes = require('./Routes/auth.js')
 const options = {
   key: fs.readFileSync('key.pem'),
@@ -28,6 +29,7 @@ server.listen(443, () => {
 // route links
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes)
+app.use('/chat', chat)
 app.get('/', (req, res) => {
   res.send('Hello, HTTPS World!');
 });

@@ -42,8 +42,13 @@ const signup = async (req, res) => {
           /* res.send('Username or email already exists'); */
             throw new Error('Exist')
        }
-       if(!isFarmer){
-       const user = new User({
+       const user =  isFarmer ? new Farmer({
+        username,
+        email,
+        fullname,
+        hashedPassword,
+        Code,
+        Ip}) : new User({
           username,
           email,
           fullname,
@@ -58,25 +63,7 @@ const signup = async (req, res) => {
  
        await user.save();
  
-       res.status(200).json({ username, userId, fullname});
-    } else {
-        const farmer = new Farmer({
-            username,
-            email,
-            fullname,
-            hashedPassword,
-            Code,
-            Ip
-            /* email,
-            fullname,
-            hashedPassword,
-            phoneNumber, */
-         });
-   
-         await farmer.save();
-   
-         res.status(200).json({ username, userId, fullname});
-    }
+       res.status(200).json({ username, fullname});
     } catch (error) {
         switch(error.message){
             case 'Exist':
@@ -98,8 +85,9 @@ const signup = async (req, res) => {
 const login = async(req,res) => {
 
     try {
-        const { username, password } = req.body;
+        const { username, password,farmer } = req.body;
         console.log(username, password)
+        if(!farmer){
 
         const user = await User.findOne({ username });
         console.log(user)
@@ -116,6 +104,24 @@ const login = async(req,res) => {
             'fullname': fullname,
             '_id': _id}}) 
         }
+    }
+
+    const user = await Farmer.findOne({ username });
+        console.log(user)
+        if (!user) return res.status(404).json({ 'message': 'User not found' });
+
+        const success = await bcrypt.compare(password, user.hashedPassword);
+
+        if (!success) {
+         return res.status(400).json({ 'message': 'Incorrect password' });   
+        }
+        if(user){
+            const {fullname, _id, username} = user
+            res.status(200).json({ 'message': {'username': username,
+            'fullname': fullname,
+            '_id': _id}}) 
+        }
+
     } catch (error) {
         console.log(error);
 
@@ -139,8 +145,8 @@ const reset = async(req,res) => {
       resetPassword.push(letterArray[num])
     }
 
-        const {email} = req.body;
-        const user = await User.findOne({ email });
+        const {email, farmer} = req.body;
+        const user = farmer ? await Farmer.findOne({ email }) : await User.findOne({ email }); 
         if(user === null)
             throw new Error('Email')
 
