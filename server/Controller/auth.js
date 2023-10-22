@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 const  bcrypt = require('bcrypt')
-const { BlockedUser, User } = require('../Model/DB_structure.js')
+const { BlockedUser, User, Farmer } = require('../Model/DB_structure.js')
 const { activationCodeCompare, blockUser ,checkUserExists} = require('../constants/auth.js')
 
 
@@ -15,10 +15,10 @@ const activationCode = () => {
 ////////////
 const signup = async (req, res) => {
     try {
-       const { fullname, username, email, password, code, Code } = req.body;
+       const { fullname, username, email, password, code, Code, isFarmer } = req.body;
         const Ip = req.ip
         console.log(Ip)
-       console.log({ fullname, username, email, password, code, Code });
+       console.log({ fullname, username, email, password, code, Code, isFarmer });
  
        const userId = crypto.randomBytes(16).toString('hex');
        const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,13 +36,13 @@ const signup = async (req, res) => {
           throw new Error('Banned')
        }
  
-       const existUser = await checkUserExists(username, email);
+       const existUser = await checkUserExists(username, email, isFarmer);
        if (existUser) {
           // Username or email already exists
           /* res.send('Username or email already exists'); */
             throw new Error('Exist')
        }
- 
+       if(!isFarmer){
        const user = new User({
           username,
           email,
@@ -59,17 +59,34 @@ const signup = async (req, res) => {
        await user.save();
  
        res.status(200).json({ username, userId, fullname});
-       res.send('Sign Up completed')
+    } else {
+        const farmer = new Farmer({
+            username,
+            email,
+            fullname,
+            hashedPassword,
+            Code,
+            Ip
+            /* email,
+            fullname,
+            hashedPassword,
+            phoneNumber, */
+         });
+   
+         await farmer.save();
+   
+         res.status(200).json({ username, userId, fullname});
+    }
     } catch (error) {
         switch(error.message){
             case 'Exist':
-                res.send('Username or email already exists');
+                res.status(403).json({'message': 'Username or email already exists'});
                 break;
             case "Invalid": 
-                res.send('Invalid activation code');
+                res.status(403).json({'message':'Invalid activation code'});
                 break;
             case "Banned": 
-                res.send('Username and Email or Ip have been blocked');
+                res.status(401).json({'message': 'Username and Email or Ip have been blocked'});
                 break;
             default: 
                 res.send(error.message)
@@ -82,19 +99,23 @@ const login = async(req,res) => {
 
     try {
         const { username, password } = req.body;
+        console.log(username, password)
 
         const user = await User.findOne({ username });
-
-        if (!user) return res.status(400).json({ message: 'User not found' });
+        console.log(user)
+        if (!user) return res.status(404).json({ 'message': 'User not found' });
 
         const success = await bcrypt.compare(password, user.hashedPassword);
 
-        if (success) {
-            res.status(200).json({ fullName: user.fullName, username, userId: user._id.toString() });
-        } else {
-            res.send({ 'message': 'Incorrect password' });
+        if (!success) {
+         return res.status(400).json({ 'message': 'Incorrect password' });   
         }
-
+        if(user){
+            const {fullname, _id, username} = user
+            res.status(200).json({ 'message': {'username': username,
+            'fullname': fullname,
+            '_id': _id}}) 
+        }
     } catch (error) {
         console.log(error);
 
@@ -102,7 +123,51 @@ const login = async(req,res) => {
     }
 
 }
-const reset = () => {
+const reset = async(req,res) => {
+    try {
+        const resetPassword = []
+        const letterArray = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ]
+    let min = 0
+    let max = letterArray.length
+    for(let i = 0; i < 20; i++){
+      const num = Math.floor(Math.random() * (max - min))
+      resetPassword.push(letterArray[num])
+    }
+
+        const {email} = req.body;
+        const user = await User.findOne({ email });
+        if(user === null)
+            throw new Error('Email')
+
+    const resetPasswordString = resetPassword.join('');
+
+    const resetHashedPassword = await bcrypt.hash(resetPasswordString, 10)
+    console.log(resetPasswordString)
+    user.hashedPassword = resetHashedPassword;
+
+    await user.save();
+
+    res.status(200).json({'message': 'Reset Password has been sent to your email'})
+    console.log('Password updated successfully');
+console.log(resetPasswordString)
+    } catch (error) {
+        console.log(error)
+        switch(error.message){
+            case 'Email':
+                res.status(400).json({'message': 'Email does not Exist'})
+                break;
+            default: 
+                console.log(error.message)
+        }
+
+        
+    }
+
 
 }
 const code = (req,res) => {

@@ -3,19 +3,22 @@ const mongoose = require('mongoose');
 // Define your schemas
   // MongoDB Schema for Farmers
 const farmerSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String, // You should securely hash and salt passwords
-  phoneNumber: String,
-  location: String,
-  farmName: String,
-  farmDescription: String,
+  fullname: { type: String, required: true},
+  username: { type: String, required: true},
+  hashedPassword: {type: String, required: true},
+  email: {type: String, required: true},
+  Ip: { type: String, required: true},
+  Code: { type: Number, required: true}, // You should securely hash and salt passwords
+  phoneNumber: { type: Number},
+  location: { type: String},
+  farmName: { type: String},
+  farmDescription: { type: String},
   products: [{
     type: String,
     ref: 'Product',
   }],
-  verificationStatus: String,
+  verificationStatus: { type: String},
+  nationalId: { type: String},
   // Status could be 'Pending', 'Verified', 'Rejected', etc.
   // Other fields for verification documents, such as identity cards, certificates, etc.
   // You can also include fields for geolocation data (latitude and longitude) to pinpoint the farm's location

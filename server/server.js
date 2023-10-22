@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "*",
 };
 
 
@@ -31,3 +31,4 @@ app.use('/auth', authRoutes)
 app.get('/', (req, res) => {
   res.send('Hello, HTTPS World!');
 });
+
