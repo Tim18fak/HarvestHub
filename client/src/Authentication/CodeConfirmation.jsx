@@ -46,13 +46,13 @@ const CodeConfirmation = ({ form, isFarmer }) => {
       const URL = 'https://localhost/auth/signup'
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
-      const {fullname, username, email, password} = form
+      const {fullname, username, email, password } = form
     fetch(`${URL}`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({fullname, username, email, password})
+      body: JSON.stringify({fullname, username, email, password,code,Code,isFarmer})
     })
     .then(response => {
       setStatusCode(response.status)
@@ -63,6 +63,7 @@ const CodeConfirmation = ({ form, isFarmer }) => {
           cookie.set('userId', data._id)
           cookie.set('fullname', data.fullname)
         setResponse(data.message)
+        console.log(response)
       })
       .catch(error => {})
     })

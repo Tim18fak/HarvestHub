@@ -58,7 +58,7 @@ const resetPass = (e) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({email}),
+    body: JSON.stringify({email, farmer}),
   })
   .then(response => {
     if(response)
@@ -128,7 +128,7 @@ const handleLogin = (e) => {
 
 
 }
-
+console.log(form)
 const handleSignUp = async (e) => {
   e.preventDefault()
   console.log(reset)
@@ -147,6 +147,7 @@ setTimeout(() => {
      setCode(!code)
      const Code = emailjs.send('service_8j5w9uo','template_6u3tdjn',{
       to_email: form.email,
+
       to_name: form.username,
       message: data,
       from_name: 'HarvestHub'
@@ -252,6 +253,10 @@ return (
         <form onSubmit={resetPass}>
           <input type="text" name='email' onChange={GetForm}/>
           <label htmlFor="email">Email</label>
+          
+        <p><span><input type="checkbox"
+        name='farmer' checked={farmer} onChange={() => setFarmer(!farmer)}/>  <span>Are you a farmer</span></span>  
+       </p>
           <button>Reset Password</button>
         </form>
         <p>{responseData}</p>
