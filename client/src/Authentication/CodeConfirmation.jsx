@@ -2,13 +2,17 @@ import React from "react";
 import { useState,useRef } from "react";
 import axios from 'axios';
 import Account from "./Account";
+import Cookies from "universal-cookie";
 
-const CodeConfirmation = ({ form }) => {
+const cookie = new Cookies()
+
+const CodeConfirmation = ({ form, isFarmer }) => {
     const [digit1, setDigit1] = useState('');
     const [digit2, setDigit2] = useState('');
     const [digit3, setDigit3] = useState('');
     const [digit4, setDigit4] = useState('');
 
+    const [statusCode, setStatusCode] = useState(0)
     const [response, setResponse] = useState('')
     const [acctCreate,setAcctCreate] = useState(true)
     const inputRefs = {
@@ -39,30 +43,30 @@ const CodeConfirmation = ({ form }) => {
     }
     const submit = async (e) => {
       e.preventDefault()
-    try {
+      const URL = 'https://localhost/auth/signup'
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
-      
       const {fullname, username, email, password} = form
-  
-      const URL = 'https://localhost/auth/signup'
-      const {data} = await axios.post(`${URL}`,{
-        fullname,
-        username,
-        email,
-        password,
-        code,
-        Code
-       })
-      console.log(UserId)
-      
-      /*  typeof data === 'Object'? setResponse(data) : setResponse('h')
-      console.log(response)
- */
-      /* console.log(SignIn(code,Code,form)) */
-    } catch (error) {
-      
-    }
+    fetch(`${URL}`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({fullname, username, email, password})
+    })
+    .then(response => {
+      setStatusCode(response.status)
+      response.json()
+      .then(data => {
+        if(statusCode === 200)
+          cookie.set('username', data.username)
+          cookie.set('userId', data._id)
+          cookie.set('fullname', data.fullname)
+        setResponse(data.message)
+      })
+      .catch(error => {})
+    })
+    .then(error => {})
     }
     ;
   
@@ -94,6 +98,7 @@ const CodeConfirmation = ({ form }) => {
           onChange={(e) => handleInputChange(e, setDigit4, null)}
           maxLength="1"
         />
+        <p>{response}</p>
         <button>Check Code</button>
       </form>
       )}

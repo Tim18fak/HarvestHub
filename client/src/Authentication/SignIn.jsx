@@ -19,7 +19,7 @@ confirmpassword: ""
 
 const SignIn = () => {
 const [invalid,setinValid] = useState(false)
-const [farmer, setFarmer] = useState(false)
+const [farmer, setFarmer] = useState(false)// the check box to notifity us if you are a farmer
 const [form, setform] = useState(InitialFormState) 
  const [signUp, setsignUp] = useState(true)
  const [showPass,setshowPass] = useState(true)
@@ -29,7 +29,12 @@ const [form, setform] = useState(InitialFormState)
  const [responseData,setResponseData] = useState('')
  const [reset,setReset] = useState(true)
 const [dashboard,setDashboard] = useState(false)
-const [r,setR] = useState(true)
+
+
+useEffect(() => {
+  setResponseData('')
+},[reset])
+
 
 const GetForm = (e) => {
     e.preventDefault();
@@ -56,9 +61,11 @@ const resetPass = (e) => {
     body: JSON.stringify({email}),
   })
   .then(response => {
-    if(response.ok)
+    if(response)
+      console.log(response.status)
       response.json() // Read response body as JSON
     .then(data => {
+      
       console.log('Response Message:', data.message);
       setResponseData(data.message)
     })
@@ -79,7 +86,7 @@ const handleLogin = (e) => {
   headers: {
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({username, password}),
+  body: JSON.stringify({username, password,farmer}),
 })
 .then(response => {
   if (response.ok) {
@@ -213,8 +220,12 @@ return (
           <p>{responseData}</p>
           </>
             )}
-            
-           <button disabled={invalid}>{signUp ? "Sign IN" : "Sign Up"}</button>
+            {!signUp && (
+        <p><span><input type="checkbox"
+        name='farmer' checked={farmer} onChange={() => setFarmer(!farmer)}/>  <span>Are you a farmer</span></span>  
+       </p>
+      )}
+           <button disabled={invalid}>{!signUp ? "Sign IN" : "Sign Up"}</button>
       </form>
       {signUp && (
         <p><span><input type="checkbox"
@@ -234,7 +245,7 @@ return (
     </section>
     )}
     {code && (
-      <CodeConfirmation form={form}/>
+      <CodeConfirmation form={form} isFarmer={farmer}/>
     )}
     {!reset && (
       <section>
