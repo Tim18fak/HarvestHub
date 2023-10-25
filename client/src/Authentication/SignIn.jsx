@@ -169,7 +169,7 @@ if(cookies.get('username' && cookies.get('fullname' && cookies.get('userId')))){
 
 
 if(dashboard)
-  return <Home />;
+  return <Home farmer={farmer}/>;
 return (
     <>
     {!code && reset &&(
