@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Dashboard = () => {
+const farmerDashboard = () => {
   return (
     <div>
       
@@ -8,4 +8,5 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default farmerDashboard
+

@@ -163,13 +163,13 @@ setTimeout(() => {
     console.log(error)
   }
 }
-if(cookies.get('username' && cookies.get('fullname' && cookies.get('userId')))){
+/* if(cookies.get('username' && cookies.get('fullname' && cookies.get('userId')))){
  setDashboard((dash) => !dashboard)
-}
+} */
 
 
 if(dashboard)
-  return <Home farmer={farmer}/>;
+  return <Home/>;
 return (
     <>
     {!code && reset &&(
