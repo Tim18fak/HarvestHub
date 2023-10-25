@@ -27,6 +27,9 @@ const farmerSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema({
   title: String,
   description: String,
+  Image: String,
+  location: String,
+  date: Date,
   // ... other fields
 });
 
