@@ -5,7 +5,6 @@ const express = require('express');
 const cors = require('cors');
 
 
-
 const chat = require('./Routes/Chat')
 const authRoutes = require('./Routes/auth.js')
 const farmerRoutes = require('./Routes/farmerUser')
@@ -22,7 +21,8 @@ const corsOptions = {
 const app = express();
 app.use(express.json()); // this is important to be able eto send info from the client to my server
 // Routes
-
+const chat = require('./Routes/Chat')
+const authRoutes = require('./Routes/auth.js')
 const options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem'),
