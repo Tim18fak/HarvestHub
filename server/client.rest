@@ -1,0 +1,1 @@
+Get https://localhost/farmerUser/getProduct?userId='helll'&user='iii'

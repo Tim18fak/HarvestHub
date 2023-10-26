@@ -30,10 +30,11 @@ const productSchema = new mongoose.Schema({
   Image: { type: String, required: true},
   location: { type: String, required: true},
   date: { type: Date, required: true},
-  Farmer: {
+  /* Farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer' // 'Seller' should match the name of the Seller model
-  },
+  }, */
+  UserId:{ type: String, required: true}
   // ... other fields
 });
 

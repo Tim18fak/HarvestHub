@@ -49,4 +49,23 @@ const createProduct = async (req, res) => {
 const deleteProduct = async() => {
 
 }
-module.exports = { createProduct, deleteProduct}
+const getProduct = async(req,res) => {
+  const userId = req.query.userId;
+  const user = req.query.user;
+
+  res.status(200).json({ userId, user });
+  /* const {userId} = req.query.userId;
+  Product.find({UserId : userId},(err,produce) => {
+    if(err){
+      res.status(403).json('User\'s produces can\'t be found')
+    }
+    if(produce.length === 0){
+      res.status(200).json('User has not added any produce yet')
+    }
+    res.status(200).json({produce})
+  }) */
+  console.log(userId)
+  res.send('hell')
+
+}
+module.exports = { createProduct, deleteProduct, getProduct}

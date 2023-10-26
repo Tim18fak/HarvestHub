@@ -63,7 +63,7 @@ const signup = async (req, res) => {
  
        await user.save();
  
-       res.status(200).json({ username, fullname});
+       res.status(200).json({ username, fullname, "accountCreation":{"message":"Account is Been processed"}});
     } catch (error) {
         switch(error.message){
             case 'Exist':
@@ -134,6 +134,7 @@ const reset = async(req,res) => {
         const resetPassword = []
         const letterArray = [
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+
       'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
       'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
@@ -146,7 +147,9 @@ const reset = async(req,res) => {
     }
 
         const {email, farmer} = req.body;
+        console.log(farmer)
         const user = farmer ? await Farmer.findOne({ email }) : await User.findOne({ email }); 
+        console.log(user)
         if(user === null)
             throw new Error('Email')
 
