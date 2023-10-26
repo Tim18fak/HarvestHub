@@ -4,8 +4,16 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 
+
+const chat = require('./Routes/Chat')
+const authRoutes = require('./Routes/auth.js')
+const farmerRoutes = require('./Routes/farmerUser')
+
+
+
+
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:5174",
 };
 
 
@@ -27,6 +35,13 @@ server.listen(443, () => {
   console.log('Server is running on https://localhost');
 });
 // route links
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5174");
+  // Other CORS headers and configurations can be added here
+  next();
+});
+app.use("/images", express.static("uploads"));
+app.use('/farmerUser',farmerRoutes)
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes)
 app.use('/chat', chat)

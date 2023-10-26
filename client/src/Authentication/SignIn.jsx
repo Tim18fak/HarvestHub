@@ -5,7 +5,7 @@ import axios from 'axios';
 import CodeConfirmation from './CodeConfirmation';
 import Cookies from 'universal-cookie'
 import Home from '../Dashboard/Home';
-
+import Reset from './Reset';
 const cookies = new Cookies();
 
 const InitialFormState = {
@@ -28,7 +28,7 @@ const [form, setform] = useState(InitialFormState)
  const [statusCode,setStatusCode] = useState('')
  const [responseData,setResponseData] = useState('')
  const [reset,setReset] = useState(true)
-const [dashboard,setDashboard] = useState(false)
+const [dashboard,setDashboard] = useState(farmer)
 
 
 useEffect(() => {
@@ -163,13 +163,16 @@ setTimeout(() => {
     console.log(error)
   }
 }
-if(cookies.get('username' && cookies.get('fullname' && cookies.get('userId')))){
+
+/* if(cookies.get('username' && cookies.get('fullname' && cookies.get('userId')))){
  setDashboard((dash) => !dashboard)
-}
+} */
 
 
 if(dashboard)
-  return <Home />;
+  return <Home farmer={farmer}/>;
+
+
 return (
     <>
     {!code && reset &&(
@@ -223,14 +226,19 @@ return (
             )}
             {!signUp && (
         <p><span><input type="checkbox"
-        name='farmer' checked={farmer} onChange={() => setFarmer(!farmer)}/>  <span>Are you a farmer</span></span>  
+        name='farmer' 
+        checked={farmer} onChange={() => setFarmer(!farmer)}/> 
+        <label onClick={() => setFarmer(!farmer)}>Are you a farmer</label></span>  
+
        </p>
       )}
            <button disabled={invalid}>{!signUp ? "Sign IN" : "Sign Up"}</button>
       </form>
       {signUp && (
         <p><span><input type="checkbox"
-        name='farmer' checked={farmer} onChange={() => setFarmer(!farmer)}/>  <span>Are you a farmer</span></span>  
+        name='farmer' checked={farmer} 
+        onChange={() => setFarmer(!farmer)}/>  
+        <span onClick={() => setFarmer(!farmer)}>Are you a farmer</span></span>  
        </p>
       )}
       <p>{!signUp && (
@@ -249,6 +257,7 @@ return (
       <CodeConfirmation form={form} isFarmer={farmer}/>
     )}
     {!reset && (
+      <Reset/>
       <section>
         <form onSubmit={resetPass}>
           <input type="text" name='email' onChange={GetForm}/>
