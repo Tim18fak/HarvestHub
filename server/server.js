@@ -14,7 +14,7 @@ const farmerRoutes = require('./Routes/farmerUser')
 
 
 const corsOptions = {
-  origin: "http://localhost:5174",
+  origin: "*",
 };
 
 
@@ -40,6 +40,7 @@ app.use((req, res, next) => {
   // Other CORS headers and configurations can be added here
   next();
 });
+app.use(cors(corsOptions));
 app.use("/images", express.static("uploads"));
 app.use('/farmerUser',farmerRoutes)
 app.use(cors(corsOptions));
