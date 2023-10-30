@@ -1,4 +1,4 @@
-const { Product } = require('../../Model/DB_structure');
+const { Product, Farmer } = require('../../Model/DB_structure');
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -15,19 +15,30 @@ const upload = multer({ storage: storage });
 const createProduct = async (req, res) => {
   try {
     // Access the image and description using their respective field names
-    upload.fields([{ name: "image", maxCount: 1 }, { name: "description", maxCount: 1 }])(req, res, async (err) => {
+    upload.fields([{ name: "image", maxCount: 5 }])(req, res, async (err) => {
       if (err) {
         return res.status(400).json({ error: "Image upload failed" });
       }
 
-      const { name, price } = req.body; // Assuming you have name and price fields in the form
-
-      const image = req.files["image"][0];
-      const description = req.body["description"];
+            // Assuming you have name and price fields in the form
+      const image = req.files["image"];
+      const description = req.body["description"]
+      const quantity = req.body["quantity"]
+      const price = req.body["price"];
+      const category = req.body["category"]
+      
 
       console.log("Image File:", image);
-      console.log("Description:", description);
-      console.log(`https://localhost/images/${image.filename}`);
+      console.log(description,quantity,price,category);
+      let imageURLArray = []
+      let imageURL;
+      for(let i = 0; i < image.length; i++){
+        imageURL = `https://localhost/images/${image[i].filename}`
+        console.log(imageURL);
+        imageURLArray.push(imageURL)
+      }
+      console.log(imageURL)
+      /* console.log(`https://localhost/images/${image.filename}`); */
 
       // Create a new product record in the database
      /*  const newProduct = new Product({

@@ -186,7 +186,7 @@ return (
             )}
             {signUp && (
           <div>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" onSc>Username</label>
             <input type="text" name='username' placeholder='username' required onChange={GetForm} />
           </div>
             )}
