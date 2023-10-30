@@ -11,13 +11,9 @@ const authRoutes = require('./Routes/auth.js')
 const farmerRoutes = require('./Routes/farmerUser')
 
 
-
-
 const corsOptions = {
   origin: "*",
 };
-
-
 
 const app = express();
 app.use(express.json()); // this is important to be able eto send info from the client to my server
