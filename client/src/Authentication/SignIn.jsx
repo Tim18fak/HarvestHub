@@ -258,7 +258,7 @@ return (
     )}
     {!reset && (
       <Reset/>
-      <section>
+      /* <section>
         <form onSubmit={resetPass}>
           <input type="text" name='email' onChange={GetForm}/>
           <label htmlFor="email">Email</label>
@@ -269,7 +269,7 @@ return (
           <button>Reset Password</button>
         </form>
         <p>{responseData}</p>
-      </section>
+      </section> */
     )}
     </>
   )

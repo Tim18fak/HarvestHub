@@ -36,6 +36,13 @@ const ProduceUpload = () => {
   }
   }
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProductData({ ...productData, [name]: value });
+  }
+
+console.log(productData)
+
   const handleImageUpload = async (e) => {
     e.preventDefault();
 
