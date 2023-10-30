@@ -1,4 +1,4 @@
-const { Product } = require('../../Model/DB_structure');
+const { Product, Farmer } = require('../../Model/DB_structure');
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -19,9 +19,17 @@ const createProduct = async (req, res) => {
       if (err) {
         return res.status(400).json({ error: "Image upload failed" });
       }
-
+      const farmerId = req.query.farmerId
       const { name, price } = req.body; // Assuming you have name and price fields in the form
-
+      /*Product.find({ Farmer: farmerId }) checks the Product collection to find all Product objects that have a Farmer field equal to the farmerId value. It then searches the Farmer collection for an object that matches the farmerId value and populates the Farmer field of each Product object with the corresponding Farmer object.*/
+      Product.find({ Farmer: farmerId }).populate('Farmer').exec((err, products) => {
+        if (err) {
+          // handle the error
+        } else {
+          // products will contain all the Product objects that match the farmerId value, with the Farmer field populated with the corresponding Farmer objects
+          res.json(products);
+        }
+      });
       const image = req.files["image"][0];
       const description = req.body["description"];
 
@@ -59,6 +67,7 @@ const getProduct = async(req,res) => {
     const datalength = data.length;
     if(data.length === 0)
     console.log(`user has an empty data ${data}`)
+  res.status(200).json('hell')
   
   })
   .catch(err => {
@@ -67,4 +76,25 @@ const getProduct = async(req,res) => {
   console.log(userId,user)
 
 }
-module.exports = { createProduct, deleteProduct, getProduct}
+const test = async(req,res) => {
+  const farmerId = req.query.farmerId
+  const {title, description,Image,location} = req.body
+  console.log({title, description,Image,location,farmerId})
+  const productData = {
+    title: title,
+    description: description,
+    Image: Image,
+    location: location,
+    Farmer: req.query.farmerId // replace with the farmerId value sent from the frontend
+  };
+  
+ /*  Product.create(productData, (err, product) => {
+    if (err) {
+      // handle the error
+    } else {
+      // product will contain the newly created Product object
+    }
+  }); */
+  
+}
+module.exports = { createProduct, deleteProduct, getProduct,test}

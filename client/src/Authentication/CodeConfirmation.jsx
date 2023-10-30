@@ -62,6 +62,7 @@ const CodeConfirmation = ({ form, isFarmer }) => {
           cookie.set('username', data.username)
           cookie.set('userId', data._id)
           cookie.set('fullname', data.fullname)
+          console.log(data)
         setResponse(data.message)
         console.log(response)
       })

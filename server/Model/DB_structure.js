@@ -13,10 +13,6 @@ const farmerSchema = new mongoose.Schema({
   location: { type: String},
   farmName: { type: String},
   farmDescription: { type: String},
-  products: [{
-    type: String,
-    ref: 'Product',
-  }],
   verificationStatus: { type: String},
   nationalId: { type: String},
   // Status could be 'Pending', 'Verified', 'Rejected', etc.
@@ -29,13 +25,11 @@ const productSchema = new mongoose.Schema({
   description: { type: String, required: true},
   Image: { type: String, required: true},
   location: { type: String, required: true},
-  date: { type: Date, required: true},
-  /* Farmer: {
+  date: { type: Date},
+  Farmer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Farmer' // 'Seller' should match the name of the Seller model
-  }, */
-  UserId:{ type: String, required: true}
-  // ... other fields
+    ref: 'Farmer' // 'Farmer' should match the name of the Farmer model
+  },
 });
 
 const userSchema = new mongoose.Schema({

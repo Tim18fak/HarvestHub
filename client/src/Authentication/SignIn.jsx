@@ -129,6 +129,7 @@ const handleLogin = (e) => {
 
 }
 console.log(form)
+
 const handleSignUp = async (e) => {
   e.preventDefault()
   console.log(reset)
@@ -258,18 +259,7 @@ return (
     )}
     {!reset && (
       <Reset/>
-      <section>
-        <form onSubmit={resetPass}>
-          <input type="text" name='email' onChange={GetForm}/>
-          <label htmlFor="email">Email</label>
-          
-        <p><span><input type="checkbox"
-        name='farmer' checked={farmer} onChange={() => setFarmer(!farmer)}/>  <span>Are you a farmer</span></span>  
-       </p>
-          <button>Reset Password</button>
-        </form>
-        <p>{responseData}</p>
-      </section>
+      
     )}
     </>
   )

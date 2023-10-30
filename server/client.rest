@@ -1,1 +1,10 @@
-Get https://localhost/farmerUser/getProduct?userId='helll'&user='iii'
+POST https://localhost/farmerUser/test?farmerId='hell'&user='iii'
+
+Content-Type: application/json;
+
+{
+    "title": "Product Title",
+    "description": "Product Description",
+    "Image": "Product Image URL",
+    "location": "Product Location"
+}
