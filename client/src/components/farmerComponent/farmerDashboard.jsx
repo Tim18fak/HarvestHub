@@ -6,7 +6,7 @@ const farmerDashboard = () => {
     const socket = io('https://localhost:443/');
   
     socket.on('connect', () => {
-      console.log('Connected to the Socket.IO ser');
+      console.log('Connected to the Socket.IO server');
     });
 
     socket.on('chat message', (message) => {
