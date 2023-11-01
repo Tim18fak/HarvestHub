@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import FarmerInfo from "./constants/FarmerContextProvider";
+
 
 const productDetails = {
     description: "",
     quantity: "",
     price: "",
-    measuringUnit: "",
+    category:"",
+    location: "",
+    date: ""
   };
 
 const ProduceUpload = () => {
-
     const  [imgNum,setImgNum] = useState(0)
   const [selectedFile, setSelectedFile] = useState(null);
   const [productData, setProductData] = useState(productDetails);
+  /// getting the userid useing useContext()
+  const {userid} = useContext(FarmerInfo)
 
+  const [userId , setUserId] = useState('')
+
+
+  
   const handleFileChange = (e) => {
     e.preventDefault();
     setSelectedFile(e.target.files);
@@ -45,7 +54,8 @@ console.log(productData)
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
-
+    
+    setUserId(userid)
     if (!selectedFile) {
       alert("Please select an image to upload.");
       return;
@@ -62,10 +72,12 @@ console.log(productData)
     formData.append("quantity", productData.quantity);
     formData.append("price", productData.price);
     formData.append("category", productData.category);
+    formData.append("location",productData.location);
+    formData.append("date",productData.date)
 
     console.log(formData.getAll("image"));
 
-    const url = "https://localhost/farmerUser/createProduct";
+    const url = `https://localhost/farmerUser/createProduct?userid=${userid}`;
 
     try {
       const response = await fetch(url, {
@@ -181,6 +193,16 @@ console.log(productData)
             />
             <label htmlFor="price">Price</label>
            </div>
+          </main>
+          <main>
+            <div>
+              <input type="date" name="date" id="" onChange={handleInputChange} value={productData.date}/>
+              <label htmlFor="date">Date</label>
+            </div>
+            <div>
+              <input type="text" name="location" id="" value={productData.location} onChange={handleInputChange}/>
+              <label htmlFor="location">Location</label>
+            </div>
           </main>
           <button type="submit">Upload Image</button>
         </form>

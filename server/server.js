@@ -49,7 +49,8 @@ app.use((req, res, next) => {
   next();
 });
 app.use(cors(corsOptions));
-app.use("/images", express.static("uploads"));
+app.use("/productimages", express.static("uploads"));
+app.use("/profileimages", express.static("ProfileImages"));
 app.use('/farmerUser',farmerRoutes)
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes)
