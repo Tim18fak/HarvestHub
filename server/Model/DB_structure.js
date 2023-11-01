@@ -13,6 +13,9 @@ const farmerSchema = new mongoose.Schema({
   location: { type: String},
   farmName: { type: String},
   farmDescription: { type: String},
+  home_Address: { type: String},
+  aboutYourself: { type: String},
+  profileImage: { type: String},
   products: [{
     type: String,
     ref: 'Product',
@@ -25,11 +28,13 @@ const farmerSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  title: { type: String, required: true},
   description: { type: String, required: true},
-  Image: { type: String, required: true},
+  Image: { type: Array, required: true},
   location: { type: String, required: true},
   date: { type: Date, required: true},
+  quantity: { type: String},
+  price: { type: String},
+  catergory: { type: String},
   Farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer' // 'Seller' should match the name of the Seller model
@@ -43,7 +48,8 @@ const userSchema = new mongoose.Schema({
   hashedPassword: {type: String, required: true},
   email: {type: String, required: true},
   Ip: { type: String, required: true},
-  Code: { type: Number, required: true}
+  Code: { type: Number, required: true},
+  aboutYourself: { type: String},
 
   // ... other fields
 });

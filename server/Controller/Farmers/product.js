@@ -1,4 +1,5 @@
 const { Product, Farmer } = require('../../Model/DB_structure');
+const {ReqInfo} = require('./constants/reqInfo')
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -19,34 +20,28 @@ const createProduct = async (req, res) => {
       if (err) {
         return res.status(400).json({ error: "Image upload failed" });
       }
+  
+      const {productImages,
+        description, 
+        quantity,
+        price, 
+        catergory,
+        location,
+        date,userid} = await ReqInfo(req);
+        
+      const newProduct = new Product({Image: productImages,
+        description: description, 
+        quantity: quantity,
+        price: price, 
+        catergory: catergory,
+        location: location,
+        date:date,
+      Farmer: userid})
 
-            // Assuming you have name and price fields in the form
-      const image = req.files["image"];
-      const description = req.body["description"]
-      const quantity = req.body["quantity"]
-      const price = req.body["price"];
-      const category = req.body["category"]
+      await newProduct.save();
+
+      /* console.log({productImages,description, quantity,price, category,location,date,userid}) */
       
-
-      console.log("Image File:", image);
-      console.log(description,quantity,price,category);
-      let imageURLArray = []
-      let imageURL;
-      for(let i = 0; i < image.length; i++){
-        imageURL = `https://localhost/images/${image[i].filename}`
-        console.log(imageURL);
-        imageURLArray.push(imageURL)
-      }
-      console.log(imageURL)
-      /* console.log(`https://localhost/images/${image.filename}`); */
-
-      // Create a new product record in the database
-     /*  const newProduct = new Product({
-        name,
-        price,
-        image: `http://localhost:3000/images/${image.filename}`,
-        description,
-      }); */
 
      /*  await newProduct.save();
  */
