@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const { Server} = require('socket.io')
 
+const port =  8081
 
 /* const chat = require('./Routes/Chat') */
 const authRoutes = require('./Routes/auth.js')
@@ -39,7 +40,7 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('A user connected' + socket.id);
 });
-server.listen(443, () => {
+server.listen(port, () => {
   console.log('Server is running on https://localhost');
 });
 // route links

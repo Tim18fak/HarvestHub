@@ -77,7 +77,7 @@ console.log(productData)
 
     console.log(formData.getAll("image"));
 
-    const url = `https://localhost/farmerUser/createProduct?userid=${userid}`;
+    const url = `https://localhost:8081/farmerUser/createProduct?userid=${userid}`;
 
     try {
       const response = await fetch(url, {
