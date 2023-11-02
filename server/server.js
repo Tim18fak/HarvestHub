@@ -40,7 +40,7 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('A user connected' + socket.id);
 });
-server.listen(port, () => {
+server.listen(443, () => {
   console.log('Server is running on https://localhost');
 });
 // route links
