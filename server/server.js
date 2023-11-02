@@ -12,14 +12,9 @@ const corsOptions = {
 };
 
 const app = express();
-
 app.use(express.json());
+app.use(cors(corsOptions));
 
-app.use(cors({
-  origin: 'http://localhost:5173/', // Replace with your frontend's URL
-  methods: 'GET,POST,PUT,DELETE', // Add the HTTP methods you need
-  credentials: true, // If you're using cookies or sessions
-}));
 const server = app.listen(80, () => {
   console.log('Server is running on http://localhost');
 });
