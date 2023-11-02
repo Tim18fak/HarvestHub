@@ -52,7 +52,7 @@ console.log(responseData)
 const resetPass = (e) => {
   e.preventDefault()
   const {email} = form;
-  const Url = 'https://harvest-hub-pi.vercel.app//auth/reset'
+  const Url = 'https://localhost/auth/reset'
   fetch(`${Url}`,{
     method: 'POST',
     headers: {
@@ -80,7 +80,7 @@ const handleLogin = (e) => {
   e.preventDefault()
   console.log('fff')
   const {username, password} = form
-  const Url = 'https://harvest-hub-pi.vercel.app/auth/login'
+  const Url = 'https://localhost/auth/login'
   fetch(`${Url}`, {
   method: 'POST',
   headers: {
@@ -141,7 +141,7 @@ setTimeout(() => {
      if(form.password !== form.confirmpassword && signUp){
        throw new Error('Invalid password')
      }
-     const {data} = await axios.get('https://harvest-hub-pi.vercel.app/auth/code')
+     const {data} = await axios.get('https://localhost/auth/code')
 
      sessionStorage.setItem('code',data)
      setCode(!code)
