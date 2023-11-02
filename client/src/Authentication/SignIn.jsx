@@ -141,7 +141,7 @@ setTimeout(() => {
      if(form.password !== form.confirmpassword && signUp){
        throw new Error('Invalid password')
      }
-     const {data} = await axios.get('https://localhost/auth/code')
+     const {data} = await axios.get('https://harvest-hub-pi.vercel.app/auth/code')
 
      sessionStorage.setItem('code',data)
      setCode(!code)
