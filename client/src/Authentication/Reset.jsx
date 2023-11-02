@@ -19,7 +19,7 @@ const Reset = () => {
     const resetPass = (e) => {
         e.preventDefault()
         const {email} = form;
-        const Url = 'https://harvest-hub-pi.vercel.app/auth/reset'
+        const Url = 'https://localhost/auth/reset'
         fetch(`${Url}`,{
           method: 'POST',
           headers: {

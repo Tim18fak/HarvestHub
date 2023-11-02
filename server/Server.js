@@ -3,7 +3,7 @@ const Mongodb = require('./mongodb')
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
-const { Server} = require('socket.io')
+const { Server } = require('socket.io')
 
 
 /* const chat = require('./Routes/Chat') */
