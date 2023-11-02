@@ -8,12 +8,15 @@ const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:5173",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization",
 };
+
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.options("*", cors(corsOptions));
 
 const server = app.listen(80, () => {
   console.log('Server is running on http://localhost');
