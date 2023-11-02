@@ -13,7 +13,7 @@ const corsOptions = {
 
 const app = express();
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
 
 const server = app.listen(80, () => {
   console.log('Server is running on http://localhost');
