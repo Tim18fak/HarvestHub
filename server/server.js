@@ -8,15 +8,15 @@ const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
 
 const corsOptions = {
-  origin: "http://localhost:5173",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+  origin: 'http://localhost:5173', // Replace with the origin of your frontend
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify the allowed HTTP methods
+  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization', // Specify allowed headers
 };
-
 
 const app = express();
 app.use(express.json());
-app.options("*", cors(corsOptions));
+// Use the cors middleware with your options
+app.use(cors(corsOptions));
 
 const server = app.listen(80, () => {
   console.log('Server is running on http://localhost');
