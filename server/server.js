@@ -8,7 +8,7 @@ const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with the origin of your frontend
+  origin: '*', // Replace with the origin of your frontend
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify the allowed HTTP methods
   allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization', // Specify allowed headers
 };
