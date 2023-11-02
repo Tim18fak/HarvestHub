@@ -12,14 +12,10 @@ const corsOptions = {
 };
 
 const app = express();
+
 app.use(express.json());
 app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  req.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  // Other CORS headers and configurations can be added here
-  next();
-});
-
+app.use(cors());
 const server = app.listen(80, () => {
   console.log('Server is running on http://localhost');
 });
@@ -40,7 +36,6 @@ app.use("/productimages", express.static("uploads"));
 app.use("/profileimages", express.static("ProfileImages"));
 app.use('/farmerUser', farmerRoutes);
 app.use('/auth', authRoutes);
-
 /* app.use('/chat', chat); */
 
 app.get('/', (req, res) => {
