@@ -33,7 +33,7 @@ const Reset = () => {
             response.json() // Read response body as JSON
           .then(data => {
             
-            console.log('Response Message:', data.message);
+            console.log('Response Message:', data);
             setResponseData(data.message)
           })
           .catch(error => {
