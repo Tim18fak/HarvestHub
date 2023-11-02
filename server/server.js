@@ -5,7 +5,6 @@ const express = require('express');
 const cors = require('cors');
 const { Server} = require('socket.io')
 
-const port =  8081
 
 /* const chat = require('./Routes/Chat') */
 const authRoutes = require('./Routes/auth.js')
