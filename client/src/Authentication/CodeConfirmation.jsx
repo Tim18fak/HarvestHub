@@ -43,7 +43,7 @@ const CodeConfirmation = ({ form, isFarmer }) => {
     }
     const submit = async (e) => {
       e.preventDefault()
-      const URL = 'https://localhost/auth/signup'
+      const URL = 'https://harvest-hub-pi.vercel.app/auth/signup'
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
       const {fullname, username, email, password } = form
