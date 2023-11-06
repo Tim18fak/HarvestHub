@@ -10,3 +10,5 @@ Currently, two official plugins are available:
 
 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
 
+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
+
