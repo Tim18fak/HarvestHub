@@ -26,15 +26,17 @@ const profile = async (req, res) => {
       const { fullname, email, phoneNumber, farmName, farm_address, home_Address, nationalId,aboutYourself } = req.body;
       const ProfileImage = `https://localhost/profileimages/${image}`
       const farmer = await Farmer.find({_id: userId})
+
+      
+     
       farmer.phoneNumber = phoneNumber;
       farmer.farmName = farmName;
       farmer.home_Address = home_Address;
       farmer.nationalId = nationalId;
       farmer.aboutYourself = aboutYourself;
-
       farmer.profileImage = ProfileImage;
 
-      await farmer.save
+      await farmer.save()
 
       console.log(image)
       // You can save the image and profile info to the database or perform other actions here
