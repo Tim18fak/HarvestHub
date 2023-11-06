@@ -43,7 +43,7 @@ const FarmerProfile = () => {
         formData.append('aboutYourself',profile.aboutYourself)
         // Add more fields as needed
       
-        const url = "https://harvest-hub-pi.vercel.app/farmerUser/profile?userId=6535a9485df24ae74c1f98fe";
+        const url = "https://localhost/farmerUser/profile?userId=6535a9485df24ae74c1f98fe";
         try {
           const response = await fetch(url, {
             method: "POST",

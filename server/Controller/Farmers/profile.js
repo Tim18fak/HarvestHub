@@ -20,15 +20,20 @@ const profile = async (req, res) => {
       }
       const image = req.file.filename;
       const userId = req.query.userId;
+      console.log(userId)
        // Use req.file to access the uploaded image
 
       // Access other profile information from the request body
       const { fullname, email, phoneNumber, farmName, farm_address, home_Address, nationalId,aboutYourself } = req.body;
+      
+      
       const ProfileImage = `https://localhost/profileimages/${image}`
       const farmer = await Farmer.find({_id: userId})
 
+      if(!farmer){
+        console.log('hell')
+      }
       
-     
       farmer.phoneNumber = phoneNumber;
       farmer.farmName = farmName;
       farmer.home_Address = home_Address;
@@ -36,7 +41,7 @@ const profile = async (req, res) => {
       farmer.aboutYourself = aboutYourself;
       farmer.profileImage = ProfileImage;
 
-      await farmer.save()
+    
 
       console.log(image)
       // You can save the image and profile info to the database or perform other actions here
@@ -49,3 +54,31 @@ const profile = async (req, res) => {
 };
 
 module.exports = { profile };
+
+
+
+/* const Farmer = mongoose.model('Farmer', farmerSchema); // Make sure you've defined your model
+
+// Find the document you want to update (you can use any unique identifier such as _id)
+const query = { _id: 'your_document_id' }; // Replace with the actual document's ID
+
+// Specify the fields you want to update
+const update = {
+  phoneNumber: 1234567890, // Example value for the phoneNumber field
+  location: 'New Location', // Example value for the location field
+  farmName: 'New Farm Name', // Example value for the farmName field
+  // Add other fields as needed
+};
+
+// Use the updateOne or updateMany method to update the document(s)
+Farmer.updateOne(query, update)
+  .then((result) => {
+    if (result.nModified === 1) {
+      console.log('Document updated successfully.');
+    } else {
+      console.log('Document not found or no changes were made.');
+    }
+  })
+  .catch((error) => {
+    console.error('Update failed:', error);
+  }); */
