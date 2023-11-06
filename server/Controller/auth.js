@@ -158,7 +158,7 @@ const reset = async(req,res) => {
 
     await user.save();
 
-    res.status(200).json({'message': 'Reset Password has been sent to your email'})
+    res.status(200).json({'message': `Reset Password has been sent to your email${resetHashedPassword}`})
     console.log('Password updated successfully');
 console.log(resetPasswordString)
     } catch (error) {
