@@ -11,6 +11,7 @@ const Signin = () => {
     const [adminInfo,setAdminInfo] = useState (initialAdminInfo)
     const [showPass,setShowPass] = useState(true)
     const [loginSuccessful,setLoginSuccessful] = useState(false)
+    const [responseData,setResponseData] = useState('')
     const e = new Boolean(true)
     console.log(e)
 
@@ -23,10 +24,14 @@ const Signin = () => {
         setAdminInfo({...adminInfo,[name] : value})
     }
 
-    const adminLogin = async() => {
+    const adminLogin = async(e) => {
         e.preventDefault();
-        const {} = adminInfo
-        const AdminLoginUrl = ''
+        const {username,
+        email,
+        password} = adminInfo
+
+
+        const AdminLoginUrl = 'https://localhost/admin/'
         fetch(AdminLoginUrl,{
             method: 'Post',
             headers: {
@@ -64,6 +69,7 @@ const Signin = () => {
             </div>
             <label htmlFor="email">Password</label>
         </section>
+        <p>{responseData}</p>
         <button>SignIN</button>
         </form>
   )
