@@ -48,22 +48,24 @@ const signup = async (req, res) => {
         fullname,
         hashedPassword,
         Code,
+        isFarmer,
         Ip}) : new User({
           username,
           email,
           fullname,
           hashedPassword,
           Code,
-          Ip
+          Ip,
+          isFarmer
           /* email,
           fullname,
           hashedPassword,
           phoneNumber, */
        });
- 
        await user.save();
- 
-       res.status(200).json({ username, fullname});
+       const {_id} = user
+       console.log(user)
+       res.status(200).json({username,fullname,_id,isFarmer,'message': 'Acount has been'});
     } catch (error) {
         switch(error.message){
             case 'Exist':
@@ -82,53 +84,36 @@ const signup = async (req, res) => {
     }
  };
  
-const login = async(req,res) => {
-
+ const login = async (req, res) => {
     try {
-        const { username, password,farmer } = req.body;
-        console.log(username, password)
-        if(!farmer){
-
-        const user = await User.findOne({ username });
-        console.log(user)
-        if (!user) return res.status(404).json({ 'message': 'User not found' });
-
-        const success = await bcrypt.compare(password, user.hashedPassword);
-
-        if (!success) {
-         return res.status(400).json({ 'message': 'Incorrect password' });   
-        }
-        if(user){
-            const {fullname, _id, username} = user
-            res.status(200).json({ 'message': {'username': username,
-            'fullname': fullname,
-            '_id': _id}}) 
-        }
-    }
-
-    const user = await Farmer.findOne({ username });
-        console.log(user)
-        if (!user) return res.status(404).json({ 'message': 'User not found' });
-
-        const success = await bcrypt.compare(password, user.hashedPassword);
-
-        if (!success) {
-         return res.status(400).json({ 'message': 'Incorrect password' });   
-        }
-        if(user){
-            const {fullname, _id, username} = user
-            res.status(200).json({ 'message': {'username': username,
-            'fullname': fullname,
-            '_id': _id}}) 
-        }
-
+      const { username, password } = req.body;
+  
+      const farmer = await Farmer.findOne({ username: username });
+      const user = await User.findOne({ username: username });
+  
+      if (!farmer && !user) {
+        // Username not found in either collection
+        throw new Error('Username not found');
+      }
+      // Check the password here and return a success response if it matches
+      if (farmer && (await bcrypt.compare(password, farmer.hashedPassword))) {
+        // Farmer login success
+        const {username, fullname, _id,isFarmer} = farmer
+console.log({username, fullname, _id,isFarmer})
+        res.status(200).json({ message: {username, fullname, _id,isFarmer} });
+      } else if (user && (await bcrypt.compare(password, user.hashedPassword))) {
+        // User login success
+        const {username, fullname, _id,isFarmer} = user
+        res.status(200).json({ message: {username, fullname, _id,isFarmer} });
+      } else {
+        // Password is incorrect
+        throw new Error('Incorrect password');
+      }
     } catch (error) {
-        console.log(error);
-
-        res.status(500).json({ message: error });
+      res.status(403).json({ message: error.message });
     }
-
-}
+  };
+  
 const reset = async(req,res) => {
     try {
         const resetPassword = []

@@ -1,0 +1,3 @@
+POST http://localhost/client/searchProduct?price=1200&description=this&location=100
+
+

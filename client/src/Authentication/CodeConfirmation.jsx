@@ -43,7 +43,7 @@ const CodeConfirmation = ({ form, isFarmer }) => {
     }
     const submit = async (e) => {
       e.preventDefault()
-      const URL = 'https://harvest-hub-pi.vercel.app/auth/signup'
+      const URL = 'http://localhost/auth/signup'
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
       const {fullname, username, email, password } = form
@@ -55,15 +55,24 @@ const CodeConfirmation = ({ form, isFarmer }) => {
       body: JSON.stringify({fullname, username, email, password,code,Code,isFarmer})
     })
     .then(response => {
+      console.log(response)
       setStatusCode(response.status)
       response.json()
       .then(data => {
-        if(statusCode === 200)
+        console.log(data)
+        if(response.status === 200){
           cookie.set('username', data.username)
           cookie.set('userId', data._id)
           cookie.set('fullname', data.fullname)
+          cookie.set('isFarmer',isFarmer)
+          setResponse(data.message)
+          window.location.reload();
+        }
+        cookie.set('username', data.username)
+        cookie.set('userId', data._id)
+        cookie.set('fullname', data.fullname)
+        cookie.set('isFarmer',)
         setResponse(data.message)
-        console.log(response)
       })
       .catch(error => {})
     })

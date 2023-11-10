@@ -19,7 +19,7 @@ confirmpassword: ""
 
 const SignIn = () => {
 const [invalid,setinValid] = useState(false)
-const [farmer, setFarmer] = useState(false)// the check box to notifity us if you are a farmer
+const [farmer, setFarmer] = useState(null)// the check box to notifity us if you are a farmer
 const [form, setform] = useState(InitialFormState) 
  const [signUp, setsignUp] = useState(true)
  const [showPass,setshowPass] = useState(true)
@@ -28,13 +28,16 @@ const [form, setform] = useState(InitialFormState)
  const [statusCode,setStatusCode] = useState('')
  const [responseData,setResponseData] = useState('')
  const [reset,setReset] = useState(true)
-const [dashboard,setDashboard] = useState(farmer)
-
+ const [dashboard,setDashboard] = useState(false)
+ const [loginIn,setLoginIn] = useState(false)
 
 useEffect(() => {
-  setResponseData('')
-},[reset])
-
+  const Id = cookies.get('userId')
+if(Id){
+  setFarmer(cookies.get('isFarmer'))
+  setDashboard(!dashboard)
+}
+},[])
 
 const GetForm = (e) => {
     e.preventDefault();
@@ -68,6 +71,9 @@ const resetPass = (e) => {
       
       console.log('Response Message:', data.message);
       setResponseData(data.message)
+      setTimeout(() => {
+        setResponseData('')
+      },2000)
     })
     .catch(error => {
       console.error('Error reading response as JSON:', error);
@@ -80,13 +86,13 @@ const handleLogin = (e) => {
   e.preventDefault()
   console.log('fff')
   const {username, password} = form
-  const Url = 'https://localhost/auth/login'
+  const Url = 'http://localhost/auth/login'
   fetch(`${Url}`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({username, password,farmer}),
+  body: JSON.stringify({username, password}),
 })
 .then(response => {
   if (response.ok) {
@@ -97,14 +103,16 @@ const handleLogin = (e) => {
     
     response.json() // Read response body as JSON
     .then(data => {
-      console.log('Response Message:', data.message);
-      const {username, fullname, _id} = data.message;
-
+      console.log(data)
+      const {username, fullname, _id,isFarmer} = data.message;
+      console.log(data.message)
       cookies.set('userId', _id);
-      cookies.set('fullName', fullname);
+      cookies.set('fullname', fullname);
       cookies.set('username', username);
-      const re = cookies.getAll({username,_id, fullname})
-      re ? setDashboard((prevdash) => !dashboard):  setDashboard((prevdash) => dashboard)
+      cookies.set('isFarmer',isFarmer)
+      setFarmer(isFarmer)
+      setDashboard(!dashboard)
+    /* window.location.reload() */
     })
     .catch(error => {
       console.error('Error reading response as JSON:', error);
@@ -116,6 +124,9 @@ const handleLogin = (e) => {
     .then(data => {
       console.error('Error Message:', data.message);
       setResponseData(data.message)
+      setTimeout(() => {
+        setResponseData('')
+      },2000)
     })
     .catch(error => {
       console.error('Error reading error response as JSON:', error);
@@ -224,14 +235,14 @@ return (
           <p>{responseData}</p>
           </>
             )}
-            {!signUp && (
+            {/* {!signUp && (
         <p><span><input type="checkbox"
         name='farmer' 
         checked={farmer} onChange={() => setFarmer(!farmer)}/> 
         <label onClick={() => setFarmer(!farmer)}>Are you a farmer</label></span>  
 
        </p>
-      )}
+      )} */}
            <button disabled={invalid}>{!signUp ? "Sign IN" : "Sign Up"}</button>
       </form>
       {signUp && (

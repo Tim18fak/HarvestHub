@@ -10,8 +10,10 @@ const farmerSchema = new mongoose.Schema({
   Ip: { type: String, required: true},
   Code: { type: Number, required: true}, // You should securely hash and salt passwords
   phoneNumber: { type: Number},
+  isFarmer: {type: Boolean},
   location: { type: String},
   farmName: { type: String},
+  farm_Address: { type: String},
   farmDescription: { type: String},
   home_Address: { type: String},
   aboutYourself: { type: String},
@@ -50,6 +52,7 @@ const userSchema = new mongoose.Schema({
   Ip: { type: String, required: true},
   Code: { type: Number, required: true},
   aboutYourself: { type: String},
+  isFarmer: {type: Boolean ,required: true}
 
   // ... other fields
 });

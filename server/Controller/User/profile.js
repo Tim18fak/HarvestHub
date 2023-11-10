@@ -24,8 +24,8 @@ const profile = async (req, res) => {
 
       // Access other profile information from the request body
       const { fullname, email, phoneNumber, farmName, farm_address, home_Address, nationalId,aboutYourself } = req.body;
-      const ProfileImage = `https://localhost/profileimages/${image}`
-      const farmer = await Farmer.find({_id: userId})
+      const ProfileImage = `http://localhost/profileimages/${image}`
+      const farmer = await Farmer.findOne({_id: userId})
       farmer.phoneNumber = phoneNumber;
       farmer.farmName = farmName;
       farmer.home_Address = home_Address;
