@@ -24,17 +24,20 @@ const profile = async (req, res) => {
 
       // Access other profile information from the request body
       const { fullname, email, phoneNumber, farmName, farm_address, home_Address, nationalId,aboutYourself } = req.body;
+      
       const ProfileImage = `https://localhost/profileimages/${image}`
-      const farmer = await Farmer.find({_id: userId})
+      const farmer = await Farmer.findOne({_id: userId})
+
+
+      farmer.fullname = fullname
       farmer.phoneNumber = phoneNumber;
       farmer.farmName = farmName;
       farmer.home_Address = home_Address;
       farmer.nationalId = nationalId;
       farmer.aboutYourself = aboutYourself;
-
       farmer.profileImage = ProfileImage;
-
-      await farmer.save
+      farmer.farm_Address = farm_address
+      await farmer.save()
 
       console.log(image)
       // You can save the image and profile info to the database or perform other actions here
@@ -46,4 +49,33 @@ const profile = async (req, res) => {
   }
 };
 
-module.exports = { profile };
+const getProfile = async(req,res) => {
+  try {
+    const userId = req.query.userId
+  console.log(userId)
+  const farmer = await Farmer.findOne({_id: userId})
+  if(!farmer){
+    res.send({'data':'not found'})
+    console.log('not found'+farmer)
+  }
+console.log('found'+farmer)
+  const {fullname,email,aboutYourself,farmName,home_Address,nationalId,phoneNumber} = farmer;
+  res.status(200).json({'data':{fullname,email,aboutYourself,farmName,home_Address,nationalId,phoneNumber}})
+  } catch (error) {
+    
+  }
+}
+
+module.exports = { profile, getProfile };
+
+
+/* const updateData = {
+  fullname :fullname, 
+  email :email, 
+  phoneNumber :phoneNumber, 
+  farmName :farmName, 
+  farm_address, 
+  home_Address :home_Address, 
+  nationalId :nationalId,
+  aboutYourself :aboutYourself
+} */

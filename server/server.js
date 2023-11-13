@@ -4,9 +4,12 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const { Server } = require('socket.io');
+
+/* const chat = require('./Routes/Chat'); */
 const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
-
+const clientUser = require('./Routes/User')
+const admin = require('./Routes/admin')
 const corsOptions = {
   origin: "*",
 };
@@ -24,13 +27,11 @@ const io = new Server(server, {
     origin: '*', // Allow requests from your React app's domain
     methods: ['GET', 'POST'],
   },
-}); // Create a Socket.IO server
+});
 
-// Define a socket.io connection event
 io.on('connection', (socket) => {
   console.log('A user connected' + socket.id);
 });
-
 server.listen(80, () => { // Change the port number to 80 for HTTP
   console.log('Server is running on http://localhost');
 });
@@ -49,6 +50,11 @@ app.use('/farmerUser', farmerRoutes);
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes);
 app.use('/chat', chat);
+app.use('/admin',admin)
+app.use('/client',clientUser)
+app.get('/', (req, res) => {
+  res.send('Hello, HTTP World!');
+});
 
 app.get('/', (req, res) => {
   res.send('Hello, HTTP World!'); // Update the response message
