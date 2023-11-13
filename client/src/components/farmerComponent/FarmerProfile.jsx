@@ -49,7 +49,7 @@ const {userid} = useContext(FarmerInfo)
         formData.append('nationalId',profile.nationalId)
         formData.append('aboutYourself',profile.aboutYourself)
         // Add more fields as needed
-      
+
         const url = `http://localhost/farmerUser/profile?userId=${userid}`;
         try {
           const response = await fetch(url, {

@@ -30,10 +30,10 @@ const farmerSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  description: { type: String, required: true},
-  Image: { type: Array, required: true},
-  location: { type: String, required: true},
-  date: { type: Date, required: true},
+  description: { type: String, /* required: true */},
+  Image: { type: Array, /* required: true */},
+  location: { type: String, /* required: true */},
+  date: { type: Date, /* required: true */},
   quantity: { type: String},
   price: { type: String},
   catergory: { type: String},

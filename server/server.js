@@ -4,11 +4,6 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const { Server } = require('socket.io');
-/* =======
-const Mongodb = require('./mongodb');
-const express = require('express');
-const cors = require('cors');
-const { Server } = require('socket.io');
 
 /* const chat = require('./Routes/Chat'); */
 const authRoutes = require('./Routes/auth.js');
@@ -26,19 +21,6 @@ app.use(express.json()); // This is important to be able to send info from the c
 const chat = require('./Routes/Chat');
 
 const server = http.createServer(app); // Change 'https' to 'http'
-/* =======
-app.use(express.json());
-app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  req.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  // Other CORS headers and configurations can be added here
-  next();
-});
-
-const server = app.listen(80, () => {
-  console.log('Server is running on http://localhost');
-});
->>>>>>> 4534c52d3f4fbab03dbdb0bb1e12fac698216476 */
 
 const io = new Server(server, {
   cors: {
@@ -74,4 +56,6 @@ app.get('/', (req, res) => {
   res.send('Hello, HTTP World!');
 });
 
-
+app.get('/', (req, res) => {
+  res.send('Hello, HTTP World!'); // Update the response message
+});
