@@ -10,8 +10,10 @@ const farmerSchema = new mongoose.Schema({
   Ip: { type: String, required: true},
   Code: { type: Number, required: true}, // You should securely hash and salt passwords
   phoneNumber: { type: Number},
+  isFarmer: {type: Boolean},
   location: { type: String},
   farmName: { type: String},
+  farm_Address: { type: String},
   farmDescription: { type: String},
   home_Address: { type: String},
   aboutYourself: { type: String},
@@ -50,6 +52,7 @@ const userSchema = new mongoose.Schema({
   Ip: { type: String, required: true},
   Code: { type: Number, required: true},
   aboutYourself: { type: String},
+  isFarmer: {type: Boolean ,required: true}
 
   // ... other fields
 });
@@ -65,14 +68,22 @@ const reviewSchema = new mongoose.Schema({
 const Banned  = new mongoose.Schema({
   // ... fields
   username: { type: String, required: true},
-  email: { type: String, required: true}
+  email: { type: String, required: true},
+  password: { type: String, required: true}
 });
-// Define models based on the schemas
+const adminInfo = new mongoose.Schema({
+  username: { type: String, required: true},
+  email: { type: String, required: true}
+})
+
+
+
 const BlockedUser = mongoose.model('BannedUser', Banned );
+const Admin = mongoose.model('Admin',adminInfo)
 const Farmer = mongoose.model('Farmer', farmerSchema);
 const Product = mongoose.model('Product', productSchema);
 const User = mongoose.model('User', userSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
 
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser  };
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin };

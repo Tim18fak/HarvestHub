@@ -25,23 +25,19 @@ const profile = async (req, res) => {
 
       // Access other profile information from the request body
       const { fullname, email, phoneNumber, farmName, farm_address, home_Address, nationalId,aboutYourself } = req.body;
-      
-      
       const ProfileImage = `https://localhost/profileimages/${image}`
-      const farmer = await Farmer.find({_id: userId})
+      const farmer = await Farmer.findOne({_id: userId})
 
-      if(!farmer){
-        console.log('hell')
-      }
-      
+
+      farmer.fullname = fullname
       farmer.phoneNumber = phoneNumber;
       farmer.farmName = farmName;
       farmer.home_Address = home_Address;
       farmer.nationalId = nationalId;
       farmer.aboutYourself = aboutYourself;
       farmer.profileImage = ProfileImage;
-
-    
+      farmer.farm_Address = farm_address;
+      await farmer.save()
 
       console.log(image)
       // You can save the image and profile info to the database or perform other actions here
@@ -53,32 +49,33 @@ const profile = async (req, res) => {
   }
 };
 
-module.exports = { profile };
+const getProfile = async(req,res) => {
+  try {
+    const userId = req.query.userId
+  console.log(userId)
+  const farmer = await Farmer.findOne({_id: userId})
+  if(!farmer){
+    res.send({'data':'not found'})
+    console.log('not found'+farmer)
+  }
+console.log('found'+farmer)
+  const {fullname,email,aboutYourself,farmName,home_Address,nationalId,phoneNumber} = farmer;
+  res.status(200).json({'data':{fullname,email,aboutYourself,farmName,home_Address,nationalId,phoneNumber}})
+  } catch (error) {
+    
+  }
+}
+
+module.exports = { profile, getProfile };
 
 
-
-/* const Farmer = mongoose.model('Farmer', farmerSchema); // Make sure you've defined your model
-
-// Find the document you want to update (you can use any unique identifier such as _id)
-const query = { _id: 'your_document_id' }; // Replace with the actual document's ID
-
-// Specify the fields you want to update
-const update = {
-  phoneNumber: 1234567890, // Example value for the phoneNumber field
-  location: 'New Location', // Example value for the location field
-  farmName: 'New Farm Name', // Example value for the farmName field
-  // Add other fields as needed
-};
-
-// Use the updateOne or updateMany method to update the document(s)
-Farmer.updateOne(query, update)
-  .then((result) => {
-    if (result.nModified === 1) {
-      console.log('Document updated successfully.');
-    } else {
-      console.log('Document not found or no changes were made.');
-    }
-  })
-  .catch((error) => {
-    console.error('Update failed:', error);
-  }); */
+/* const updateData = {
+  fullname :fullname, 
+  email :email, 
+  phoneNumber :phoneNumber, 
+  farmName :farmName, 
+  farm_address, 
+  home_Address :home_Address, 
+  nationalId :nationalId,
+  aboutYourself :aboutYourself
+} */

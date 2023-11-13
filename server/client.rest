@@ -1,0 +1,9 @@
+POST  'http://localhost:80/admin/admincreation'
+
+Content-Type: application/json
+
+{
+    "username":"tt"
+}
+
+

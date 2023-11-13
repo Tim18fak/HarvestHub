@@ -43,7 +43,11 @@ const CodeConfirmation = ({ form, isFarmer }) => {
     }
     const submit = async (e) => {
       e.preventDefault()
+<<<<<<< HEAD
       const URL = 'https://localhost/auth/signup'
+=======
+      const URL = 'http://localhost/auth/signup'
+>>>>>>> 450c0276ffc14fe21953e9ff0a5db5bc5e6ef997
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
       const {fullname, username, email, password } = form
@@ -55,15 +59,24 @@ const CodeConfirmation = ({ form, isFarmer }) => {
       body: JSON.stringify({fullname, username, email, password,code,Code,isFarmer})
     })
     .then(response => {
+      console.log(response)
       setStatusCode(response.status)
       response.json()
       .then(data => {
-        if(statusCode === 200)
+        console.log(data)
+        if(response.status === 200){
           cookie.set('username', data.username)
           cookie.set('userId', data._id)
           cookie.set('fullname', data.fullname)
+          cookie.set('isFarmer',isFarmer)
+          setResponse(data.message)
+          window.location.reload();
+        }
+        cookie.set('username', data.username)
+        cookie.set('userId', data._id)
+        cookie.set('fullname', data.fullname)
+        cookie.set('isFarmer',)
         setResponse(data.message)
-        console.log(response)
       })
       .catch(error => {})
     })
