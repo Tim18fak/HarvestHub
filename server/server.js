@@ -14,7 +14,7 @@ const { Server } = require('socket.io');
 const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
 const clientUser = require('./Routes/User')
-
+const admin = require('./Routes/admin')
 const corsOptions = {
   origin: "*",
 };
@@ -68,7 +68,10 @@ app.use('/farmerUser', farmerRoutes);
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes);
 app.use('/chat', chat);
+app.use('/admin',admin)
 app.use('/client',clientUser)
 app.get('/', (req, res) => {
   res.send('Hello, HTTP World!');
 });
+
+

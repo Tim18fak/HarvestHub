@@ -87,7 +87,7 @@ const signup = async (req, res) => {
  const login = async (req, res) => {
     try {
       const { username, password } = req.body;
-  
+      console.log(req.body)
       const farmer = await Farmer.findOne({ username: username });
       const user = await User.findOne({ username: username });
   

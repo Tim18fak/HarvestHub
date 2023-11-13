@@ -1,3 +1,9 @@
-POST http://localhost/client/searchProduct?price=1200&description=this&location=100
+POST  'http://localhost:80/admin/admincreation'
+
+Content-Type: application/json
+
+{
+    "username":"tt"
+}
 
 

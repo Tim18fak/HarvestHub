@@ -17,20 +17,19 @@ switch(response.statusCode){
     
 }
 
-const createAdmin = async()  => {
+const createAdmin = async(req,res)  => {
     const response = await createAdminInfo(req.body)
-    const {statusCode} = response
-    switch(statusCode){
+    
+   /*  switch(response){
         case 200: 
-        res.status(202).json({'message': 'Admin has been created'})
-        break;
-        case 403:
         res.status(202).json({'message': 'Admin has been created'})
         break;
         default: 
         res.status(202).json({'message': 'Unknown'})
-    }
+    } */
 }
 
-
-module.exports = {adminLogin, createAdmin}
+const test = async(req,res) => {
+    res.send('admin')
+}
+module.exports = {adminLogin, createAdmin,test}

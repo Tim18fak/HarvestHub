@@ -1,5 +1,6 @@
 const {Admin} = require('../../../Model/DB_structure')
 const  bcrypt = require('bcrypt')
+const crypto = require('crypto')
 
 const adminLoginInfo = async(arg) => {
 const {username,email,password} = arg
@@ -15,22 +16,35 @@ if(adminResponse){
 
 }
 }
-
-const createAdminInfo = async(arg) => {
-    const {username,password,email,activationCode} = req.body
-    const adminNumber = await Admin.countDocuments()
-    const adminLimit = 1;
-    if(adminNumber < adminLimit){
-        const admin = new Admin(
-            {username,
-            password,
-            email,
-            activationCode}  
-        )
-        admin.save()
-        return /* {'message': 'Admin has been created'} */{'statusCode': 202}
+const compareActivationCode = (code1,code2) => {
+    if(code1 !== code2){
+        return false
     }
-    return /* { 'message': 'Admin creation limit has been reached' }*/{'statusCode': 202}
+    return true
+}
+const createAdminInfo = async(arg) => {
+    try {
+        const {username,password,email,activationCode,secondActivationCode} = arg
+        const adminCreationLimit = 3
+        const adminNumber = await Admin.countDocuments()
+        console.log(adminNumber)
+        adminNumber > adminCreationLimit ? console.log('admin creation limit is reached') : console.log('admin creation limit has not been reached');
+        const validActivationCode = await compareActivationCode(activationCode,secondActivationCode)
+        !validActivationCode ? console.log('invalid') : console.log('valid');
+        const adminExist = await Admin.findOne({'email': email})
+        adminExist ? console.log('email has been used') : console.log('email has not been used');
+
+        /*  */
+        const adminId = crypto.randomBytes(16).toString('hex');
+        const adminHashedPassword = await bcrypt.hash(password, 15);
+        const admin = await Admin({
+
+        })
+    /* return {username,password,email,activationCode,secondActivationCode} */
+    } catch (error) {
+        
+        
+    }
 }
 
 
