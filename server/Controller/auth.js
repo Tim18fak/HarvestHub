@@ -49,9 +49,9 @@ const signup = async (req, res) => {
         hashedPassword,
         Code,
         isFarmer,
-        Ip}) : new User({
-          username,
+        username,
           email,
+        Ip}) : new User({
           fullname,
           hashedPassword,
           Code,

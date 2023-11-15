@@ -2,27 +2,49 @@ const {Admin} = require('../../../Model/DB_structure')
 const  bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
-const SendEmailFunction = require('../../../Email_Mechanism/Email')
-const {UserInfo,confirmActivationCode} = require('../../../Email_Mechanism/email_Message')
 const axios = require('axios')
 const { throws } = require('assert')
 
 
 const adminLoginInfo = async(arg) => {
-const {username,email,password} = arg
-const adminResponse = await Admin.findOne({email})
-if(!adminResponse) return /* { 'message': 'User not found' } */ {'statusCode': 403}
-const success = await bcrypt.compare(password, adminResponse.hashedPassword);
-if (!success) {
-    return /* { 'message': 'Incorrect password' }; */  {'statusCode':401}  
-   }
-if(adminResponse){
-    const {_id, username} = adminResponse;
-    return {username, _id}
+try {
+    const {username,email,password} = arg
+const existAdmin = await Admin.findOne({email: email})
+const invalidActivationCodeStatus = 'Pending'
+if(!existAdmin){
+    throw new Error('Unfound')
+}
+if(existAdmin.activationCodeStatus === invalidActivationCodeStatus){
+    throw new Error('unverified')
+} console.log(existAdmin)
+const validPass = await bcrypt.compare(password,existAdmin.password)
+console.log(validPass)
+if(!validPass){
+    throw new Error('InvalidPass')
+}
+ const {_id,adminId} = existAdmin
+    return {_id,adminId,username, 'statusCode': 202}
+} catch (error) {
+    const message = error.message
+    switch(message){
+        case 'Unfound':
+            return {'statusCode': 404}
+            break;
+        case 'unverified':
+            return {'statusCode': 401}
+            break;
+        case 'InvalidPass':
+            return {'statusCode': 403}
+            break;
+        default: 
+            console.log(message)
+    }    
+}
 
 }
-}
-const sendActivationCode = async(email,username,id) => {
+
+/*  */
+const sendActivationCode = async(email,username,id,res) => {
     try {
         const response = await axios.get('http://localhost/auth/code');
         if (response.status >= 200 && response.status < 300) {
@@ -101,7 +123,7 @@ const transporter = nodemailer.createTransport({
 
 
 
-const sendEmail = async(transporter,sendInfo) => {
+const sendEmail = async(transporter,sendInfo,res) => {
     try {
         await transporter.sendMail(sendInfo)
         console.log('email sent successfully')
@@ -109,7 +131,13 @@ const sendEmail = async(transporter,sendInfo) => {
         const admin = await Admin.findOne({_id: id})
 
     admin.activationCode = response.data
-    await admin.save()
+    admin.save()
+    .then(() => {
+        res.status(200).json({'message': 'Your account has been created'})
+    })
+    .catch((err) => {
+        console.log(err)
+    })
     console.log(admin)
 
     } catch (error) {
@@ -119,7 +147,7 @@ const sendEmail = async(transporter,sendInfo) => {
     
 }
 
-sendEmail(transporter,sendInfo)
+sendEmail(transporter,sendInfo,res)
         } else {
             throw new Error(`Failed to fetch the activation code. Status: ${response.status}`);
         }
@@ -133,18 +161,18 @@ sendEmail(transporter,sendInfo)
         
     }
 }
-const createAdminInfo = async(arg) => {
+const createAdminInfo = async(arg,res) => {
     try {
         const {username,password,email} = arg
         const adminCreationLimit = 3
         const adminNumber = await Admin.countDocuments()
         console.log(adminNumber)
         if(adminNumber > adminCreationLimit){
-            throw new Error('admin creation limit is reached')
+            return res.status(403).json({'message': 'Admin Account Creation Has Been Reached'})
         }
         const adminExist = await Admin.findOne({'email': email})
         if(adminExist){
-            throw new Error('email has been used')
+            return res.status(403).json({'message': 'Admin Account Creation Has Been Reached'})
         }
         const adminId = crypto.randomBytes(16).toString('hex');
         const adminHashedPassword = await bcrypt.hash(password, 15);
@@ -157,16 +185,19 @@ const createAdminInfo = async(arg) => {
         })
         admin.save()
         .then((data) => {
-            sendActivationCode(data.email,data.username,data._id)
+            sendActivationCode(data.email,data.username,data._id,res)
         })
-        /* return 200; */
-    /* return {username,password,email,activationCode,secondActivationCode} */
+        .catch((err) => {
+            console.log(err)
+        })
     } catch (error) {
         console.log(error)
 
         
     }
 }
+
+/*  */
 const activationCode = async(arg,id) => {
 try {
     const code =  arg.body.code;
@@ -194,7 +225,30 @@ if(code !== storedCode){
 }
 
 const sendResetPass = (email,new_password) => {
-    const html = ``
+    const html = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reset Password</title>
+    </head>
+    <body style="background-color: black;text-align: center">
+        <h1 style="color: aliceblue;background-color: purple; padding: 1rem;">HarvestHub@Nigeria</h1>
+        <h2 style="color: greenyellow; padding: 1rem;">This is your new Login passsword</h2>
+        <a style="color: antiquewhite;">${new_password}</a>
+        <br>
+        <strong style="color: antiquewhite;">Update your password when You login, <span>This is a temporary password</span></strong>
+        <br>
+        <strong style="color: rgb(231, 16, 16);">Don't share this mail with anyone</strong>
+        <footer>
+            <address>
+                <p style="color: antiquewhite;">5, Olushola street, Ikeja, Lagos State</p>
+                <p style="color: antiquewhite;">Office Line:<span>09032134512</span></p>
+                <hp style="color: antiquewhite;">Mail: <span>harvest4@gmail.com</span></hp>
+            </address>
+        </footer>
+    </body>
+    </html>`
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         host: "smtp.gmail.com",
@@ -218,7 +272,6 @@ const sendResetPass = (email,new_password) => {
         try {
             await transporter.sendMail(sendInfo)
             console.log('email sent successfully')
-            console.log(id)
             const resetPass_Paswword = await bcrypt.hash(new_password,15)
             const admin = await Admin.findOne({email: email});
             admin.password = resetPass_Paswword;

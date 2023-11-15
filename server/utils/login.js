@@ -1,4 +1,4 @@
-const url = 'http://localhost/admin/reset'
+const url = 'http://localhost/admin/adminLogin'
 
 fetch(url,{
     method: 'POST',
@@ -6,7 +6,10 @@ fetch(url,{
         'Content-Type': 'application/json',
       },
     body: JSON.stringify({
-        'email':'timothy.avell.olatunde@gmail.com'})
+        'email':'timothy.avell.olatunde@gmail.com',
+    'password': 'pprGHlHYYWuoHgClCXwx',
+    'username': 'timothy'
+})
 })
 .then((response) => {
     if(!response){

@@ -3,29 +3,25 @@ const {adminLoginInfo, createAdminInfo,activationCode,resetPass} = require('./co
 
 const adminLogin = async(req,res) => {
 const response = await adminLoginInfo(req.body)
+console.log(response)
 switch(response.statusCode){
-    case 403: 
-    res.status(403).json({'message': 'User not found'})
-    break;
-    case 401: 
-    res.status(401).json({'message': 'Incorrect password'})
-    break;
-    case 200: 
-    res.status(200).json({'message': 'Incorrect password'},response._id,response.username)
+    case 404:
+        res.status(404).json({'messsage': 'Admin Account Not Found'})
+            break;
+    case 401:
+        res.status(401).json({'messsage': 'Admin Account Activation Code Not Verified'})
+        break;
+    case 403:
+        res.status(403).json({'message': 'Invalid Password'})
+        break;
+    case 202: 
+        res.status(202).json({'message': 'Login Successful'},response._id,response.username,response.AdminId)
 }
     
 }
 
 const createAdmin = async(req,res)  => {
-    const response = await createAdminInfo(req.body)
-    
-   /*  switch(response){
-        case 200: 
-        res.status(202).json({'message': 'Admin has been created'})
-        break;
-        default: 
-        res.status(202).json({'message': 'Unknown'})
-    } */
+    await createAdminInfo(req.body,res)
 }
 
 const test = async(req,res) => {
