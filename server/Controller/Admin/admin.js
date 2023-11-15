@@ -12,7 +12,6 @@ switch(response.statusCode){
     break;
     case 200: 
     res.status(200).json({'message': 'Incorrect password'},response._id,response.username)
-
 }
     
 }
@@ -32,4 +31,7 @@ const createAdmin = async(req,res)  => {
 const test = async(req,res) => {
     res.send('admin')
 }
-module.exports = {adminLogin, createAdmin,test}
+const compareActivation = async(req,res) => {
+
+}
+module.exports = {adminLogin, createAdmin,test,compareActivation}
