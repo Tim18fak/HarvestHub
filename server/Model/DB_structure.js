@@ -8,7 +8,8 @@ const farmerSchema = new mongoose.Schema({
   hashedPassword: {type: String, required: true},
   email: {type: String, required: true},
   Ip: { type: String, required: true},
-  Code: { type: Number, required: true}, // You should securely hash and salt passwords
+  Code: { type: Number}, // You should securely hash and salt passwords
+  
   phoneNumber: { type: Number},
   isFarmer: {type: Boolean},
   location: { type: String},

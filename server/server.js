@@ -1,10 +1,11 @@
 const http = require('http'); // Change 'https' to 'http'
 const Mongodb = require('./mongodb');
 const fs = require('fs');
+const cron = require('node-cron')
 const express = require('express');
 const cors = require('cors');
 const { Server } = require('socket.io');
-
+const {Admin,Farmer,User} = require("./Model/DB_structure")
 /* const chat = require('./Routes/Chat'); */
 const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
@@ -13,7 +14,6 @@ const admin = require('./Routes/admin')
 const corsOptions = {
   origin: "*",
 };
-
 const app = express();
 app.use(express.json()); // This is important to be able to send info from the client to my server
 
@@ -55,7 +55,39 @@ app.use('/client',clientUser)
 app.get('/', (req, res) => {
   res.send('Hello, HTTP World!');
 });
-
+/* calling database cleaning mechism */
 app.get('/', (req, res) => {
   res.send('Hello, HTTP World!'); // Update the response message
 });
+
+/* database cleaning */
+async function deleteUnverifiedAdminActivationcode(collection) {
+  try {
+    const result = await collection.deleteMany({ activationCodeStatus: 'Pending' });
+    console.log(`Deleted ${result.deletedCount} admin with a status 'Pending'.`);
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  }
+}
+async function deleteUnverifiedUserActivationcode(collection){
+  try {
+    const result = await collection.deleteMany({ activationCodeStatus: 'Pending' });
+    console.log(`Deleted ${result.deletedCount} user account  with a status 'Pending'.`);
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  }
+}
+async function deleteUnverifiedFarmerActivationcode(collection){
+  try {
+    const result = await collection.deleteMany({ activationCodeStatus: 'Pending' });
+    console.log(`Deleted ${result.deletedCount} farmer with a status 'Pending'.`);
+  } catch (error) {
+    console.error('Error deleting documents:', error);
+  }
+}
+
+cron.schedule('*/1 * * * *', () => {
+    console.log('Running task...');
+    deleteUnverifiedAdminActivationcode(Admin);
+    deleteUnverifiedUserActivationcode(User)
+    deleteUnverifiedFarmerActivationcode(Farmer)});

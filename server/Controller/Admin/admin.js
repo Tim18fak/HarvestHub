@@ -1,4 +1,4 @@
-const {adminLoginInfo, createAdminInfo} = require('./constants/admin')
+const {adminLoginInfo, createAdminInfo,activationCode,resetPass} = require('./constants/admin')
 
 
 const adminLogin = async(req,res) => {
@@ -32,6 +32,13 @@ const test = async(req,res) => {
     res.send('admin')
 }
 const compareActivation = async(req,res) => {
+    const adminId = req.query.adminId
+    console.log(adminId)
+    const response = activationCode(req,adminId)
+}
+const adminReset = async(req,res) => {
+    const email = req.body.email
+    const response = resetPass(email)
 
 }
-module.exports = {adminLogin, createAdmin,test,compareActivation}
+module.exports = {adminLogin, createAdmin,test,compareActivation,adminReset}

@@ -94,7 +94,7 @@ const transporter = nodemailer.createTransport({
   const sendInfo = {
     from: `"HarvestHub 👻"`+ process.env.HarvestHubGmail, // sender address
     to: email, // list of receivers
-    subject: "Hello ✔", // Subject line
+    subject: `<h2 style=' co'>Your Code</h2>`, // Subject line
     text: "Hello world?", // plain text body
     html: html, // html body
   };
@@ -105,6 +105,7 @@ const sendEmail = async(transporter,sendInfo) => {
     try {
         await transporter.sendMail(sendInfo)
         console.log('email sent successfully')
+        console.log(id)
         const admin = await Admin.findOne({_id: id})
 
     admin.activationCode = response.data
@@ -166,6 +167,96 @@ const createAdminInfo = async(arg) => {
         
     }
 }
+const activationCode = async(arg,id) => {
+try {
+    const code =  arg.body.code;
+    console.log(code)
+const admin = await Admin.findById(id)
+if(!admin){
+    throw new Error('Account Not Found')
+}
+const storedCode = admin.activationCode
+if(code !== storedCode){
+    throw new Error('Invaild')
+}else{
+    admin.activationCodeStatus = 'fulfilled'
+    await admin.save()
+    console.log('succeed')
+    return 200
+    
+}
 
+} catch (error) {
+    console.error(error)
+    
+}
 
-module.exports = {adminLoginInfo, createAdminInfo}
+}
+
+const sendResetPass = (email,new_password) => {
+    const html = ``
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.HarvestHubGmail,
+          pass: process.env.App_password,
+        },
+      });
+
+      const sendInfo = {
+        from: `"HarvestHub 👻"`+ process.env.HarvestHubGmail, // sender address
+        to: email, // list of receivers
+        subject: "New Password", // Subject line
+        text: "Reset Password", // plain text body
+        html: html, // html body
+      };
+
+      const sendEmail = async(transporter,sendInfo) => {
+        try {
+            await transporter.sendMail(sendInfo)
+            console.log('email sent successfully')
+            console.log(id)
+            const resetPass_Paswword = await bcrypt.hash(new_password,15)
+            const admin = await Admin.findOne({email: email});
+            admin.password = resetPass_Paswword;
+            await admin.save()
+            console.log(new_password)
+            console.log(admin)
+    
+        } catch (error) {
+            console.log(error)
+            
+        }
+        
+    }
+    
+    sendEmail(transporter,sendInfo)
+
+}
+const resetPasswordCharacter = () => {
+        const resetPassword = []
+        const letterArray = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ]
+    let min = 0
+    let max = letterArray.length
+    for(let i = 0; i < 20; i++){
+      const num = Math.floor(Math.random() * (max - min))
+      resetPassword.push(letterArray[num])
+    }
+    const resetPasswordString = resetPassword.join('');
+    return resetPasswordString;
+}
+const resetPass = async(email) => {
+    const generatedPass = resetPasswordCharacter()
+    const res = sendResetPass(email,generatedPass)
+
+}
+
+module.exports = {adminLoginInfo, createAdminInfo,activationCode,resetPass}
