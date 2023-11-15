@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer')
-require('dotenv').config();
 
 const SendEmailFunction = async(reciever_email,messageBody) => {
 try {
@@ -24,10 +23,12 @@ try {
         html: messageBody.html, // html body
       };
 
-      await transporter.sendMail(sendInfo)
+      const response = await transporter.sendMail(sendInfo)
+      console.log('email sent')
+      return response;
       
 } catch (error) {
-    
+    console.log(error)
 }  
     
 }

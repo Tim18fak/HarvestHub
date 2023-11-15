@@ -7,9 +7,7 @@ fetch(url,{
       },
     body: JSON.stringify({'username':'timothy',
         'password': 'timothy',
-        'email':'timothy.avell.olatunde@gmail.com',
-        'activationCode': 2022,
-        'secondActivationCode': 2022})
+        'email':'timothy.avell.olatunde@gmail.com'})
 })
 .then((response) => {
     if(!response){
