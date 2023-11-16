@@ -86,7 +86,7 @@ async function deleteUnverifiedFarmerActivationcode(collection){
   }
 }
 
-cron.schedule('0 0 * * *', () => {
+cron.schedule('0/1 * * * *', () => {
     console.log('Running task...');
     deleteUnverifiedAdminActivationcode(Admin);
     deleteUnverifiedUserActivationcode(User)
