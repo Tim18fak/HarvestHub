@@ -1,11 +1,13 @@
-const url = 'http://localhost/admin/compare?adminId=65549b4d0b69b4d2448592a6'
+const url = 'http://localhost/auth/login'
 
 fetch(url,{
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
       },
-    body: JSON.stringify({"code": 8966})
+    body: JSON.stringify({
+        'password': 'N9zf*^a0u5MGA:Nr47!u',
+        'email':'harvestHub4@gmail.com'})
 })
 .then((response) => {
     if(!response){

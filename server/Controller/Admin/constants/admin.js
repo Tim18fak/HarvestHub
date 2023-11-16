@@ -4,8 +4,9 @@ const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const axios = require('axios')
 const { throws } = require('assert')
+const { truncateSync } = require('fs')
 
-
+/* login mechism */
 const adminLoginInfo = async(arg) => {
 try {
     const {username,email,password} = arg
@@ -116,7 +117,7 @@ const transporter = nodemailer.createTransport({
   const sendInfo = {
     from: `"HarvestHub 👻"`+ process.env.HarvestHubGmail, // sender address
     to: email, // list of receivers
-    subject: `<h2 style=' co'>Your Code</h2>`, // Subject line
+    subject: `<h2'>Your Code</h2>`, // Subject line
     text: "Hello world?", // plain text body
     html: html, // html body
   };
@@ -172,7 +173,7 @@ const createAdminInfo = async(arg,res) => {
         }
         const adminExist = await Admin.findOne({'email': email})
         if(adminExist){
-            return res.status(403).json({'message': 'Admin Account Creation Has Been Reached'})
+            return res.status(403).json({'message': 'Admin Account Already Exist'})
         }
         const adminId = crypto.randomBytes(16).toString('hex');
         const adminHashedPassword = await bcrypt.hash(password, 15);
@@ -198,23 +199,22 @@ const createAdminInfo = async(arg,res) => {
 }
 
 /*  */
-const activationCode = async(arg,id) => {
+const activationCode = async(arg,id,res) => {
 try {
     const code =  arg.body.code;
     console.log(code)
 const admin = await Admin.findById(id)
 if(!admin){
-    throw new Error('Account Not Found')
+    console.log('Account Not Found')
 }
 const storedCode = admin.activationCode
 if(code !== storedCode){
-    throw new Error('Invaild')
+    res.status(401).json({'message':'Invaild Code'})
 }else{
     admin.activationCodeStatus = 'fulfilled'
     await admin.save()
     console.log('succeed')
-    return 200
-    
+    res.status(202).json({'message': 'Activation Code Valid'})
 }
 
 } catch (error) {

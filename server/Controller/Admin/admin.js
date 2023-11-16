@@ -30,7 +30,7 @@ const test = async(req,res) => {
 const compareActivation = async(req,res) => {
     const adminId = req.query.adminId
     console.log(adminId)
-    const response = activationCode(req,adminId)
+    await activationCode(req,adminId,res)
 }
 const adminReset = async(req,res) => {
     const email = req.body.email
