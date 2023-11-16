@@ -10,9 +10,9 @@ const sendResetPassword = async(email,new_password,res) => {
   const html = `${new_password}`
 
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 587,
+    service: process.env.EmailService,
+    host: process.env.EmailHost,
+    port: process.env.EmailServicePort,
     secure: false,
     auth: {
       user: process.env.HarvestHubGmail,
@@ -58,9 +58,9 @@ const sendActivationCode = async (email, username, id, res, isFarmer) => {
       `;
 
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        host: 'smtp.gmail.com',
-        port: 587,
+        service: process.env.EmailService,
+        host: process.env.EmailHost,
+        port: process.env.EmailServicePort,
         secure: false,
         auth: {
           user: process.env.HarvestHubGmail,

@@ -7,4 +7,4 @@ router.post('/signup', signup); // Corrected the path here
 router.post('/login', login);
 router.post('/reset', reset);
 router.post('/activation',compareActivationCode);
-module.exports = router;
+module.exports = router; 

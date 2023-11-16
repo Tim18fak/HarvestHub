@@ -103,9 +103,9 @@ const html = `
                                 <tr>
                                     <td height="30">&nbsp;</td>`
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: "smtp.gmail.com",
-    port: 587,
+    service: process.env.EmailService,
+    host: process.env.EmailHost,
+    port: process.env.EmailServicePort,
     secure: false,
     auth: {
       // TODO: replace `user` and `pass` values from <https://forwardemail.net>
@@ -250,9 +250,9 @@ const sendResetPass = (email,new_password) => {
     </body>
     </html>`
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        host: "smtp.gmail.com",
-        port: 587,
+        service: process.env.EmailService,
+        host: process.env.EmailHost,
+        port: process.env.EmailServicePort,
         secure: false,
         auth: {
           user: process.env.HarvestHubGmail,
