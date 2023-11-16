@@ -1,15 +1,14 @@
-const url = 'http://localhost/admin/admincreation'
+const url = 'http://localhost/auth/reset'
 
 fetch(url,{
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
       },
-    body: JSON.stringify({'username':'timothy',
-        'password': 'timothy',
-        'email':'timothy.avell.olatunde@gmail.com',
-        'activationCode': 2022,
-        'secondActivationCode': 2022})
+    body: JSON.stringify({
+        'email':'harvestHub4@gmail.com',
+        'isFarmer': false,
+})
 })
 .then((response) => {
     if(!response){
