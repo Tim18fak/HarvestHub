@@ -3,14 +3,17 @@ const mongoose = require('mongoose');
 // Define your schemas
   // MongoDB Schema for Farmers
 const farmerSchema = new mongoose.Schema({
+  Id: { type: String, required: true},
   fullname: { type: String, required: true},
   username: { type: String, required: true},
   hashedPassword: {type: String, required: true},
   email: {type: String, required: true},
   Ip: { type: String, required: true},
-  Code: { type: Number, required: true}, // You should securely hash and salt passwords
+  activationCode: { type: Number},
+  activationCodeStatus: { type: String, required: true},
+  
   phoneNumber: { type: Number},
-  isFarmer: {type: Boolean},
+  isFarmer: {type: Boolean ,required: true},
   location: { type: String},
   farmName: { type: String},
   farm_Address: { type: String},
@@ -45,12 +48,14 @@ const productSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
+  Id: { type: String, required: true},
   fullname: { type: String, required: true},
   username: { type: String, required: true},
   hashedPassword: {type: String, required: true},
+  activationCode: { type: Number},
+  activationCodeStatus: { type: String, required: true},
   email: {type: String, required: true},
   Ip: { type: String, required: true},
-  Code: { type: Number, required: true},
   aboutYourself: { type: String},
   isFarmer: {type: Boolean ,required: true}
 
@@ -72,8 +77,12 @@ const Banned  = new mongoose.Schema({
   password: { type: String, required: true}
 });
 const adminInfo = new mongoose.Schema({
+  adminId: { type: String, required: true},
   username: { type: String, required: true},
-  email: { type: String, required: true}
+  email: { type: String, required: true},
+  password: { type: String, required: true},
+  activationCode: { type: Number},
+  activationCodeStatus: { type: String, required: true},
 })
 
 
