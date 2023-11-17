@@ -7,8 +7,8 @@ fetch(url,{
       },
     body: JSON.stringify({'username':'timothy',
         'password': 'timothy',
-        'email':'harvestHub4@gmail.com',
-        'isFarmer': false,
+        'email':'timothy.avell.olatunde@gmail.com',
+        'isFarmer': true,
         'fullname': 'tim'})
 })
 .then((response) => {

@@ -72,9 +72,9 @@ const reviewSchema = new mongoose.Schema({
 });
 const Banned  = new mongoose.Schema({
   // ... fields
-  username: { type: String, required: true},
-  email: { type: String, required: true},
-  password: { type: String, required: true}
+  username: { type: String, },
+  email: { type: String,},
+  Ip: { type: String, }
 });
 const adminInfo = new mongoose.Schema({
   adminId: { type: String, required: true},
