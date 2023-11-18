@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const { jwt } = require("../config/jwt.config");
 
 const clientAuthToken = (_id,username,email) => {
     const clientAccessPayload = {
