@@ -178,7 +178,7 @@ const clientLogin = async(body,id,res) =>{
     const {isFarmer,_id,username,email} =  farmer
     const accessToken = await clientAuthToken({_id,username,email})
 
-    res.status(200).json({accessToken,isFarmer,_id,username})
+    return res.status(200).json({accessToken,isFarmer,_id,username})
     
   }
 
@@ -190,8 +190,10 @@ const clientLogin = async(body,id,res) =>{
     if(!validPass){
       return res.status(403).json({'message': 'Invalid Password'})
     }
-    const {isFarmer,_id,username} = consumer
-    return res.status(200).json({'message': 'Login Successful',isFarmer,_id,username})
+    const {isFarmer,_id,username,email} = consumer
+    const accessToken = await clientAuthToken({_id,username,email})
+
+    return res.status(200).json({accessToken,isFarmer,_id,username})
   }
 
 }

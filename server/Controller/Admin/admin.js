@@ -1,21 +1,27 @@
+const { adminAccessToken } = require('../../middlewares/admin_authorization')
 const {adminLoginInfo, createAdminInfo,activationCode,resetPass} = require('../../src/services/Admin_Authentication_Logic/admin')
 
 
 const adminLogin = async(req,res) => {
 const response = await adminLoginInfo(req.body)
-console.log(response)
-switch(response.statusCode){
-    case 404:
-        res.status(404).json({'messsage': 'Admin Account Not Found'})
+try {
+    switch(response.statusCode){
+        case 404:
+            res.status(404).json({'messsage': 'Admin Account Not Found'})
+                break;
+        case 401:
+            res.status(401).json({'messsage': 'Admin Account Activation Code Not Verified'})
             break;
-    case 401:
-        res.status(401).json({'messsage': 'Admin Account Activation Code Not Verified'})
-        break;
-    case 403:
-        res.status(403).json({'message': 'Invalid Password'})
-        break;
-    case 202: 
-        res.status(202).json({'message': 'Login Successful'},response._id,response.username,response.AdminId)
+        case 403:
+            res.status(403).json({'message': 'Invalid Password'})
+            break;
+        case 202:
+            const {_id,username,adminId} = response
+            const adminToken = await adminAccessToken(response._id,response.username,response.adminId,response.email)
+            res.status(202).json({'message': 'Login Successful',adminToken,_id,username,adminId})
+    }
+} catch (error) {
+    console.log(error.message)
 }
     
 }

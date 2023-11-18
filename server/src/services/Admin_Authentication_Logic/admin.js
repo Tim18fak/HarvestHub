@@ -3,8 +3,6 @@ const  bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const axios = require('axios')
-const { throws } = require('assert')
-const { truncateSync } = require('fs')
 
 /* login mechism */
 const adminLoginInfo = async(arg) => {
@@ -17,14 +15,13 @@ if(!existAdmin){
 }
 if(existAdmin.activationCodeStatus === invalidActivationCodeStatus){
     throw new Error('unverified')
-} console.log(existAdmin)
+}
 const validPass = await bcrypt.compare(password,existAdmin.password)
-console.log(validPass)
 if(!validPass){
     throw new Error('InvalidPass')
 }
  const {_id,adminId} = existAdmin
-    return {_id,adminId,username, 'statusCode': 202}
+    return {_id,adminId,username,email, 'statusCode': 202}
 } catch (error) {
     const message = error.message
     switch(message){
@@ -203,6 +200,7 @@ const activationCode = async(arg,id,res) => {
 try {
     const code =  arg.body.code;
     console.log(code)
+    console.log(id)
 const admin = await Admin.findById(id)
 if(!admin){
     console.log('Account Not Found')
@@ -218,7 +216,7 @@ if(code !== storedCode){
 }
 
 } catch (error) {
-    console.error(error)
+    console.error(error.message)
     
 }
 
