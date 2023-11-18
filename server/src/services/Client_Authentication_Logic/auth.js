@@ -1,4 +1,4 @@
-const { User, BlockedUser, Farmer} = require('../Model/DB_structure');
+const { User, BlockedUser, Farmer} = require('../../../Model/DB_structure');
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')

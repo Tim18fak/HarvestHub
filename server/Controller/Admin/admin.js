@@ -1,4 +1,4 @@
-const {adminLoginInfo, createAdminInfo,activationCode,resetPass} = require('./constants/admin')
+const {adminLoginInfo, createAdminInfo,activationCode,resetPass} = require('../../src/services/Admin_Authentication_Logic/admin')
 
 
 const adminLogin = async(req,res) => {

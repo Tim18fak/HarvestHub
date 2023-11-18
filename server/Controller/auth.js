@@ -1,4 +1,4 @@
-const {signUp,clientLogin,clientActivationCode,clientResetPass} = require('../constants/auth.js')
+const {signUp,clientLogin,clientActivationCode,clientResetPass} = require('../src/services/Client_Authentication_Logic/auth.js')
 
 const activationCode = () => {
     const min = 1000
