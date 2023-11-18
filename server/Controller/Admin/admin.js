@@ -34,4 +34,4 @@ const adminReset = async(req,res) => {
     const response = resetPass(email)
 
 }
-module.exports = {adminLogin, createAdmin,test,compareActivation,adminReset}
+module.exports = {adminLogin, createAdmin,compareActivation,adminReset}
