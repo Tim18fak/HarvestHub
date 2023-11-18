@@ -25,7 +25,7 @@ const compareActivationCode = async(req,res) => {
   clientActivationCode(req.body,res,clientId)
 }
 /* Activation code Algorithm */
-const code = (res) => {
+const code = (req,res) => {
     res.json(activationCode());
 }
 module.exports = { signup, login, reset,code,compareActivationCode}

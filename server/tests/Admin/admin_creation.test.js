@@ -5,5 +5,5 @@ test('Admin exist', async() => {
         'password': 'timothy',
         'email':'timothy.avell.olatunde@gmail.com'
   })
-  expect(response.message).toBe("Admin Account Already Exist")
+  expect(response.data.message).toBe("Admin Account Already Exist")
 })
