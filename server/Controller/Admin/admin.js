@@ -24,9 +24,6 @@ const createAdmin = async(req,res)  => {
     await createAdminInfo(req.body,res)
 }
 
-const test = async(req,res) => {
-    res.send('admin')
-}
 const compareActivation = async(req,res) => {
     const adminId = req.query.adminId
     console.log(adminId)
