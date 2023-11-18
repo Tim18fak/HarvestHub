@@ -6,7 +6,7 @@ fetch(url,{
         'Content-Type': 'application/json',
       },
     body: JSON.stringify({
-        'password': 'N9zf*^a0u5MGA:Nr47!u',
+        'password': 'E0INi+t2&~8$ijB4Y09v',
         'email':'harvestHub4@gmail.com'})
 })
 .then((response) => {

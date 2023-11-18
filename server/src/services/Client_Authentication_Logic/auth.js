@@ -2,7 +2,8 @@ const { User, BlockedUser, Farmer} = require('../../../Model/DB_structure');
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
-const axios = require('axios')
+const axios = require('axios');
+const { clientAuthToken } = require('../../../middlewares/client_authorization');
 
 
 ////////  authentication code analysis
@@ -118,7 +119,7 @@ const sendEmail = async (transporter, sendInfo, res, activationCode, id, isFarme
 const signUp = async (arg, ip, res) => {
   const { fullname, username, email, password, isFarmer } = arg;
   const blockUser = await BlockedUser.findOne({ $or: [{ username }, { email }, { ip }] });
-  const user = isFarmer ? await Farmer.findOne({ email: email }) : await User.findOne({ email: email });
+  const user = isFarmer ? await Farmer.findOne({$or : [{ email },{username}] }) : await User.findOne({$or : [{ email },{username}] });
 
   if (blockUser) {
     return res.status(403).json({ 'message': 'Either email or IP has been banned' });
@@ -170,12 +171,14 @@ const clientLogin = async(body,id,res) =>{
     if(farmer.activationCodeStatus === 'Pending'){
       return res.status(403).json({'message': 'Account Has Not Been Verified'})
     }
-    const validPass = await bcrypt(password,farmer.hashedPassword)
+    const validPass = await bcrypt.compare(password,farmer.hashedPassword)
     if(!validPass){
       return res.status(403).json({'message': 'Invalid Password'})
     }
-    const {isFarmer,_id,username} =  farmer
-    return res.status(200).json({'message': 'Login Successful',isFarmer,_id,username})
+    const {isFarmer,_id,username,email} =  farmer
+    const accessToken = await clientAuthToken({_id,username,email})
+
+    res.status(200).json({accessToken,isFarmer,_id,username})
     
   }
 
