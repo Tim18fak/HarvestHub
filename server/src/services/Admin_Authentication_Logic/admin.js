@@ -2,7 +2,7 @@ const {Admin} = require('../../../Model/DB_structure')
 const  bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
-const axios = require('axios')
+const { axios } = require('../../../config/axios.config')
 
 /* login mechism */
 const adminLoginInfo = async(arg) => {

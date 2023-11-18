@@ -1,4 +1,4 @@
-const axios = require('axios')
+const { axios } = require("../../config/axios.config")
 
 test('Should be a Truthy ', async() => {
     const response = await axios.get('http://localhost/auth/code')
