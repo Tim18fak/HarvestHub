@@ -17,6 +17,8 @@ app.use(express.json()); // This is important to be able to send info from the c
 // Routes
 const chat = require('./Routes/Chat');
 const { cors,corsOptions } = require('./middlewares/cors');
+const { authenticateAdminToken, authenticateClientToken } = require('./middlewares/authenticateToken');
+
 
 const server = http.createServer(app); // Change 'https' to 'http'
 
@@ -44,18 +46,13 @@ app.use((req, res, next) => {
 app.use(cors(corsOptions));
 app.use("/productimages", express.static("uploads"));
 app.use("/profileimages", express.static("ProfileImages"));
-app.use('/farmerUser', farmerRoutes);
-/* app.use(cors(corsOptions)); */
-app.use('/auth', authRoutes);
+app.use('/farmerUser', authenticateClientToken,farmerRoutes);
+app.use('/auth', authenticateClientToken,authRoutes);
 app.use('/chat', chat);
-app.use('/admin',admin)
-app.use('/client',clientUser)
+app.use('/admin',authenticateAdminToken,admin)
+app.use('/client',authenticateClientToken,clientUser)
 app.get('/', (req, res) => {
   res.send('Hello, HTTP World!');
-});
-/* calling database cleaning mechism */
-app.get('/', (req, res) => {
-  res.send('Hello, HTTP World!'); // Update the response message
 });
 
 /* database cleaning */
@@ -84,7 +81,7 @@ async function deleteUnverifiedFarmerActivationcode(collection){
   }
 }
 
-cron.schedule('0 0 * * *', () => {
+cron.schedule('0/1 * * * *', () => {
     console.log('Running task...');
     deleteUnverifiedAdminActivationcode(Admin);
     deleteUnverifiedUserActivationcode(User)
