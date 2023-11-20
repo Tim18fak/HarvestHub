@@ -199,12 +199,14 @@ const clientLogin = async(body,id,res) =>{
 
 }
 const clientActivationCode = async(body,res,Id) => {
-  const code = body.code;
+  try {
+    const code = body.code;
+    console.log(Id)
   const farmerVerificationCode  =  await Farmer.findOne({_id: Id});
   const consumerVerificationCode = await User.findOne({_id:Id});
   /* If id is not found */
   if(!farmerVerificationCode && !consumerVerificationCode){
-    console.log('Invalid Activation Code')
+    return console.log('Account Not Found')
   }
   /*  */
   if(farmerVerificationCode){
@@ -223,6 +225,9 @@ const clientActivationCode = async(body,res,Id) => {
     consumerVerificationCode.activationCodeStatus =  'Fulfilled'
       await consumerVerificationCode.save();
       return res.status(202).json({'message': 'Valid Activation code'})
+  }
+  } catch (error) {
+    console.log(error.message)
   }
 }
 const clientResetPass = async(body,res) => {

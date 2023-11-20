@@ -207,12 +207,12 @@ if(!admin){
 }
 const storedCode = admin.activationCode
 if(code !== storedCode){
-    res.status(401).json({'message':'Invaild Code'})
+    return res.status(401).json({'message':'Invaild Code'})
 }else{
     admin.activationCodeStatus = 'fulfilled'
     await admin.save()
     console.log('succeed')
-    res.status(202).json({'message': 'Activation Code Valid'})
+    return res.status(202).json({'message': 'Activation Code Valid'})
 }
 
 } catch (error) {
