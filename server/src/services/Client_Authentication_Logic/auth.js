@@ -162,6 +162,7 @@ const signUp = async (arg, ip, res) => {
 
 const clientLogin = async(body,id,res) =>{
   const {email,password} = body;
+  console.log(email,password)
   const farmer = await Farmer.findOne({email: email})
   const consumer = await User.findOne({email:email});
   if(!farmer && !consumer){
@@ -176,7 +177,7 @@ const clientLogin = async(body,id,res) =>{
       return res.status(403).json({'message': 'Invalid Password'})
     }
     const {isFarmer,_id,username,email} =  farmer
-    const accessToken = await clientAuthToken({_id,username,email})
+    const accessToken = await clientAuthToken(_id,username,email,isFarmer)
 
     return res.status(200).json({accessToken,isFarmer,_id,username})
     
@@ -191,7 +192,7 @@ const clientLogin = async(body,id,res) =>{
       return res.status(403).json({'message': 'Invalid Password'})
     }
     const {isFarmer,_id,username,email} = consumer
-    const accessToken = await clientAuthToken({_id,username,email})
+    const accessToken = await clientAuthToken(_id,username,email,isFarmer)
 
     return res.status(200).json({accessToken,isFarmer,_id,username})
   }

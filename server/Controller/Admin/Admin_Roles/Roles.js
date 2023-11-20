@@ -14,7 +14,7 @@ const BlockFarmer = async(req,res) => {
         console.log(blockFarmerId)
     const blockFarmerInfo = await Farmer.findOne({_id:blockFarmerId})
     if(!blockFarmerInfo){
-       throw new Error(`${blockFarmerId} is  not in the database`)
+       return res.status(403).json(`${blockFarmerId} is  not in the database`)
     }
     const {email,Ip,username} =  blockFarmerInfo
     const newBannnedFarmer =  await  new BlockedUser({
@@ -34,12 +34,13 @@ const BlockFarmer = async(req,res) => {
         return res.status(200).json({'message': `${deleteFarmer.username} has been Banned and Deleted From Our Database`})
     })
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 const blockConsumer = async (req,res) => {
     try {
         const bannedConsumerId =  req.params.banConsumerId;
+        console.log(bannedConsumerId)
     const bannedConsumerInfo =  await User({_id: bannedConsumerId});
     if(!bannedConsumerId){
         throw new Error(`${bannedConsumerId} is not found on the User Database Collection`)
@@ -57,9 +58,12 @@ const blockConsumer = async (req,res) => {
         }
         const deleteConsumerInfo = await User.findByIdAndDelete(bannedConsumerId)
         if(!deleteConsumerInfo){
-            res.status(401).json({'message':`${bannedConsumerId} not found`})
+           return res.status(401).json({'message':`${bannedConsumerId} not found`})
         }
-        res.status(202).json({'message': `${deleteConsumerInfo.username} has been deleted`})
+        return res.status(204).json({'message':`${bannedConsumerId} has been banned`})
+    })
+    .catch((err) => {
+        console.log(err)
     })
     } catch (error) {
         console.log(error.message)

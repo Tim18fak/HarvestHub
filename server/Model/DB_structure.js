@@ -11,7 +11,7 @@ const farmerSchema = new mongoose.Schema({
   Ip: { type: String, required: true},
   activationCode: { type: Number},
   activationCodeStatus: { type: String, required: true},
-  
+  authorizationToken: { type: String},
   phoneNumber: { type: Number},
   isFarmer: {type: Boolean ,required: true},
   location: { type: String},
@@ -57,8 +57,8 @@ const userSchema = new mongoose.Schema({
   email: {type: String, required: true},
   Ip: { type: String, required: true},
   aboutYourself: { type: String},
-  isFarmer: {type: Boolean ,required: true}
-
+  isFarmer: {type: Boolean ,required: true},
+  authorizationToken: { type: String},
   // ... other fields
 });
 
@@ -83,6 +83,7 @@ const adminInfo = new mongoose.Schema({
   password: { type: String, required: true},
   activationCode: { type: Number},
   activationCodeStatus: { type: String, required: true},
+  authorizationToken: { type: String},
 })
 
 

@@ -1,4 +1,4 @@
-const url = 'http://localhost/auth/login'
+const url = 'http://localhost/auth/login/'
 
 fetch(url,{
     method: 'POST',

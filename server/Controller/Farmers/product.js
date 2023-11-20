@@ -38,13 +38,12 @@ const createProduct = async (req, res) => {
         date:date,
       Farmer: userid})
 
-      await newProduct.save();
-
-      /* console.log({productImages,description, quantity,price, category,location,date,userid}) */
-      
-
-     /*  await newProduct.save();
- */
+      newProduct.save()
+      .then(async (data) => {
+        const FarmerProductArray = Farmer.findById(userid)
+        FarmerProductArray.push(data._id)
+        await FarmerProductArray.save();
+      })
       res.status(200).json({ message: "Product created successfully" });
     });
   } catch (error) {

@@ -46,11 +46,11 @@ app.use((req, res, next) => {
 app.use(cors(corsOptions));
 app.use("/productimages", express.static("uploads"));
 app.use("/profileimages", express.static("ProfileImages"));
-app.use('/farmerUser', authenticateClientToken,farmerRoutes);
-app.use('/auth', authenticateClientToken,authRoutes);
+app.use('/farmerUser',farmerRoutes);
+app.use('/auth',authRoutes);
 app.use('/chat', chat);
-app.use('/admin',authenticateAdminToken,admin)
-app.use('/client',authenticateClientToken,clientUser)
+app.use('/admin',admin)
+app.use('/client',clientUser)
 app.get('/', (req, res) => {
   res.send('Hello, HTTP World!');
 });
@@ -81,8 +81,10 @@ async function deleteUnverifiedFarmerActivationcode(collection){
   }
 }
 
-cron.schedule('0/1 * * * *', () => {
+cron.schedule('0/01 * * * *', () => {
     console.log('Running task...');
     deleteUnverifiedAdminActivationcode(Admin);
     deleteUnverifiedUserActivationcode(User)
-    deleteUnverifiedFarmerActivationcode(Farmer)});
+    deleteUnverifiedFarmerActivationcode(Farmer)
+  
+  });
