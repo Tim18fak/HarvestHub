@@ -8,6 +8,7 @@ const { axios } = require('../../../config/axios.config')
 const adminLoginInfo = async(arg) => {
 try {
     const {username,email,password} = arg
+    console.log(arg)
 const existAdmin = await Admin.findOne({email: email})
 const invalidActivationCodeStatus = 'Pending'
 if(!existAdmin){
@@ -15,6 +16,9 @@ if(!existAdmin){
 }
 if(existAdmin.activationCodeStatus === invalidActivationCodeStatus){
     throw new Error('unverified')
+}
+if(existAdmin.username !== username){
+    throw new Error('InvalidPass')
 }
 const validPass = await bcrypt.compare(password,existAdmin.password)
 if(!validPass){
@@ -222,7 +226,7 @@ if(code !== storedCode){
 
 }
 
-const sendResetPass = (email,new_password) => {
+const sendResetPass = (email,new_password,res) => {
     const html = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -266,7 +270,7 @@ const sendResetPass = (email,new_password) => {
         html: html, // html body
       };
 
-      const sendEmail = async(transporter,sendInfo) => {
+      const sendEmail = async(transporter,sendInfo,res) => {
         try {
             await transporter.sendMail(sendInfo)
             console.log('email sent successfully')
@@ -276,6 +280,8 @@ const sendResetPass = (email,new_password) => {
             await admin.save()
             console.log(new_password)
             console.log(admin)
+            return res.sendStatus(204).json({'message':'email sent successfully'})
+
     
         } catch (error) {
             console.log(error)
@@ -284,7 +290,7 @@ const sendResetPass = (email,new_password) => {
         
     }
     
-    sendEmail(transporter,sendInfo)
+    sendEmail(transporter,sendInfo,res)
 
 }
 const resetPasswordCharacter = () => {
@@ -304,9 +310,10 @@ const resetPasswordCharacter = () => {
     const resetPasswordString = resetPassword.join('');
     return resetPasswordString;
 }
-const resetPass = async(email) => {
+const resetPass = async(email,res) => {
     const generatedPass = resetPasswordCharacter()
-    const res = sendResetPass(email,generatedPass)
+    console.log(generatedPass)
+    sendResetPass(email,generatedPass,res)
 
 }
 

@@ -9,11 +9,10 @@ const Header = () => {
             <ul>
                 <Link to='/'><li>Home</li></Link>
                 <Link to='/about'><li>About</li></Link>
-                <Link to='/signin'><li>SignIN</li></Link>
             </ul>
         </div>
         <div>
-          <h2>Login</h2>
+        <Link to='/signin'><h2>Login</h2></Link>
         </div>
     </nav>
   )

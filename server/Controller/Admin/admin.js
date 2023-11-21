@@ -7,13 +7,13 @@ const response = await adminLoginInfo(req.body)
 try {
     switch(response.statusCode){
         case 404:
-            res.status(404).json({'messsage': 'Admin Account Not Found'})
+            res.status(404).json({'message': 'Admin Account Not Found'})
                 break;
         case 401:
-            res.status(401).json({'messsage': 'Admin Account Activation Code Not Verified'})
+            res.status(401).json({'message': 'Admin Account Activation Code Not Verified'})
             break;
         case 403:
-            res.status(403).json({'message': 'Invalid Password'})
+            res.status(403).json({'message': 'Invalid Password Or Username'})
             break;
         case 202:
             const {_id,username,adminId} = response
@@ -37,7 +37,7 @@ const compareActivation = async(req,res) => {
 }
 const adminReset = async(req,res) => {
     const email = req.body.email
-    const response = resetPass(email)
+    resetPass(email,res)
 
 }
 module.exports = {adminLogin, createAdmin,compareActivation,adminReset}
