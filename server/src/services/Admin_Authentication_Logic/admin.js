@@ -303,7 +303,7 @@ const resetPasswordCharacter = () => {
     ]
     let min = 0
     let max = letterArray.length
-    for(let i = 0; i < 20; i++){
+    for(let i = 0; i < 30; i++){
       const num = Math.floor(Math.random() * (max - min))
       resetPassword.push(letterArray[num])
     }
