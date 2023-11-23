@@ -18,20 +18,14 @@ app.use(express.json()); // This is important to be able to send info from the c
 const chat = require('./Routes/Chat');
 const { cors,corsOptions } = require('./middlewares/cors');
 const { authenticateAdminToken, authenticateClientToken } = require('./middlewares/authenticateToken');
+const Connect = require('./src/services/Chats/connect');
+const { deleteUnverifiedAdminActivationcode, deleteUnverifiedFarmerActivationcode, deleteUnverifiedUserActivationcode } = require('./Database_Cleaning/database_cleaning');
 
 
 const server = http.createServer(app); // Change 'https' to 'http'
+/* socket.io connection */
+Connect(server)
 
-const io = new Server(server, {
-  cors: {
-    origin: '*', // Allow requests from your React app's domain
-    methods: ['GET', 'POST'],
-  },
-});
-
-io.on('connection', (socket) => {
-  console.log('A user connected' + socket.id);
-});
 server.listen(80, () => { 
   console.log('Server is running on http://localhost');
 });
@@ -56,35 +50,10 @@ app.get('/', (req, res) => {
 });
 
 /* database cleaning */
-async function deleteUnverifiedAdminActivationcode(collection) {
-  try {
-    const result = await collection.deleteMany({ activationCodeStatus: 'Pending' });
-    console.log(`Deleted ${result.deletedCount} admin with a status 'Pending'.`);
-  } catch (error) {
-    console.error('Error deleting documents:', error);
-  }
-}
-async function deleteUnverifiedUserActivationcode(collection){
-  try {
-    const result = await collection.deleteMany({ activationCodeStatus: 'Pending' });
-    console.log(`Deleted ${result.deletedCount} user account  with a status 'Pending'.`);
-  } catch (error) {
-    console.error('Error deleting documents:', error);
-  }
-}
-async function deleteUnverifiedFarmerActivationcode(collection){
-  try {
-    const result = await collection.deleteMany({ activationCodeStatus: 'Pending' });
-    console.log(`Deleted ${result.deletedCount} farmer with a status 'Pending'.`);
-  } catch (error) {
-    console.error('Error deleting documents:', error);
-  }
-}
-
 cron.schedule('0/01 * * * *', () => {
     console.log('Running task...');
     deleteUnverifiedAdminActivationcode(Admin);
-    deleteUnverifiedUserActivationcode(User)
-    deleteUnverifiedFarmerActivationcode(Farmer)
+    deleteUnverifiedFarmerActivationcode(Farmer);
+    deleteUnverifiedUserActivationcode(User) 
   
   });

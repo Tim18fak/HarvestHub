@@ -7,7 +7,7 @@ fetch(url,{
       },
     body: JSON.stringify({
         'email':'timothy.avell.olatunde@gmail.com',
-    'password': 'IwnwsJyfFYmITujthrYD',
+    'password': 'kBuASnkDRanCHcRWPwWVCCygwAnidx',
     'username': 'timothy'
 })
 })

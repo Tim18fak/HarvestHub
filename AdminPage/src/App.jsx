@@ -13,9 +13,9 @@ import cookie from '../config/cookie'
 import Dashboard from './pages/Dashboard/Dashboard';
 
 
+
 const App = () =>  {
   const [adminCookie,setAdminCookie] = useState(null)
- 
   const id = cookie.get('id')
   if(id !== undefined) return <Dashboard/>
   return (

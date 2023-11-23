@@ -1,19 +1,13 @@
-import React, {useEffect} from 'react'
-import SignIn from './Authentication/SignIn'
-import ProduceUpload from './components/farmerComponent/ProduceUpload'
-import FarmerProfile from './components/farmerComponent/FarmerProfile'
-const App = () => {
+import Header from "./components/default__Component/Header"
 
+function App() {
   
+
   return (
-    <div>
-    {/* {<ProduceUpload/>} */}
-      {<SignIn />}
-      {/* < FarmerProfile /> */}
-    </div>
+    <>
+      <Header/>
+    </>
   )
 }
 
 export default App
-
-

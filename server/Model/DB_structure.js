@@ -85,9 +85,12 @@ const adminInfo = new mongoose.Schema({
   activationCodeStatus: { type: String, required: true},
   authorizationToken: { type: String},
 })
-
-
-
+const chatMessage = mongoose.Schema({
+  chatId: {type: String},
+  username: {type: String},
+  adminUsername: {type:String},
+  message: {type: Array}
+})
 const BlockedUser = mongoose.model('BannedUser', Banned );
 const Admin = mongoose.model('Admin',adminInfo)
 const Farmer = mongoose.model('Farmer', farmerSchema);
@@ -95,5 +98,5 @@ const Product = mongoose.model('Product', productSchema);
 const User = mongoose.model('User', userSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
-
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin };
+const ChatModule = mongoose.model('chatMessage',chatMessage)
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule };
