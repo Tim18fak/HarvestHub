@@ -50,10 +50,9 @@ const resetPasswordString = resetPassword.join('');
 return resetPasswordString;
 }
 /*  */
-const sendActivationCode = async (email, username, id, res, isFarmer) => {
+const sendActivationCode = async (email,_id,activationCode, res, isFarmer) => {
   try {
-    const response = await axios.get('http://localhost/auth/code');
-    if (response.status >= 200 && response.status < 300) {
+    if (activationCode) {
       const html = `
         <!-- Your HTML content -->
       `;
@@ -79,7 +78,7 @@ const sendActivationCode = async (email, username, id, res, isFarmer) => {
 
       sendEmail(transporter, sendInfo, res, response.data, id, isFarmer);
     } else {
-      throw new Error(`Failed to fetch the activation code. Status: ${response.status}`);
+      throw new Error(`ActivationCode is null or Undefined. Status`);
     }
   } catch (error) {
     console.log(error);
@@ -129,12 +128,15 @@ const signUp = async (arg, ip, res) => {
   }
 
   const Id = crypto.randomBytes(16).toString('hex');
+  const activationCode = await axios.get('http://localhost/auth/code');
+  console.log(activationCode)
   const newHashedPassword = await bcrypt.hash(password, 10);
   const newUser = isFarmer ? new Farmer({
     Id,
     fullname,
     username,
     Ip: ip,
+    activationCode: activationCode,
     email,
     isFarmer,
     hashedPassword: newHashedPassword,
@@ -143,6 +145,7 @@ const signUp = async (arg, ip, res) => {
     Id,
     fullname,
     username,
+    activationCode: activationCode,
     Ip: ip,
     email,
     isFarmer,
@@ -152,7 +155,8 @@ const signUp = async (arg, ip, res) => {
 
   newUser.save()
     .then(async (data) => {
-      sendActivationCode(data.email, data.username, data._id, res, isFarmer);
+      sendActivationCode(data.email, data._id,data.activationCode, res, isFarmer);
+      console.log(data.activationCode)
     })
     .catch((err) => {
       console.log(err);

@@ -10,13 +10,13 @@ const authRoutes = require('./Routes/auth.js');
 const farmerRoutes = require('./Routes/farmerUser');
 const clientUser = require('./Routes/User')
 const admin = require('./Routes/admin')
-
+const {cors,corsOptions} = require('./middlewares/cors')
 const app = express();
 app.use(express.json()); // This is important to be able to send info from the client to my server
-
+app.use(cors(corsOptions))
 // Routes
 const chat = require('./Routes/Chat');
-const { cors,corsOptions } = require('./middlewares/cors');
+/* const { cors,corsOptions } = require('./middlewares/cors'); */
 const { authenticateAdminToken, authenticateClientToken } = require('./middlewares/authenticateToken');
 const Connect = require('./src/services/Chats/connect');
 const { deleteUnverifiedAdminActivationcode, deleteUnverifiedFarmerActivationcode, deleteUnverifiedUserActivationcode } = require('./Database_Cleaning/database_cleaning');
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors(corsOptions));
+
 app.use("/productimages", express.static("uploads"));
 app.use("/profileimages", express.static("ProfileImages"));
 app.use('/farmerUser',farmerRoutes);

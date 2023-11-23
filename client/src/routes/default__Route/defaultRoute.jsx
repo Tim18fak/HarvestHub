@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from '../../pages/default__Pages/Main';
 
@@ -13,4 +13,4 @@ const DefaultRoute = () => {
   );
 }
 
-export default DefaultRoute;
+export default DefaultRoute; */

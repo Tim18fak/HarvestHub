@@ -7,7 +7,7 @@ fetch(url,{
       },
     body: JSON.stringify({
         'password': 'E0INi+t2&~8$ijB4Y09v',
-        'email':'harvestHub4@gmail.com'})
+        'email':'timothy.avell.olatunde@gmail.com'})
 })
 .then((response) => {
     if(!response){
