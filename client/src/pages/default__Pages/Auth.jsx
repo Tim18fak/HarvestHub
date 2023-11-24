@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Reset from './Reset'
+import { cookie } from '../../../configs/default__configs/cookies'
+
 const signInInfo = {
   fullname:'',
   username:'',
@@ -61,7 +63,7 @@ const Auth = () => {
 
   const Auth = (e) => {
     e.preventDefault()
-    const url =  isLogin ? "http://localhost/auth/login" : "'http://localhost/auth/signup'"
+    const url =  isLogin ? "http://localhost/auth/login" : "http://localhost/auth/signup"
       const {email,username,isFarmer,password,confirm__password,} = userInfo
     fetch(url,{
       method: 'POST',
@@ -86,7 +88,18 @@ const Auth = () => {
         }
         response.json()
         .then((data) => {
-          console.log(data)
+          if(isLogin){
+            const {isFarmer,accessToken,username,_id} = data;
+            cookie.set('username',username)
+            cookie.set('isFarmer',isFarmer)
+            cookie.set('_id',_id)
+            cookie.set('accessToken',accessToken)
+            if(data.isFarmer){
+              window.location.replace('/fM/dashboard')
+            }else{
+              window.location.replace('/cN/dashboard')
+            }
+          }
         })
         .catch((err) => {
 
@@ -149,9 +162,7 @@ const isFarmerCheckBox = (e) => {
       color: 'red',
     }}>{usernameTaken}</p>
     <p onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
-    <p>Forgotten your password,<a href="/auth/reset/email">Reset</a></p>
-
-    <Reset/>
+    <p>Forgotten your password,<a href="/reset">Reset</a></p>
     </>
   )
 }

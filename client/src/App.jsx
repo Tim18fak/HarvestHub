@@ -5,10 +5,12 @@ import Contact from "./pages/default__Pages/Contact";
 import About from './pages/default__Pages/About'
 import Auth from './pages/default__Pages/Auth'
 import Footer from "./components/default__Component/Footer";
-
+import Reset from "./pages/default__Pages/Reset";
+import { cookie } from "../configs/default__configs/cookies";
+import DefaultRoute from "./routes/default__Route/defaultRoute";
 const  App = () =>  {
-  
-
+  const id =  cookie.get('_id')
+  if(id !== undefined) return <DefaultRoute/>
   return (
     <>
       <Router >
@@ -18,6 +20,7 @@ const  App = () =>  {
     <Route  path='/contact' element={<Contact/>}/>
     <Route  path='/about' element={<About/>}/>
     <Route  path='/auth' element={<Auth/>}/>
+    <Route path="/reset" element={<Reset/>}/>
     </Routes>
     <Footer/>
     </Router>

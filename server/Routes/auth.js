@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/code',code)
 router.post('/signup', signup); // Corrected the path here
 router.post('/login', login);
-router.post('/uu/hh/reset', reset);
+router.post('/reset', reset);
 router.post('/activation',compareActivationCode);
 /* fS  means Find Username
 :u means username

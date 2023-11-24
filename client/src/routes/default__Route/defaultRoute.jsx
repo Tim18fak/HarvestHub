@@ -1,16 +1,12 @@
-/* import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Main from '../../pages/default__Pages/Main';
-
+import React from 'react';
+import { cookie } from '../../../configs/default__configs/cookies';
+import FarmerRoute from '../farmer__Route/FarmerRoute';
+import ClientRoute from '../client__Route/ClientRoute';
 const DefaultRoute = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        
-      </Routes>
-    </Router>
-  );
+  /*  */
+  const isFarmer =  cookie.get('isFarmer')
+  if(isFarmer === true) return <FarmerRoute/>
+return <ClientRoute/>
 }
 
-export default DefaultRoute; */
+export default DefaultRoute;

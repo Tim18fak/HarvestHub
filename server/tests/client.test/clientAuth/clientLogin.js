@@ -6,7 +6,7 @@ fetch(url,{
         'Content-Type': 'application/json',
       },
     body: JSON.stringify({
-        'password': 'E0INi+t2&~8$ijB4Y09v',
+        'password': 'F=:9eQwPr&<*F5v&O5h8',
         'email':'timothy.avell.olatunde@gmail.com'})
 })
 .then((response) => {

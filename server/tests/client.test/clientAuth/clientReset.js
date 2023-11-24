@@ -6,7 +6,7 @@ fetch(url,{
         'Content-Type': 'application/json',
       },
     body: JSON.stringify({
-        'email':'harvestHub4@gmail.com',
+        'email':'timothy.avell.olatunde@gmail.com',
         'isFarmer': false,
 })
 })
