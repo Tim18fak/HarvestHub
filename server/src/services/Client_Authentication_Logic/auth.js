@@ -50,11 +50,11 @@ const resetPasswordString = resetPassword.join('');
 return resetPasswordString;
 }
 /*  */
-const sendActivationCode = async (email,_id,activationCode, res, isFarmer) => {
+const sendActivationCode = async (email,activationCode, res,_id) => {
   try {
     if (activationCode) {
       const html = `
-        <!-- Your HTML content -->
+        <!-- Your HTML content ${activationCode} -->
       `;
 
       const transporter = nodemailer.createTransport({
@@ -76,7 +76,7 @@ const sendActivationCode = async (email,_id,activationCode, res, isFarmer) => {
         html: html,
       };
 
-      sendEmail(transporter, sendInfo, res, response.data, id, isFarmer);
+      sendEmail(transporter, sendInfo, res,_id);
     } else {
       throw new Error(`ActivationCode is null or Undefined. Status`);
     }
@@ -85,7 +85,7 @@ const sendActivationCode = async (email,_id,activationCode, res, isFarmer) => {
   }
 };
 /* Send reset Password */
-const sendResetPasswordEmail = async(transporter,res,sendInfo) => {
+const sendResetPasswordEmail = async(transporter,res,sendInfo,) => {
   try {
     await transporter.sendMail(sendInfo)
     res.status(200).json({'message': 'Your Temporary Password Has Been Sent'})
@@ -94,41 +94,35 @@ const sendResetPasswordEmail = async(transporter,res,sendInfo) => {
     console.log(error)
   }
 }
-const sendEmail = async (transporter, sendInfo, res, activationCode, id, isFarmer) => {
+const sendEmail = async (transporter, sendInfo, res,_id) => {
   try {
     await transporter.sendMail(sendInfo);
     console.log('email sent successfully');
-    console.log(id);
-    const client = isFarmer ? await Farmer.findOne({ _id: id }) : await User.findOne({ _id: id });
-    client.activationCode = activationCode;
-    client.save()
-      .then((data) => {
-        const {fullname,username,Id} = data;
-        res.status(200).json({ 'message': 'Your account has been created',id,fullname,username,Id});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(client);
+    return res.status(200).json({_id})
   } catch (error) {
     console.log(error);
   }
 };
 
 const signUp = async (arg, ip, res) => {
-  const { fullname, username, email, password, isFarmer } = arg;
+  try {
+    const { fullname, username, email, password, isFarmer } = arg;
+    console.log(res)
   const blockUser = await BlockedUser.findOne({ $or: [{ username }, { email }, { ip }] });
   const user = isFarmer ? await Farmer.findOne({$or : [{ email },{username}] }) : await User.findOne({$or : [{ email },{username}] });
-
+  console.log(isFarmer)
+  console.log(user)
   if (blockUser) {
     return res.status(403).json({ 'message': 'Either email or IP has been banned' });
   }
   if (user) {
-    return res.status(400).json({ 'message': 'Email has been used already' });
+    console.log('Email and Username has been used already')
+    return res.status(400).json({ 'message': 'Email and Username has been used already' });
   }
 
   const Id = crypto.randomBytes(16).toString('hex');
-  const activationCode = await axios.get('http://localhost/auth/code');
+  const response = await axios.get('http://localhost/auth/code');
+  const activationCode = response.data
   console.log(activationCode)
   const newHashedPassword = await bcrypt.hash(password, 10);
   const newUser = isFarmer ? new Farmer({
@@ -155,12 +149,15 @@ const signUp = async (arg, ip, res) => {
 
   newUser.save()
     .then(async (data) => {
-      sendActivationCode(data.email, data._id,data.activationCode, res, isFarmer);
+      sendActivationCode(data.email,data.activationCode, res, data._id);
       console.log(data.activationCode)
     })
     .catch((err) => {
       console.log(err);
     });
+  } catch (error) {
+    console.log(error.message)
+  }
 };
 
 
@@ -238,6 +235,7 @@ const clientResetPass = async(body,res) => {
  try {
   const email = body.email;
   const isFarmer = body.isFarmer;
+  console.log(body)
   const userAccount =  isFarmer ? await Farmer.findOne({email: email}) 
   :
    await User.findOne({email:email});
