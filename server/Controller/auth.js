@@ -32,12 +32,12 @@ const code = (req,res) => {
 const Found__Username = async(req,res) => {
   const {u,tr} = req.params;
   console.log(req.params)
-  if(tr){
+  if(tr === "Farmer"){
     console.log('tr')
   }else{
     console.log('false')
   }
-  const user = tr ? await Farmer.findOne({username: u}) : await User.findOne({username: u})
+  const user = tr === 'Farmer' ? await Farmer.findOne({username: u}) : await User.findOne({username: u})
   if(user === null){
     return res.sendStatus(200)
   }

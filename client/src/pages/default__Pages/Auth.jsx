@@ -23,7 +23,7 @@ const Auth = () => {
   const [usernameTaken,setUserTaken] = useState('')
   const [succesRes,setSuccesRes] = useState('')
   const [err_Res,setErrRes] = useState('')
-  const [accountCreated,setAccountCreated] = useState(true)
+  const [accountCreated,setAccountCreated] = useState(false)
 
   /* algorithm to ensure that user's enter the same password */
   useEffect(() => {
@@ -39,7 +39,8 @@ const Auth = () => {
   useEffect(() => {
     if(userInfo.username && !isLogin){
       const {username} = userInfo
-      const URL = `http://localhost/auth/fS/${username}/${checkBox}`
+      const value = checkBox ? 'Farmer' : 'Consumer'
+      const URL = `http://localhost/auth/fS/${username}/${value}`
       fetch(URL)
       .then((response) => {
         if(!response.ok){
@@ -52,6 +53,9 @@ const Auth = () => {
             break;
           case 403:
             setUserTaken('username taken')
+            setTimeout(() => {
+              setUserTaken('')
+            },3000)
             setComparePass(true)
             break;
 
@@ -94,6 +98,14 @@ const Auth = () => {
         response.json()
         .then((data) => {
           console.log(data)
+          if(isLogin && data){
+            if(response.status >= 400){
+              setErrRes(data.message)
+              setTimeout(() => {
+                setErrRes('')
+              },3000)
+            }
+          }
           if(isLogin && data._id){
             const {isFarmer,accessToken,username,_id} = data;
             cookie.set('username',username)
@@ -108,8 +120,8 @@ const Auth = () => {
           }
           if(!isLogin && response){
             if(response.status === 200){
-              console.log(data._id)
-              setSuccesRes(data._id)
+              console.log(data)
+              setSuccesRes(data)
               setAccountCreated((pre) => !accountCreated)
             }
             if(response.status >= 400){
@@ -117,7 +129,6 @@ const Auth = () => {
               setTimeout(() => {
                 setErrRes('')
               },3000)
-              console.log(data.message + 'bad request')
             }
           }
         })
@@ -187,7 +198,9 @@ const isFarmerCheckBox = (e) => {
     <p style={{
       color: 'red',
     }}>{usernameTaken}</p>
-    <p>{err_Res}</p>
+    <p style={{
+      color: 'red',
+    }}>{err_Res}</p>
     <p onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
     <p>Forgotten your password,<a href="/reset">Reset</a></p>
     </>

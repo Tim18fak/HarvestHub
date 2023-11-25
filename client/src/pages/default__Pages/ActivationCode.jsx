@@ -2,20 +2,20 @@ import React, { useState } from 'react'
 
 const ActivationCode = ({ res }) => {
     const [confirmCode,setConfirmCode] = useState('')
-    const id = res
-    console.log(id)
+    console.log(res)
+    const { _id,isFarmer} = res
     const submitActivationCode = (e) => {
         e.preventDefault()
-        const activationCodeUrl = `http://localhost/auth//activation?clientId=${id}`
-        fetch('',{
+        const activationCodeUrl = `http://localhost/auth//activation?clientId=${_id}`
+        fetch(activationCodeUrl,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({'code': confirmCode})
+            body: JSON.stringify({'code': confirmCode,'isFarmer': isFarmer})
         })
         .then((response) => {
-            if(response.status <= 300){
+            if(response.status === 200){
                 window.location.replace('/auth')
             }
         })
@@ -27,7 +27,7 @@ const ActivationCode = ({ res }) => {
   return (
     <form onSubmit={submitActivationCode}>
         <div>
-           <span>HHB-</span> <input type="text" onChange={activeCode}/>
+           <span>HHB-</span> <input type="number" onChange={activeCode}/>
         </div>
         <button>Sumbit ActivationCode</button>
     </form>
