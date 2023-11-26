@@ -33,13 +33,14 @@ const farmerSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
+  title: { type: String, /* required: true */},
   description: { type: String, /* required: true */},
   Image: { type: Array, /* required: true */},
   location: { type: String, /* required: true */},
   date: { type: Date, /* required: true */},
   quantity: { type: String},
   price: { type: String},
-  catergory: { type: String},
+  catergory: { type: Array},
   Farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer' // 'Seller' should match the name of the Seller model

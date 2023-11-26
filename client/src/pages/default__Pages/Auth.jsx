@@ -81,7 +81,8 @@ const Auth = () => {
       body: isLogin ? JSON.stringify({
         email,
         username,
-        password
+        password,
+        isFarmer:checkBox,
       }) : JSON.stringify({
         email,
         username,
@@ -113,7 +114,7 @@ const Auth = () => {
             cookie.set('_id',_id)
             cookie.set('accessToken',accessToken)
             if(data.isFarmer){
-              window.location.replace('/fM/dashboard')
+              window.location.replace('/fM/profile')
             }else{
               window.location.replace('/cN/dashboard')
             }
@@ -182,13 +183,11 @@ const isFarmerCheckBox = (e) => {
         <label htmlFor="confirm__password">Confirm Password</label>
       </div>
       )}
-      {!isLogin && (
          <div>
          <input type="checkbox" name='isFarmer' checked={checkBox} onChange={isFarmerCheckBox}/>
          <label htmlFor="isFarmer">Are You A Farmer</label>
        </div>
-      )
-      }
+
       <button disabled={!isLogin && comparePass ? true : false}>{isLogin ? "Login In" : "Sign In"}</button>
       </form>
     )}

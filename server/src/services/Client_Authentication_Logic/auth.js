@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const { clientAuthToken } = require('../../../middlewares/client_authorization');
 const { axios } = require('../../../config/axios.config');
+const { constants } = require('fs');
 
 
 ////////  authentication code analysis
@@ -162,43 +163,31 @@ const signUp = async (arg, ip, res) => {
 
 
 const clientLogin = async(body,id,res) =>{
-  const {email,password} = body;
-  console.log(email,password)
-  const farmer = await Farmer.findOne({email: email})
-  const consumer = await User.findOne({email:email});
-  if(!farmer && !consumer){
+  try{
+    const {email,password,username,isFarmer} = body;
+  console.log(body)
+  const clientLogin = isFarmer ? await Farmer.findOne({email: email}) : await User.findOne({email: email});
+  console.log(clientLogin)
+  if(!clientLogin){
     return res.status(403).json({'message': 'Account Not Found'})
   }
-  if(farmer){
-    if(farmer.activationCodeStatus === 'Pending'){
-      return res.status(403).json({'message': 'Account Has Not Been Verified'})
-    }
-    const validPass = await bcrypt.compare(password,farmer.hashedPassword)
-    if(!validPass){
-      return res.status(403).json({'message': 'Invalid Password'})
-    }
-    const {isFarmer,_id,username,email} =  farmer
-    const accessToken = await clientAuthToken(_id,username,email,isFarmer)
+  if(clientLogin.activationCodeStatus === 'Pendind'){
+    return res.status(403).json({'message': 'Account Has Not Been Verified'})
+  }
+  const clientValidPass = await bcrypt.compare(password,clientLogin.hashedPassword)
+  if(!clientValidPass){
+    return res.status(403).json({'message': 'Invalid Password'})
+  }
+  const {_id} =  clientLogin
+  const accessToken = await clientAuthToken(_id,username,email,isFarmer)
+  return res.status(200).json({accessToken,isFarmer,_id,username})
+  }
+  catch(err){
 
-    return res.status(200).json({accessToken,isFarmer,_id,username})
-    
   }
 
-  if(consumer){
-    if(consumer.activationCodeStatus === 'Pending'){
-      return res.status(403).json({'message': 'Account Has Not Been Verified'})
-    }
-    const validPass = await bcrypt.compare(password,consumer.hashedPassword)
-    if(!validPass){
-      return res.status(403).json({'message': 'Invalid Password'})
-    }
-    const {isFarmer,_id,username,email} = consumer
-    const accessToken = await clientAuthToken(_id,username,email,isFarmer)
-
-    return res.status(200).json({accessToken,isFarmer,_id,username})
+ 
   }
-
-}
 const clientActivationCode = async(body,res,Id) => {
   try {
     /* to covert a string to number use Number(body.code) or parseInt() */
@@ -238,6 +227,7 @@ const clientResetPass = async (body, res) => {
 
     // Generate a new password
     const new_password = resetPasswordCharacter();
+    console.log(new_password)
     const newHashPassword = await bcrypt.hash(new_password, 15);
 
     // Update hashedPassword
@@ -248,8 +238,6 @@ const clientResetPass = async (body, res) => {
 
     // Send the updated userAccount or a success response to the client
     sendResetPassword(email, new_password, res);
-
-    console.log(userAccount.hashedPassword);
   } catch (error) {
     // Log or handle errors
     console.error('Error in clientResetPass:', error);
