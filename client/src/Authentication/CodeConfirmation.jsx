@@ -43,11 +43,8 @@ const CodeConfirmation = ({ form, isFarmer }) => {
     }
     const submit = async (e) => {
       e.preventDefault()
-<<<<<<< HEAD
-      const URL = 'https://localhost/auth/signup'
-=======
+
       const URL = 'http://localhost/auth/signup'
->>>>>>> 450c0276ffc14fe21953e9ff0a5db5bc5e6ef997
       const code = `${digit1}${digit2}${digit3}${digit4}`
       const Code = sessionStorage.getItem('code')
       const {fullname, username, email, password } = form
