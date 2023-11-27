@@ -1,0 +1,46 @@
+
+*{
+    box-sizing: border-box;
+}
+@media screen and (min-width: 300px) and (max-width: 500px) {
+    body {
+        margin: 0rem 1rem;
+        padding: 0rem 1rem; 
+    }
+}
+@media screen and (min-width: 501px) and (max-width: 700px) {
+    body {
+        margin: 0rem 1.2rem;
+        padding: 0rem  1.2rem; 
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+    body {
+        margin: 0rem 1.5rem;
+        padding: 0rem  1.5rem; 
+    }
+}
+@media screen and (min-width: 1001px) and (max-width: 1400px) {
+    body {
+        margin: 0rem 1.7rem;
+        padding: 0rem  1.7rem; 
+    }
+}
+@media screen and (min-width: 1401px){
+    body {
+        margin: 0rem 2rem;
+        padding:  0rem 2rem; 
+    }
+}
+body {
+    
+}  
+a{
+    text-decoration: none;
+}
+li{
+    list-style-type: none;
+}
+li:hover{
+
+}

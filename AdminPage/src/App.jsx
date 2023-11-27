@@ -1,27 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import React,{ useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import viteLogo from '/vite.svg'
-import './App.css'
+import './global.css'
+
+
+
 import Header from './components/Header/Header'
-import Signin from './components/Signin';
-import Homepage from './components/Home/Homepage';
-import About from './components/AboutUs/About';
+import Login from './pages/Login/Login';
+import Homepage from './pages/Home/Homepage';
+import About from './pages/AboutUs/About';
+import Footer from './components/Footer/footer'
+import cookie from '../config/cookie'
+import Dashboard from './pages/Dashboard/Dashboard';
+
+
 
 const App = () =>  {
- 
-
+  const [adminCookie,setAdminCookie] = useState(null)
+  const id = cookie.get('id')
+  if(id !== undefined) return <Dashboard/>
   return (
     <>
     <Router >
     <div><Header /></div>
     <Routes>
     <Route  path='/' element={<Homepage/>}/>
-    <Route  path='/signin' element={<Signin/>}/>
+    <Route  path='/signin' element={<Login/>}/>
     <Route  path='/about' element={<About/>}/>
     </Routes>
     </Router>
-     
+     <Footer />
     </>
   )
 }

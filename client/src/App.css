@@ -1,5 +1,0 @@
-.sample::before{
-  content: '';
-  font-size: 3rem;
-  outline: 3px solid black;
-}

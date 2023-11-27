@@ -11,7 +11,7 @@ const farmerSchema = new mongoose.Schema({
   Ip: { type: String, required: true},
   activationCode: { type: Number},
   activationCodeStatus: { type: String, required: true},
-  
+  authorizationToken: { type: String},
   phoneNumber: { type: Number},
   isFarmer: {type: Boolean ,required: true},
   location: { type: String},
@@ -33,13 +33,14 @@ const farmerSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
+  title: { type: String, /* required: true */},
   description: { type: String, /* required: true */},
   Image: { type: Array, /* required: true */},
   location: { type: String, /* required: true */},
   date: { type: Date, /* required: true */},
   quantity: { type: String},
   price: { type: String},
-  catergory: { type: String},
+  catergory: { type: Array},
   Farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer' // 'Seller' should match the name of the Seller model
@@ -57,8 +58,8 @@ const userSchema = new mongoose.Schema({
   email: {type: String, required: true},
   Ip: { type: String, required: true},
   aboutYourself: { type: String},
-  isFarmer: {type: Boolean ,required: true}
-
+  isFarmer: {type: Boolean ,required: true},
+  authorizationToken: { type: String},
   // ... other fields
 });
 
@@ -72,9 +73,9 @@ const reviewSchema = new mongoose.Schema({
 });
 const Banned  = new mongoose.Schema({
   // ... fields
-  username: { type: String, required: true},
-  email: { type: String, required: true},
-  password: { type: String, required: true}
+  username: { type: String, },
+  email: { type: String,},
+  Ip: { type: String, }
 });
 const adminInfo = new mongoose.Schema({
   adminId: { type: String, required: true},
@@ -83,10 +84,14 @@ const adminInfo = new mongoose.Schema({
   password: { type: String, required: true},
   activationCode: { type: Number},
   activationCodeStatus: { type: String, required: true},
+  authorizationToken: { type: String},
 })
-
-
-
+const chatMessage = mongoose.Schema({
+  chatId: {type: String},
+  username: {type: String},
+  adminUsername: {type:String},
+  message: {type: Array}
+})
 const BlockedUser = mongoose.model('BannedUser', Banned );
 const Admin = mongoose.model('Admin',adminInfo)
 const Farmer = mongoose.model('Farmer', farmerSchema);
@@ -94,5 +99,5 @@ const Product = mongoose.model('Product', productSchema);
 const User = mongoose.model('User', userSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
-
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin };
+const ChatModule = mongoose.model('chatMessage',chatMessage)
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule };
