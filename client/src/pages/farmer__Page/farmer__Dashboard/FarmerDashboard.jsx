@@ -3,7 +3,7 @@ import React from 'react'
 const FarmerDashboard = () => {
   return (
     <div>
-      hh
+      FarmerDashboard
     </div>
   )
 }

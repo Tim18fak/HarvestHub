@@ -8,6 +8,7 @@ import Footer from "./components/default__Component/Footer";
 import Reset from "./pages/default__Pages/Reset";
 import { cookie } from "../configs/default__configs/cookies";
 import DefaultRoute from "./routes/default__Route/defaultRoute";
+import './global.css'
 const  App = () =>  {
   const id =  cookie.get('_id')
   if(id !== undefined) return <DefaultRoute/>

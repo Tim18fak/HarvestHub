@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const nodemailer = require('nodemailer')
 const { clientAuthToken } = require('../../../middlewares/client_authorization');
 const { axios } = require('../../../config/axios.config');
+const { constants } = require('fs');
 
 
 ////////  authentication code analysis
@@ -13,7 +14,7 @@ const sendResetPassword = async(email,new_password,res) => {
   const transporter = nodemailer.createTransport({
     service: process.env.EmailService,
     host: process.env.EmailHost,
-    port: process.env.EmailServicePort,
+    port: process.env.Emairt,
     secure: false,
     auth: {
       user: process.env.HarvestHubGmail,
@@ -50,7 +51,7 @@ const resetPasswordString = resetPassword.join('');
 return resetPasswordString;
 }
 /*  */
-const sendActivationCode = async (email,activationCode, res,_id) => {
+const sendActivationCode = async (email,activationCode, res,_id,isFarmer) => {
   try {
     if (activationCode) {
       const html = `
@@ -76,7 +77,7 @@ const sendActivationCode = async (email,activationCode, res,_id) => {
         html: html,
       };
 
-      sendEmail(transporter, sendInfo, res,_id);
+      sendEmail(transporter, sendInfo, res,_id,isFarmer);
     } else {
       throw new Error(`ActivationCode is null or Undefined. Status`);
     }
@@ -94,11 +95,11 @@ const sendResetPasswordEmail = async(transporter,res,sendInfo,) => {
     console.log(error)
   }
 }
-const sendEmail = async (transporter, sendInfo, res,_id) => {
+const sendEmail = async (transporter, sendInfo, res,_id,isFarmer) => {
   try {
     await transporter.sendMail(sendInfo);
     console.log('email sent successfully');
-    return res.status(200).json({_id})
+    return res.status(200).json({_id,isFarmer})
   } catch (error) {
     console.log(error);
   }
@@ -149,7 +150,7 @@ const signUp = async (arg, ip, res) => {
 
   newUser.save()
     .then(async (data) => {
-      sendActivationCode(data.email,data.activationCode, res, data._id);
+      sendActivationCode(data.email,data.activationCode, res, data._id,data.isFarmer);
       console.log(data.activationCode)
     })
     .catch((err) => {
@@ -162,101 +163,87 @@ const signUp = async (arg, ip, res) => {
 
 
 const clientLogin = async(body,id,res) =>{
-  const {email,password} = body;
-  console.log(email,password)
-  const farmer = await Farmer.findOne({email: email})
-  const consumer = await User.findOne({email:email});
-  if(!farmer && !consumer){
+  try{
+    const {email,password,username,isFarmer} = body;
+  console.log(body)
+  const clientLogin = isFarmer ? await Farmer.findOne({email: email}) : await User.findOne({email: email});
+  console.log(clientLogin)
+  if(!clientLogin){
     return res.status(403).json({'message': 'Account Not Found'})
   }
-  if(farmer){
-    if(farmer.activationCodeStatus === 'Pending'){
-      return res.status(403).json({'message': 'Account Has Not Been Verified'})
-    }
-    const validPass = await bcrypt.compare(password,farmer.hashedPassword)
-    if(!validPass){
-      return res.status(403).json({'message': 'Invalid Password'})
-    }
-    const {isFarmer,_id,username,email} =  farmer
-    const accessToken = await clientAuthToken(_id,username,email,isFarmer)
+  if(clientLogin.activationCodeStatus === 'Pendind'){
+    return res.status(403).json({'message': 'Account Has Not Been Verified'})
+  }
+  const clientValidPass = await bcrypt.compare(password,clientLogin.hashedPassword)
+  if(!clientValidPass){
+    return res.status(403).json({'message': 'Invalid Password'})
+  }
+  const {_id} =  clientLogin
+  const accessToken = await clientAuthToken(_id,username,email,isFarmer)
+  return res.status(200).json({accessToken,isFarmer,_id,username})
+  }
+  catch(err){
 
-    return res.status(200).json({accessToken,isFarmer,_id,username})
-    
   }
 
-  if(consumer){
-    if(consumer.activationCodeStatus === 'Pending'){
-      return res.status(403).json({'message': 'Account Has Not Been Verified'})
-    }
-    const validPass = await bcrypt.compare(password,consumer.hashedPassword)
-    if(!validPass){
-      return res.status(403).json({'message': 'Invalid Password'})
-    }
-    const {isFarmer,_id,username,email} = consumer
-    const accessToken = await clientAuthToken(_id,username,email,isFarmer)
-
-    return res.status(200).json({accessToken,isFarmer,_id,username})
+ 
   }
-
-}
 const clientActivationCode = async(body,res,Id) => {
   try {
-    const code = body.code;
+    /* to covert a string to number use Number(body.code) or parseInt() */
+    const code = parseInt(body.code,10);
+    console.log(code)
+    const isFarmer = body.isFarmer;
     console.log(Id)
-  const farmerVerificationCode  =  await Farmer.findOne({_id: Id});
-  const consumerVerificationCode = await User.findOne({_id:Id});
-  /* If id is not found */
-  if(!farmerVerificationCode && !consumerVerificationCode){
-    return console.log('Account Not Found')
-  }
-  /*  */
-  if(farmerVerificationCode){
-    if(code  !== farmerVerificationCode.activationCode){
-      return res.status(403).json({'message': 'Invalid Activation Coe'})
+
+    const newClientAccountActivation = isFarmer ? await Farmer.findOne({_id:Id}) : await User.findOne({_id:Id})
+    if(!newClientAccountActivation){
+      return console.log('Account Not Found')
     }
-    farmerVerificationCode.activationCodeStatus = 'Fulfilled';
-      await farmerVerificationCode.save();
-      return res.status(202).json({'message': 'Valid Activation Code'})
-  }
-  /*  */
-  if(consumerVerificationCode){
-    if(code !== consumerVerificationCode.activationCode){
-      return res.status(403).json({'message': 'Invalid Activation code'})
+    console.log(newClientAccountActivation)
+    console.log(typeof code)
+      if(code !== newClientAccountActivation.activationCode){
+      console.log('invalid')
+      return res.status(403).json({'message': 'Invalid ActivationCode'})
+    }else{
+      newClientAccountActivation.activationCodeStatus = 'fulfilled';
+      await newClientAccountActivation.save()
+      console.log('activation code successful')
+      return res.status(200).json({'message': 'successful'})
     }
-    consumerVerificationCode.activationCodeStatus =  'Fulfilled'
-      await consumerVerificationCode.save();
-      return res.status(202).json({'message': 'Valid Activation code'})
-  }
   } catch (error) {
     console.log(error.message)
   }
 }
-const clientResetPass = async(body,res) => {
- try {
-  const email = body.email;
-  const isFarmer = body.isFarmer;
-  console.log(body)
-  const userAccount =  isFarmer ? await Farmer.findOne({email: email}) 
-  :
-   await User.findOne({email:email});
-   const new_password = resetPasswordCharacter();
-   console.log(new_password)
-   const newHashPassword = await bcrypt.hash(new_password,15)
-   if(!userAccount){
-    throw new Error('Account Not Found')
-   }
-   userAccount.hashedPassword = newHashPassword;
-   userAccount.save()
-   .then((data) => {
-    sendResetPassword(email,new_password,res)
-    console.log(data.hashedPassword)
-   })
-   .catch((err) => {
+const clientResetPass = async (body, res) => {
+  try {
+    const email = body.email;
+    const isFarmer = body.isFarmer;
 
-   })
- } catch (error) {
-  console.log(error)
- }
+    const userAccount = isFarmer ? await Farmer.findOne({ email: email }) : await User.findOne({ email: email });
 
-}
+    if (!userAccount) {
+      throw new Error('Account Not Found');
+    }
+
+    // Generate a new password
+    const new_password = resetPasswordCharacter();
+    console.log(new_password)
+    const newHashPassword = await bcrypt.hash(new_password, 15);
+
+    // Update hashedPassword
+    userAccount.hashedPassword = newHashPassword;
+
+    // Save the updated userAccount
+    await userAccount.save();
+
+    // Send the updated userAccount or a success response to the client
+    sendResetPassword(email, new_password, res);
+  } catch (error) {
+    // Log or handle errors
+    console.error('Error in clientResetPass:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 module.exports = { signUp,clientLogin,clientActivationCode,clientResetPass};

@@ -54,4 +54,10 @@ const createProduct = async (req, res) => {
 const deleteProduct = async() => {
 
 }
-module.exports = { createProduct, deleteProduct}
+
+const testUploadProduct = async(req,res) => {
+  console.log(req.params)
+  console.log(req.body)
+  console.log(req.file)
+}
+module.exports = { createProduct, deleteProduct,testUploadProduct}
