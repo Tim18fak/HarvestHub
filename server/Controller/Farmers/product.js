@@ -58,6 +58,6 @@ const deleteProduct = async() => {
 const testUploadProduct = async(req,res) => {
   console.log(req.params)
   console.log(req.body)
-  console.log(req.file)
+  console.log(req.authorizate)
 }
 module.exports = { createProduct, deleteProduct,testUploadProduct}
