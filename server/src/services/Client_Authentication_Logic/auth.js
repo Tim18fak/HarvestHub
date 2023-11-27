@@ -212,7 +212,7 @@ const clientActivationCode = async(body,res,Id) => {
   /*  */
   if(farmerVerificationCode){
     if(code  !== farmerVerificationCode.activationCode){
-      return res.status(403).json({'message': 'Invalid Activation Code'})
+      return res.status(403).json({'message': 'Invalid Activation Coe'})
     }
     farmerVerificationCode.activationCodeStatus = 'Fulfilled';
       await farmerVerificationCode.save();
