@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 
 const cropCategory = {
   Cereals: '',
@@ -16,7 +17,7 @@ const livestockCategory = {
 }
 const produceInfo =  {
   price: '',
-  category:'',
+  category:[],
   date:'',
   title:'',
   description:'',
@@ -24,52 +25,70 @@ const produceInfo =  {
   quantity:'',
 }
 const FarmerAddProduce = () => {
-  const [selectedImages,setSelectedImages] = useState('')
+  const [selectedImages,setSelectedImages] = useState([])
   const [err,setErr] = useState('')
   const [selectedCategories,setSelectedCategories] =  useState([])
   const [disableSubmit,setDisableSubmit] = useState(false)
   const [produce,setProduceInfo] =  useState(produceInfo)
+  const [userinfo,setSetinfo] =  useState('')
+  const userInfo = useContext(UserContext);
 
+  /* getting the userInfo from the useContext hook */
   useEffect(() => {
-    if(selectedImages > 3){
-      setErr('Please only pick 5 best images of your product')
-      setDisableSubmit(true)
-    }
-  },[selectedImages])
+    setSetinfo(userInfo)
+  },[produce])
 
-  const formData = new FormData();
+/* add the produce data to the formData Object */
+  const produceData = new FormData();
   for (let i = 0; i < selectedImages.length; i++) {
-    formData.append("image", selectedImages[i]);
+    produceData.append("image", selectedImages[i]);
   }
+  produceData.append('price',produce.price)
+  produceData.append('location',produce.location)
+  produceData.append('date',produce.date)
+  produceData.append('description',produce.description)
+  produceData.append('title',produce.title)
+  produceData.append('quantity', produce.quantity)
   /* Getting the images from the Farmer device  */
   const getProduceImage = (e) => {
-    const {files} = e.target
-    if(files.length < 5){
-      setSelectedImages('')
-    }
-    console.log(files.length)
-    setSelectedImages(files)
+    const { files } = e.target;
+  setSelectedImages(Array.from(files));
   }
+  /* to remove the category from the ui */
   const removeCategory = (category) => {
     if(selectedCategories){
       const updatedCategories = selectedCategories.filter((value) => category !== value)
       setSelectedCategories(updatedCategories)
     }
   }
+  /* to add category to the ui */
   const addCategories = (category) => {
     if(!selectedCategories.find((value) => category === value)){
       setSelectedCategories([...selectedCategories,category])
     }  
   }
+  /*  to get the produce info from the user and store it in the useState variable */
   const addProduceInfo = (e) => {
     const  {name, value} =  e.target
     setProduceInfo({...produce,[name]: value})
   }
-const uploadProduce = () => {
+  /* the submit the produce info to the back end */
+const uploadProduce = (e) => {
   e.preventDefault()
+ try{
+  const url = `http://localhost/farmerUser/testProduce/${userInfo}`
   if(!selectedImages){
-    
+    alert("Please select an image to upload.");
   }
+  for(let i = 0;i < selectedCategories.length;i++){
+    produce.category.push(selectedCategories[i])
+  }
+  produceData.append('category',produce.category)
+  console.log(produce)
+ }
+ catch(err){
+
+ }
 
 }
   return (
@@ -97,6 +116,17 @@ const uploadProduce = () => {
         ))}
         </div>
       </main>
+    </section>
+    <section>
+    {selectedImages.length === 0 ? (
+    <p>No images selected</p>
+  ) : (
+    selectedImages.map((image, index) => (
+      <figure key={index}>
+        <img src={URL.createObjectURL(image)} alt="" />
+      </figure>
+    ))
+  )}
     </section>
     <form action="" onSubmit={uploadProduce}>
       <aside>
@@ -128,6 +158,7 @@ const uploadProduce = () => {
               <label htmlFor="price">Price Tag</label>
             </div>
       </main>
+      <button>Add Produce</button>
     </form>
     </>
   )
