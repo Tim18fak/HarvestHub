@@ -42,6 +42,7 @@ const FarmerAddProduce = () => {
     const { files } = e.target;
   setSelectedImages(Array.from(files));
   }
+
   /* to remove the category from the ui */
   const removeCategory = (category) => {
     if(selectedCategories){
@@ -49,11 +50,6 @@ const FarmerAddProduce = () => {
       setSelectedCategories(updatedCategories)
     }
   }
-  const produceImages = new FormData();
-  for(let i = 0;i < selectedImages.length; i++){
-    produceImages.append('image',selectedImages[i])
-  }
-  console.log(selectedImages)
   /* to add category to the ui */
   const addCategories = (category) => {
     if(!selectedCategories.find((value) => category === value)){
@@ -68,50 +64,60 @@ const FarmerAddProduce = () => {
   /* the submit the produce info to the back end */
   const uploadProduce = async (e) => {
     e.preventDefault();
-  
-    try {
+    try{
+      const images = [];
       const url = `http://localhost/farmerUser/testProduce/${userInfo._id}`;
-      if (selectedImages.length === 0) {
-        return alert("Please select an image to upload.");
+      for(const produceImage of selectedImages){
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          console.log(e.target.result)
+          const imageData = e.target.result;
+          images.push(imageData);
+          if(images.length === selectedImages.length){
+            const {title,description,location,price,date,quantity} =  produce
+            fetch(url,{
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userInfo.accessToken}`
+              },
+              body: JSON.stringify({
+                images: images,
+                category: selectedCategories,
+                title,
+                description,
+                location,
+                price,
+                date,
+                quantity
+              })
+            })
+            .then((response) => {
+              if(!response.ok){
+                return console.log(response.message)
+              }
+              response.json()
+              .then((data) => {
+                setErr(data)
+              })
+            })
+            .catch((e) => {
+
+            })
+          }
+        }
+        reader.readAsDataURL(produceImage);
       }
-  
-      const { date, location, title, description, quantity } = produce;
-  
-      const formData = new FormData();
-      formData.append('category', selectedCategories);
-      formData.append('date', date);
-      formData.append('location', location);
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('quantity', quantity);
-  
-      for (let i = 0; i < selectedImages.length; i++) {
-        formData.append('images', selectedImages[i]);
-      }
-  
-      const response = await Axios.post(url, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-  
-      console.log({
-        date,
-        location,
-        title,
-        description,
-        quantity,
-        selectedImages,
-        selectedCategories,
-      });
-    } catch (err) {
-      console.error(err);
+    }
+    catch(err){
+
     }
   };
   
   return (
     <>
     <section>
+    <p>{err}</p>
       <aside>
         <h3>Add a category</h3>
         {selectedCategories.map((category,index) => (
