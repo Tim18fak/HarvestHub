@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
   date: { type: Date, /* required: true */},
   quantity: { type: String},
   price: { type: String},
-  catergory: { type: Array},
+  category: { type: Array},
   Farmer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer' // 'Seller' should match the name of the Seller model
