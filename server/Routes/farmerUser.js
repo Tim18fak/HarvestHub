@@ -6,5 +6,5 @@ const router = express.Router()
 router.post('/profile',profile)
 router.get('/farmerProfile',getProfile)
 router.post('/createProduct',createProduct)
-router.post('/testProduce/:Id',authenticateFarmerToken,testUploadProduct)
+router.post('/testProduce/:Id',testUploadProduct)
 module.exports = router

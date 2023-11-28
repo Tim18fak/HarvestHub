@@ -88,7 +88,9 @@ const testUploadProduct = async(req,res) => {
   farmer.products.push(produceInfo._id)
   await farmer.save();
   console.log('product field updated')
-
+  res.status(204).json({
+    'message': 'Produce Uploaded Successfully'
+  })
   } catch (error) {
     console.log(error.message)
   }

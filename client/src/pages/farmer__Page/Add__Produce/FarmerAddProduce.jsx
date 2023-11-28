@@ -66,7 +66,7 @@ const FarmerAddProduce = () => {
     e.preventDefault();
     try{
       const images = [];
-      const url = `https://harvest-hub-git-farmerprofile-tim18fak.vercel.app/farmerUser/testProduce/${userInfo._id}`;
+      const url = `http://localhost/farmerUser/testProduce/${userInfo._id}`;
       for(const produceImage of selectedImages){
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -93,13 +93,14 @@ const FarmerAddProduce = () => {
               })
             })
             .then((response) => {
-              if(!response.ok){
-                return console.log(response.message)
+              console.log(response)
+              if(response.status !== 204){
+                alert('Upload Failed')
               }
-              response.json()
-              .then((data) => {
-                setErr(data)
-              })
+              alert('Your Produce has been saved')
+              setSelectedCategories([''])
+              setSelectedImages('')
+              setProduceInfo(produceInfo)
             })
             .catch((e) => {
 
@@ -121,8 +122,7 @@ const FarmerAddProduce = () => {
       <aside>
         <h3>Add a category</h3>
         {selectedCategories.map((category,index) => (
-          <p key={index} >{category}
-          <span onClick={() => removeCategory(category)}>-</span>
+          <p key={index} onClick={() => removeCategory(category)} >{category}
           </p>
         ))}
       </aside>
@@ -158,27 +158,27 @@ const FarmerAddProduce = () => {
       </aside>
       <main>
             <div>
-              <input type="text" name='title' placeholder='Title' onChange={addProduceInfo}/>
+              <input type="text" name='title' placeholder='Title' onChange={addProduceInfo} value={produce.title}/>
               <label htmlFor="title">Title</label>
             </div>
             <div>
-              <input type="text" name='description' placeholder='Description' onChange={addProduceInfo}/>
+              <input type="text" name='description' placeholder='Description' value={produce.description} onChange={addProduceInfo}/>
               <label htmlFor="description">Description</label>
             </div>
             <div>
-              <input type="text" name='location' placeholder='Location' onChange={addProduceInfo}/>
+              <input type="text" name='location' placeholder='Location' onChange={addProduceInfo} value={produce.location}/>
               <label htmlFor="location">Location</label>
             </div>
             <div>
-              <input type="date" name='date' placeholder='Date' onChange={addProduceInfo}/>
+              <input type="date" name='date' placeholder='Date' onChange={addProduceInfo} value={produce.date}/>
               <label htmlFor="date">Date</label>
             </div>
             <div>
-              <input type="number" name='quantity' placeholder='Quantity' onChange={addProduceInfo}/>
+              <input type="number" name='quantity' placeholder='Quantity' onChange={addProduceInfo} value={produce.quantity}/>
               <label htmlFor="quantity">Quantity</label>
             </div>
             <div>
-              <input type="number" name='price' placeholder='Price Tag' onChange={addProduceInfo}/>
+              <input type="number" name='price' placeholder='Price Tag' onChange={addProduceInfo} value={produce.price}/>
               <label htmlFor="price">Price Tag</label>
             </div>
       </main>
