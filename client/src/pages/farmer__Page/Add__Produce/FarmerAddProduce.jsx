@@ -66,7 +66,7 @@ const FarmerAddProduce = () => {
     e.preventDefault();
     try{
       const images = [];
-      const url = `http://localhost/farmerUser/testProduce/${userInfo._id}`;
+      const url = `https://harvest-hub-git-farmerprofile-tim18fak.vercel.app/farmerUser/testProduce/${userInfo._id}`;
       for(const produceImage of selectedImages){
         const reader = new FileReader();
         reader.onload = (e) => {
