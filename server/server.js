@@ -31,11 +31,11 @@ server.listen(80, () => {
 });
 
 // Route links
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   req.header("Access-Control-Allow-Origin", "http://localhost:5173");
   // Other CORS headers and configurations can be added here
   next();
-}); */
+});
 
 
 app.use("/productimages", express.static("uploads"));

@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+
+
 
 const FarmerProduce = () => {
+  
   return (
-    <div>
-      FarmerProduce
-    </div>
+    <>
+    jj
+    </>
   )
 }
 
 export default FarmerProduce
+const farmerBio = {
+  name: '',
+  email:'',
+  address: '',
+  nationalId: '',
+  phoneNumber: '',
+  driverLicence: '',
+  farmingExperience: ''
+}
+const farmInfo = {
+  type: '',
+  location:'',
+  
+}
