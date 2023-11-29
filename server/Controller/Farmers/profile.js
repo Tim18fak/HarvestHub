@@ -17,6 +17,20 @@ const profile = async (req, res) => {
   })
 }
 
+const updateProfile = async(req,res) => {
+  try {
+    const {} = req.body
+    const ID =  req.params.Id
+    console.log(req.body)
+    const farmer =  await Farmer.findById(ID);
+  if(!farmer){
+    
+  }
 
-module.exports = { profile };
+  } catch (error) {
+    
+  }
+}
+
+module.exports = { profile,updateProfile };
 

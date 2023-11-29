@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../../hooks/useContext/ConsumerInfo';
-import { Axios } from '../../../../configs/default__configs/axios.config';
-
 const farmerBio = {
   name: '',
   email: '',
@@ -15,14 +13,13 @@ const farmerBio = {
 const farm = {
   type: '',
   location: '',
-  farmSpecialization: '',
 };
 
 const FarmerProfile = ({state, farmerProfile}) => {
   const [profile,setProfile] = useState(farmerProfile)
   const [bio, setBio] = useState(farmerBio);
   const [farmBio,setFarmBio] = useState(farm)
-  const [bioImage, setBioImage] = useState([]);
+  const [bioImage, setBioImage] = useState('');
   const userInfo = useContext(UserContext);
 
   useEffect(() => {
@@ -34,44 +31,56 @@ const FarmerProfile = ({state, farmerProfile}) => {
     console.log(farmBio)
   },[farmBio,bio]) */
 
-
+ 
   /* Get Profile image from user */
   const getBioImage = (e) => {
     const { files } = e.target;
-    setBioImage(files[0]);
+    setBioImage();
+    const bioFile =  new FileReader()
+    bioFile.onload = (e) => {
+      const processedBioImage = e.target.result;
+      setBioImage(processedBioImage)
+      console.log(bioImage)
+    }
+    bioFile.readAsDataURL(files[0]);
   };
-
+  console.log(bioImage)
   const getInfo = (e) => {
     const {name,value} = e.target;
     setBio({...bio,[name]: value})
-    console.log(bio)
   }
 
   const farmInfo = (e) => {
     const {name,value} = e.target;
     setFarmBio({...farmBio,[name]: value})
+    console.log(farmBio)
   }
 
   /* Submit BioData */
   const bioSubmit = async (e) => {
     e.preventDefault();
+    console.log(userInfo)
     try {
-      const bioUrl = '';
-      const bioFile = new FileReader();
-      bioFile.onload = (e) => {
-        const processedBioImage = e.target.result;
-        fetch('',{
-          headers :{
-            'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${userInfo.accessToken}`
-          },
-          body: JSON({
-            profileImage:processedBioImage
-          })
+      const bioUrl = `http://localhost/farmerUser/updateprofile/${userInfo._id}`;
+      fetch(bioUrl,{
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${profile.accessToken}`
+        },
+        body: JSON.stringify({
+          bioImage:bioImage,
+          bio: bio,
+          farm: farmBio
         })
-        console.log(processedBioImage);
-      };
-      bioFile.readAsDataURL(bioImage);
+      })
+      .then((response) => {
+
+      })
+      .catch((err) => {
+        
+      })
+      
     } catch (err) {
       console.error(err.message);
     }
@@ -86,7 +95,7 @@ const FarmerProfile = ({state, farmerProfile}) => {
     <>
       <section>
     <aside>
-            <img src="" width={200} height={200} alt="" />
+            <img src={!bioImage ? 'https://img.freepik.com/free-vector/farmer-using-technology-digital-agriculture_53876-113813.jpg?size=626&ext=jpg&ga=GA1.1.222711603.1699046896&semt=ais' : bioImage} width={200} height={200} alt="" />
       </aside>
       <form action="" onSubmit={bioSubmit}>
         <main>
@@ -94,7 +103,7 @@ const FarmerProfile = ({state, farmerProfile}) => {
           <input type="file" onChange={getBioImage} />
         </div>
         <div>
-          <input type="text" name='name'  required />
+          <input type="text" name='name' onChange={getInfo} required />
           <label htmlFor="name">Your Fullname</label>
         </div>
         <div>
@@ -127,11 +136,11 @@ const FarmerProfile = ({state, farmerProfile}) => {
        <main>
         <h3>Farm Information</h3>
        <div>
-          <input type="text" name='type' />
+          <input type="text" name='type' onChange={farmInfo} />
           <label htmlFor="type" required>What Type Of Farming Are You Currently Practicing??</label>
         </div>
         <div>
-          <input type="text" name='location' required />
+          <input type="text" name='location' onChange={farmInfo} required />
           <label htmlFor="location">Where is your farm located??</label>
         </div>
        </main>
