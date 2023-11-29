@@ -11,12 +11,15 @@ import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
 
 
 const FarmerRoute = () => {
-  const [resState,setResState] =  useState(false)
+  const [resState,setResState] =  useState(true)
   const [produce,setProduce] =  useState([])
   const [profile,setProfile] = useState([])
   const userInfo =  useContext(UserContext)
+
+
   const getprofile= async(userInfo) => {
     const results = await GetProfile(userInfo)
+    console.log(results)
     if(results){
       setProfile(results)
     }else(

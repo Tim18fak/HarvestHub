@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../../hooks/useContext/ConsumerInfo';
 import { Axios } from '../../../../configs/default__configs/axios.config';
 
@@ -12,35 +12,45 @@ const farmerBio = {
   farmingExperience: '',
 };
 
-const farmInfo = {
+const farm = {
   type: '',
   location: '',
   farmSpecialization: '',
 };
 
-const FarmerProfile = ({state}) => {
+const FarmerProfile = ({state, farmerProfile}) => {
+  const [profile,setProfile] = useState(farmerProfile)
   const [bio, setBio] = useState(farmerBio);
+  const [farmBio,setFarmBio] = useState(farm)
   const [bioImage, setBioImage] = useState([]);
   const userInfo = useContext(UserContext);
 
-  const getBio = async () => {
-    try {
-      const bioUrl = `http://localhost/farmerUser/profile/${userInfo._id}`;
-      const Bio = await Axios.get(bioUrl, {
-        headers: {
-          Authorization: `Bearer ${userInfo.accessToken}`,
-        },
-      });
-      console.log(Bio);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+  useEffect(() => {
+    setProfile(farmerProfile)
+  },[farmerProfile])
+
+ /*  useEffect(() => {
+    console.log(bio)
+    console.log(farmBio)
+  },[farmBio,bio]) */
+
+
   /* Get Profile image from user */
   const getBioImage = (e) => {
     const { files } = e.target;
     setBioImage(files[0]);
   };
+
+  const getInfo = (e) => {
+    const {name,value} = e.target;
+    setBio({...bio,[name]: value})
+    console.log(bio)
+  }
+
+  const farmInfo = (e) => {
+    const {name,value} = e.target;
+    setFarmBio({...farmBio,[name]: value})
+  }
 
   /* Submit BioData */
   const bioSubmit = async (e) => {
@@ -88,28 +98,28 @@ const FarmerProfile = ({state}) => {
           <label htmlFor="name">Your Fullname</label>
         </div>
         <div>
-          <input type="text" name='email' required/>
+          <input type="text" name='email' value={!bio.email ? profile.email : bio.email} onChange={getInfo} required/>
           <label htmlFor="email">Email</label>
         </div>
         <div>
-          <input type="text" name='address' required/>
+          <input type="text" name='address' onChange={getInfo} required/>
           <label htmlFor="address">Your Address</label>
         </div>
         <div>
-          <input type="text" name='nationalId' required />
+          <input type="text" name='nationalId' onChange={getInfo} required />
           <label htmlFor="nationalId">National_ID Number</label>
         </div>
         <div>
-          <input type="text" name='phoneNumber'  required/>
+          <input type="text" name='phoneNumber' onChange={getInfo} required/>
           <label htmlFor="phoneNumber">Your Phone Number</label>
         </div>
         <div>
-          <input type="text" name='driverLicence'/>
+          <input type="text" name='driverLicence' onChange={getInfo}/>
           <label htmlFor="driverLicence"> Your Driver's Licence</label>
           <strong>This is not required</strong>
         </div>
         <div>
-          <input type="text" name='farmingExperience'/>
+          <input type="text" name='farmingExperience' onChange={getInfo}/>
           <label htmlFor="farmingExperience">How long have you been in the farming business</label>
         </div>
         </main>
