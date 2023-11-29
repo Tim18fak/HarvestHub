@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
+import Animation from '../../default__Pages/Animation'
 
 
-
-const FarmerProduce = () => {
-  
+const FarmerProduce = ({state}) => {
+  if(!state) return <Animation/>
   return (
     <>
     jj
@@ -12,17 +12,3 @@ const FarmerProduce = () => {
 }
 
 export default FarmerProduce
-const farmerBio = {
-  name: '',
-  email:'',
-  address: '',
-  nationalId: '',
-  phoneNumber: '',
-  driverLicence: '',
-  farmingExperience: ''
-}
-const farmInfo = {
-  type: '',
-  location:'',
-  
-}

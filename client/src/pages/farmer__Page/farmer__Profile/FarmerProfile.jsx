@@ -18,7 +18,7 @@ const farmInfo = {
   farmSpecialization: '',
 };
 
-const FarmerProfile = () => {
+const FarmerProfile = ({state}) => {
   const [bio, setBio] = useState(farmerBio);
   const [bioImage, setBioImage] = useState([]);
   const userInfo = useContext(UserContext);
@@ -68,7 +68,7 @@ const FarmerProfile = () => {
   };
 
   // Check if userInfo is available before calling getBio
-  if (!userInfo) {
+  if (!state) {
     // Handle the case when userInfo is not available
     return <div>Loading...</div>;
   }

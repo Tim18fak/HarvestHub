@@ -1,7 +1,6 @@
 const { Product, Farmer } = require('../../Model/DB_structure');
 const { Cloudinary } = require('../../config/cloudinary.config');
 const {ReqInfo} = require('./constants/reqInfo')
-const { uploadImages } = require('./constants/uploadImages');
 
 
 const deleteProduct = async(req,res) => {
