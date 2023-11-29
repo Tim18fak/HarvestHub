@@ -5,7 +5,7 @@ import FarmerDashboard from '../../pages/farmer__Page/farmer__Dashboard/FarmerDa
 import FarmerProfile from '../../pages/farmer__Page/farmer__Profile/FarmerProfile';
 import FarmerProduce from '../../pages/farmer__Page/farmer__Produce/farmerProduce';
 import FarmerAddProduce from '../../pages/farmer__Page/Add__Produce/FarmerAddProduce';
-import { GetProfile,GetProduce } from '../../../configs/farmer_configs/fetch';
+import { GetProduce, GetProfile } from '../../../configs/farmer_configs/fetch';
 import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
 
 
@@ -13,9 +13,15 @@ import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(false)
   const [produce,setProduce] =  useState([])
+  const [profile,setProfile] = useState([])
   const userInfo =  useContext(UserContext)
   const getprofile= async(userInfo) => {
     const results = await GetProfile(userInfo)
+    if(results){
+      setProfile(results)
+    }else(
+      setProfile([])
+    )
   }
   const getproduce = async(userInfo) =>{
     const results =  await GetProduce(userInfo)
@@ -34,7 +40,7 @@ const FarmerRoute = () => {
       <FarmerSidePanel  getProfile={() => getprofile(userInfo)} getProduce={() => getproduce(userInfo)}/>
       <Routes>
         <Route path="/fM/dashboard" element={<FarmerDashboard />} />
-        <Route path='/fM/profile' element={<FarmerProfile state={resState}/>}/>
+        <Route path='/fM/profile' element={<FarmerProfile state={resState} farmerProfile={profile}/>}/>
         <Route path='/fM/produce' element={<FarmerProduce state={resState} farmerProduce={produce}/>}/>
         <Route path='/fM/upload_produce' element={<FarmerAddProduce/>}/>
         <Route path=''/>

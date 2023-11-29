@@ -1,11 +1,10 @@
 const express = require('express')
 const {testUploadProduct,getProduce,deleteProduct} = require('../Controller/Farmers/product')
-const {profile,getProfile} = require('../Controller/Farmers/profile')
+const {profile} = require('../Controller/Farmers/profile')
 const { authenticateFarmerToken } = require('../middlewares/authenticateToken')
 const router = express.Router()
-router.get('/profile/:Id',profile)
+router.get('/fM/profile/:Id',profile)
 router.delete('/deleteProduce/:produceId',deleteProduct)
-router.get('/farmerProfile',getProfile)
 router.get('/produce/:Id',getProduce)
 router.post('/testProduce/:Id',testUploadProduct)
 module.exports = router

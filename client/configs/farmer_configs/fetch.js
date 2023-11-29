@@ -1,13 +1,13 @@
 import { Axios } from "../default__configs/axios.config"
 
 export const GetProfile = async(user) => {
-   /*  const url  = `http://localhost/ ${id}`
-    const result =  Axios.get('',{
+  const url =  `http://localhost/farmerUser/fM/profile/${user._id}`
+    const result = await Axios.get(url,/* {
         headers: {
             Authorization: ``
         }
-    }) */
-    console.log('hello')
+    } */)
+    console.log(result)
 }
 
 export const GetProduce = async (user) => {
