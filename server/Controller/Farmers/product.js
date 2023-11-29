@@ -1,15 +1,18 @@
 const { Product, Farmer } = require('../../Model/DB_structure');
 const { Cloudinary } = require('../../config/cloudinary.config');
 const {ReqInfo} = require('./constants/reqInfo')
-
+const {uploadImages} =   require('./constants/uploadImages')
 
 const deleteProduct = async(req,res) => {
-  const {produceId} =  req.params
+  const produceId =  req.params.produceId
+  console.log(produceId)
   const deleteProduct = await Product.findByIdAndRemove(produceId)
   if(!deleteProduct){
+    console.log('not found')
     return res.status(403).json({'message': 'Produce Id not found'})
   }
-  return res.status(204).json({'message': 'Produce Id Deleted'})
+  console.log(deleteProduct)
+  return res.status(204).json({deleteProduct})
 }
 
 const testUploadProduct = async(req,res) => {
@@ -44,4 +47,13 @@ const testUploadProduct = async(req,res) => {
     console.log(error.message)
   }
 }
-module.exports = { deleteProduct,testUploadProduct}
+const getProduce = async(req,res) => {
+  const Id =  req.params.Id
+  const results =  await Product.find({Farmer: Id})
+  if(!results){
+    return res.status(401).json({'message': "Farmer Has Not Uploaded Any Produce Yet"})
+  }
+  res.status(200).json({results})
+  console.log(results)
+}
+module.exports = { getProduce,deleteProduct,testUploadProduct}

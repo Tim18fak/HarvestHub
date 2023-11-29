@@ -20,3 +20,12 @@ export const GetProduce = async (user) => {
       console.error('Error fetching produce:', error);
     }
   };
+
+  export const DeleteProduce = async(id) => {
+    const url = `http://localhost/farmerUser/deleteProduce/${id}`
+    const result = await Axios.delete(url)
+    console.log(result.data)
+    if(result.status === 204){
+      return 200
+    }
+  }

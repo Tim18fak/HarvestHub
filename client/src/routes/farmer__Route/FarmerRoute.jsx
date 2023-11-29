@@ -12,24 +12,30 @@ import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
 
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(false)
-  const [] = 
+  const [produce,setProduce] =  useState([])
   const userInfo =  useContext(UserContext)
   const getprofile= async(userInfo) => {
     const results = await GetProfile(userInfo)
   }
   const getproduce = async(userInfo) =>{
     const results =  await GetProduce(userInfo)
+    console.log(results)
     if(results){
+      setProduce(results.results)
+      console.log(results.results)
       setResState(true)
+    }else{
+      setProduce([])
     }
   }
+  console.log(produce)
   return (
     <Router>
       <FarmerSidePanel  getProfile={() => getprofile(userInfo)} getProduce={() => getproduce(userInfo)}/>
       <Routes>
         <Route path="/fM/dashboard" element={<FarmerDashboard />} />
         <Route path='/fM/profile' element={<FarmerProfile state={resState}/>}/>
-        <Route path='/fM/produce' element={<FarmerProduce state={resState}/>}/>
+        <Route path='/fM/produce' element={<FarmerProduce state={resState} farmerProduce={produce}/>}/>
         <Route path='/fM/upload_produce' element={<FarmerAddProduce/>}/>
         <Route path=''/>
       </Routes>
