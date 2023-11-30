@@ -1,9 +1,9 @@
-const { User, BlockedUser, Farmer} = require('../../../Model/DB_structure');
+const { User, BlockedUser, Farmer} = require('../../../../Model/DB_structure');
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const nodemailer = require('nodemailer')
-const { clientAuthToken } = require('../../../middlewares/client_authorization');
-const { axios } = require('../../../config/axios.config');
+const { clientAuthToken } = require('../../../../middlewares/client_authorization');
+const { axios } = require('../../../../config/axios.config');
 const { constants } = require('fs');
 
 
@@ -181,6 +181,7 @@ const clientLogin = async(body,id,res) =>{
   const {_id} =  clientLogin
   const accessToken = await clientAuthToken(_id,username,email,isFarmer)
   return res.status(200).json({accessToken,isFarmer,_id,username})
+  /* hh */
   }
   catch(err){
 

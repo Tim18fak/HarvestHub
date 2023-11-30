@@ -50,6 +50,7 @@ app.get('/', (req, res) => {
 });
 
 /* database cleaning */
+
 cron.schedule('0/01 * * * *', () => {
     console.log('Running task...');
     deleteUnverifiedAdminActivationcode(Admin);
