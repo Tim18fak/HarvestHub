@@ -1,7 +1,9 @@
-import {v2 as cloudinary} from 'cloudinary';
+const cloudinary = require('cloudinary').v2
           
-cloudinary.config({ 
+const Cloudinary = cloudinary.config({ 
   cloud_name: 'dymlitogk', 
   api_key: '314657397837536', 
-  api_secret: '***************************' 
+  api_secret: 'vYoPrdEoX-ykZNNUtX31ZrXg-nQ' 
 });
+
+module.exports = {Cloudinary}

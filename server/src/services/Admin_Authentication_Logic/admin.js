@@ -273,14 +273,15 @@ const sendResetPass = (email,new_password,res) => {
       const sendEmail = async(transporter,sendInfo,res) => {
         try {
             await transporter.sendMail(sendInfo)
-            console.log('email sent successfully')
             const resetPass_Paswword = await bcrypt.hash(new_password,15)
+            console.log(resetPass_Paswword)
             const admin = await Admin.findOne({email: email});
             admin.password = resetPass_Paswword;
             await admin.save()
             console.log(new_password)
             console.log(admin)
-            return res.sendStatus(204).json({'message':'email sent successfully'})
+            console.log('email sent successfully')
+            /* return res.sendStatus(204).json({'message':'email sent successfully'}) */
 
     
         } catch (error) {

@@ -14,7 +14,7 @@ const sendResetPassword = async(email,new_password,res) => {
   const transporter = nodemailer.createTransport({
     service: process.env.EmailService,
     host: process.env.EmailHost,
-    port: process.env.EmailServicePort,
+    port: process.env.Emairt,
     secure: false,
     auth: {
       user: process.env.HarvestHubGmail,
@@ -181,6 +181,7 @@ const clientLogin = async(body,id,res) =>{
   const {_id} =  clientLogin
   const accessToken = await clientAuthToken(_id,username,email,isFarmer)
   return res.status(200).json({accessToken,isFarmer,_id,username})
+  /* hh */
   }
   catch(err){
 
@@ -195,6 +196,7 @@ const clientActivationCode = async(body,res,Id) => {
     console.log(code)
     const isFarmer = body.isFarmer;
     console.log(Id)
+
     const newClientAccountActivation = isFarmer ? await Farmer.findOne({_id:Id}) : await User.findOne({_id:Id})
     if(!newClientAccountActivation){
       return console.log('Account Not Found')

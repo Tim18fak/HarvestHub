@@ -1,5 +1,6 @@
 const {Product} = require('../../Model/DB_structure')
 const {productFilter} = require('./constant/productFilter')
+
 const searchProduct = async(req,res) => {
     const queryParameters = req.query;
   const productParameters = ['price', 'description', 'location'];
