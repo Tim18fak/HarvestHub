@@ -1,6 +1,6 @@
 const { User, Farmer } = require('../Model/DB_structure.js')
-const {signUp,clientLogin,clientActivationCode,clientResetPass} = require('../src/services/Client_Authentication_Logic/auth.js')
-
+const { signUp,clientLogin,clientActivationCode,clientResetPass } = require('../src/services/ClientFeatures/Client_Authentication_Logic/auth.js')
+/* const {signUp,clientLogin,clientActivationCode,clientResetPass} = require('../src/services/Client_Authentication_Logic/auth.js') */
 const activationCode = () => {
     const min = 1000
     const max = 9999

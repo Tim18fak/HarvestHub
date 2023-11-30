@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react'
+import { GetFarmerInfo } from '../../../../configs/consumer__configs/fetch'
+import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 
 const ProduceResponse = ({produce}) => {
     console.log(produce)
     const [searchProduce,setSearchProduce] = useState([])
     const [produceImage,setProduceImage] = useState([])
+    const [farmerData,setFarmerData] = useState([])
     useEffect(() => {
         if(produce){
             setSearchProduce(produce)
+            console.log(produce)
         }
     },[produce])
-    console.log(produce)
+    useEffect(() => {
+      console.log(farmerData) 
+    },[farmerData])
+    const getFarmerData = async(id) => {
+      const results = await GetFarmerInfo(id)
+      if(results){
+        setFarmerData(results)
+      }
+    }
   return (
     <>
     <aside>
@@ -41,13 +53,13 @@ const ProduceResponse = ({produce}) => {
                 <li key={index}>{category}</li>
             })}
           </ul>
-         <button>Get Farmer Info</button>
+         <button onClick={() => getFarmerData(produce._id)}>Get Farmer Info</button>
         </div>
       ))}
     </main>
   )}
 </section>
-
+  <ShowProduceInfo data={farmerData}/>
     </>
   )
 }
