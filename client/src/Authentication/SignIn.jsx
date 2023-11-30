@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react';
-import emailjs from 'emailjs-com';
 import axios from 'axios';
 import CodeConfirmation from './CodeConfirmation';
 import Cookies from 'universal-cookie'

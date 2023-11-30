@@ -1,5 +1,6 @@
 const {Product} = require('../../Model/DB_structure')
 const {productFilter} = require('./constant/productFilter')
+
 const searchProduct = async(req,res) => {
     const queryParameters = req.query;
   const productParameters = ['price', 'description', 'location'];
@@ -21,4 +22,11 @@ const searchProduct = async(req,res) => {
     res.status(500).send(error.message);
   }
 }
-module.exports = {searchProduct}
+const product = async(req,res) => {
+  const {searchTitle,selectedCategories,} =  req.body
+  const result =  selectedCategories.map((value,index) => {
+    const name = value.name
+    console.log(name)
+  })
+}
+module.exports = {searchProduct,product}

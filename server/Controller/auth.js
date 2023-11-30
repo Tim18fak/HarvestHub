@@ -1,4 +1,5 @@
-const {signUp,clientLogin,clientActivationCode,clientResetPass} = require('../constants/auth.js')
+const { User, Farmer } = require('../Model/DB_structure.js')
+const {signUp,clientLogin,clientActivationCode,clientResetPass} = require('../src/services/Client_Authentication_Logic/auth.js')
 
 const activationCode = () => {
     const min = 1000
@@ -25,7 +26,21 @@ const compareActivationCode = async(req,res) => {
   clientActivationCode(req.body,res,clientId)
 }
 /* Activation code Algorithm */
-const code = (res) => {
+const code = (req,res) => {
     res.json(activationCode());
 }
-module.exports = { signup, login, reset,code,compareActivationCode}
+const Found__Username = async(req,res) => {
+  const {u,tr} = req.params;
+  console.log(req.params)
+  if(tr === "Farmer"){
+    console.log('tr')
+  }else{
+    console.log('false')
+  }
+  const user = tr === 'Farmer' ? await Farmer.findOne({username: u}) : await User.findOne({username: u})
+  if(user === null){
+    return res.sendStatus(200)
+  }
+  res.sendStatus(403)
+} 
+module.exports = { signup, login, reset,code,compareActivationCode,Found__Username}
