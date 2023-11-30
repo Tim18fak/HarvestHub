@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Reset from './Reset'
 import { cookie } from '../../../configs/default__configs/cookies'
 import ActivationCode from './ActivationCode'
+import { Link } from 'react-router-dom'
 const signInInfo = {
   fullname:'',
   username:'',
@@ -201,7 +201,7 @@ const isFarmerCheckBox = (e) => {
       color: 'red',
     }}>{err_Res}</p>
     <p onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
-    <p>Forgotten your password,<a href="/reset">Reset</a></p>
+    <p>Forgotten your password,<Link to='/reset'><a>Reset</a></Link></p>
     </>
   )
 }
