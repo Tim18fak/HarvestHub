@@ -24,11 +24,11 @@ router.get('/p/:produceId',async(req,res) => {
    try{
     const id = req.params.produceId
     const produce =  await Product.findById(id).populate({ path: 'Farmer' });
-    const {title,description,Image,location,date,quantity,price,category,Farmer} = produce;
+    const {title,description,Image,location,date,quantity,price,category,Farmer,_id} = produce;
     const {fullname,username,products} = Farmer
     const otherProduces =  await otherProduce(products,id)
     console.log(products.length)
-    res.json({title,description,Image,location,date,quantity,price,category,fullname,username,'otherProduce': otherProduces})
+    res.json({title,description,Image,location,date,quantity,price,category,fullname,username,_id,'otherProduce': otherProduces})
    }
    catch(err){
 

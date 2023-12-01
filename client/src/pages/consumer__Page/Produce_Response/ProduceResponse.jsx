@@ -22,6 +22,9 @@ const ProduceResponse = ({produce}) => {
         setFarmerData(results)
       }
     }
+    const bookMark = (id) => {
+      console.log(id)
+  }
   return (
     <>
     <aside>
@@ -47,6 +50,10 @@ const ProduceResponse = ({produce}) => {
           <ul>
             <li>{produce.price}</li>
             <li>{produce.quantity}</li>
+            <li>{new Date(produce.date).toLocaleDateString('en-US', { weekday: 'long',
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',})}</li>
           </ul>
           <ul>
             {produce && produce.category.map((category,index) => {
