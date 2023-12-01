@@ -1,6 +1,6 @@
-import Cookies from "universal-cookie";
+import { Signout } from "./connect";
+import { cookie } from "./cookies";
 
-const cookie = new Cookies()
 export const Logout = async() => {
     try {
         await cookie.remove('_id', { path: '/' });

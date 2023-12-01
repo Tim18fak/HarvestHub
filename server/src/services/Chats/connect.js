@@ -5,7 +5,7 @@ const Connect = (server) => {
 
     const io = new Server(server, {
         cors: {
-          origin: '*', // Allow requests from your React app's domain
+          origin: 'http://localhost:5173', // Allow requests from your React app's domain
           methods: ['GET', 'POST'],
         },
       });

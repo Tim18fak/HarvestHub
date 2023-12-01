@@ -11,14 +11,14 @@ const cookie  = new Cookies()
 
 const Dashboard = () => {
   useEffect(() => {
-    const username =  cookie.get()
+    /* const username =  cookie.get()
     if(username){
       const socket =  io('http://localhost')
       socket.on('connect', () => {
         console.log('Connected to the server');
       });
       socket.emit('chat', 'hello')
-    }
+    } */
   },[])
   return (
     <>

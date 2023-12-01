@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProduceResponse from '../Produce_Response/ProduceResponse';
+import { cookie } from '../../../../configs/default__configs/cookies';
 
 
 const cropType = {
@@ -17,12 +18,16 @@ const ClientDashboard = () => {
   const [produceInfo, setProduceInfo] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-
+  useEffect(() => {
+    const username = cookie.get('username')
+    if(username){
+    }
+  },[])
   const getproduceInfo = (e) => {
     const {value} = e.target
     setProduceInfo(value);
   };
-console.log(selectedCategories)
+
   const addProduceInfoUi = (category) => {
     // Check if the category is not already selected
     if (!selectedCategories.find((selectedCategory) => selectedCategory === category)) {

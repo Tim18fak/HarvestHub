@@ -1,4 +1,4 @@
-import {io} from 'socket.io-client'
+/* import {io} from 'socket.io-client'
 
 export const Connect = () => {
     const socket = io('http://localhost');
@@ -10,3 +10,12 @@ export const Connect = () => {
       });
       socket.emit('chat', 'hello')
 }
+export const ActiveUser = () => {
+  const socket = io('http://localhost');
+  socket.on('connect', () => {
+      console.log('Connected to the server');
+    });
+    socket.on('active',(data) => {
+      
+    })
+} */

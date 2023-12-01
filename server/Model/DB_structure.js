@@ -47,6 +47,21 @@ const productSchema = new mongoose.Schema({
   },
   // ... other fields
 });
+const activeFarmerUser = new mongoose.Schema({
+  connectionId : {type: String, required: true},
+  Farmer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Farmer'
+  }
+}) 
+
+const activeConsumerUser = new mongoose.Schema({
+  connectionId : {type: String, required: true},
+  Farmer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+})
 
 const userSchema = new mongoose.Schema({
   Id: { type: String, required: true},
@@ -100,4 +115,6 @@ const User = mongoose.model('User', userSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
 const ChatModule = mongoose.model('chatMessage',chatMessage)
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule };
+const activeFarmer = mongoose.model('activeFamer',activeFarmerUser)
+const activeConsumer =  mongoose.model('activeConsumer',activeConsumerUser)
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule,activeFarmer,activeConsumer };
