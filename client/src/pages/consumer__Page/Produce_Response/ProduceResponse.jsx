@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GetFarmerInfo } from '../../../../configs/consumer__configs/fetch'
+import { GetFarmerInfo } from '../../../../configs/consumer__configs/configs'
 import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 
 const ProduceResponse = ({produce}) => {

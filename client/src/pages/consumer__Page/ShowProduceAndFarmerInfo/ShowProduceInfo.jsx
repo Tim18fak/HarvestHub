@@ -45,12 +45,12 @@ const ShowProduceInfo = ({data}) => {
             </ul>
             <button onClick={() => bookMark(fetchData._id)}>Bookmark</button>
         </main>
+                <img src="" alt="" width={300} height={300} />
         {/* farmer info */}
         <aside>
             <main>
             <h3>Farmer Information</h3>
             <figure>
-                <img src="" alt="" width={300} height={300} />
             </figure>
             <h2>{fetchData.username}</h2>
             <h3>{fetchData.fullname}</h3>

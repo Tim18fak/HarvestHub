@@ -66,7 +66,16 @@ const userSchema = new mongoose.Schema({
 const transactionSchema = new mongoose.Schema({
   transactionNumber: { type: Object }
 });
-
+const bookmarkSchema =  new mongoose.Schema({
+  consumer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  product:{
+    type :Array,
+    ref: 'Product'
+  }
+})
 const reviewSchema = new mongoose.Schema({
   // ... fields
   remark: { type: Object}
