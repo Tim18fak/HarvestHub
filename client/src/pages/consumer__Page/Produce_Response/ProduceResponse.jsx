@@ -19,6 +19,7 @@ const ProduceResponse = ({produce}) => {
     const getFarmerData = async(id) => {
       const results = await GetFarmerInfo(id)
       if(results){
+        console.log(results)
         setFarmerData(results)
       }
     }

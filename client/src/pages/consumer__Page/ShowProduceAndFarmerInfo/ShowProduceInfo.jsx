@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
+import { Bookmark } from '../../../../configs/consumer__configs/configs'
 
 const ShowProduceInfo = ({data}) => {
     const [fetchData,setFetchData] = useState([])
@@ -13,9 +14,17 @@ const ShowProduceInfo = ({data}) => {
             },5000)
         }
     },[data])
-    const bookMark = (id) => {
-        console.log(id)
+    /* Add Bookmark Logic */
+    const bookMark = async(id) => {
+        try {
+            const result = await Bookmark(id);
+            alert(result);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while bookmarking.');
+        }
     }
+    /* Animation Preloader */
     if(triggerAnimation === false) return <SpinnerLoader/>
   return (
     <>

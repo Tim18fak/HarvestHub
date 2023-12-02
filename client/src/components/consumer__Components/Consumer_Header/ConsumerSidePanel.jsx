@@ -5,7 +5,7 @@ import { Logout } from '../../../../configs/default__configs/logout'
 
 const cookie =  new Cookies()
 
-const ConsumerSidePanel = () => {
+const ConsumerSidePanel = ({bookMrk}) => {
  
   return (
     <nav>
@@ -13,6 +13,7 @@ const ConsumerSidePanel = () => {
         <ul>
             <li><Link to='/cN/dashboard' >Dashboard</Link></li>
             <li><Link to='/cN/profile' >Profile</Link></li>
+            <li><Link to='/cN/bokmarks' onClick={bookMrk}>Saved</Link></li>
         </ul>
         <h4 onClick={Logout}>LogOut</h4>
     </nav>
