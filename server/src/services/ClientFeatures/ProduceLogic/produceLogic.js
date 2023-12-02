@@ -10,6 +10,7 @@ const otherProduce = async(produceID,id) => {
             otherProduces.push(result)
         }
     }
+    console.log(otherProduces)
     return otherProduces
 
 }

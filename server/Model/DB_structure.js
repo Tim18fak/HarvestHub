@@ -66,7 +66,16 @@ const userSchema = new mongoose.Schema({
 const transactionSchema = new mongoose.Schema({
   transactionNumber: { type: Object }
 });
-
+const bookmarkSchema =  new mongoose.Schema({
+  consumerId: {
+    type: String,
+    ref: 'User'
+  },
+  product:[{
+    type : String,
+    ref: 'Product'
+  }]
+})
 const reviewSchema = new mongoose.Schema({
   // ... fields
   remark: { type: Object}
@@ -100,4 +109,5 @@ const User = mongoose.model('User', userSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
 const ChatModule = mongoose.model('chatMessage',chatMessage)
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule };
+const Bookmark =  mongoose.model('Bookmark',bookmarkSchema)
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule,Bookmark };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GetFarmerInfo } from '../../../../configs/consumer__configs/fetch'
+import { GetFarmerInfo } from '../../../../configs/consumer__configs/configs'
 import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 
 const ProduceResponse = ({produce}) => {
@@ -19,9 +19,13 @@ const ProduceResponse = ({produce}) => {
     const getFarmerData = async(id) => {
       const results = await GetFarmerInfo(id)
       if(results){
+        console.log(results)
         setFarmerData(results)
       }
     }
+    const bookMark = (id) => {
+      console.log(id)
+  }
   return (
     <>
     <aside>
@@ -47,6 +51,10 @@ const ProduceResponse = ({produce}) => {
           <ul>
             <li>{produce.price}</li>
             <li>{produce.quantity}</li>
+            <li>{new Date(produce.date).toLocaleDateString('en-US', { weekday: 'long',
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',})}</li>
           </ul>
           <ul>
             {produce && produce.category.map((category,index) => {
