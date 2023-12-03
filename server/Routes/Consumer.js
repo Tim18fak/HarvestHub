@@ -49,7 +49,7 @@ router.post('/bmrK/:consumerId/:produceId', async (req, res) => {
 
             await newBookmark.save();
             console.log('Saved');
-            return res.status(200).json('Produce has been bookmarked');
+            return res.status(200).json({'message': 'Produce has been bookmarked'});
         }
 
         const produce = existConsumerBookmark.product;
@@ -62,7 +62,7 @@ router.post('/bmrK/:consumerId/:produceId', async (req, res) => {
         existConsumerBookmark.product.push(produceId);
         await existConsumerBookmark.save();
         console.log('Bookmarked');
-        return res.status(200).send('Produce has been bookmarked');
+        return res.status(200).json({'message': 'Produce has been bookmarked'});
     } catch (error) {
         console.error('Error:', error);
         return res.status(500).send('Internal Server Error');
@@ -83,7 +83,7 @@ router.get('/gT/bmrK/:consumerId', async(req,res) => {
 router.put('/uP/bmrK/:consumerId/:produceId', async (req, res) => {
     try {
         const consumerBookmark = await Bookmark.findOne({ consumerId: req.params.consumerId });
-
+        console.log(req.params.consumerId)
         if (!consumerBookmark) {
             return res.status(404).send('No bookmarks found for the consumer');
         }
@@ -93,9 +93,9 @@ router.put('/uP/bmrK/:consumerId/:produceId', async (req, res) => {
         if (index !== -1) {
             consumerBookmark.product.splice(index, 1);
             await consumerBookmark.save();
-            return res.status(200).json({'message': 'Produce has been removed from bookmarks'});
+            return res.status(200).json({'message': `Produce with this Id ${req.params.produceId} has been removed from bookmarks`});
         } else {
-            return res.status(404).json({'message': 'Produce not found in bookmarks'});
+            return res.status(404).json({'message': `Produce not found in bookmarks`});
         }
     } catch (error) {
         console.error('Error removing bookmark:', error);
