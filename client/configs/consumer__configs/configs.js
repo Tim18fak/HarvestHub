@@ -56,9 +56,30 @@ export const getBookmark = async(userInfo) => {
         }
 
         const bookmark = await response.json();
-        return bookmark;
+        console.log(bookmark.bookmark)
+        return bookmark.bookmark;
     } catch (error) {
         console.error('Error:', error.message);
         throw error; // Re-throw the error so it can be caught by the calling function
     }
 }
+export const deleteBookMrk = (userInfo, id) => {
+    const { _id, accessToken } = userInfo;
+    const url = `http://localhost/client/uP/bmrk/${_id}/${id}`;
+
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+            authorization: `Bearer ${accessToken}`,
+        },
+    })
+        .then(async (response) => {
+            const res = await response.json();
+            console.log(res.message);
+            return res.message;
+        })
+        .catch((error) => {
+            console.error('Error:', error.message);
+            throw error;
+        });
+};
