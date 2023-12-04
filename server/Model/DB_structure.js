@@ -25,6 +25,12 @@ const farmerSchema = new mongoose.Schema({
     type: String,
     ref: 'Product',
   }],
+  notification: [
+    {
+      date: {type: Date},
+      message: {type: Object}
+    }
+  ],
   verificationStatus: { type: String},
   nationalId: { type: String},
   // Status could be 'Pending', 'Verified', 'Rejected', etc.

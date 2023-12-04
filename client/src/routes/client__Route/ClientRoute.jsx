@@ -6,6 +6,8 @@ import ConsumerProfile from '../../pages/consumer__Page/consumer__Profile/Consum
 import ClientBookmarks from '../../pages/consumer__Page/Bookmarks/ClientBookmarks';
 import {getBookmark} from '../../../configs/consumer__configs/configs'
 import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
+import Message from '../../pages/consumer__Page/Message/message';
+import Notification from '../../pages/consumer__Page/Notification/Notification';
 
 const ClientRoute = () => {
   const [bookMark,setBookMrk] = useState([])
@@ -30,6 +32,8 @@ const ClientRoute = () => {
       <Route path="/cN/dashboard" element={<ClientDashboard />} />
       <Route path="/cN/profile" element={<ConsumerProfile />} />
       <Route path='/cN/bokmarks' element={<ClientBookmarks bookmarks={bookMark}/>}/>
+      <Route path='/cN/notification' element={<Notification/>}/>
+      <Route path='/cN/message' element={<Message/>}/>
     </Routes>
   </Router>
   )
