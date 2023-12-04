@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
 import { Bookmark } from '../../../../configs/consumer__configs/configs'
 import { Link } from 'react-router-dom'
+import { UserContext, useSocket } from '../../../../hooks/useContext/ConsumerInfo'
 
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
     const [triggerAnimation,setTriggerAnimation] = useState(false)
+    const socket =  useContext(useSocket)
+    const userInfo =  useContext(UserContext)
     useEffect(() => {
         if(data){
             setFetchData(data)
@@ -13,13 +16,16 @@ const ShowProduceInfo = ({data,trigger}) => {
             setTimeout(() => {
                 setTriggerAnimation(true)
             },4000)
+            console.log(socket)
         }
     },[data])
     /* Add Bookmark Logic */
     const bookMark = async(id) => {
         try {
             const result = await Bookmark(id);
+            socket.emit('notification',{userInfo,result})
             alert(result);
+
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while bookmarking.');

@@ -31,6 +31,7 @@ const farmerSchema = new mongoose.Schema({
       message: {type: Object}
     }
   ],
+  seenNotification:{ type: Date},
   verificationStatus: { type: String},
   nationalId: { type: String},
   // Status could be 'Pending', 'Verified', 'Rejected', etc.
@@ -64,6 +65,13 @@ const userSchema = new mongoose.Schema({
   email: {type: String, required: true},
   Ip: { type: String, required: true},
   aboutYourself: { type: String},
+  notification: [
+    {
+      date: {type: Date},
+      message: {type: Object}
+    }
+  ],
+  seenNotification:{ type: Date},
   isFarmer: {type: Boolean ,required: true},
   authorizationToken: { type: String},
   // ... other fields

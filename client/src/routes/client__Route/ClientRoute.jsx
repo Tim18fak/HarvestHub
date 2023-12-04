@@ -13,6 +13,7 @@ const ClientRoute = () => {
   const [bookMark,setBookMrk] = useState([])
   const userInfo  = useContext(UserContext)
 
+
   const getConsumerBookmark = async() => {
     try {
       const bookmark = await getBookmark(userInfo);
