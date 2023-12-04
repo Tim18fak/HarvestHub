@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    /* positioning */
+        /* box model */
+        /* typography */
+
+        /* visual */
+
+        --default-primary-color: ;
+        --default-secondary-color: ;
+        --default-accent-color: ;
+        --default-primary-background-color: ;
+        --default-secondary-background-color: ;
+        --default-accent-background-color:;
+        --default-primary-border-color:;
+        --default-secondary-border-color:;
+        --default-accent-border-color:;
+}
+
+/*  */
+@media screen and (min-width:300px) and (max-width:500px) {
+    html {
+        font-size: 66px;
+      }
+}
+@media screen and (min-width:501px) and (max-width:750px) {
+    html {
+        font-size: 66px;
+      }
+}
+/* positioning */
+        /* box model */
+        /* typography */
+        /* visual */
+
+        
+@media screen and (min-width:751px) and (max-width:1200px) {
+    :root{
+        /* postioning */
+
+        /* box model  */
+        --semi-large-screen-default-margin: 10px;
+        --semi-large-screen-default-padding: 10px;
+        --semi-large-screen-nav-margin: 3.62rem;
+        --semi-large-screen-side-margin: 3.94rem;
+        /* typography */
+
+        --semi-large-screen-root-font-size:20px;
+
+        /* visual */
+        
+        
+    }
+
+    html {
+        font-size: var(--semi-large-screen-root-font-size);
+      }
+      body{
+        margin: 0 var(--semi-large-screen-nav-margin );
+      }
+      nav{
+
+        /* positioning */
+       
+        /* box model */
+        display: flex;
+        justify-content: space-between;
+        /* typography */
+        /* visual */
+      }
+      nav h3{
+        /* positioning */
+        /* box model */
+        margin: calc(var( --semi-large-screen-default-margin));
+        padding: var(--semi-large-screen-default-padding);
+        /* typography */
+        font-size: calc( var(--semi-large-screen-root-font-size));
+        /* visual */
+      }
+      #get-started{
+        /* positioning */
+        transform: background 3s ;
+        /* box model */
+        
+        margin: var(--semi-large-screen-default-margin);
+        padding: calc(var(--semi-large-screen-default-padding));
+        /* typography */
+        
+        /* visual */
+        background-color: red;
+      }
+      nav h3#get-started:hover{
+        /* positioning */
+        /* box model */
+        /* typography */
+        /* visual */
+      }
+      nav ul{
+        /* positioning */
+
+        text-align: center;
+
+        /* box model */
+
+        display: flex;
+        justify-content: space-evenly;
+        width: 40%;
+
+        /* typography */
+        text-decoration: none;
+
+        /* visual */
+      }
+      nav ul li{
+        /* positioning */
+        transition: all 3s;
+        /* box model */
+        margin: calc( var(--semi-large-screen-default-margin) / 5);
+        padding: var(--semi-large-screen-default-padding);
+        /* typography */
+        /* visual */
+      }
+      nav ul li:hover{
+        /* positioning */
+
+        /* box model */
+
+        /* typography */
+        letter-spacing: 5px;
+        font-size: calc( var(--semi-large-screen-root-font-size) * 1.3);
+        /* visual */
+      }
+}
+@media screen and (min-width:1201px) and (max-width:1500px) {
+    html {
+        font-size: 66px;
+      }
+}
+@media screen and (min-width:1500px){
+    html {
+        font-size: 66px;
+      }
+}

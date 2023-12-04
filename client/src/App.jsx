@@ -1,4 +1,4 @@
-import Header from "./components/default__Component/Header"
+import Header from './components/default__Component/Header/Header'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Main from "./pages/default__Pages/Main";
 import Contact from "./pages/default__Pages/Contact";

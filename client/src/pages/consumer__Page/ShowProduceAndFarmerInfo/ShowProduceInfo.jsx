@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
 import { Bookmark } from '../../../../configs/consumer__configs/configs'
+import { Link } from 'react-router-dom'
 
-const ShowProduceInfo = ({data}) => {
+const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
     const [triggerAnimation,setTriggerAnimation] = useState(false)
     useEffect(() => {
@@ -11,7 +12,7 @@ const ShowProduceInfo = ({data}) => {
             console.log(data)
             setTimeout(() => {
                 setTriggerAnimation(true)
-            },5000)
+            },4000)
         }
     },[data])
     /* Add Bookmark Logic */
@@ -30,7 +31,7 @@ const ShowProduceInfo = ({data}) => {
     <>
     <section>
         {/* produce info */}
-        <h2>Hell</h2>
+        <a onClick={trigger}>Back</a>
         <main>
             <figure>
                 {fetchData.Image && fetchData.Image.length > 0 && fetchData.Image.map((image, index) => (

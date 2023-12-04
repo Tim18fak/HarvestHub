@@ -5,7 +5,7 @@ import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 const ProduceResponse = ({produce}) => {
     console.log(produce)
     const [searchProduce,setSearchProduce] = useState([])
-    const [produceImage,setProduceImage] = useState([])
+    const [showFarmerInfo, setFarmerInfo] = useState(false)
     const [farmerData,setFarmerData] = useState([])
     useEffect(() => {
         if(produce){
@@ -21,20 +21,23 @@ const ProduceResponse = ({produce}) => {
       if(results){
         console.log(results)
         setFarmerData(results)
+        setTimeout(() => {
+          setFarmerInfo(true)
+        },200)
       }
     }
-    const bookMark = (id) => {
-      console.log(id)
-  }
+    const trigger = () => {
+      setFarmerInfo(false)
+    }
   return (
     <>
     <aside>
       {searchProduce.length === 0 && (
-        <div>hhhh</div>
+        <div>No produce found</div>
       )}
     </aside>
     <section>
-  {searchProduce.length > 0 && (
+  {searchProduce.length > 0 && !showFarmerInfo && (
     <main>
       {searchProduce.map((produce, index) => (
         <div key={index}>
@@ -67,7 +70,9 @@ const ProduceResponse = ({produce}) => {
     </main>
   )}
 </section>
-  <ShowProduceInfo data={farmerData}/>
+  {showFarmerInfo && (
+    <ShowProduceInfo data={farmerData} trigger={trigger}/>
+  )}
     </>
   )
 }

@@ -8,7 +8,7 @@ const ClientBookmarks = ({bookmarks}) => {
     const [clientBookmarks,setClientBookmarks] = useState([])
     const [farmerInformation,setFarmerInformation] = useState(null)
     const [triggerAnimation,setTriggerAnimation] = useState(false)
-    const [] = useState(false)
+    const [showFarmerInfo, setFarmerInfo] = useState(false)
     const userInfo  = useContext(UserContext)
     /*  */
     useEffect(() => {
@@ -26,6 +26,9 @@ const ClientBookmarks = ({bookmarks}) => {
         const farmerData =  await GetFarmerInfo(farmerId)
         if(farmerData){
             setFarmerInformation(farmerData)
+            setTimeout(() => {
+                setFarmerInfo(true)
+            },200)
         }
         console.log(farmerInformation)
     }
@@ -35,13 +38,15 @@ const ClientBookmarks = ({bookmarks}) => {
         const updateBookmark =  clientBookmarks.filter((bookmark) => bookmark._id !== id)
         setClientBookmarks(updateBookmark)
     }
-    
+    const trigger = () => {
+        setFarmerInfo(false)
+      }
   return (
     <>
     {!triggerAnimation && (
         <SpinnerLoader/>
     )}
-   {triggerAnimation &&  (
+   {triggerAnimation && !showFarmerInfo && (
         <>
         <section>
         {clientBookmarks && clientBookmarks.length > 0 && clientBookmarks.map((bookmark,index) => (
@@ -78,8 +83,8 @@ const ClientBookmarks = ({bookmarks}) => {
     )}
     </>
     )}
-    {triggerAnimation && (
-        <ShowProduceInfo data={farmerInformation} />
+    {triggerAnimation && showFarmerInfo && (
+        <ShowProduceInfo data={farmerInformation} trigger={trigger} />
     )}
     </>
   )
