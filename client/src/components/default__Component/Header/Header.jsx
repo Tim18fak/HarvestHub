@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom';
 import './header.css'
 const Header = () => {
   return (
-    <nav>
+    <>
+    <input type="checkbox" id='checkbox' name='checkbox' />
+    <header>
       <h3>HarvestHub</h3>
+      <label htmlFor="checkbox" id='navBtn' >
+      </label>
+    </header>
+    <nav>
         <ul>
-          <li><Link to={'/'}>Home</Link></li>
-          <li><Link to={'/about'}>About</Link></li>
-          <li><Link to={'/contact'}>Contact</Link></li>
+          <li><Link to={'/'}  id='links'>Home <span></span></Link></li>
+          <li><Link to={'/about'}  id='links'>About <span></span></Link></li>
+          <li><Link to={'/contact'} id='links'>Contact <span></span></Link></li>
         </ul>
-      <h3><Link to={'/auth'} id='get-started'>Get Started</Link></h3>
+      <h3><Link to={'/auth'} id='get-started'>Get Started <span></span></Link></h3>
     </nav>
+    </>
   )
 }
 
