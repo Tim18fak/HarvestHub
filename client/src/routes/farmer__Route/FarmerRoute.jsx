@@ -9,7 +9,6 @@ import { GetProduce, GetProfile } from '../../../configs/farmer_configs/fetch';
 import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
 import {io} from 'socket.io-client'
 
-
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(true)
   const [produce,setProduce] =  useState([])
