@@ -68,7 +68,7 @@ const userSchema = new mongoose.Schema({
   notification: [
     {
       date: {type: Date},
-      message: {type: Object}
+      message: {type: String}
     }
   ],
   seenNotification:{ type: Date},

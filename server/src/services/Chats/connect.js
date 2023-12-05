@@ -18,8 +18,8 @@ const Connect = (server) => {
         socket.on('notification',async(data) => {
           console.log(data)
           const result =  await addNotification(data)
-          console.log(result)
           if(result){
+            console.log(result)
             socket.emit('new_notification',result)
           }
         })
