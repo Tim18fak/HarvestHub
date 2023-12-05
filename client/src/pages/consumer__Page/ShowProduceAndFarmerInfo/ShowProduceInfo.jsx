@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
 import { Bookmark } from '../../../../configs/consumer__configs/configs'
 import { Link } from 'react-router-dom'
-import { UserContext, useSocket } from '../../../../hooks/useContext/ConsumerInfo'
+import { UserContext, Socket } from '../../../../hooks/useContext/ConsumerInfo'
 
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
     const [triggerAnimation,setTriggerAnimation] = useState(false)
-    const socket =  useContext(useSocket)
+    const socket =  useContext(Socket)
     const userInfo =  useContext(UserContext)
     useEffect(() => {
         if(data){

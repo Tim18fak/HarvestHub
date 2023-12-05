@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { cookie } from '../../../configs/default__configs/cookies';
 import FarmerRoute from '../farmer__Route/FarmerRoute';
 import ClientRoute from '../client__Route/ClientRoute';
-import { UserContext,useSocket} from '../../../hooks/useContext/ConsumerInfo';
+import { UserContext,Socket} from '../../../hooks/useContext/ConsumerInfo';
 import io from 'socket.io-client'
 
 const DefaultRoute = () => {
@@ -28,9 +28,9 @@ const DefaultRoute = () => {
   const isFarmer =  cookie.get('isFarmer')
   return(
     <UserContext.Provider value={userInfo}>
-      <useSocket.Provider value={socket}>
+      <Socket.Provider value={socket}>
       {isFarmer ? <FarmerRoute/> : <ClientRoute/>}
-      </useSocket.Provider>
+      </Socket.Provider>
     </UserContext.Provider>
   )
 }

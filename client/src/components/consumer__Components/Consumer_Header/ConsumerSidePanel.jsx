@@ -9,7 +9,6 @@ const ConsumerSidePanel = ({bookMrk,profile,message}) => {
  
   return (
     <nav>
-        <h2>HarvestHub</h2>
         <ul>
             <li><Link to='/cN/dashboard' >Dashboard</Link></li>
             <li><Link to='/cN/profile' onClick={profile} >Profile</Link></li>
