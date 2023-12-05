@@ -2,7 +2,7 @@ import React, { useEffect, useState,useContext } from 'react'
 import { GetFarmerInfo, deleteBookMrk } from '../../../../configs/consumer__configs/configs'
 import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
-import { UserContext } from '../../../../hooks/useContext/ConsumerInfo'
+import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 
 const ClientBookmarks = ({bookmarks}) => {
     const [clientBookmarks,setClientBookmarks] = useState([])
@@ -10,6 +10,7 @@ const ClientBookmarks = ({bookmarks}) => {
     const [triggerAnimation,setTriggerAnimation] = useState(false)
     const [showFarmerInfo, setFarmerInfo] = useState(false)
     const userInfo  = useContext(UserContext)
+    const socket = useContext(Socket)
     /*  */
     useEffect(() => {
         if(bookmarks){
