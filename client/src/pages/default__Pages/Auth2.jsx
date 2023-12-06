@@ -33,6 +33,8 @@ const ConsumerInfo = {
     address: '',
     nationalId: '',
     phoneNumber: '',
+    profileImage: '',
+
     /* Where did you hear us from */
     comeabout: ''
 
@@ -50,8 +52,17 @@ const Auth2 = () => {
   const [quenstionaireLength,setQuestionaireLength] = useState(0)
   const [farmerInfo,setFarmerInfo] = useState(FarmerInfo)
   const [consumerInfo,setConsumerInfo] =  useState(ConsumerInfo)
+  const [next,setNext] = useState(true)
 
   /* algorithm to ensure that user's enter the same password */
+  useEffect(() => {
+    if(consumerInfo.address && consumerInfo.nationalId && consumerInfo.phoneNumber && consumerInfo.profileImage){
+      setNext(false)
+    }else{
+      setNext(true)
+    }
+    console.log(consumerInfo)
+  },[consumerInfo])
   useEffect(() => {
     if(isLogin === false){
       if(userInfo.password === userInfo.confirm__password && userInfo.email && userInfo.username && userInfo.password && userInfo.confirm__password && userInfo.fullname){
@@ -176,13 +187,26 @@ const getUserInfo = (e) => {
   const {name,value} = e.target;
   setUserInfo({...userInfo,[name]: value})
 }
-
+/* get the profile image */
+const getProfileImage = (e) => {
+  const { files } = e.target;
+  const profileImage = new FileReader()
+  profileImage.onload = (e) => {
+    const processedBioImage = e.target.result;
+    setConsumerInfo({...ConsumerInfo,profileImage : processedBioImage})
+  }
+  profileImage.readAsDataURL(files[0])
+}
 /* get Info from isFarmer checkbox */
 const isFarmerCheckBox = (e) => {
   setCheckBox((prev) => !checkBox)
 }
+/* get the questionaire logic moving in a forward means */
 const questionaireInfo = () => {
     setQuestionaireLength((prev) => quenstionaireLength + 1)
+}
+const questionaireInfoBack = () => {
+  setQuestionaireLength((prev) => quenstionaireLength - 1)
 }
 const getFarmerExtraInfo = (e) => {
     const {name,value} = e.target;
@@ -253,36 +277,44 @@ const getConsumerExtraInfo = (e) => {
         <form>
              <h1>Tell us About Yourself</h1>
              <div>
-                <input type="file" name='telephone'/>
-                <label htmlFor="telephone"><i class="fa-solid fa-user"></i><span>Tel</span></label>
+              <img src={consumerInfo.profileImage ? `${consumerInfo.profileImage}` : ``} width={200} height={200} alt="" />
+                <input type="file" name='profileImage' onChange={getProfileImage}/>
+                <label htmlFor="profileImage"><i class="fa-solid fa-user"></i><span>Profile Image</span></label>
              </div>
              <div>
-                <input type="text" name='telephone'/>
-                <label htmlFor="telephone"><i className="fa-solid fa-phone"></i><span>Tel</span></label>
+                <input type="text" name='phoneNumber' onChange={getConsumerExtraInfo} value={consumerInfo.phoneNumber}/>
+                <label htmlFor="phoneNumber"><i class="fa-solid fa-location-dot"></i><span>PhoneNumber</span></label>
              </div>
              <div>
-                <input type="text" name='telephone'/>
-                <label htmlFor="telephone"><i class="fa-solid fa-location-dot"></i><span>Location</span></label>
+                <input type="text" name='address' onChange={getConsumerExtraInfo} value={consumerInfo.address}/>
+                <label htmlFor="address"><i class="fa-solid fa-location-dot"></i><span>Location</span></label>
              </div>
+
              <div>
-                <input type="text" name='telephone'/>
-                <label htmlFor="telephone"><i class="fa-solid fa-id-card"></i><span>NationalId</span></label>
+                <input type="text" name='nationalId' onChange={getConsumerExtraInfo} value={consumerInfo.nationalId}/>
+                <label htmlFor="nationalId"><i class="fa-solid fa-id-card"></i><span>NationalId</span></label>
              </div>
-             <button onClick={questionaireInfo}>Next</button>
+             <aside>
+             <p onClick={questionaireInfoBack}>Back</p>
+             <button onClick={questionaireInfo} disabled={next}>Next</button>
+             </aside>
         </form>
     )}
     {quenstionaireLength === 2 && !checkBox &&(
         <form>
              <div>
-                <label htmlFor="telephone">How did you hear about us</label>
-                <input type="text" name='telephone'/>
+                <label htmlFor="comeabout" onChange={getConsumerExtraInfo}>How did you hear about us</label>
+                <input type="text" name='comeabout' onChange={getConsumerExtraInfo} value={consumerInfo.comeabout}/>
              </div>
+             <aside>
+             <p onClick={questionaireInfoBack}>Back</p>
              <button onClick={questionaireInfo}>Next</button>
+             </aside>
         </form>
     )}
     {quenstionaireLength === 3 && <div>
         <h2>Finished Set Up</h2>
-        <button onClick={questionaireInfo}>Completed</button>
+        <button onClick={questionaireInfo}>Done</button>
         </div>}
     {
       accountCreated && quenstionaireLength > 3 &&(<ActivationCode res={succesRes} />)
