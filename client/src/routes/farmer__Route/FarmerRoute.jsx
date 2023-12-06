@@ -6,13 +6,17 @@ import FarmerProfile from '../../pages/farmer__Page/farmer__Profile/FarmerProfil
 import FarmerProduce from '../../pages/farmer__Page/farmer__Produce/farmerProduce';
 import FarmerAddProduce from '../../pages/farmer__Page/Add__Produce/FarmerAddProduce';
 import { GetProduce, GetProfile } from '../../../configs/farmer_configs/fetch';
-import { UserContext } from '../../../hooks/useContext/ConsumerInfo';
+import { Socket, UserContext } from '../../../hooks/useContext/ConsumerInfo';
 import {io} from 'socket.io-client'
 
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(true)
   const [produce,setProduce] =  useState([])
   const [profile,setProfile] = useState([])
+  const [notificationResponse,setNotificationResponse] = useState('')
+  const [hideNotification,setHideNotification] = useState(true)
+  const [notification,setNotification] = useState(null)
+  const socket  = useContext(Socket)
   const userInfo =  useContext(UserContext)
 
 
@@ -39,6 +43,25 @@ const FarmerRoute = () => {
   console.log(produce)
   return (
     <Router>
+      <header>
+        <h1>HarvestHub</h1>
+        <aside>
+        <i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
+          color: 'red',
+          fontSize: '30px'
+        } : {
+          color: 'red',
+          fontSize: '20px'
+        }} onClick={() => getNotification(userInfo)}></i>
+          {!hideNotification && (
+            <>
+            <h4>New Notification</h4>
+            <p>{notificationResponse}</p>
+            <button onClick={hideNotify}>Hide</button>
+            </>
+          )}
+        </aside>
+      </header>
       <FarmerSidePanel  getProfile={() => getprofile(userInfo)} getProduce={() => getproduce(userInfo)}/>
       <Routes>
         <Route path="/fM/dashboard" element={<FarmerDashboard />} />

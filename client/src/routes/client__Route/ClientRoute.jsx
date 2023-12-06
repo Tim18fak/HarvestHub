@@ -4,7 +4,7 @@ import ClientDashboard from '../../pages/consumer__Page/Dashboard/ClientDashboar
 import ConsumerSidePanel from '../../components/consumer__Components/Consumer_Header/ConsumerSidePanel';
 import ConsumerProfile from '../../pages/consumer__Page/consumer__Profile/ConsumerProfile';
 import ClientBookmarks from '../../pages/consumer__Page/Bookmarks/ClientBookmarks';
-import {getBookmark} from '../../../configs/consumer__configs/configs'
+import {getBookmark, consumerNotification} from '../../../configs/consumer__configs/configs'
 import { UserContext, Socket } from '../../../hooks/useContext/ConsumerInfo';
 import Message from '../../pages/consumer__Page/Message/message';
 import Notification from '../../pages/consumer__Page/Notification/Notification';
@@ -13,6 +13,7 @@ const ClientRoute = () => {
   const [bookMark,setBookMrk] = useState([])
   const [notificationResponse,setNotificationResponse] = useState('')
   const [hideNotification,setHideNotification] = useState(true)
+  const [notification,setNotification] = useState(null)
   const userInfo  = useContext(UserContext)
   const socket = useContext(Socket)
 
@@ -41,11 +42,24 @@ const ClientRoute = () => {
   const hideNotify = () => {
     setHideNotification(true)
   }
+  const getNotification = async(userInfo) => {
+    const result =  await consumerNotification(userInfo)
+    if(result){
+      setNotification(result)
+    }
+  }
   return (
     <Router>
       <header>
         <h1>HarvestHub</h1>
         <aside>
+        <i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
+          color: 'red',
+          fontSize: '30px'
+        } : {
+          color: 'red',
+          fontSize: '20px'
+        }} onClick={() => getNotification(userInfo)}></i>
           {!hideNotification && (
             <>
             <h4>New Notification</h4>
@@ -60,7 +74,7 @@ const ClientRoute = () => {
       <Route path="/cN/dashboard" element={<ClientDashboard />} />
       <Route path="/cN/profile" element={<ConsumerProfile />} />
       <Route path='/cN/bokmarks' element={<ClientBookmarks bookmarks={bookMark}/>}/>
-      <Route path='/cN/notification' element={<Notification/>}/>
+      <Route path='/cN/notification' element={<Notification notification={notification}/>}/>
       <Route path='/cN/message' element={<Message/>}/>
     </Routes>
   </Router>

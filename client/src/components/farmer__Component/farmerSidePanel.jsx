@@ -6,7 +6,6 @@ const FarmerSidePanel = ({ getProduce,getProfile}) => {
   
   return (
     <nav>
-        <h3>HarvestHub</h3>
       <main>
         <ul>
             <li><Link to='/fM/dashboard'>Dashboard</Link></li>

@@ -23,8 +23,8 @@ const ShowProduceInfo = ({data,trigger}) => {
     const bookMark = async(id) => {
         try {
             const result = await Bookmark(id);
-            socket.emit('notification',{userInfo,result})
-            alert(result);
+            const message =  `you bookmarked a produce with this id ${result}`
+            socket.emit('notification',{userInfo,result,message})
 
         } catch (error) {
             console.error('Error:', error);

@@ -12,6 +12,7 @@ const deleteProduct = async(req,res) => {
     return res.status(403).json({'message': 'Produce Id not found'})
   }
   console.log(deleteProduct)
+  
   return res.status(204).json({deleteProduct})
 }
 

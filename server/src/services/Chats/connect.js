@@ -13,14 +13,15 @@ const Connect = (server) => {
         allowedHeaders: ['*'],
       },
       });
-
+      const connectedUser =  
       io.on('connection', (socket) => {
         socket.on('notification',async(data) => {
+          const {message} = data
           console.log(data)
           const result =  await addNotification(data)
           if(result){
             console.log(result)
-            socket.emit('new_notification',result)
+            socket.emit('new_notification',message)
           }
         })
         socket.on('disconnect',() => {

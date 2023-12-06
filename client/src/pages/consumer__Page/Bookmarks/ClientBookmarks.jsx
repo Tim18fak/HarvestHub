@@ -35,7 +35,10 @@ const ClientBookmarks = ({bookmarks}) => {
     }
     const deleteBookmark = async(userInfo,id) => {
         const result = await deleteBookMrk(userInfo, id);
-        alert(result)
+        const message =  `you deleted a bookmarked  produce with this id ${result}`
+        if(socket){
+            socket.emit('notification',{userInfo,result,message})
+        }
         const updateBookmark =  clientBookmarks.filter((bookmark) => bookmark._id !== id)
         setClientBookmarks(updateBookmark)
     }

@@ -83,3 +83,7 @@ export const deleteBookMrk = (userInfo, id) => {
             throw error;
         });
 };
+
+export const consumerNotification = (data) => {
+    const {_id,accessToken} = data
+}
