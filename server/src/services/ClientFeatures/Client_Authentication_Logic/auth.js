@@ -124,7 +124,7 @@ const signUp = async (arg, ip, res) => {
 
   const Id = crypto.randomBytes(16).toString('hex');
   const response = await axios.get('http://localhost/auth/code');
-  const imageUrl =  await uploadProfileImage(profileImage)
+  const imageUrl =  await uploadProfileImage(profileImage,isFarmer)
   const activationCode = response.data
   console.log(activationCode)
   const newHashedPassword = await bcrypt.hash(password, 10);

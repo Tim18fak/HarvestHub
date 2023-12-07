@@ -24,6 +24,9 @@ router.get('/p/:produceId',async(req,res) => {
    try{
     const id = req.params.produceId
     const produce =  await Product.findById(id).populate({ path: 'Farmer' });
+    if(produce.Farmer === null){
+        return res.json({'message': 'Farmer no longer exist'})
+    }
     const {title,description,Image,location,date,quantity,price,category,Farmer,_id} = produce;
     const {fullname,username,products} = Farmer
     const otherProduces =  await otherProduce(products,id)
@@ -72,6 +75,9 @@ router.post('/bmrK/:consumerId/:produceId', async (req, res) => {
 router.get('/gT/bmrK/:consumerId', async(req,res) => {
     const results = []
     const bookmarkedProduce =  await Bookmark.findOne({consumerId: req.params.consumerId})
+    if(!bookmarkedProduce){
+        return
+    }
     for(let i = 0;i < bookmarkedProduce.product.length;i++){
         const populatedProduce = await Product.findById(bookmarkedProduce.product[i])
         results.push(populatedProduce);

@@ -3,6 +3,7 @@ const { signup, login, reset, code, compareActivationCode,Found__Username} = req
 const router = express.Router();
 
 router.get('/code',code)
+router.get('')
 router.post('/signup', signup); // Corrected the path here
 router.post('/login', login);
 router.post('/reset', reset);

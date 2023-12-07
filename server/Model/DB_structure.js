@@ -72,7 +72,7 @@ const productSchema = new mongoose.Schema({
   // ... other fields
 });
 
-const userSchema = new mongoose.Schema({
+const consumerSchema = new mongoose.Schema({
   /* PErsonal Info */
 
   Id: { type: String, required: true},
@@ -150,7 +150,7 @@ const BlockedUser = mongoose.model('BannedUser', Banned );
 const Admin = mongoose.model('Admin',adminInfo)
 const Farmer = mongoose.model('Farmer', farmerSchema);
 const Product = mongoose.model('Product', productSchema);
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('Consumer', consumerSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
 const ChatModule = mongoose.model('chatMessage',chatMessage)

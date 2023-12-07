@@ -32,10 +32,10 @@ const uploadImages  = async(images) => {
         console.log(error.message);
       }
 }
-const uploadProfileImage = (image) => {
+const uploadProfileImage = (image,isFarmer) => {
   return new Promise((resolve, reject) => {
     try {
-      const folderName = 'profileImages';
+      const folderName = isFarmer ? 'profileImages/farmerProfileImage': 'profileImages/consumerProfileImage';
       cloudinary.uploader.upload(image, { folder: folderName }, (err, result) => {
         if (err) {
           console.error(err);

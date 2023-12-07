@@ -10,9 +10,9 @@ const getAccesToken =  () => {
     return cookie.get('accessToken')
 }
 export const GetFarmerInfo = async(id) => {
-    console.log(id)
     const url = `http://localhost/client/p/${id}`
     const info = await Axios.get(url)
+    console.log(info)
     return info.data
 }
 

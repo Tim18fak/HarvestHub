@@ -292,7 +292,6 @@ const getExtraInfo = (e) => {
             <div>
               <input type="text" name='driverLicence' onChange={getExtraInfo} value={farmerInfo.driverLicence} />
                 <label htmlFor="driverLicence">Driver Licence</label>
-                <p><strong>This is not Required</strong></p>
             </div>
             <aside>
              <p onClick={questionaireInfoBack}>Back</p>

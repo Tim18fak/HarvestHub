@@ -7,16 +7,22 @@ import { UserContext, Socket } from '../../../../hooks/useContext/ConsumerInfo'
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
     const [triggerAnimation,setTriggerAnimation] = useState(false)
+    const [farmerExist,setFarmerExist] = useState(true)
     const socket =  useContext(Socket)
     const userInfo =  useContext(UserContext)
     useEffect(() => {
-        if(data){
+        if(!data.message){
             setFetchData(data)
             console.log(data)
             setTimeout(() => {
                 setTriggerAnimation(true)
             },4000)
             console.log(socket)
+        }else{
+            setTimeout(() => {
+                setTriggerAnimation(true)
+            },4000)
+            setFarmerExist(false)
         }
     },[data])
     /* Add Bookmark Logic */
@@ -38,7 +44,9 @@ const ShowProduceInfo = ({data,trigger}) => {
     <section>
         {/* produce info */}
         <a onClick={trigger}>Back</a>
-        <main>
+        {farmerExist && (
+            <>
+            <main>
             <figure>
                 {fetchData.Image && fetchData.Image.length > 0 && fetchData.Image.map((image, index) => (
                             <img src={image} key={index} alt="" />
@@ -107,6 +115,18 @@ const ShowProduceInfo = ({data,trigger}) => {
                 )}
             </aside>
         </aside>
+        </>
+        )}
+        {!farmerExist && (
+            <aside>
+                <p>Farmer Info was not found on our database</p>
+                <p>Possible reasons</p>
+                <ul>
+                    <li>Farmer has been deleted or banned by our Admin</li>
+                    <li>Farmer has deleted his/her account from our database</li>
+                </ul>
+            </aside>
+        )}
     </section>
     </>
   )
