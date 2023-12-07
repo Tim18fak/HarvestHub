@@ -15,32 +15,39 @@ const DefaultRoute = () => {
   const [gotUserData,setGotUserData] = useState(false)
 
   /*  */
-  useEffect(async() => {
+  useEffect(() => {
     const clientInfo =  cookie.getAll()
     const {_id,isFarmer} = clientInfo;
-    const url = `http://localhost/u/`
-    const userData =  await Axios.get(url,{
-      headers: {
+    setUserInfo(clientInfo)
+    
+    const UserData = async(id,isFarmer) => {
+      const url = `http://localhost/auth/uD/${id}/${isFarmer}`
+      const userdata = await Axios.get(url,{
+        headers: {
 
-      }
-    })
-    if(userData.data){
-        setFetchData(userData.data)
+        }
+      })
+      if(userdata.data){
+        setFetchData(userdata.data)
         setTimeout(() => {
           setGotUserData(true)
         },500)
+      }
     }
+
+
+    UserData(_id,isFarmer)
+
     console.log(clientInfo)
-    setUserInfo(clientInfo)
     const socket = io('http://localhost', {
         query: {
           authorization: `${'hh'}`,
       },
     });
     setSocket(socket)
+    socket.emit('active',clientInfo)
     setConnectionId(socket.id)
-    console.log(socket)
-    
+    console.log(socket)    
   },[])
 
   const isFarmer =  cookie.get('isFarmer')

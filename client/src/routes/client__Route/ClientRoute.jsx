@@ -8,7 +8,7 @@ import {getBookmark, consumerNotification} from '../../../configs/consumer__conf
 import { UserContext, Socket } from '../../../hooks/useContext/ConsumerInfo';
 import Message from '../../pages/consumer__Page/Message/message';
 import Notification from '../../pages/consumer__Page/Notification/Notification';
-
+import './clientroute.css'
 const ClientRoute = () => {
   const [bookMark,setBookMrk] = useState([])
   const [notificationResponse,setNotificationResponse] = useState('')
@@ -51,7 +51,7 @@ const ClientRoute = () => {
   return (
     <Router>
       <header>
-        <h1>HarvestHub</h1>
+        <h1>Harvest<span>Hub</span></h1>
         <aside>
         <i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
           color: 'red',
@@ -69,7 +69,11 @@ const ClientRoute = () => {
           )}
         </aside>
       </header>
+    <section className='body'>
+    <nav className='side_panel'>
     <ConsumerSidePanel bookMrk={() => getConsumerBookmark()}/>
+    </nav>
+    <main className='main_body'>
     <Routes>
       <Route path="/cN/dashboard" element={<ClientDashboard />} />
       <Route path="/cN/profile" element={<ConsumerProfile />} />
@@ -77,6 +81,8 @@ const ClientRoute = () => {
       <Route path='/cN/notification' element={<Notification notification={notification}/>}/>
       <Route path='/cN/message' element={<Message/>}/>
     </Routes>
+    </main>
+    </section>
   </Router>
   )
 }

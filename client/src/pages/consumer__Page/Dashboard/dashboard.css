@@ -1,0 +1,17 @@
+form{
+    background-color: rgb(0, 255, 13);
+    width: 80.5vw;
+    height: 12rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+form a{
+    margin: 2rem;
+    width: 160px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: blueviolet;
+}
+

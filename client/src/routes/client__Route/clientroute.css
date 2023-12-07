@@ -1,0 +1,41 @@
+:root{
+
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 1.2rem;
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+header h1 {
+    font-size: 1.5rem;
+    color: green;
+    
+}
+ section{
+    display: flex;
+    
+}
+.body{
+    position: relative;
+    top: 4.83rem;
+}
+section nav.side_panel {
+    width: 250px;
+    min-height: 89vh;
+    background-color: aqua;
+    position: fixed; 
+}
+section main.main_body{
+    display: flex;
+    flex-direction: column;
+    margin-left: 250px;
+}

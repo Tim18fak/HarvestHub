@@ -2,18 +2,28 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import { Logout } from '../../../../configs/default__configs/logout'
-
+import './consumersidepanel.css'
 const cookie =  new Cookies()
 
 const ConsumerSidePanel = ({bookMrk,profile,message}) => {
  
   return (
     <nav>
+      <aside>
+        <figure>
+          <img src="" alt="" width={150} height={150} style={{
+            borderRadius: '50%',
+            backgroundColor: 'red'
+          }} />
+          <figcaption>Username</figcaption>
+        </figure>
+      </aside>
         <ul>
-            <li><Link to='/cN/dashboard' >Dashboard</Link></li>
-            <li><Link to='/cN/profile' onClick={profile} >Profile</Link></li>
-            <li><Link to='/cN/bokmarks' onClick={bookMrk}>Saved</Link></li>
-            <li><Link to='cN/message' onClick={message}>Message</Link></li>
+            <li><Link id='side_panel-list' to='/cN/dashboard' ><span><i class="fa-solid fa-user"></i></span> Dashboard</Link></li>
+            
+            <li><Link id='side_panel-list' to='/cN/profile' onClick={profile} >Profile</Link></li>
+            <li><Link id='side_panel-list' to='/cN/bokmarks' onClick={bookMrk}>Saved</Link></li>
+            <li><Link id='side_panel-list' to='cN/message' onClick={message}>Message</Link></li>
         </ul>
         <h4 onClick={Logout}>LogOut</h4>
     </nav>
