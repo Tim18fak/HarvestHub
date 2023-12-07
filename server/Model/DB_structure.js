@@ -3,28 +3,36 @@ const mongoose = require('mongoose');
 // Define your schemas
   // MongoDB Schema for Farmers
 const farmerSchema = new mongoose.Schema({
+  /* Personal Info */
+
   Id: { type: String, required: true},
   fullname: { type: String, required: true},
   username: { type: String, required: true},
   hashedPassword: {type: String, required: true},
   email: {type: String, required: true},
   Ip: { type: String, required: true},
-  activationCode: { type: Number},
-  activationCodeStatus: { type: String, required: true},
-  authorizationToken: { type: String},
+  profileImage: {type:String},
   phoneNumber: { type: Number},
+  NIN: { type: String},
   isFarmer: {type: Boolean ,required: true},
-  location: { type: String},
+  address: { type: String},
+  aboutYourself: { type: String},
+
+  /* Farm info */
+
   farmName: { type: String},
+  farmType:{type:String},
   farm_Address: { type: String},
   farmDescription: { type: String},
-  home_Address: { type: String},
-  aboutYourself: { type: String},
-  profileImage: { type: String},
+  farmeingExperience: {type: Number},
+
   products: [{
     type: String,
     ref: 'Product',
   }],
+
+  /* Notification */
+
   notification: [
     {
       date: {type: Date},
@@ -32,8 +40,16 @@ const farmerSchema = new mongoose.Schema({
     }
   ],
   seenNotification:{ type: Date},
+
+  /* Verification */
+
   verificationStatus: { type: String},
-  nationalId: { type: String},
+  activationCode: { type: Number},
+  activationCodeStatus: { type: String, required: true},
+  authorizationToken: { type: String},
+
+  /* Others */
+  comeAbout: {type: String}
   // Status could be 'Pending', 'Verified', 'Rejected', etc.
   // Other fields for verification documents, such as identity cards, certificates, etc.
   // You can also include fields for geolocation data (latitude and longitude) to pinpoint the farm's location
@@ -56,25 +72,39 @@ const productSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
+  /* PErsonal Info */
+
   Id: { type: String, required: true},
   fullname: { type: String, required: true},
   username: { type: String, required: true},
   hashedPassword: {type: String, required: true},
-  activationCode: { type: Number},
-  activationCodeStatus: { type: String, required: true},
+  address: {type: String},
+  NIN: {type: String},
+  phoneNumber: {type: Number},
+  profileImage: {type: String},
   email: {type: String, required: true},
   Ip: { type: String, required: true},
   aboutYourself: { type: String},
+  isFarmer: {type: Boolean ,required: true},
+  
+  /* Notification */
+
   notification: [
     {
       date: {type: Date},
-      message: {type: String}
+      message: {type: String} 
     }
   ],
   seenNotification:{ type: Date},
-  isFarmer: {type: Boolean ,required: true},
+
+  /* Verification */
+
   authorizationToken: { type: String},
+  activationCode: { type: Number},
+  activationCodeStatus: { type: String, required: true},
   // ... other fields
+
+  comeAbout:{type: String},
 });
 
 const transactionSchema = new mongoose.Schema({

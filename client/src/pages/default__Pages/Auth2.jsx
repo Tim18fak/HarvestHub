@@ -22,9 +22,11 @@ const FarmerInfo = {
     phoneNumber: '',
     driverLicence: '',
     farmingExperience: '',
+    profileImage: '',
     /* farmer Farm information */
     type: '',
     location: '',
+    comeabout: ''
 
 }
 
@@ -56,13 +58,18 @@ const Auth2 = () => {
 
   /* algorithm to ensure that user's enter the same password */
   useEffect(() => {
-    if(consumerInfo.address && consumerInfo.nationalId && consumerInfo.phoneNumber && consumerInfo.profileImage){
+    if(checkBox){
+
+    }else{
+       if(consumerInfo.address && consumerInfo.nationalId && consumerInfo.phoneNumber && consumerInfo.profileImage){
       setNext(false)
     }else{
       setNext(true)
     }
+    }
+    console.log(farmerInfo)
     console.log(consumerInfo)
-  },[consumerInfo])
+  },[consumerInfo,farmerInfo])
   useEffect(() => {
     if(isLogin === false){
       if(userInfo.password === userInfo.confirm__password && userInfo.email && userInfo.username && userInfo.password && userInfo.confirm__password && userInfo.fullname){
@@ -126,7 +133,8 @@ const Auth2 = () => {
         isFarmer: checkBox,
         password,
         confirm__password,
-        fullname
+        fullname,
+        extraInfo: checkBox ? farmerInfo : consumerInfo
       })
       })
       .then((response) => {
@@ -193,7 +201,7 @@ const getProfileImage = (e) => {
   const profileImage = new FileReader()
   profileImage.onload = (e) => {
     const processedBioImage = e.target.result;
-    setConsumerInfo({...ConsumerInfo,profileImage : processedBioImage})
+    checkBox ?setFarmerInfo({...FarmerInfo,profileImage: processedBioImage}) :setConsumerInfo({...ConsumerInfo,profileImage : processedBioImage})
   }
   profileImage.readAsDataURL(files[0])
 }
@@ -212,9 +220,9 @@ const getFarmerExtraInfo = (e) => {
     const {name,value} = e.target;
     setFarmerInfo({...farmerInfo,[name] : value})
 }
-const getConsumerExtraInfo = (e) => {
+const getExtraInfo = (e) => {
     const {name,value} = e.target
-    setConsumerInfo({...consumerInfo,[name] : value})
+    checkBox ? setFarmerInfo({...farmerInfo,[name] : value}) :setConsumerInfo({...consumerInfo,[name] : value})
 }
   return (
     <>
@@ -261,16 +269,60 @@ const getConsumerExtraInfo = (e) => {
     )}
     {quenstionaireLength === 1 && checkBox &&(
         <form>
+        
             <h1>Tell us About Yourself</h1>
             <div>
-                <input type="text" />
-                <label htmlFor="">hhh</label>
+              <img src={farmerInfo.profileImage ? `${farmerInfo.profileImage}` : ''} width={200} height={200} alt="" />
+                <input type="file" onChange={getProfileImage}/>
+                <label htmlFor="">Profile Image</label>
             </div>
+            <div>
+              <input type="text" name='address' onChange={getExtraInfo} value={farmerInfo.address} required/>
+                <label htmlFor="address">Home Address</label>
+            </div>
+            <div>
+              <input type="text" name='nationalId' onChange={getExtraInfo} value={farmerInfo.nationalId} required/>
+                <label htmlFor="nationalId">NIN</label>
+            </div>
+            <div>
+              <input type="text" name='phoneNumber' onChange={getExtraInfo} value={farmerInfo.phoneNumber} required/>
+                <label htmlFor="phoneNumber">Phone Number</label>
+            </div>
+            <div>
+              <input type="text" name='driverLicence' onChange={getExtraInfo} value={farmerInfo.driverLicence} />
+                <label htmlFor="driverLicence">Driver Licence</label>
+                <p><strong>This is not Required</strong></p>
+            </div>
+            <div>
+              <input type="text" name='farmingExperience' required onChange={getExtraInfo} value={farmerInfo.farmingExperience}/>
+                <label htmlFor="farmingExperience">Farming Experience</label>
+            </div>
+            <aside>
+             <p onClick={questionaireInfoBack}>Back</p>
+             <button onClick={questionaireInfo}>Next</button>
+             </aside>
         </form>
     )}
     {quenstionaireLength === 2 && checkBox &&(
         <form>
+          <h2></h2>
             
+          <div>
+            <input type="text" name='type' onChange={getExtraInfo} value={farmerInfo.type} required/>
+            <label htmlFor="type">What Type of Farming Are you currently practicing</label>
+          </div>
+          <div>
+            <input type="text" name='location' onChange={getExtraInfo} value={farmerInfo.location} required/>
+            <label htmlFor="location">Where is your farmer land located</label>
+          </div>
+          <div>
+            <input type="text" name='comeabout' onChange={getExtraInfo} value={farmerInfo.comeabout} required/>
+            <label htmlFor="comeabout">Where did you hear about us</label>
+          </div>
+          <aside>
+            <p onClick={questionaireInfoBack}>Back</p>
+            <button onClick={questionaireInfo}>Next</button>
+          </aside>
         </form>
     )}
     {quenstionaireLength === 1 && !checkBox &&(
@@ -282,16 +334,16 @@ const getConsumerExtraInfo = (e) => {
                 <label htmlFor="profileImage"><i class="fa-solid fa-user"></i><span>Profile Image</span></label>
              </div>
              <div>
-                <input type="text" name='phoneNumber' onChange={getConsumerExtraInfo} value={consumerInfo.phoneNumber}/>
+                <input type="text" name='phoneNumber' onChange={getExtraInfo} value={consumerInfo.phoneNumber}/>
                 <label htmlFor="phoneNumber"><i class="fa-solid fa-location-dot"></i><span>PhoneNumber</span></label>
              </div>
              <div>
-                <input type="text" name='address' onChange={getConsumerExtraInfo} value={consumerInfo.address}/>
+                <input type="text" name='address' onChange={getExtraInfo} value={consumerInfo.address}/>
                 <label htmlFor="address"><i class="fa-solid fa-location-dot"></i><span>Location</span></label>
              </div>
 
              <div>
-                <input type="text" name='nationalId' onChange={getConsumerExtraInfo} value={consumerInfo.nationalId}/>
+                <input type="text" name='nationalId' onChange={getExtraInfo} value={consumerInfo.nationalId}/>
                 <label htmlFor="nationalId"><i class="fa-solid fa-id-card"></i><span>NationalId</span></label>
              </div>
              <aside>
@@ -303,8 +355,8 @@ const getConsumerExtraInfo = (e) => {
     {quenstionaireLength === 2 && !checkBox &&(
         <form>
              <div>
-                <label htmlFor="comeabout" onChange={getConsumerExtraInfo}>How did you hear about us</label>
-                <input type="text" name='comeabout' onChange={getConsumerExtraInfo} value={consumerInfo.comeabout}/>
+                <label htmlFor="comeabout" >How did you hear about us</label><em>Not Important</em>
+                <input type="text" name='comeabout' onChange={getExtraInfo} value={consumerInfo.comeabout}/>
              </div>
              <aside>
              <p onClick={questionaireInfoBack}>Back</p>
@@ -314,10 +366,10 @@ const getConsumerExtraInfo = (e) => {
     )}
     {quenstionaireLength === 3 && <div>
         <h2>Finished Set Up</h2>
-        <button onClick={questionaireInfo}>Done</button>
+        <button onClick={Auth}>Done</button>
         </div>}
     {
-      accountCreated && quenstionaireLength > 3 &&(<ActivationCode res={succesRes} />)
+      accountCreated && (<ActivationCode res={succesRes} />)
     }
    {quenstionaireLength === 0 && (
     <>
