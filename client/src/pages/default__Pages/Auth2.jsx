@@ -88,8 +88,9 @@ const Auth2 = () => {
       fetch(URL)
       .then((response) => {
         if(!response.ok){
-          console.log(response)
+          
         }
+        console.log(response)
         switch (response.status) {
           case 200:
             console.log('username not taken')
@@ -285,17 +286,13 @@ const getExtraInfo = (e) => {
                 <label htmlFor="nationalId">NIN</label>
             </div>
             <div>
-              <input type="text" name='phoneNumber' onChange={getExtraInfo} value={farmerInfo.phoneNumber} required/>
+              <input type="number" name='phoneNumber' onChange={getExtraInfo} value={farmerInfo.phoneNumber} required/>
                 <label htmlFor="phoneNumber">Phone Number</label>
             </div>
             <div>
               <input type="text" name='driverLicence' onChange={getExtraInfo} value={farmerInfo.driverLicence} />
                 <label htmlFor="driverLicence">Driver Licence</label>
                 <p><strong>This is not Required</strong></p>
-            </div>
-            <div>
-              <input type="text" name='farmingExperience' required onChange={getExtraInfo} value={farmerInfo.farmingExperience}/>
-                <label htmlFor="farmingExperience">Farming Experience</label>
             </div>
             <aside>
              <p onClick={questionaireInfoBack}>Back</p>
@@ -305,12 +302,16 @@ const getExtraInfo = (e) => {
     )}
     {quenstionaireLength === 2 && checkBox &&(
         <form>
-          <h2></h2>
+          <h2>Tell us more about your farming profession</h2>
             
           <div>
             <input type="text" name='type' onChange={getExtraInfo} value={farmerInfo.type} required/>
             <label htmlFor="type">What Type of Farming Are you currently practicing</label>
           </div>
+          <div>
+              <input type="number" name='farmingExperience' required onChange={getExtraInfo} value={farmerInfo.farmingExperience}/>
+                <label htmlFor="farmingExperience">Farming Experience</label>
+            </div>
           <div>
             <input type="text" name='location' onChange={getExtraInfo} value={farmerInfo.location} required/>
             <label htmlFor="location">Where is your farmer land located</label>
@@ -334,7 +335,7 @@ const getExtraInfo = (e) => {
                 <label htmlFor="profileImage"><i class="fa-solid fa-user"></i><span>Profile Image</span></label>
              </div>
              <div>
-                <input type="text" name='phoneNumber' onChange={getExtraInfo} value={consumerInfo.phoneNumber}/>
+                <input type="number" name='phoneNumber' onChange={getExtraInfo} value={consumerInfo.phoneNumber}/>
                 <label htmlFor="phoneNumber"><i class="fa-solid fa-location-dot"></i><span>PhoneNumber</span></label>
              </div>
              <div>
@@ -366,6 +367,10 @@ const getExtraInfo = (e) => {
     )}
     {quenstionaireLength === 3 && <div>
         <h2>Finished Set Up</h2>
+        <p style={{
+      color: 'red',
+    }}>{err_Res}</p>
+     <p onClick={questionaireInfoBack}>Back</p>
         <button onClick={Auth}>Done</button>
         </div>}
     {

@@ -17,6 +17,7 @@ const farmerSchema = new mongoose.Schema({
   isFarmer: {type: Boolean ,required: true},
   address: { type: String},
   aboutYourself: { type: String},
+  driverLicence: {type:String},
 
   /* Farm info */
 
@@ -24,7 +25,7 @@ const farmerSchema = new mongoose.Schema({
   farmType:{type:String},
   farm_Address: { type: String},
   farmDescription: { type: String},
-  farmeingExperience: {type: Number},
+  farmingExperience: {type: Number},
 
   products: [{
     type: String,

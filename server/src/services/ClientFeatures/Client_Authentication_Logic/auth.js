@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer')
 const { clientAuthToken } = require('../../../../middlewares/client_authorization');
 const { axios } = require('../../../../config/axios.config');
 const { constants } = require('fs');
-const { uploadImages } = require('../../../../Controller/Farmers/constants/uploadImages');
+const { uploadImages, uploadProfileImage } = require('../../../../Controller/Farmers/constants/uploadImages');
 
 
 ////////  authentication code analysis
@@ -110,7 +110,6 @@ const signUp = async (arg, ip, res) => {
   try {
     const { fullname, username, email, password, isFarmer, extraInfo } = arg;
     const {profileImage,phoneNumber,address,nationalId} = extraInfo;
-    console.log(res)
   const blockUser = await BlockedUser.findOne({ $or: [{ username }, { email }, { ip }] });
   const user = isFarmer ? await Farmer.findOne({$or : [{ email },{username}] }) : await User.findOne({$or : [{ email },{username}] });
   console.log(isFarmer)
@@ -125,11 +124,12 @@ const signUp = async (arg, ip, res) => {
 
   const Id = crypto.randomBytes(16).toString('hex');
   const response = await axios.get('http://localhost/auth/code');
-  const imageUrl =  await uploadImages(profileImage)
+  const imageUrl =  await uploadProfileImage(profileImage)
   const activationCode = response.data
   console.log(activationCode)
   const newHashedPassword = await bcrypt.hash(password, 10);
   const newUser = isFarmer ? new Farmer({
+    /* Personal Information  */
     Id,
     fullname,
     username,
@@ -138,7 +138,20 @@ const signUp = async (arg, ip, res) => {
     email,
     isFarmer,
     hashedPassword: newHashedPassword,
+    NIN: nationalId,
+    address: address,
+    phoneNumber: phoneNumber,
+    driverLicence: extraInfo.driverLicence ? extraInfo.driverLicence : '',
+    profileImage: imageUrl,
+    /* Farm info */
+    farmType: extraInfo.type,
+    farm_Address: extraInfo.location,
+    farmingExperience: extraInfo.farmingExperience,
+    /* Verification */
+    verificationStatus: 'Pending',
     activationCodeStatus: 'Pending',
+    /* Others */
+    comeAbout: extraInfo.comeabout ? extraInfo.comeabout: '',
   }) : new User({
     Id,
     fullname,
@@ -148,7 +161,17 @@ const signUp = async (arg, ip, res) => {
     email,
     isFarmer,
     hashedPassword: newHashedPassword,
+    NIN: nationalId,
+    address: address,
+    phoneNumber: phoneNumber,
+    profileImage: imageUrl,
+
+    /* Verification */
     activationCodeStatus: 'Pending',
+    verificationStatus: 'Pending',
+
+    /* Others */
+    comeAbout: extraInfo.comeabout ? extraInfo.comeabout: '',
   });
 
   newUser.save()

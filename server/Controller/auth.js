@@ -41,6 +41,6 @@ const Found__Username = async(req,res) => {
   if(user === null){
     return res.sendStatus(200)
   }
-  res.sendStatus(403)
+  return res.sendStatus(403)
 } 
 module.exports = { signup, login, reset,code,compareActivationCode,Found__Username}
