@@ -20,23 +20,24 @@ const DefaultRoute = () => {
     const {_id,isFarmer} = clientInfo;
     setUserInfo(clientInfo)
     
-    const UserData = async(id,isFarmer) => {
+    const UserData = async(id,isFarmer,clientInfo) => {
       const url = `http://localhost/auth/uD/${id}/${isFarmer}`
       const userdata = await Axios.get(url,{
         headers: {
-
+          Authorization: `Bearer ${clientInfo.accessToken}`
         }
       })
-      if(userdata.data){
+      if(userdata){
+        console.log(userdata)
         setFetchData(userdata.data)
         setTimeout(() => {
           setGotUserData(true)
-        },500)
+        },5000)
       }
     }
 
 
-    UserData(_id,isFarmer)
+    UserData(_id,isFarmer,clientInfo)
 
     console.log(clientInfo)
     const socket = io('http://localhost', {
@@ -51,7 +52,7 @@ const DefaultRoute = () => {
   },[])
 
   const isFarmer =  cookie.get('isFarmer')
-  if(gotUserData) return <Preloader/>
+  if(!gotUserData) return <Preloader/>
 
   return(
     <UserContext.Provider value={userInfo}>

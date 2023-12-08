@@ -1,21 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import { Logout } from '../../../../configs/default__configs/logout'
 import './consumersidepanel.css'
+import { UserData } from '../../../../hooks/useContext/ConsumerInfo'
 const cookie =  new Cookies()
 
+
 const ConsumerSidePanel = ({bookMrk,profile,message}) => {
- 
+  const userData =  useContext(UserData)
+
   return (
     <nav>
       <aside>
         <figure>
-          <img src="" alt="" width={150} height={150} style={{
+          <img src={userData.profileImage} alt="" width={150} height={150} style={{
             borderRadius: '50%',
             backgroundColor: 'red'
           }} />
-          <figcaption>Username</figcaption>
+          <figcaption>{userData.username}</figcaption>
         </figure>
       </aside>
         <ul>

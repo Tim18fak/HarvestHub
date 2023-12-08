@@ -50,7 +50,7 @@ const ClientRoute = () => {
   }
   return (
     <Router>
-      <header>
+      <header className='dashboard_header'>
         <h1>Harvest<span>Hub</span></h1>
         <aside>
         <i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
@@ -69,7 +69,7 @@ const ClientRoute = () => {
           )}
         </aside>
       </header>
-    <section className='body'>
+    <section className='body' id='header_body'>
     <nav className='side_panel'>
     <ConsumerSidePanel bookMrk={() => getConsumerBookmark()}/>
     </nav>

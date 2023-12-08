@@ -6,7 +6,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-header{
+header.dashboard_header{
     display: flex;
     justify-content: space-between;
     padding: 1.5rem 1.2rem;
@@ -15,12 +15,12 @@ header{
     width: 100%;
     z-index: 1;
 }
-header h1 {
+header.dashboard_header h1 {
     font-size: 1.5rem;
     color: green;
     
 }
- section{
+ section#header_body{
     display: flex;
     
 }
@@ -28,13 +28,13 @@ header h1 {
     position: relative;
     top: 4.83rem;
 }
-section nav.side_panel {
+section#header_body nav.side_panel {
     width: 250px;
     min-height: 89vh;
     background-color: aqua;
     position: fixed; 
 }
-section main.main_body{
+section#header_body main.main_body{
     display: flex;
     flex-direction: column;
     margin-left: 250px;

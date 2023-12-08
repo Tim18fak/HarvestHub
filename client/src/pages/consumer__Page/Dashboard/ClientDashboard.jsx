@@ -67,7 +67,8 @@ console.log(selectedCategories)
   }
   return (
     <>
-      <form onSubmit={submitSearch}>
+    
+      <form onSubmit={submitSearch} className='harvesthub_dashboard'>
         <h3>Welcome To HarvestHub</h3>
         <input type="text" name="" placeholder="search produce" id="title" onChange={getproduceInfo} />
         <main>
