@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Logout } from '../../../configs/default__configs/logout'
+import { UserData } from '../../../hooks/useContext/ConsumerInfo'
 
 const FarmerSidePanel = ({ getProduce,getProfile}) => {
-  
+  const userData =  useContext(UserData)
   return (
     <nav>
+      <aside>
+        <figure>
+          <img src={userData.profileImage} alt="" width={150} height={150} style={{
+            borderRadius: '50%',
+            backgroundColor: 'red'
+          }} />
+          <figcaption>{userData.username}</figcaption>
+        </figure>
+      </aside>
       <main>
         <ul>
             <li><Link to='/fM/dashboard'>Dashboard</Link></li>

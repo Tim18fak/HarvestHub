@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Socket, UserData } from '../../../../hooks/useContext/ConsumerInfo'
+import { Socket, UserContext, UserData } from '../../../../hooks/useContext/ConsumerInfo'
 import { Axios } from '../../../../configs/default__configs/axios.config'
 
 
@@ -23,6 +23,7 @@ const ConsumerProfile = () => {
   const [consumerDataUpdata,setConsumerDataUpdata] = useState(updateValue)
   const userData = useContext(UserData)
   const socket = useContext(Socket)
+  const userInfo =  useContext(UserContext)
 
   const getUpdatedBio = (e) => {
     const {name,value} = e.target
@@ -63,9 +64,12 @@ const ConsumerProfile = () => {
       })
       if(result.status === 200){
         console.log(result.status)
-        const message =  'You updated your profile Information'
-        socket.emit('notification',message)
         window.location.reload()
+        setTimeout(() => {
+          const message = 'You updated your Profile'
+              const result =  null;
+              socket.emit('notification',{userInfo,result,message})
+        },7000)
       }
     } catch (error) {
       

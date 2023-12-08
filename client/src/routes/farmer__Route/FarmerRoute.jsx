@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import FarmerSidePanel from '../../components/farmer__Component/farmerSidePanel';
 import FarmerDashboard from '../../pages/farmer__Page/farmer__Dashboard/FarmerDashboard';
 import FarmerProfile from '../../pages/farmer__Page/farmer__Profile/FarmerProfile';
@@ -8,6 +8,7 @@ import FarmerAddProduce from '../../pages/farmer__Page/Add__Produce/FarmerAddPro
 import { GetProduce, GetProfile } from '../../../configs/farmer_configs/fetch';
 import { Socket, UserContext } from '../../../hooks/useContext/ConsumerInfo';
 import {io} from 'socket.io-client'
+import Notification from '../../pages/farmer__Page/Notification/Notification';
 
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(true)
@@ -19,6 +20,18 @@ const FarmerRoute = () => {
   const socket  = useContext(Socket)
   const userInfo =  useContext(UserContext)
 
+  if(socket){
+    socket.on('new_notification',(result) => {
+      if(result){
+        setHideNotification(false)
+        setNotificationResponse(result)
+      }
+    })
+  }
+
+  const hideNotify = () => {
+    setHideNotification(true)
+  }
 
   const getprofile= async(userInfo) => {
     const results = await GetProfile(userInfo)
@@ -28,6 +41,9 @@ const FarmerRoute = () => {
     }else(
       setProfile([])
     )
+  }
+  const getNotification = () => {
+    
   }
   const getproduce = async(userInfo) =>{
     const results =  await GetProduce(userInfo)
@@ -46,13 +62,13 @@ const FarmerRoute = () => {
       <header>
         <h1>HarvestHub</h1>
         <aside>
-        <i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
+        <Link to={'/fM/notification'}><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
           color: 'red',
           fontSize: '30px'
         } : {
           color: 'red',
           fontSize: '20px'
-        }} onClick={() => getNotification(userInfo)}></i>
+        }} onClick={() => getNotification(userInfo)}></i></Link>
           {!hideNotification && (
             <>
             <h4>New Notification</h4>
@@ -69,6 +85,7 @@ const FarmerRoute = () => {
         <Route path='/fM/produce' element={<FarmerProduce state={resState} farmerProduce={produce}/>}/>
         <Route path='/fM/upload_produce' element={<FarmerAddProduce/>}/>
         <Route path=''/>
+        <Route path='/fM/notification' element={<Notification/>}/>
       </Routes>
     </Router>
   )

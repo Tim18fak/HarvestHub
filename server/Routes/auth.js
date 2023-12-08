@@ -33,6 +33,7 @@ router.get('/uD/:Id/:isFarmer',async(req,res) => {
 router.put('/uP/:userID/:isFarmer',async(req,res)=> {
    try {
     const {userID,isFarmer} = req.params;
+    console.log(req.params)
     const userData =  isFarmer === 'true' ? await Farmer.findById(userID) : await User.findById(userID);
     if(!userData){
         return 

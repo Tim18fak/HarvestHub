@@ -26,7 +26,7 @@ const ConsumerSidePanel = ({bookMrk,profile,message}) => {
             
             <li><Link id='side_panel-list' to='/cN/profile' onClick={profile} >Profile</Link></li>
             <li><Link id='side_panel-list' to='/cN/bokmarks' onClick={bookMrk}>Saved</Link></li>
-            <li><Link id='side_panel-list' to='cN/message' onClick={message}>Message</Link></li>
+            <li><Link id='side_panel-list' to='cN/message' onClick={message}>Reviewed</Link></li>
         </ul>
         <h4 onClick={Logout}>LogOut</h4>
     </nav>

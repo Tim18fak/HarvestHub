@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { UserContext } from '../../../../hooks/useContext/ConsumerInfo'
+import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 import { Axios } from '../../../../configs/default__configs/axios.config'
 
 const cropCategory = {
@@ -32,6 +32,7 @@ const FarmerAddProduce = () => {
   const [produce,setProduceInfo] =  useState(produceInfo)
   const [userinfo,setSetinfo] =  useState('')
   const userInfo = useContext(UserContext);
+  const socket =  useContext(Socket)
 
   /* getting the userInfo from the useContext hook */
   useEffect(() => {
@@ -101,6 +102,9 @@ const FarmerAddProduce = () => {
               setSelectedCategories([''])
               setSelectedImages('')
               setProduceInfo(produceInfo)
+              const message = 'You added a new Produce to your Produce Collection'
+              const result =  null;
+              socket.emit('notification',{userInfo,result,message})
             })
             .catch((e) => {
 
