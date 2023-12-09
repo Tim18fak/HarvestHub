@@ -6,8 +6,10 @@ import { UserContext, Socket } from '../../../../hooks/useContext/ConsumerInfo'
 
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
+    const [phoneNum,setPhoneNum] = useState('Call Farmer')
     const [triggerAnimation,setTriggerAnimation] = useState(false)
     const [farmerExist,setFarmerExist] = useState(true)
+    const [imageIndex,setImageIndex] = useState(0)
     const socket =  useContext(Socket)
     const userInfo =  useContext(UserContext)
     useEffect(() => {
@@ -25,6 +27,35 @@ const ShowProduceInfo = ({data,trigger}) => {
             setFarmerExist(false)
         }
     },[data])
+    /* call farmer logi */
+    const callFarmer = (num) => {
+        setPhoneNum(num)
+    }
+    /* hide farmer number */
+    const hideFarmerNum = () => {
+        setPhoneNum('Call Farmer')
+    }
+    /* change image */
+    const changeImage = (index) => {
+        const image = document.querySelector('#Jumbostron_image');
+    
+        // Apply a fade-out and translateX effect
+        image.style.opacity = '0';
+        image.style.transform = 'translateX(-20px)'; // Adjust the value as needed
+        image.style.transition = 'opacity 0.5s, transform 0.5s';
+    
+        // After the fade-out and translateX effect, change the image source and reset the styles
+        setTimeout(() => {
+            image.src = fetchData.Image[index];
+            image.style.opacity = '0';
+            image.style.transform = 'translateX(30px)';
+        }, 400);
+
+        setTimeout(() => {
+            image.style.opacity = '1';
+            image.style.transform = 'translateX(0px)';
+        }, 1000);
+    };
     /* Add Bookmark Logic */
     const bookMark = async(id) => {
         try {
@@ -47,13 +78,21 @@ const ShowProduceInfo = ({data,trigger}) => {
         {farmerExist && (
             <>
             <main>
-            <figure>
+            <figure >
+                {fetchData.Image && fetchData.Image.length > 0 && (
+                    <>
+                    <figure>
+                    <img src={fetchData.Image[imageIndex]} alt="Produce Image"  id='Jumbostron_image'/>
+                    </figure>
+                    </>
+                )}
                 {fetchData.Image && fetchData.Image.length > 0 && fetchData.Image.map((image, index) => (
-                            <img src={image} key={index} alt="" />
+                            <img src={image} key={index} alt="" width={80} height={80} onClick={() => changeImage(index)} />
                         ))}
             </figure>
-            <div>
             <h3>{fetchData.title}</h3>
+            <div>
+            
             <h4>{fetchData.price}</h4>
             </div>
             <p>{fetchData.description}</p>
@@ -68,16 +107,26 @@ const ShowProduceInfo = ({data,trigger}) => {
                 <li>{fetchData.quantity}</li>
             </ul>
             <button onClick={() => bookMark(fetchData._id)}>Bookmark</button>
+            <button>Review Produce</button>
         </main>
-                <img src="" alt="" width={300} height={300} />
         {/* farmer info */}
         <aside>
             <main>
             <h3>Farmer Information</h3>
             <figure>
+                <img src={fetchData.profileImage} alt="" />
             </figure>
             <h2>{fetchData.username}</h2>
             <h3>{fetchData.fullname}</h3>
+            <ul>
+                <li><span>Verification Status</span> {fetchData.verificationStatus}</li>
+            </ul>
+            <h4>Farmer's Farm Information</h4>
+            <ul>
+                <li><span>Farm Type: </span>{fetchData.farmType}</li>
+                <li><span>Farm Address: </span> {fetchData.farm_Address}</li>
+            </ul>
+            <a href={`tel:${phoneNum}`} onDoubleClick={hideFarmerNum} onClick={() => callFarmer(fetchData.phoneNumber)}>{phoneNum}</a>
             </main>
             <aside>
                 {fetchData.otherProduce && fetchData.otherProduce.length > 0 && (

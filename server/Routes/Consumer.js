@@ -28,10 +28,10 @@ router.get('/p/:produceId',async(req,res) => {
         return res.json({'message': 'Farmer no longer exist'})
     }
     const {title,description,Image,location,date,quantity,price,category,Farmer,_id} = produce;
-    const {fullname,username,products} = Farmer
+    const {fullname,username,products,profileImage,phoneNumber,farmType,farm_Address,verificationStatus} = Farmer
     const otherProduces =  await otherProduce(products,id)
     console.log(products.length)
-    res.json({title,description,Image,location,date,quantity,price,category,fullname,username,_id,'otherProduce': otherProduces})
+    res.json({title,description,Image,location,date,quantity,price,category,fullname,username,_id,profileImage,phoneNumber,farmType,farm_Address,verificationStatus,'otherProduce': otherProduces})
    }
    catch(err){
 

@@ -44,11 +44,17 @@ const ProduceResponse = ({produce}) => {
       {searchProduce.map((produce, index) => (
         <div key={index}>
              <aside>
+             <a href="#">{'<<'}</a>
             {produce && produce.Image.map((image, imgIndex) => (
-              <figure key={imgIndex}>
+              <>
+              
+              <figure key={imgIndex} id=''>
                 <img src={image} alt="" />
               </figure>
+             
+              </>
             ))}
+             <a href="#">{">>"}</a>
           </aside>
           <h2>{produce.title}</h2>
           <p>{produce.description}</p>
