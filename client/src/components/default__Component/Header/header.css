@@ -1,0 +1,100 @@
+:root{
+    margin-top: 0;
+}
+.header___homepage{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    
+}
+.header___homepage aside{
+    
+}
+.header___homepage aside input{
+    display: none;
+}
+.header___homepage nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.header___homepage nav h3{
+    padding: 1rem;
+    background-color: aqua;
+    border-radius: 10px;
+    transition: border-radius 0.5s, box-shadow 2s;
+}
+.header___homepage nav li{
+    transition: font-size 0.5s;
+}
+.header___homepage nav li:hover{
+    font-size: 1.5rem;
+}
+.header___homepage nav h3:hover{
+    border-radius: 25px;
+    box-shadow: 1px 5px 40px red;
+    background-color: linear-gradient();
+}
+#get-started,
+#links{
+    text-decoration: none;
+}
+@media screen and (min-width:300px) and (max-width:500px) {
+    .header___homepage h3{
+        font-size:medium;
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 1000px) {
+    :root{
+
+    }
+    .header___homepage input{
+        display: none;
+    }
+    .header___homepage nav{
+        display: none;
+    }
+    #navBtn{
+        width: 30px;
+        height: 5px;
+        display: block;
+        background-color: black;
+        position: absolute;
+        border-radius: 90px;
+        right: 70px;
+        transition: all 3s;
+    }
+    #navBtn::before,
+    #navBtn::after{
+        content: "";
+        width: 30px;
+        height: 5px;
+        display: block;
+        position: absolute;
+        border-radius: 90px;
+        background-color: rgb(250, 6, 6);
+        transition: all 3s;
+    }
+
+    #navBtn::before{
+        top: -10px;
+    }
+    #navBtn::after{
+        top: 8px;
+    }
+    #checkbox:checked + #navBtn::after{
+        position: absolute;
+        transform: rotate(90deg);
+        top: -10px;
+        left: 4.9px;
+        width: 15px;
+    }
+    #checkbox:checked + #navBtn{
+        transform: rotate(90deg);
+        position: absolute;
+    }
+    #checkbox:checked + #navBtn::before{
+        position: absolute;
+        top: -21.4px;
+        transform: rotate(0deg);
+    }
+}
