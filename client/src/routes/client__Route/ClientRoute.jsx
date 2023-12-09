@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, UNSAFE_DataRouterStateContext } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, UNSAFE_DataRouterStateContext, Link } from 'react-router-dom';
 import ClientDashboard from '../../pages/consumer__Page/Dashboard/ClientDashboard';
 import ConsumerSidePanel from '../../components/consumer__Components/Consumer_Header/ConsumerSidePanel';
 import ConsumerProfile from '../../pages/consumer__Page/consumer__Profile/ConsumerProfile';
@@ -53,16 +53,18 @@ const ClientRoute = () => {
       <header className='dashboard_header'>
         <h1>Harvest<span>Hub</span></h1>
         <aside>
-        <i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
+        <Link to={'/cN/notification'}><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
           color: 'red',
           fontSize: '30px'
         } : {
           color: 'red',
           fontSize: '20px'
-        }} onClick={() => getNotification(userInfo)}></i>
+        }} onClick={() => getNotification(userInfo)}></i></Link>
           {!hideNotification && (
             <>
-            <h4>New Notification</h4>
+            <h4 style={{
+              color: 'white'
+            }}>New Notification</h4>
             <p>{notificationResponse}</p>
             <button onClick={hideNotify}>Hide</button>
             </>

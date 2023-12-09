@@ -57,12 +57,15 @@ const ClientBookmarks = ({bookmarks}) => {
             <section key={index}>
                 <aside>
                     <figure>
-                        {bookmark.Image.map((image,index) => (
+                        {bookmark !== null && bookmark.Image && bookmark.Image.map((image,index) => (
                             <img src={image} alt="" key={index}/>
                         ))}
                     </figure>
                 </aside>
-                <main>
+               
+               {bookmark !== null && (
+                <>
+                 <main>
                     <h2>{bookmark.title}</h2>
                     <p>{bookmark.description}</p>
                     <ul>
@@ -77,6 +80,8 @@ const ClientBookmarks = ({bookmarks}) => {
                 </main>
                 <button onClick={() => farmerInfo(bookmark._id)}>Get Farmer Information</button>
                 <button onClick={() => deleteBookmark(userInfo,bookmark._id)}>Delete Bookmark</button>
+                </>
+               )}
             </section>
         ))}
     </section>

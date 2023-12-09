@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Animation from '../../default__Pages/Animation'
 import { DeleteProduce } from '../../../../configs/farmer_configs/fetch'
+import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 
 
 const FarmerProduce = ({state,farmerProduce}) => {
   const [produces,setProduces] = useState(farmerProduce)
   const [deleteproduce,setDeleteProduce] = useState([])
-
+  const socket  = useContext(Socket)
+  const userInfo =  useContext(UserContext)
   useEffect(() => {
     setProduces(farmerProduce)
   },[farmerProduce])
-  const deleteProduce = async(id) => {
-    const data = await DeleteProduce(id)
+
+  const deleteProduce = async(id,_id) => {
+    const data = await DeleteProduce(id,_id)
     if(data === 200){
       const updatedProduce =  produces.filter((value) => value._id !== id)
       setProduces(updatedProduce)
+      const message =  `You delete your produce with this id ${id}`
+      const result =  null;
+      socket.emit('notification',{userInfo,result,message})
     }
   }
   if(!state) return <Animation/>
@@ -50,7 +56,7 @@ const FarmerProduce = ({state,farmerProduce}) => {
               ))}
             </ul>
           </aside>
-          <button onClick={() => deleteProduce(produce._id)}>Delete Produce</button>
+          <button onClick={() => deleteProduce(produce._id,userInfo._id)}>Delete Produce</button>
         </div>
       ))}
     </section>

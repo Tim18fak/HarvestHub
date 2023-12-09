@@ -57,7 +57,8 @@ export const getBookmark = async(userInfo) => {
 
         const bookmark = await response.json();
         console.log(bookmark.bookmark)
-        return bookmark.bookmark;
+        return bookmark.bookmark.filter((value) => value !== null)
+        
     } catch (error) {
         console.error('Error:', error.message);
         throw error; // Re-throw the error so it can be caught by the calling function

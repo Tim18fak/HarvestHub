@@ -4,16 +4,32 @@ const {ReqInfo} = require('./constants/reqInfo')
 const {uploadImages} =   require('./constants/uploadImages')
 
 const deleteProduct = async(req,res) => {
-  const produceId =  req.params.produceId
+  try {
+    const {produceId,farmerId} =  req.params
   console.log(produceId)
-  const deleteProduct = await Product.findByIdAndRemove(produceId)
-  if(!deleteProduct){
+  const farmer =  await Farmer.findById(farmerId)
+  console.log(farmer)
+  const index = farmer.products.indexOf(produceId)
+  const deleteproduce = farmer.products.splice(index,1)
+  console.log(farmer)
+    console.log(deleteproduce)
+  console.log(index)
+  if(index !== -1){
+    farmer.products.splice(index,0)
+    const deleteProduct = await Product.findByIdAndRemove(produceId)
+    if(!deleteProduct){
     console.log('not found')
     return res.status(403).json({'message': 'Produce Id not found'})
-  }
+    }
+  await farmer.save()
   console.log(deleteProduct)
   
   return res.status(204).json({deleteProduct})
+  }
+  } catch (error) {
+    console.log(error.message)
+  }
+  
 }
 
 const testUploadProduct = async(req,res) => {

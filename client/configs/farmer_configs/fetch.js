@@ -17,8 +17,8 @@ export const GetProduce = async (user) => {
     }
   };
 
-  export const DeleteProduce = async(id) => {
-    const url = `http://localhost/farmerUser/deleteProduce/${id}`
+  export const DeleteProduce = async(...id) => {
+    const url = `http://localhost/farmerUser/deleteProduce/${id[0]}/${id[1]}`
     const result = await Axios.delete(url)
     console.log(result.data)
     if(result.status === 204){

@@ -1,16 +1,15 @@
 const { Product } = require("../../../../Model/DB_structure")
 
 const otherProduce = async(produceID,id) => {
+    console.log(produceID)
     const otherProduces = []
-    console.log(id)
     const others =  produceID.filter((ids) => ids !== id)
     for(let i = 0;i < others.length;i++){
-        const result = await Product.findById(produceID)
+        const result = await Product.findById(others[i])
         if(result){
             otherProduces.push(result)
         }
     }
-    console.log(otherProduces)
     return otherProduces
 
 }

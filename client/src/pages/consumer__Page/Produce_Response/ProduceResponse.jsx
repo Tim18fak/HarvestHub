@@ -16,6 +16,8 @@ const ProduceResponse = ({produce}) => {
     useEffect(() => {
       console.log(farmerData) 
     },[farmerData])
+    
+    /* fetch the farmer info from our database */
     const getFarmerData = async(id) => {
       const results = await GetFarmerInfo(id)
       if(results){

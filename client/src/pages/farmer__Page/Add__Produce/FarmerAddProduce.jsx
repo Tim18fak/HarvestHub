@@ -166,7 +166,7 @@ const FarmerAddProduce = () => {
               <label htmlFor="title">Title</label>
             </div>
             <div>
-              <input type="text" name='description' placeholder='Description' value={produce.description} onChange={addProduceInfo}/>
+              <textarea name="description" id="" placeholder='Description' value={produce.description} cols="30" rows="10" onChange={addProduceInfo}></textarea>
               <label htmlFor="description">Description</label>
             </div>
             <div>
