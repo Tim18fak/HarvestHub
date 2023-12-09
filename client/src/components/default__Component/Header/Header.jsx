@@ -4,9 +4,10 @@ import './header.css'
 const Header = () => {
   return (
     <>
+    <input type="checkbox" id='checkbox' name='checkbox' />
     <header className='header___homepage'>
     <aside>
-    <input type="checkbox" id='checkbox' name='checkbox' />
+    
     <label htmlFor="checkbox" id='navBtn' >
       </label>
       <h3>HarvestHub</h3>

@@ -1,24 +1,33 @@
 import React from 'react'
 import './main.css'
+import { content } from './main'
 const Main = () => {
   return (
     <>
-    <section>
-      <h2><span>Connecting Farmer’s</span><img src="" alt="" /><span>To Their Consumer’s</span></h2>
+    <section className='welcome__jumbostron'>
+      <h2><span>Connecting Farmer’s</span><img src={content.image} alt="" /><span>To Their Consumer’s</span></h2>
       <h1>Through Modern Technology</h1>
     </section>
-    <section>
-    <div></div>
-    <div></div>
-    <div></div>
+    <section className='jumbostron-class__images'>
+    <div className='jumbostron__images' style={{
+      backgroundImage: `url(${content.jumboImageFirst})`
+    }} >
+      <main style={{
+        
+      }}></main>
+    </div>
+    <div className='jumbostron__images jumbo-image_second'></div>
+    <div className='jumbostron__images'>
+    <main></main>
+    </div>
     </section>
     {/* About Us */}
-    <section>
-      <h4>About Us</h4>
+    <section className='aboutus_content'>
+      <h3>ABOUT US</h3>
       <main>
       <div>
-        <h1>Cultivating a Sustainable Future In Modern Agriculture</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod facilisis velit, ac hendrerit purus vestibulum ut. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Learn more</p>
+        <h1>{content.aboutUs_h1}</h1>
+        <p>{content.aboutUs_p}</p>
       </div>
       <div>
 

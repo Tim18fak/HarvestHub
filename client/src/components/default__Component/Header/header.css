@@ -4,12 +4,11 @@
 .header___homepage{
     display: grid;
     grid-template-columns: 15% 85%;
-    
 }
 .header___homepage aside{
     
 }
-.header___homepage aside input{
+#checkbox{
     display: none;
 }
 .header___homepage nav{
@@ -81,18 +80,18 @@
     #navBtn::after{
         top: 8px;
     }
-    #checkbox:checked + #navBtn::after{
+    #checkbox:checked ~ .header___homepage #navBtn::after{
         position: absolute;
         transform: rotate(90deg);
         top: -10px;
         left: 4.9px;
         width: 15px;
     }
-    #checkbox:checked + #navBtn{
+    #checkbox:checked ~ .header___homepage #navBtn{
         transform: rotate(90deg);
         position: absolute;
     }
-    #checkbox:checked + #navBtn::before{
+    #checkbox:checked ~ .header___homepage #navBtn::before{
         position: absolute;
         top: -21.4px;
         transform: rotate(0deg);

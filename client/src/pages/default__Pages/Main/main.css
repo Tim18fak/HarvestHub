@@ -1,0 +1,76 @@
+.welcome__jumbostron{
+    text-align: center;
+}
+.welcome__jumbostron h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 1.5rem;
+}
+.welcome__jumbostron h2 span{
+    padding: 0 1.1rem;
+}
+.welcome__jumbostron img{
+    width: 13.5rem;
+    height: 5.5rem;
+    border-radius: 3.75rem;
+}
+.welcome__jumbostron  h1{
+    padding: 1rem;
+    font-size: 3rem;
+}
+.jumbostron-class__images{
+    margin-top: 8.38rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 2.5rem;
+    width: 100%;
+}
+
+.jumbostron__images{
+    width: 25.375rem;
+    height: 29.625rem;
+    border-radius: 2.9375rem;
+    background: #BD2727;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+}
+.jumbostron__images main{
+    top: 14rem;
+    position: relative;
+    width: 25rem;
+    height: 15.625rem;
+    background: rgba(250, 244, 244, 0.54);
+    border-radius: 2.9375rem;
+    background: rgba(250, 244, 244, 0.54);
+
+filter: blur(10px);
+    
+}
+.jumbo-image_second{
+    position: relative;
+    top: 14.31rem;
+    height: 15.25rem;
+    border-radius: 2.9375rem;
+    
+}
+.aboutus_content{
+    padding-top: 5.6rem;
+    position: relative;
+}
+.aboutus_content h3{
+    position: relative;
+    padding-bottom: 2.25rem;
+    left: 8.56rem;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    
+}
