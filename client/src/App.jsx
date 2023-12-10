@@ -1,6 +1,6 @@
-import Header from "./components/default__Component/Header"
+import Header from './components/default__Component/Header/Header'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Main from "./pages/default__Pages/Main";
+import Main from "./pages/default__Pages/Main/Main";
 import Contact from "./pages/default__Pages/Contact";
 import About from './pages/default__Pages/About'
 import Auth from './pages/default__Pages/Auth'
