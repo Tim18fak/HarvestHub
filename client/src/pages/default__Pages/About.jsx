@@ -57,7 +57,7 @@ const About = () => {
 
             </div>
             <div className="card-footer">
-              <div className="names">KINI Honoré</div>
+              <div className="names">KINI Biè Honoré</div>
               <div className="job">Our Front Developer</div>
               <div className="buttons">
                 <button>More</button>
@@ -69,8 +69,8 @@ const About = () => {
 
             </div>
             <div className="card-footer">
-              <div className="names"></div>
-              <div className="job"></div>
+              <div className="names"> Timothy Avell</div>
+              <div className="job"> Our Backend Developer</div>
               <div className="buttons">
                 <button>More</button>
               </div>
@@ -81,8 +81,8 @@ const About = () => {
 
             </div>
             <div className="card-footer">
-              <div className="names"></div>
-              <div className="job"></div>
+              <div className="names">Timothy and Honoré</div>
+              <div className="job"> Both are partners</div>
               <div className="buttons">
                 <button>More</button>
               </div>
