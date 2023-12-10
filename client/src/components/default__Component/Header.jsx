@@ -1,15 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import '../default__Component/style/Header.css'
+
 const Header = () => {
   return (
     <nav>
-      <h3>HarvestHub</h3>
+      <div className='logo'><span className='letter-green'>Harvest</span><span className='letter-yellow'>Hub</span></div>
+      
         <ul>
           <li><Link to={'/'}>Home</Link></li>
           <li><Link to={'/about'}>About</Link></li>
           <li><Link to={'/contact'}>Contact</Link></li>
         </ul>
-      <h3><Link to={'/auth'}>Get Started</Link></h3>
+      <button className='login-btn'><Link to={'/auth'}>Login</Link></button>
     </nav>
   )
 }
