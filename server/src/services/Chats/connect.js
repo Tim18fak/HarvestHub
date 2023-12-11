@@ -1,5 +1,5 @@
 const { Server } = require('socket.io');
-const { ChatModule, ActiveFarmer, ActiveConsumer } = require('../../../Model/DB_structure');
+const { ChatModule, ActiveFarmer, ActiveConsumer, Farmer, User } = require('../../../Model/DB_structure');
 const jwt  = require('jsonwebtoken');
 const { notification } = require('../../../config/notification/notication');
 const { addNotification } = require('../Notification/notication');
@@ -57,6 +57,16 @@ const Connect = (server) => {
     
         socket.on('disconnect',() => {
           console.log('A user disconnected' + socket.id);
+        })
+        socket.on('loginIN',async(data) => {
+          const {id,isFarmer} = data
+          const foundUser = isFarmer ? await Farmer.findById(id) : await User.findById(id);
+          if(!foundUser){
+            socket.disconnect(true)
+          }
+          foundUser.connectionId = connectionId;
+          await foundUser.save()
+          console.log('user connectionid saved')
         })
       });
 

@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const {searchProduct, product} = require('../Controller/User/searchProduct');
-const { User, Product, Bookmark } = require('../Model/DB_structure');
+const { User, Product, Bookmark, Review } = require('../Model/DB_structure');
 const { otherProduce } = require('../src/services/ClientFeatures/ProduceLogic/produceLogic');
+const { FindFarmerID, ReviewerInfo, ReviewerFound } = require('../src/services/produce_Review/review');
 router.post('/searchproduct', async(req,res) => {
    try {
     const {searchTitle,selectedCategories,} =  req.body
@@ -15,7 +16,7 @@ router.post('/searchproduct', async(req,res) => {
         );
     })
     console.log(filteredProducts)
-    res.json(filteredProducts)
+   return res.json(filteredProducts)
    } catch (error) {
     console.log(error.message)
    }
@@ -108,5 +109,74 @@ router.put('/uP/bmrK/:consumerId/:produceId', async (req, res) => {
         res.status(500).json({'message': 'Internal Server Error'});
     }
 });
+router.post('/review/:produceId/:reviewerId',async(req,res) => {
+    try {
+        const { Image,
+            description,
+            title,
+            username,
+            fullname,
+            review} = req.body  
+            const {produceId,reviewerId} = req.params
 
+            const produceReviewObjectExist =  await Review.findOne({
+                produceId: produceId
+            })
+            const farmerID =  await FindFarmerID(produceId)
+            const reviewerStatus= await ReviewerInfo(reviewerId)
+
+            /* if(!reviewerStatus){
+                console.log('bad')
+                return res.sendStatus(403).json({'message':"You can't review any produce yet, you have not been verified"})
+            } */
+            if(!produceReviewObjectExist){
+                const Reviewed =  new Review({
+                    produceId,
+                    FarmerId: farmerID,
+                    remark: [{
+                        produceImage: Image,
+                        produceDescription: description,
+                        produceTitle: title,
+                        produceSellerUsername: username,
+                        reviewFullname: fullname,
+                        review,
+                        reviewerId
+                    }]
+                });
+                await Reviewed.save()
+                return res.status(204).json({'message':'You added a new review'})
+            }else{
+                const hasReviewerReview = await ReviewerFound(produceId,reviewerId)
+                if(hasReviewerReview){
+                    return res.status(403).json({'message': 'You have reviewed this produce'})
+                }
+                produceReviewObjectExist.remark.push({produceImage:Image,
+                    produceDescription:description,
+                    produceTitle:title,
+                    produceSellerUsername:username,
+                    reviewFullname:fullname,
+                    review,
+                    reviewerId})
+                    await produceReviewObjectExist.save()
+                    return res.status(204).json({'message': 'you added your review to this produce'})
+            }
+            
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.get('/review/getreview/:consumerId',async(req,res) => {
+    let ReviewProduce = []
+    const {consumerId} = req.params
+    const review =  await Review.find({})
+    review.forEach((value) => {
+        value.remark.forEach((val,index) => {
+            if(val.reviewerId === consumerId){
+               ReviewProduce.push(value)
+            }
+        })
+    })
+    console.log(ReviewProduce)
+    res.send(ReviewProduce)
+})
 module.exports = router

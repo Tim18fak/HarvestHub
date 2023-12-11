@@ -6,7 +6,7 @@ import { UserContext,Socket,UserData} from '../../../hooks/useContext/ConsumerIn
 import io from 'socket.io-client'
 import Preloader from '../../components/default__Component/preloader/Preloader';
 import { Axios } from '../../../configs/default__configs/axios.config';
-
+import './defaultroute.css'
 const DefaultRoute = () => {
   const [userInfo,setUserInfo] =   useState()
   const [socket,setSocket] = useState()

@@ -69,6 +69,7 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Farmer' // 'Seller' should match the name of the Seller model
   },
+  remarks: {type: Array}
   // ... other fields
 });
 
@@ -103,6 +104,7 @@ const consumerSchema = new mongoose.Schema({
   authorizationToken: { type: String},
   activationCode: { type: Number},
   activationCodeStatus: { type: String, required: true},
+  verificationStatus: {type: String},
   // ... other fields
 
   comeAbout:{type: String},
@@ -121,9 +123,19 @@ const bookmarkSchema =  new mongoose.Schema({
     ref: 'Product'
   }]
 })
+
 const reviewSchema = new mongoose.Schema({
-  // ... fields
-  remark: { type: Object}
+  produceId: String,
+  FarmerId: String,
+  remark: [{
+      produceImage: Array,
+      produceDescription: String,
+      produceTitle: String,
+      produceSellerUsername: String,
+      reviewFullname: String,
+      review: String,
+      reviewerId: String
+  }]
 });
 const Banned  = new mongoose.Schema({
   // ... fields

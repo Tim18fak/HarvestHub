@@ -88,3 +88,45 @@ export const deleteBookMrk = (userInfo, id) => {
 export const consumerNotification = (data) => {
     const {_id,accessToken} = data
 }
+export const ReviewProduce = async(produce,userData,review) => {
+    try {
+        console.log(produce,userData,review)
+        const {Image,description,title,username} = produce;
+        const {fullname} = userData
+        const url =  `http://localhost/client/review/${produce._id}/${userData._id}`
+        /* const result =  await Axios.post(url,{
+            Image,
+            description,
+            title,
+            username,
+            fullname,
+            review
+        },{
+            headers: {
+                Authorization: `Bearer ${userData.accessToken}`
+            }
+        }) */
+      const result = await fetch(url,{
+            method: "POST",
+            headers: {
+                 Authorization: `Bearer ${userData.accessToken}`,
+        'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Image,
+            description,
+            title,
+            username,
+            fullname,
+            review
+            })
+        })
+        const status =  result.status
+        const message =  await result.json()
+        console.log(message,status)
+        return {status,message};
+    } catch (error) {
+        
+    }
+   
+}

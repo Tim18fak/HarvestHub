@@ -3,6 +3,7 @@ import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
 import { Bookmark } from '../../../../configs/consumer__configs/configs'
 import { Link } from 'react-router-dom'
 import { UserContext, Socket } from '../../../../hooks/useContext/ConsumerInfo'
+import Review from '../ReviewProduce/Review'
 
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
@@ -10,12 +11,12 @@ const ShowProduceInfo = ({data,trigger}) => {
     const [triggerAnimation,setTriggerAnimation] = useState(false)
     const [farmerExist,setFarmerExist] = useState(true)
     const [imageIndex,setImageIndex] = useState(0)
+    const [review,setReview] =  useState(false)
     const socket =  useContext(Socket)
     const userInfo =  useContext(UserContext)
     useEffect(() => {
         if(!data.message){
             setFetchData(data)
-            console.log(data)
             setTimeout(() => {
                 setTriggerAnimation(true)
             },4000)
@@ -68,11 +69,28 @@ const ShowProduceInfo = ({data,trigger}) => {
             alert('An error occurred while bookmarking.');
         }
     }
+    const reviewProduce = () => {
+        setTriggerAnimation(false)
+        setTimeout(() => {
+            setTriggerAnimation(true)
+            setReview(true)
+        },2000)
+        
+    }
+    const showProduceInfo = () => {
+        setTriggerAnimation(false)
+        setTimeout(() => {
+            setTriggerAnimation(true)
+            setReview(false)
+        },2000)
+       
+    }
     /* Animation Preloader */
     if(triggerAnimation === false) return <SpinnerLoader/>
   return (
     <>
-    <section>
+    {!review && (
+        <section>
         {/* produce info */}
         <a onClick={trigger}>Back</a>
         {farmerExist && (
@@ -107,7 +125,7 @@ const ShowProduceInfo = ({data,trigger}) => {
                 <li>{fetchData.quantity}</li>
             </ul>
             <button onClick={() => bookMark(fetchData._id)}>Bookmark</button>
-            <button>Review Produce</button>
+            <button onClick={() => reviewProduce(fetchData)}>Review Produce</button>
         </main>
         {/* farmer info */}
         <aside>
@@ -177,6 +195,10 @@ const ShowProduceInfo = ({data,trigger}) => {
             </aside>
         )}
     </section>
+    )}
+    {review && (
+        <Review back={showProduceInfo} produce={fetchData}/>
+    )}
     </>
   )
 }

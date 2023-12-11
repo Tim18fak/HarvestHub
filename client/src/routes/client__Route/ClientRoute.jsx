@@ -6,14 +6,16 @@ import ConsumerProfile from '../../pages/consumer__Page/consumer__Profile/Consum
 import ClientBookmarks from '../../pages/consumer__Page/Bookmarks/ClientBookmarks';
 import {getBookmark, consumerNotification} from '../../../configs/consumer__configs/configs'
 import { UserContext, Socket } from '../../../hooks/useContext/ConsumerInfo';
-import Message from '../../pages/consumer__Page/Message/message';
+import Reviewed from '../../pages/consumer__Page/Message/Reviewed';
 import Notification from '../../pages/consumer__Page/Notification/Notification';
 import './clientroute.css'
+import { Axios } from '../../../configs/default__configs/axios.config';
 const ClientRoute = () => {
   const [bookMark,setBookMrk] = useState([])
   const [notificationResponse,setNotificationResponse] = useState('')
   const [hideNotification,setHideNotification] = useState(true)
   const [notification,setNotification] = useState(null)
+  const [getReview,setGetReview] = useState([])
   const userInfo  = useContext(UserContext)
   const socket = useContext(Socket)
 
@@ -48,6 +50,16 @@ const ClientRoute = () => {
       setNotification(result)
     }
   }
+  const getReviewedProduce = async() => {
+    const url = `http://localhost/client/review/getreview/${userInfo._id}`
+    const review = await Axios.get(url,{
+      headers: {
+        Authorization: `Bearer ${userInfo.accessToken}`
+      }
+    })
+    setGetReview(review.data)
+    console.log(review.data[0].remark)
+  }
   return (
     <Router>
       <header className='dashboard_header'>
@@ -73,7 +85,7 @@ const ClientRoute = () => {
       </header>
     <section className='body' id='header_body'>
     <nav className='side_panel'>
-    <ConsumerSidePanel bookMrk={() => getConsumerBookmark()}/>
+    <ConsumerSidePanel bookMrk={() => getConsumerBookmark()} review={() => getReviewedProduce()}/>
     </nav>
     <main className='main_body'>
     <Routes>
@@ -81,7 +93,7 @@ const ClientRoute = () => {
       <Route path="/cN/profile" element={<ConsumerProfile />} />
       <Route path='/cN/bokmarks' element={<ClientBookmarks bookmarks={bookMark}/>}/>
       <Route path='/cN/notification' element={<Notification notification={notification}/>}/>
-      <Route path='/cN/message' element={<Message/>}/>
+      <Route path='/cN/message' element={<Reviewed review={getReview}/>}/>
     </Routes>
     </main>
     </section>
