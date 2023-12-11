@@ -172,11 +172,25 @@ router.get('/review/getreview/:consumerId',async(req,res) => {
     review.forEach((value) => {
         value.remark.forEach((val,index) => {
             if(val.reviewerId === consumerId){
-               ReviewProduce.push(value)
+                ReviewProduce.push(val)
+               console.log(index)
             }
         })
     })
     console.log(ReviewProduce)
     res.send(ReviewProduce)
+})
+router.delete('/review/deleteRv/:reviewId',async(req,res) => {
+    const {reviewId} = req.params
+    const review =  await Review.find({})
+    review.forEach(async(value) => {
+        value.remark.forEach((val,index) => {
+            if(val._id === reviewId){
+                value.remark.splice(index,1)
+            }
+        })
+        await value.save()
+        console.log('saved')
+    })
 })
 module.exports = router

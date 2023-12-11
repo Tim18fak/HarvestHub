@@ -58,7 +58,7 @@ const ClientRoute = () => {
       }
     })
     setGetReview(review.data)
-    console.log(review.data[0].remark)
+    console.log(review)
   }
   return (
     <Router>
