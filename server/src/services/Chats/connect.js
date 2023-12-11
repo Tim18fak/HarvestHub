@@ -27,6 +27,17 @@ const Connect = (server) => {
             },2000)
           }
         })
+        /* active user logout initialization */
+        socket.on('logout_Init',async(data) => {
+          const {_id,isFarmer} = data 
+          console.log(data)
+          const active = isFarmer ? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id})
+          const removeActive = isFarmer ? ActiveFarmer.findByIdAndDelete(active._id): ActiveConsumer.findByIdAndDelete(active._id)
+          console.log(active)
+          if(removeActive){
+            console.log('active user has been removed')
+          }
+        })
         /* get active User */
         socket.on('active',async(data) => {
           const {isFarmer,_id} = data
@@ -38,6 +49,7 @@ const Connect = (server) => {
             return
 
           }
+          
           const newlyLogin = isFarmer ? new ActiveFarmer({
             data: new Date(),
             connectionId: connectionId,
@@ -67,6 +79,10 @@ const Connect = (server) => {
           foundUser.connectionId = connectionId;
           await foundUser.save()
           console.log('user connectionid saved')
+        })
+        /* get active admin */
+        socket.on('activeAdmin',async(data) => {
+          console.log(data)
         })
       });
 

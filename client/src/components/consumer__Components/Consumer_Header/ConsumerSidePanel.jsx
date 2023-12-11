@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import { Logout } from '../../../../configs/default__configs/logout'
 import './consumersidepanel.css'
-import { UserData } from '../../../../hooks/useContext/ConsumerInfo'
+import { Socket, UserData } from '../../../../hooks/useContext/ConsumerInfo'
 const cookie =  new Cookies()
 
 
 const ConsumerSidePanel = ({bookMrk,profile,message,review}) => {
   const userData =  useContext(UserData)
-
+  const socket = useContext(Socket)
   return (
-    <nav>
+     <nav>
       <aside>
-        <figure>
+        <figure> 
           <img src={userData.profileImage} alt="" width={150} height={150} style={{
             borderRadius: '50%',
             backgroundColor: 'red'
@@ -28,7 +28,7 @@ const ConsumerSidePanel = ({bookMrk,profile,message,review}) => {
             <li><Link id='side_panel-list' to='/cN/bokmarks' onClick={bookMrk}>Saved</Link></li>
             <li><Link id='side_panel-list' to='cN/message' onClick={review}>Reviewed</Link></li>
         </ul>
-        <h4 onClick={Logout}>LogOut</h4>
+        <h4 onClick={() => Logout(socket,userData)}>LogOut</h4>
     </nav>
   )
 }

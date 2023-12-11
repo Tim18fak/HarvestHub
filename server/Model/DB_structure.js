@@ -168,8 +168,15 @@ const activeConsumer = mongoose.Schema({
   connectionId: {type:String},
   Consumer: {type:String}
 })
+const activeAdmin =  mongoose.Schema({
+  data: {type: Date},
+  adminConnectionId:{type: String},
+  AdminId:{type: String}
+})
+
 const ActiveConsumer = mongoose.model('aConsumer',activeConsumer);
-const ActiveFarmer = mongoose.model('aFarmer',activeFarmer)
+const ActiveFarmer = mongoose.model('aFarmer',activeFarmer);
+const ActiveAdmin = mongoose.model('activeAdmin',activeAdmin)
 const BlockedUser = mongoose.model('BannedUser', Banned );
 const Admin = mongoose.model('Admin',adminInfo)
 const Farmer = mongoose.model('Farmer', farmerSchema);
@@ -179,4 +186,4 @@ const Transaction = mongoose.model('Transaction', transactionSchema);
 const Review = mongoose.model('Review', reviewSchema);
 const ChatModule = mongoose.model('chatMessage',chatMessage)
 const Bookmark =  mongoose.model('Bookmark',bookmarkSchema)
-module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule,Bookmark,ActiveConsumer,ActiveFarmer };
+module.exports = { Farmer, Product, User, Transaction, Review, BlockedUser, Admin,ChatModule,Bookmark,ActiveConsumer,ActiveFarmer,ActiveAdmin };
