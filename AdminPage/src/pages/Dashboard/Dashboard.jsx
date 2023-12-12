@@ -16,6 +16,7 @@ const cookie  = new Cookies()
 const Dashboard = () => {
   const [adminData,setAdminData] = useState('')
   const [socket,setSocket] = useState(null)
+  const [state,setState] = useState(true)
   useEffect(() => {
     const admin =  cookie.getAll()
     if(admin){
@@ -48,7 +49,7 @@ const Dashboard = () => {
       <nav><SidePanel dashboard={() => Dashboard()}/></nav>
   <main>
   <Routes>
-    <Route path='/dashboard' element={<Dashboard1/>}/>
+    <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>
     <Route path='/product' element={<Product/>}/>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/consumer' element={<Consumer/>}/>

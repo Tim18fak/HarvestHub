@@ -11,7 +11,7 @@ return (
 <table>
   <thead>
     <tr>
-      <th><i class="fa-solid fa-hashtag"></i></th>
+      <th></th>
       <th>Message</th>
       <th>Date</th>
     </tr>

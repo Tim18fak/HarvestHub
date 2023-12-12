@@ -169,7 +169,7 @@ const activeConsumer = mongoose.Schema({
   Consumer: {type:String}
 })
 const activeAdmin =  mongoose.Schema({
-  data: {type: Date},
+  date: {type: Date},
   adminConnectionId:{type: String},
   AdminId:{type: String}
 })

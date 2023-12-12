@@ -1,8 +1,9 @@
 const { Server } = require('socket.io');
-const { ChatModule, ActiveFarmer, ActiveConsumer, Farmer, User } = require('../../../Model/DB_structure');
+const { ChatModule, ActiveFarmer, ActiveConsumer, Farmer, User, ActiveAdmin } = require('../../../Model/DB_structure');
 const jwt  = require('jsonwebtoken');
 const { notification } = require('../../../config/notification/notication');
 const { addNotification } = require('../Notification/notication');
+const { getAdminConnectionId, getUser, getConsumerIdAndInfo, getFarmerIdAndInfo } = require('../Admin/adminFeatures');
 
 const Connect = (server) => {
 
@@ -14,7 +15,7 @@ const Connect = (server) => {
       },
       });
 
-      io.on('connection', (socket) => {
+      io.on('connection', async(socket) => {
         const connectionId =  socket.id
         socket.on('notification',async(data) => {
           const {message} = data
@@ -42,10 +43,17 @@ const Connect = (server) => {
         socket.on('active',async(data) => {
           const {isFarmer,_id} = data
           const activeUser = isFarmer ? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id})
+          const activeAdmin =  await ActiveAdmin.find({})
           if(activeUser){
             const totalConsumer = await ActiveConsumer.countDocuments()
             const totalFarmer = await ActiveFarmer.countDocuments()
             console.log(totalConsumer, totalFarmer)
+            const adminconnectId = await getAdminConnectionId(activeAdmin)
+            adminconnectId.forEach(id => {
+              io.to(id).emit('activeUser',{totalConsumer, totalFarmer})
+              console.log('user sent')
+            })
+            console.log('done')
             return
 
           }
@@ -63,13 +71,18 @@ const Connect = (server) => {
           await newlyLogin.save();
           const totalConsumer = await ActiveConsumer.countDocuments()
           const totalFarmer = await ActiveFarmer.countDocuments()
-          console.log(totalConsumer, totalFarmer),
-          socket.emit('totalActive',totalConsumer,totalFarmer)
+          const adminconnectId = await getAdminConnectionId(activeAdmin)
+            adminconnectId.forEach(id => {
+              io.to(id).emit('activeUser',{totalConsumer, totalFarmer})
+              console.log('user sent')
+            })
+            console.log('done')
         })
-    
+    /* disconnect */
         socket.on('disconnect',() => {
           console.log('A user disconnected' + socket.id);
         })
+        /* login in logic */
         socket.on('loginIN',async(data) => {
           const {id,isFarmer} = data
           const foundUser = isFarmer ? await Farmer.findById(id) : await User.findById(id);
@@ -80,9 +93,43 @@ const Connect = (server) => {
           await foundUser.save()
           console.log('user connectionid saved')
         })
-        /* get active admin */
+        /* set active admin */
         socket.on('activeAdmin',async(data) => {
-          console.log(data)
+          console.log(connectionId)
+          const {adminAuthToken,token} = data.admin
+          const admin = await ActiveAdmin.findOne({AdminId: token})
+          if(admin){
+            admin.adminConnectionId = connectionId;
+            await admin.save()
+            console.log('a new connection id was added')
+            return
+          }
+          
+          const activeAdmin =  new ActiveAdmin({
+            date: new Date(),
+            adminConnectionId: connectionId,
+            AdminId:token
+          })
+         await activeAdmin.save()
+          console.log('active admin added')
+        })
+        /* send active user number to admin */
+        socket.on('adminLogin',async() => {
+          const totalConsumer = await ActiveConsumer.countDocuments()
+          const totalFarmer = await ActiveFarmer.countDocuments()
+          const admin = await ActiveAdmin.find({})
+          const id = await getAdminConnectionId(admin)
+          
+          id.forEach(id => {
+              io.to(id).emit('activeUser',{totalConsumer, totalFarmer})
+    })
+    /* get active Consumer Info */
+    const activeConsumerInfo = await getConsumerIdAndInfo()
+    const activeFarmerInfo = await getFarmerIdAndInfo()
+    console.log(activeFarmerInfo)
+    id.forEach(id => {
+      io.to(id).emit('activeUserInfo',{activeConsumerInfo,activeFarmerInfo})
+    }) 
         })
       });
 
