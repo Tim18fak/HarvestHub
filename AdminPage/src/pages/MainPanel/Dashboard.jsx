@@ -122,7 +122,7 @@ const Dashboard1 = ({state}) => {
               <li>{maxDetailLeft.address}</li>
               <li>{maxDetailLeft.phoneNumber}</li>
               <li>{maxDetailLeft.NIN}</li>
-              <footer><span>Hear about</span> {maxDetailLeft.comeAbout}</footer>
+              <footer><span>Hear about:</span> {maxDetailLeft.comeAbout}</footer>
             </ul>
           </aside>
         )}

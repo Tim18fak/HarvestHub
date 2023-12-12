@@ -35,6 +35,9 @@ const Dashboard = () => {
       socket.emit('adminLogin')
     }
   }
+  const getProduce = () => {
+
+  }
   return (
     <>
     <adminInfo.Provider value={adminData}>
@@ -46,7 +49,7 @@ const Dashboard = () => {
         <label htmlFor="btn">hh</label>
       </header>
       <section className='admin-mainpage'>
-      <nav><SidePanel dashboard={() => Dashboard()}/></nav>
+      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()}/></nav>
   <main>
   <Routes>
     <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>

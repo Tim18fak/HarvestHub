@@ -131,6 +131,22 @@ const Connect = (server) => {
       io.to(id).emit('activeUserInfo',{activeConsumerInfo,activeFarmerInfo})
     }) 
         })
+      /* admin logout and deactivation logic*/
+      socket.on('adminLogoutInitialization',async(data) => {
+        try {
+          const {token,id} = data
+        const activeadmin =  await ActiveAdmin.findOne({AdminId: token})
+        console.log(activeadmin)
+        if(activeadmin){
+          const removeActiveAdmin =  await ActiveAdmin.findByIdAndRemove(activeadmin._id)
+          console.log(removeActiveAdmin)
+         return io.to(removeActiveAdmin.adminConnectionId).emit('adminLogoutCompleted')
+        }
+        console.log('admin not found')
+        } catch (error) {
+          console.log(error.message)
+        }
+      })
       });
 
 }

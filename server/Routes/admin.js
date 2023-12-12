@@ -7,8 +7,8 @@ router.post('/adminLogin',adminLogin)
 router.post('/admincreation',createAdmin)
 router.post('/compare',compareActivation)
 router.post('/reset',adminReset),
-router.get('/allConsumer/:Id',authenticateAdminToken,getAllConsumer)
-router.get('/allFarmer/:Id',authenticateAdminToken,getAllFarmer)
+router.get('/allConsumer',authenticateAdminToken,getAllConsumer)
+router.get('/allFarmer',authenticateAdminToken,getAllFarmer)
 router.post('/banFarmer/:blockFarmerId/:Id',authenticateAdminToken,BlockFarmer)
 router.post('/banConsumer/:banConsumerId/:Id',authenticateAdminToken,blockConsumer)
 module.exports = router;
