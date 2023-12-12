@@ -2,13 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {Logout} from '../../../config/logout'
 import './sidepanel.css'
-const SidePanel = () => {
+const SidePanel = ({dashboard}) => {
   return (
     <>
     <nav className='admin_sidepanel'>
       <main>
       <ul>
-        <li><Link to='/dashboard'>Dashboard</Link></li>
+        <li onClick={dashboard}><Link to='/dashboard'>Dashboard</Link></li>
         <li><Link to='/product'>Produce</Link></li>
         <li><Link to='/consumer'>Consumer</Link></li>
         <li><Link to='/farmer'>Farmer</Link></li>

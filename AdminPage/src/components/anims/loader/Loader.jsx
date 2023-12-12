@@ -1,9 +1,9 @@
 import React from 'react'
 
-const PreLoader = () => {
+const Loader = () => {
   return (
     <div>PreLoader</div>
   )
 }
 
-export default PreLoader
+export default Loader

@@ -24,11 +24,16 @@ const Dashboard = () => {
       socket.on('connect', () => {
         console.log('Connected to the server');
       });
-      const adminSocketId = socket.id
-      socket.emit('activeAdmin',{admin,adminSocketId})
+      socket.emit('activeAdmin',{admin})
+      socket.emit('adminLogin')
       setSocket(socket)
     }
   },[])
+  const Dashboard = () => {
+    if(socket){
+      socket.emit('adminLogin')
+    }
+  }
   return (
     <>
     <adminInfo.Provider value={adminData}>
@@ -40,7 +45,7 @@ const Dashboard = () => {
         <label htmlFor="btn">hh</label>
       </header>
       <section className='admin-mainpage'>
-      <nav><SidePanel/></nav>
+      <nav><SidePanel dashboard={() => Dashboard()}/></nav>
   <main>
   <Routes>
     <Route path='/dashboard' element={<Dashboard1/>}/>
