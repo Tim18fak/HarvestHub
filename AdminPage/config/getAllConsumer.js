@@ -51,3 +51,21 @@ export const getFarmer = () => {
 export const getFarmerProduce = () => {
 
 }
+
+export const activateUser = (id,isFarmer) => {
+    return new Promise((resolve,reject) => {
+        const url = `http://localhost/admin/${id}/${isFarmer}/:${token}`
+        fetch(url,{
+            method: "PUT",
+            headers:{
+                Authorization: `Bearer ${auth}`
+            }
+        })
+        .then((res) => {
+            resolve(res.status)
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+    })
+}

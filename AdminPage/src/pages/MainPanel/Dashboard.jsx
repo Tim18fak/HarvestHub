@@ -102,7 +102,7 @@ const Dashboard1 = ({state}) => {
             <td>{value.username}</td>
             <td>{value.verificationStatus}</td>
             <td>{value.NIN}</td>
-            <td><a href="http://" target="_blank" rel="noopener noreferrer" onClick={() => showFarmerFullDetails(value)}>Details</a></td>
+            <td><a href="#"  onClick={() => showFarmerFullDetails(value)}>Details</a></td>
           </tr>
         ))}
       </tbody>
@@ -111,17 +111,27 @@ const Dashboard1 = ({state}) => {
        )}
         {leftDetail && (
           <aside>
-            <a href="http://" target="_blank" rel="noopener noreferrer" onClick={backLeft}>Back</a>
+            <a href="#"  onClick={backLeft}>Back</a>
               <h3>Farmer Full Details</h3>
               <figure>
               <img src={maxDetailLeft.profileImage} alt="" />
               <h2>{maxDetailLeft.fullname}</h2>
             </figure>
+            <h4>Personal Information</h4>
             <ul>
-              <li>{maxDetailLeft.email}</li><br />
+              <li>ID {maxDetailLeft.Id}</li>
+              <li><span>NIN</span>{maxDetailLeft.NIN}</li>
+<li><span>Activation Code Status: </span>{maxDetailLeft.activationCodeStatus}</li>
+              <li><span>Email: </span>{maxDetailLeft.email}</li>
               <li>{maxDetailLeft.address}</li>
-              <li>{maxDetailLeft.phoneNumber}</li>
-              <li>{maxDetailLeft.NIN}</li>
+              <li><span>Cell: </span>{maxDetailLeft.phoneNumber}</li>
+              <li><span>Verification Status: </span>{maxDetailLeft.verificationStatus}</li>
+              <h4>Farmer's Farm Information</h4>
+              <ul>
+            <li><span>Farm Type: </span>{maxDetailLeft.farmType}</li>
+            <li><span>Farm Address: </span>{maxDetailLeft.farm_Address}</li>
+            <li><span>Farmer's Experience: </span>{maxDetailLeft.farmingExperience}</li>
+          </ul>
               <footer><span>Hear about:</span> {maxDetailLeft.comeAbout}</footer>
             </ul>
           </aside>
@@ -152,7 +162,7 @@ const Dashboard1 = ({state}) => {
             <td>{value.username}</td>
             <td>{value.verificationStatus}</td>
             <td>{value.NIN}</td>
-            <td><a href="http://" target="_blank" rel="noopener noreferrer" onClick={() => showConsumerFullDetails(value)} >Details</a></td>
+            <td><a href="#"  onClick={() => showConsumerFullDetails(value)} >Details</a></td>
           </tr>
         ))}
       </tbody>
@@ -161,7 +171,7 @@ const Dashboard1 = ({state}) => {
        )}
         {rightDetail && (
           <aside>
-            <a href="http://" target="_blank" rel="noopener noreferrer" onClick={backRight}>Back</a>
+            <a href="#" onClick={backRight}>Back</a>
             <h3>Consumer Full Details</h3>
             <figure>
               <img src={maxDetailRight.profileImage} alt="" />
