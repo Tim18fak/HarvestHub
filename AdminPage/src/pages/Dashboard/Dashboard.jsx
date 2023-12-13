@@ -19,12 +19,18 @@ const Dashboard = () => {
   const [socket,setSocket] = useState(null)
   const [state,setState] = useState(true)
   const [HHFarmer,setHHFarmer] = useState([])
+  const [HHProduce,setHHProduce] = useState([])
   const [HHConsumer,setHHConsumer] = useState([])
   useEffect(() => {
     const admin =  cookie.getAll()
     if(admin){
       setAdminData(admin)
-      const socket =  io('http://localhost')
+      const socket =  io('http://localhost',{
+        reconnection: true,          // Enable reconnection
+  reconnectionAttempts: 5,     // Number of attempts before giving up
+  reconnectionDelay: 1000,     // Time to wait between reconnection attempts (in milliseconds)
+  reconnectionDelayMax: 5000, 
+      })
       socket.on('connect', () => {
         console.log('Connected to the server');
       });
@@ -34,12 +40,18 @@ const Dashboard = () => {
     }
   },[])
   const Dashboard = () => {
+    console.log('hello')
+
     if(socket){
       socket.emit('adminLogin')
+        window.location.reload()
     }
   }
   const getProduce = async() => {
     const produce =  await getFarmerProduce()
+    if(produce){
+      setHHProduce(produce)
+    }
   }
   const farmer = async() => {
     const result = await getFarmer()
@@ -70,7 +82,7 @@ const Dashboard = () => {
   <main>
   <Routes>
     <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>
-    <Route path='/product' element={<Product/>}/>
+    <Route path='/product' element={<Product HHProduce={HHProduce} state={state}/>}/>
     <Route path='/profile' element={<Profile/>}/>
     <Route path='/consumer' element={<Consumer HHConsumer={HHConsumer} state={state}/>}/>
     <Route path='/farmer' element={<Farmer HHFarmer={HHFarmer} state={state}/>}/>

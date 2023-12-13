@@ -22,6 +22,11 @@ jwt.verify(authHeaderToken,process.env.Admin_Authorization_Secret,async (err,dat
     }
 }
 
+const authenticate =() => {
+
+}
+
+
 const authenticateFarmerToken = async(req,res,next) => {
     try {
         const farmerHeader = req.headers['authorization']
@@ -41,4 +46,4 @@ jwt.verify(farmerHeaderToken,process.env.Client_Authorization_Secret,async (err,
         console.log(error.message)
     }
 }
-module.exports = {authenticateAdminToken,authenticateFarmerToken} 
+module.exports = {authenticateAdminToken,authenticateFarmerToken,authenticate} 

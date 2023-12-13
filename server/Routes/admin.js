@@ -2,14 +2,26 @@ const express = require('express')
 const {adminLogin, createAdmin,test,compareActivation,adminReset} = require('../Controller/Admin/admin')
 const {getAllFarmer,BlockFarmer,blockConsumer,getAllConsumer} =  require('../Controller/Admin/Admin_Roles/Roles');
 const { authenticateAdminToken} = require('../middlewares/authenticateToken');
-const { Farmer, User } = require('../Model/DB_structure');
+const { Farmer, User, Product } = require('../Model/DB_structure');
 const router = express.Router();
 router.post('/adminLogin',adminLogin)
 router.post('/admincreation',createAdmin)
 router.post('/compare',compareActivation)
 router.post('/reset',adminReset),
 router.get('/allConsumer/:Id',authenticateAdminToken,getAllConsumer)
+router.get('/produce/:Id',authenticateAdminToken,async(req,res) => {
+    const produce =  await Product.find({})
+    res.send(produce)
+})
 router.get('/allFarmer/:Id',authenticateAdminToken,getAllFarmer)
+router.get('/farmer/:farmerId/:Id',authenticateAdminToken,async(req,res) => {
+    const {farmerId} = req.params
+    const farmer =  await Farmer.findById(farmerId)
+    if(farmer){
+        const {profileImage,NIN,Id,email,verificationStatus,phoneNumber,address,farmDescription,farmType,farmingExperience,farm_Address,fullname}= farmer
+        res.send({profileImage,NIN,Id,email,verificationStatus,phoneNumber,address,farmDescription,farmType,farmingExperience,farm_Address,fullname})
+    }
+})
 router.post('/banFarmer/:blockFarmerId/:Id',authenticateAdminToken,BlockFarmer)
 router.post('/banConsumer/:banConsumerId/:Id',authenticateAdminToken,blockConsumer)
 router.put('/:id/:isFarmer/:Id',async(req,res) => {

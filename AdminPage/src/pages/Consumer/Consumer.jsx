@@ -80,8 +80,10 @@ const Consumer = ({HHConsumer,state}) => {
 }</li>
           </ul>
           <aside>
-          <button onClick={() => activatedConsumer(value._id,value.isFarmer)}>Activated Consumer</button>
-          <button onClick={() => blockConsumer(value._id,value.isFarmer)}>Block Consumer</button>
+          {value.verificationStatus === 'Fullfilled' && (
+            <button onClick={() => activateFarmer(value._id,value.isFarmer)}>Activate Farmer</button>
+          )}
+          <button onClick={() => blockConsumer(value._id,value.isFarmer)}>Deactivate Consumer</button>
           </aside>
         </main>
       ))}

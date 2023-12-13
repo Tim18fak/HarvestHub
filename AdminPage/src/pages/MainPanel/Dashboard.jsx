@@ -10,29 +10,45 @@ const Dashboard1 = ({state}) => {
   const [activeFarmerInfo,setFarmerInfo] = useState([])
   const [triggerAnimation,setTriggerAnimation] = useState(state)
   const [activeConsumerInfo,setConsumerInfo] = useState([])
+  const [totalU,setTotalU] = useState(0)
+  const [totalF,setTotalF] = useState(0)
   const [leftDetail,setLeftDetail] = useState(false)
   const [rightDetail,setRightDetail] = useState(false)
   const [maxDetailLeft,setMaxDetailLeft] = useState([])
   const [maxDetailRight,setMaxDetailRigtht] = useState([])
   const socket = useContext(Socket)
   console.log(socket)
+
   useEffect(() => {
     setTimeout(() => {
       setTriggerAnimation(false)
     },4500)
   },[state])
 
+useEffect(() => {
+   console.log('hell')
+},[totalF,totalU])
+
+
  if(socket){
  /* get the active user number */
   socket.on('activeUser',(data) => {
-    const {totalConsumer,totalFarmer} =  data
-    cookie.set('activeFarmer',totalFarmer)
-    cookie.set('activeConsumer',totalConsumer)
-    console.log(data)
+   if(!data){
+    window.location.reload()
+   }
+   const {totalConsumer,totalFarmer} =  data
+   console.log('seen')
+   cookie.set('activeConsumer',totalConsumer)
+   cookie.set('activeFarmer', totalFarmer)
+   setTotalF(totalFarmer)
+   setTotalU(totalConsumer)
   })
   /* get the active user data */
   socket.on('activeUserInfo',(data) => {
+    if(!data){return
+    }
     const {activeConsumerInfo,activeFarmerInfo} = data
+    console.log('user Data')
     setConsumerInfo(activeConsumerInfo)
     setFarmerInfo(activeFarmerInfo)
   })

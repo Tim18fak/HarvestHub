@@ -30,22 +30,27 @@ const Connect = (server) => {
         })
         /* active user logout initialization */
         socket.on('logout_Init',async(data) => {
-          const {_id,isFarmer} = data 
+          const {_id,isFarmer} = data
           console.log(data)
-          const active = isFarmer ? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id})
-          const removeActive = isFarmer ? ActiveFarmer.findByIdAndDelete(active._id): ActiveConsumer.findByIdAndDelete(active._id)
-          console.log(active)
-          if(removeActive){
-            console.log('active user has been removed')
+          const removeUser = isFarmer === 'true' ? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id});
+
+          /* remove the logout user and get the current active admin */
+          if(removeUser){
+            const deleteActiveUser =  isFarmer === 'true' ? await ActiveFarmer.findByIdAndRemove(removeUser._id) : await ActiveConsumer.findByIdAndRemove(removeUser._id)
+            if(deleteActiveUser){
+              await getTotalUSer(io)
+              socket.emit('logout_SequenceCompleted')
+            }
           }
+          
+          
         })
         /* get active User */
         socket.on('active',async(data) => {
           const {isFarmer,_id} = data
           const activeUser = isFarmer ? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id})
-          const activeAdmin =  await ActiveAdmin.find({})
           if(activeUser){
-            const totalConsumer = await ActiveConsumer.countDocuments()
+            /* const totalConsumer = await ActiveConsumer.countDocuments()
             const totalFarmer = await ActiveFarmer.countDocuments()
             console.log(totalConsumer, totalFarmer)
             const adminconnectId = await getAdminConnectionId(activeAdmin)
@@ -53,7 +58,8 @@ const Connect = (server) => {
               io.to(id).emit('activeUser',{totalConsumer, totalFarmer})
               console.log('user sent')
             })
-            console.log('done')
+            console.log('done') */
+            await getTotalUSer(io);
             return
 
           }
@@ -69,14 +75,15 @@ const Connect = (server) => {
           })
 
           await newlyLogin.save();
-          const totalConsumer = await ActiveConsumer.countDocuments()
+          await getTotalUSer(io)
+         /*  const totalConsumer = await ActiveConsumer.countDocuments()
           const totalFarmer = await ActiveFarmer.countDocuments()
           const adminconnectId = await getAdminConnectionId(activeAdmin)
             adminconnectId.forEach(id => {
               io.to(id).emit('activeUser',{totalConsumer, totalFarmer})
               console.log('user sent')
             })
-            console.log('done')
+            console.log('done') */
         })
     /* disconnect */
         socket.on('disconnect',() => {
@@ -115,21 +122,7 @@ const Connect = (server) => {
         })
         /* send active user number to admin */
         socket.on('adminLogin',async() => {
-          const totalConsumer = await ActiveConsumer.countDocuments()
-          const totalFarmer = await ActiveFarmer.countDocuments()
-          const admin = await ActiveAdmin.find({})
-          const id = await getAdminConnectionId(admin)
-          
-          id.forEach(id => {
-              io.to(id).emit('activeUser',{totalConsumer, totalFarmer})
-    })
-    /* get active Consumer Info */
-    const activeConsumerInfo = await getConsumerIdAndInfo()
-    const activeFarmerInfo = await getFarmerIdAndInfo()
-    console.log(activeFarmerInfo)
-    id.forEach(id => {
-      io.to(id).emit('activeUserInfo',{activeConsumerInfo,activeFarmerInfo})
-    }) 
+          getTotalUSer(io)
         })
       /* admin logout and deactivation logic*/
       socket.on('adminLogoutInitialization',async(data) => {
@@ -150,6 +143,34 @@ const Connect = (server) => {
       });
 
 }
+
+
+const getTotalUSer = async (io) => {
+  const totalConsumer = await ActiveConsumer.countDocuments();
+  const totalFarmer = await ActiveFarmer.countDocuments();
+  const admin = await ActiveAdmin.find({});
+  const ids = await getAdminConnectionId(admin);
+
+  if (ids) {
+    ids.forEach((id) => {
+      io.to(id).emit('activeUser', { totalConsumer, totalFarmer });
+    });
+  }
+
+  // Use `ids` instead of `id` here
+  const activeConsumerInfo = await getConsumerIdAndInfo();
+  const activeFarmerInfo = await getFarmerIdAndInfo();
+  if (ids) {
+    ids.forEach((id) => {
+      io.to(id).emit('activeUserInfo', { activeConsumerInfo, activeFarmerInfo });
+    });
+  }
+
+  console.log('done');
+};
+
+
+
 
 
 module.exports = Connect;

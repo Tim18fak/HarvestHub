@@ -48,8 +48,25 @@ export const getFarmer = () => {
     })
 }
 
-export const getFarmerProduce = () => {
+export const getFarmerProduce = async() => {
+        return new Promise((resolve,reject) => {
+            const url = `http://localhost/admin/produce/${token}`
+            fetch(url,{
+                headers:{
+                    Authorization: `Bearer ${auth}`
+                }
+            })
+            .then((res) => {
+                res.json()
+                .then((data) => {
+                    console.log(data)
+                    resolve(data)
+                })
+            })
+            .catch((err) => {
 
+            })
+        })   
 }
 
 export const activateUser = (id,isFarmer) => {
@@ -66,6 +83,26 @@ export const activateUser = (id,isFarmer) => {
         })
         .catch((err) => {
             console.log(err.message)
+        })
+    })
+}
+
+export const getFarmerinfo = (id) => {
+    return new Promise((resolve,reject) => {
+        const url = `http://localhost/admin/farmer/${id}/${token}`
+        fetch(url,{
+            headers:{
+                Authorization: `Bearer ${auth}`
+            }
+        })
+        .then((res) => {
+            res.json()
+            .then((data) => {
+                resolve(data)
+            })
+        })
+        .catch((err) => {
+
         })
     })
 }

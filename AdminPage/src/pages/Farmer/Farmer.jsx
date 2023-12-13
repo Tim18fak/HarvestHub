@@ -26,7 +26,7 @@ const Farmer = ({HHFarmer,state}) => {
         alert('You have activated the consumer account')
          setTimeout(() => {
           window.location.replace('/dashboard')
-        },300)
+        },1000)
         break;
       case 300:
         alert('Consumer account has already been activated')
@@ -77,8 +77,10 @@ const Farmer = ({HHFarmer,state}) => {
             <li><span>Farmer's Experience: </span>{value.farmingExperience}</li>
           </ul>
           <aside>
-          <button onClick={() => activateFarmer(value._id,value.isFarmer)}>Activate Farmer</button>
-          <button onClick={() => blockFarmer(value._id)}>Block Farmer</button>
+          {value.verificationStatus === 'Fullfilled' && (
+            <button onClick={() => activateFarmer(value._id,value.isFarmer)}>Activate Farmer</button>
+          )}
+          <button onClick={() => blockFarmer(value._id)}>Deactivate Farmer</button>
           </aside>
         </main>
       ))}
