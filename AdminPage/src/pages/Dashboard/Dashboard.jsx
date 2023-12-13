@@ -10,6 +10,7 @@ import Consumer from '../Consumer/Consumer';
 import Farmer from '../Farmer/Farmer';
 import './dashboard.css'
 import { Socket, adminInfo } from '../../../hooks/usecontext/useContext';
+import { getAllConsumer, getFarmer, getFarmerProduce } from '../../../config/getAllConsumer';
 
 const cookie  = new Cookies()
 
@@ -17,6 +18,8 @@ const Dashboard = () => {
   const [adminData,setAdminData] = useState('')
   const [socket,setSocket] = useState(null)
   const [state,setState] = useState(true)
+  const [HHFarmer,setHHFarmer] = useState([])
+  const [HHConsumer,setHHConsumer] = useState([])
   useEffect(() => {
     const admin =  cookie.getAll()
     if(admin){
@@ -35,9 +38,23 @@ const Dashboard = () => {
       socket.emit('adminLogin')
     }
   }
-  const getProduce = () => {
-
+  const getProduce = async() => {
+    const produce =  await getFarmerProduce()
   }
+  const farmer = async() => {
+    const result = await getFarmer()
+    if(result){
+      setHHFarmer(result.AllFarmer)
+    }
+    console.log(result)
+  }
+  const consumer = async() => {
+    const result =  await getAllConsumer()
+    if(result){
+    setHHConsumer(result.AllConsumer)
+    console.log(result)
+  }
+}
   return (
     <>
     <adminInfo.Provider value={adminData}>
@@ -49,14 +66,14 @@ const Dashboard = () => {
         <label htmlFor="btn">hh</label>
       </header>
       <section className='admin-mainpage'>
-      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()}/></nav>
+      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()} farmer={() => farmer()} consumer={consumer}/></nav>
   <main>
   <Routes>
     <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>
     <Route path='/product' element={<Product/>}/>
     <Route path='/profile' element={<Profile/>}/>
-    <Route path='/consumer' element={<Consumer/>}/>
-    <Route path='/farmer' element={<Farmer/>}/>
+    <Route path='/consumer' element={<Consumer HHConsumer={HHConsumer} state={state}/>}/>
+    <Route path='/farmer' element={<Farmer HHFarmer={HHFarmer} state={state}/>}/>
   </Routes>
   </main>
       </section>

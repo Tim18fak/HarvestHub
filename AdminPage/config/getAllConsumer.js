@@ -1,12 +1,11 @@
-import { rejects } from "assert";
-import { resolve } from "path";
 import Cookies from "universal-cookie";
 
 const cookie = new Cookies()
 const auth =  cookie.get('id')
+const token = cookie.get('token')
 
 export const getAllConsumer = async() => {
-    const URL = `http://localhost/admin/allConsumer`
+    const URL = `http://localhost/admin/allConsumer/${token}`
     return new Promise((resolve,reject) => {
         fetch(URL,{
             headers : {
@@ -30,7 +29,7 @@ export const getAllConsumer = async() => {
 }
 
 export const getFarmer = () => {
-    const URL = ``
+    const URL = `http://localhost/admin/allFarmer/${token}`
     return new Promise((resolve,reject) => {
         fetch(URL,{
             headers:{

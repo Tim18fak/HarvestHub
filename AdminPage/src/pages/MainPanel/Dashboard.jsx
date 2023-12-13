@@ -19,7 +19,7 @@ const Dashboard1 = ({state}) => {
   useEffect(() => {
     setTimeout(() => {
       setTriggerAnimation(false)
-    },2500)
+    },4500)
   },[state])
 
  if(socket){
