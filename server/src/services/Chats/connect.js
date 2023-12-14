@@ -31,12 +31,14 @@ const Connect = (server) => {
         /* active user logout initialization */
         socket.on('logout_Init',async(data) => {
           const {_id,isFarmer} = data
-          console.log(data)
-          const removeUser = isFarmer === 'true' ? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id});
+          const isfarmer =  isFarmer.toString()
+          console.log(typeof isfarmer)
+          const removeUser = isfarmer === 'true'? await ActiveFarmer.findOne({Farmer: _id}) : await ActiveConsumer.findOne({Consumer: _id});
+          console.log(removeUser)
 
           /* remove the logout user and get the current active admin */
           if(removeUser){
-            const deleteActiveUser =  isFarmer === 'true' ? await ActiveFarmer.findByIdAndRemove(removeUser._id) : await ActiveConsumer.findByIdAndRemove(removeUser._id)
+            const deleteActiveUser =  isfarmer === 'true' ? await ActiveFarmer.findByIdAndRemove(removeUser._id) : await ActiveConsumer.findByIdAndRemove(removeUser._id)
             if(deleteActiveUser){
               await getTotalUSer(io)
               socket.emit('logout_SequenceCompleted')

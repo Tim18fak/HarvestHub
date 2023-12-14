@@ -46,8 +46,6 @@ router.put('/uP/:userID/:isFarmer',async(req,res)=> {
     userData.address = req.body.address ? req.body.address: userData.address;
     userData.hashedPassword = req.body.password ? await bcrypt.hash(req.body.password,15):  userData.hashedPassword;
     userData.profileImage = req.body.profileImage ? await uploadProfileImage(req.body.profileImage,isFarmer): userData.profileImage;
-
-
     await userData.save()
     res.sendStatus(200)
     console.log('updated')

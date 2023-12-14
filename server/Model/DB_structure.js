@@ -145,12 +145,14 @@ const Banned  = new mongoose.Schema({
 });
 const adminInfo = new mongoose.Schema({
   adminId: { type: String, required: true},
+  fullname: {type:String},
   username: { type: String, required: true},
   email: { type: String, required: true},
   password: { type: String, required: true},
   activationCode: { type: Number},
   activationCodeStatus: { type: String, required: true},
   authorizationToken: { type: String},
+  profileImage: {type: String}
 })
 const chatMessage = mongoose.Schema({
   chatId: {type: String},

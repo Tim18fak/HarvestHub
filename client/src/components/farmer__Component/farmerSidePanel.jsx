@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Logout } from '../../../configs/default__configs/logout'
-import { UserData } from '../../../hooks/useContext/ConsumerInfo'
+import { Socket, UserData } from '../../../hooks/useContext/ConsumerInfo'
 
 const FarmerSidePanel = ({ getProduce,getProfile}) => {
   const userData =  useContext(UserData)
+  const socket =  useContext(Socket)
   return (
     <nav>
       <aside>
@@ -28,7 +29,7 @@ const FarmerSidePanel = ({ getProduce,getProfile}) => {
             <ul>
                 <li></li>
                 <li><Link to='/fM/profile' onClick={getProfile}>Profile</Link></li>
-                <li onClick={Logout}>Logout</li>    
+                <li onClick={() => Logout(socket,userData)}>Logout</li>    
             </ul>
         </aside>
       </main>

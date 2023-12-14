@@ -93,15 +93,15 @@ useEffect(() => {
     </section>
 
     {/*  */}
-    <section>
+    <section className='active_user-info'>
       {/* farmer information */}
       <div>
        {!leftDetail && (
          <main>
-             <h3>Active Farmer Details</h3>
-             <table>
+             <h3>Active Farmers</h3>
+      <table className='active-user_table'>
       <thead>
-        <tr>
+        <tr  className='active-user_table-heads'>
           <th>#</th>
           <th>Image</th>
           <th>Username</th>
@@ -112,7 +112,7 @@ useEffect(() => {
       </thead>
       <tbody>
         {activeFarmerInfo && activeFarmerInfo.map((value,index) => (
-          <tr key={index}>
+          <tr key={index} index={index} >
             <td>{index}</td>
             <td><img src={value.profileImage} alt="" width={50} height={50} /></td>
             <td>{value.username}</td>
@@ -122,6 +122,11 @@ useEffect(() => {
           </tr>
         ))}
       </tbody>
+      {!activeFarmerInfo && (
+          <div>
+            <p>No Active Farmer</p>
+          </div>
+        )}
     </table>
          </main>
        )}
@@ -158,8 +163,8 @@ useEffect(() => {
       <div>
        {!rightDetail && (
          <main>
-            <h3>Active Consumer Details</h3>
-            <table>
+            <h3>Active Consumers</h3>
+      <table className='active-user_table'>
       <thead>
         <tr>
           <th>#</th>

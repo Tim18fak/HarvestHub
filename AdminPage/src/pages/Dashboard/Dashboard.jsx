@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SidePanel from '../../components/SidePanel/sidePanel'
 import Profile from '../Profile/Profile'
@@ -9,8 +9,9 @@ import Cookies from 'universal-cookie';
 import Consumer from '../Consumer/Consumer';
 import Farmer from '../Farmer/Farmer';
 import './dashboard.css'
-import { Socket, adminInfo } from '../../../hooks/usecontext/useContext';
+import { Socket, adminInfo} from '../../../hooks/usecontext/useContext';
 import { getAllConsumer, getFarmer, getFarmerProduce } from '../../../config/getAllConsumer';
+import { admin } from '../../../data/adminData';
 
 const cookie  = new Cookies()
 
@@ -21,6 +22,8 @@ const Dashboard = () => {
   const [HHFarmer,setHHFarmer] = useState([])
   const [HHProduce,setHHProduce] = useState([])
   const [HHConsumer,setHHConsumer] = useState([])
+  const [adminProfile,setAdminProfile] =  useState([])
+
   useEffect(() => {
     const admin =  cookie.getAll()
     if(admin){
@@ -67,6 +70,16 @@ const Dashboard = () => {
     console.log(result)
   }
 }
+const getAdminProfile = async() => {
+  const url =  `http://localhost/admin/profile/${adminData.token}`
+  const data = await admin.Axios.get(url,{
+    headers: {
+      Authorization: `Bearer ${adminData.id}`
+    }
+  })
+  setAdminProfile(data.data)
+  console.log(data)
+}
   return (
     <>
     <adminInfo.Provider value={adminData}>
@@ -78,12 +91,12 @@ const Dashboard = () => {
         <label htmlFor="btn">hh</label>
       </header>
       <section className='admin-mainpage'>
-      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()} farmer={() => farmer()} consumer={consumer}/></nav>
+      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()} farmer={() => farmer()} consumer={consumer} profile={() => getAdminProfile()}/></nav>
   <main>
   <Routes>
     <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>
     <Route path='/product' element={<Product HHProduce={HHProduce} state={state}/>}/>
-    <Route path='/profile' element={<Profile/>}/>
+    <Route path='/profile' element={<Profile profile={adminProfile}/>}/>
     <Route path='/consumer' element={<Consumer HHConsumer={HHConsumer} state={state}/>}/>
     <Route path='/farmer' element={<Farmer HHFarmer={HHFarmer} state={state}/>}/>
   </Routes>
