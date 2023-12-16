@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Socket, UserData } from '../../../../hooks/useContext/ConsumerInfo'
 import { ReviewProduce } from '../../../../configs/consumer__configs/configs'
-
+import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
 const Review = ({produce,back}) => {
     const [review,setReview] =  useState('')
     const socket =  useContext(Socket)
@@ -26,10 +26,16 @@ const Review = ({produce,back}) => {
     }
   return (
     <>
-    <p onClick={back}>Back</p>
+    <p onClick={back}><i class="fa-solid fa-arrow-left fa-beat">Back</i></p>
     <section >
         <h2>Lets Review this produce of Id {produce._id}</h2>
         <figure>
+        <div style={{
+                    width: '100%',
+                    height: '250px'
+                }}>
+                <ImageSlider images={produce.Image}/>
+                </div>
             {produce && produce.Image && produce.Image.length > 0 && produce.Image.map((image,index) => (
                 <img src={image} alt=""  key={index}/>
             ))}

@@ -9,7 +9,6 @@ import { GetProduce, GetProfile } from '../../../configs/farmer_configs/fetch';
 import { Socket, UserContext } from '../../../hooks/useContext/ConsumerInfo';
 import {io} from 'socket.io-client'
 import Notification from '../../pages/farmer__Page/Notification/Notification';
-
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(true)
   const [produce,setProduce] =  useState([])
@@ -17,6 +16,7 @@ const FarmerRoute = () => {
   const [notificationResponse,setNotificationResponse] = useState('')
   const [hideNotification,setHideNotification] = useState(true)
   const [notification,setNotification] = useState(null)
+  const [menu,setMenu] =  useState('')
   const socket  = useContext(Socket)
   const userInfo =  useContext(UserContext)
 
@@ -59,8 +59,13 @@ const FarmerRoute = () => {
   console.log(produce)
   return (
     <Router>
+      <input type="checkbox" id='fnavBtn'/>
+      <body className='fDashboard'>
       <header>
-        <h1>HarvestHub</h1>
+      <main>
+          <span>{menu}</span>
+          <label htmlFor="navBtn" id='fBtn'></label>
+        </main>
         <aside>
         <Link to={'/fM/notification'}><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
           color: 'red',
@@ -87,6 +92,7 @@ const FarmerRoute = () => {
         <Route path=''/>
         <Route path='/fM/notification' element={<Notification/>}/>
       </Routes>
+      </body>
     </Router>
   )
 }

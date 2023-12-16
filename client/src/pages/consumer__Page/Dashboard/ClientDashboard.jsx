@@ -13,7 +13,7 @@ const cropType = {
   Spices: '',
 };
 
-const ClientDashboard = () => {
+const ClientDashboard = ({menu}) => {
   const [resProduct,setResProduct] = useState([])
   const [produceInfo, setProduceInfo] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -67,24 +67,14 @@ console.log(selectedCategories)
   }
   return (
     <>
-    
+    <input type="checkbox" checked={menu} />
       <form onSubmit={submitSearch} className='harvesthub_dashboard'>
         <h3>Welcome To HarvestHub</h3>
+        <a className='search-product' onClick={submitSearch}><i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
         <input type="text" name="" placeholder="search produce" id="title" onChange={getproduceInfo} />
-        <main>
-          {selectedCategories.map((category,id) => (
-            <div key={id}>
-              {category}
-              <button type="button" onClick={() => removeProduceInfoUi(category)}>
-                +
-              </button>
-            </div>
-          ))}
-        </main>
-        <a onClick={submitSearch}>search Produce</a>
       </form>
       
-      <ProduceResponse produce={resProduct}/>
+      <ProduceResponse produce={resProduct} menu={menu}/>
     </>
   );
 };

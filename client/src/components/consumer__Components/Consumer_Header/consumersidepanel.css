@@ -1,42 +1,117 @@
-nav{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-nav aside {
-    text-align: center;
-    margin: 2rem 0;
-}
-nav aside figure figcaption{
-    margin: .2rem;
-    padding: .2rem;
+*{
 
 }
-nav ul{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 40vh;
+:root{
+    --primary-color: green;
+    --light-primary-color: rgb(14, 231, 14);
+    --secondary-color: white;
+    --accent-color: brown;
 }
-[id='side_panel-list']{
-    text-decoration: none;
-    transition: color 3s;
+.client-sidepanel{
+    top: 0;
+    position: fixed;
+    background-color:var(--light-primary-color);
+    width: 260px;
+    margin: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    height: 93%;
+    border-radius: 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center; */
+    left: 0px; /* Move off-screen by default */
+    transition: left 1s ease-in-out;
+}
+.client-sidepanel div{
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2rem;
+    background-color: var(--primary-color);
+    border-radius: 0 0 10px 10px;
     
 }
-[id='side_panel-list']:hover{
-    color: white;
+.client-sidepanel div h3{
+    color: var(--secondary-color);
 }
-nav ul li{
-    transition: background 3s;
-    padding: 1.5rem 5rem;
-    margin: 0;
-    text-decoration: none;
+.client-sidepanel div h3 span{
+    color: var(--light-primary-color);
+}
+.client-sidepanel div i{
+    font-size: 1.5rem;
+}
+.input{
+
+}
+.input:checked ~ .client-sidepanel{
+    left: -350px;
 }
 
-nav ul li:hover{
-    padding: 1.5rem 5rem;
-    background-color: blue;
-}
-nav h4{
+
+.client-sidepanel figure{
+    margin: .5rem;
     text-align: center;
+}
+.client-sidepanel figure h1{
+    text-align: center;
+    margin: .5rem;
+    font-size: 1.5rem;
+}
+.sidepanel-component{
+    min-height: 274px;
+    background-color: var(--secondary-color);
+    border-radius: 0 0 10px 10px;
+}
+.sidepanel-component li{
+    list-style: none;
+    width: 100%;
+    padding: .4rem 0;
+    text-align: center;
+}
+.sidepanel-component li span{
+    color: var(--primary-color);
+}
+.sidepanel-component li  i:not(.review i){
+    margin: 0;
+    font-size: 1.5rem;
+    padding: .5rem;
+    background-color: '';
+}
+.review i{
+    margin: 0;
+    padding: 5px;
+}
+.sidepanel-component li:nth-child(odd){
+    background-color: var(--accent-color);
+    width: 100%;
+    margin: 0;
+}
+/* .sidepanel-component li  i:hover {
+    display: none;
+}
+.sidepanel-component li span{
+display: none;
+}
+.sidepanel-component li:hover + .side-panel-component{
+
+} */
+#side_panel-list{
+    text-decoration: none;
+}
+.sidepanel-component h4{
+    text-align: center;
+    position: relative;
+    border-radius:  0 0 10px 10px;
+    top: 4px;
+    padding: 1rem;
+    background-color: var(--accent-color);
+}
+.sidepanel-component h4 i{
+    color: var(--light-primary-color);
+    font-size: 1.5rem;
+}
+.sidepanel-component h4 span{
+    display: none;
 }

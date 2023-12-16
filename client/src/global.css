@@ -1,7 +1,7 @@
-:root{
-   /* color  scheme option 1*/
+/* :root{
+  
    --prirmay-color: #65fe08;
-   --seccondary-color: ;
+   --seccondary-color: '';
 }
 
 
@@ -12,8 +12,8 @@ li:hover{
     
 }
 header{
-    padding: 2rem;
-}
+    
+} */
 /* @media screen and (min-width: 300px) and (max-width: 500px) {
     body{
         margin: 0 1rem;

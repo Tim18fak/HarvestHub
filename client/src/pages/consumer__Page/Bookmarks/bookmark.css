@@ -1,0 +1,34 @@
+.bookmark-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+}
+.bookmark{
+    background-color: aqua;
+    position: relative;
+}
+.bookmark button{
+    width: 50%;
+    padding: .5rem;
+    margin-top: .3rem;
+    border: transparent;
+}
+.bookmark .bookmark-produce{
+
+}
+.bookmark .bookmark-produce div{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0.5rem;
+}
+.bookmark .bookmark-produce p{
+    padding: .5rem;
+}
+.bookmark .bookmark-produce ul{
+    display: flex;
+    padding: .5rem;
+    justify-content: space-between;
+}
+i{
+    margin-right: 10px;
+}

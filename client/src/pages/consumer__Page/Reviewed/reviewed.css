@@ -1,0 +1,17 @@
+.review-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+}
+.review-cards{
+    box-shadow: '';
+}
+.review-cards h2,
+.review-cards p{
+    padding: .5rem;
+}
+.review-cards button{
+    width: 100%;
+    border: transparent;
+    padding: .5rem;
+}

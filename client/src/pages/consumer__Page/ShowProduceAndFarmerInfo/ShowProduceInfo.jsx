@@ -4,7 +4,8 @@ import { Bookmark } from '../../../../configs/consumer__configs/configs'
 import { Link } from 'react-router-dom'
 import { UserContext, Socket } from '../../../../hooks/useContext/ConsumerInfo'
 import Review from '../ReviewProduce/Review'
-
+import './index.css'
+import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
     const [phoneNum,setPhoneNum] = useState('Call Farmer')
@@ -90,9 +91,9 @@ const ShowProduceInfo = ({data,trigger}) => {
   return (
     <>
     {!review && (
-        <section>
+        <section className='farmer-info_plus-produce'>
         {/* produce info */}
-        <a onClick={trigger}>Back</a>
+        <a onClick={trigger}><i class="fa-solid fa-arrow-left fa-beat">Back</i></a>
         {farmerExist && (
             <>
             <main>
@@ -100,13 +101,15 @@ const ShowProduceInfo = ({data,trigger}) => {
                 {fetchData.Image && fetchData.Image.length > 0 && (
                     <>
                     <figure>
-                    <img src={fetchData.Image[imageIndex]} alt="Produce Image"  id='Jumbostron_image'/>
+                    <img src={fetchData.Image[imageIndex]} alt="Produce Image"  id='Jumbostron_image' height={350} width={100}/>
                     </figure>
                     </>
                 )}
-                {fetchData.Image && fetchData.Image.length > 0 && fetchData.Image.map((image, index) => (
-                            <img src={image} key={index} alt="" width={80} height={80} onClick={() => changeImage(index)} />
+                <aside className='sub-images'>
+                {fetchData.Image && fetchData.Image.length > 1 && fetchData.Image.map((image, index) => (
+                            <img src={image} key={index} alt="image" width={80} height={80} onClick={() => changeImage(index)}  />
                         ))}
+                </aside>
             </figure>
             <h3>{fetchData.title}</h3>
             <div>
@@ -128,59 +131,21 @@ const ShowProduceInfo = ({data,trigger}) => {
             <button onClick={() => reviewProduce(fetchData)}>Review Produce</button>
         </main>
         {/* farmer info */}
-        <aside>
+        <aside className='farmer-info'>
             <main>
             <h3>Farmer Information</h3>
-            <figure>
-                <img src={fetchData.profileImage} alt="" />
-            </figure>
-            <h2>{fetchData.username}</h2>
-            <h3>{fetchData.fullname}</h3>
+            <h2>Username: {fetchData.username}</h2>
             <ul>
-                <li><span>Verification Status</span> {fetchData.verificationStatus}</li>
+                <li><span>Verification Status</span>: {fetchData.verificationStatus}</li>
             </ul>
             <h4>Farmer's Farm Information</h4>
             <ul>
                 <li><span>Farm Type: </span>{fetchData.farmType}</li>
-                <li><span>Farm Address: </span> {fetchData.farm_Address}</li>
             </ul>
-            <a href={`tel:${phoneNum}`} onDoubleClick={hideFarmerNum} onClick={() => callFarmer(fetchData.phoneNumber)}>{phoneNum}</a>
+            <figure>
+                <img src={fetchData.profileImage} alt="" />
+            </figure>
             </main>
-            <aside>
-                {fetchData.otherProduce && fetchData.otherProduce.length > 0 && (
-                    <>
-                    <h4>{fetch.username}<span>Other Produce</span></h4>
-                    <main>
-                        {fetchData.otherProduce && fetchData.otherProduce.length > 0 && fetchData.otherProduce.map((otherProduce,index) => (
-                            <div key={index}>
-                                <figure>
-                                    {otherProduce.Image && otherProduce.Image.length > 0 && otherProduce.Image.map((image,index) => (
-                                        <img src={image} alt=""  key={index}/>
-                                    ))}
-                                </figure>
-                                <main>
-                                    <div>
-                                    <h3>{otherProduce.title}</h3>
-                                    <h4>{otherProduce.price}</h4>
-                                    <a></a>
-                                    </div>
-                                    <p>{otherProduce.description}</p>
-                                    <ul>
-                                        <li>{otherProduce.quantity}</li>
-                                        <li>{otherProduce.location}</li>
-                                         <li>{new Date(otherProduce.date).toLocaleDateString('en-US', { weekday: 'long',
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric',})}</li>
-                                    </ul>
-                                    <button onClick={() => bookMark(otherProduce._id)}>Bookmark</button>
-                                </main>
-                            </div>
-                        ))}
-                    </main>
-                    </>
-                )}
-            </aside>
         </aside>
         </>
         )}
@@ -194,7 +159,46 @@ const ShowProduceInfo = ({data,trigger}) => {
                 </ul>
             </aside>
         )}
+        
     </section>
+    )}
+    {/* other farmer produce */}
+    {!review && (
+       <section>
+        <h4 className='other-produce-h2'><span>Other Produce</span></h4>
+       <aside className='other-produce'>
+                   {fetchData.otherProduce && fetchData.otherProduce.length > 0 && (
+                       <>
+                       <main >
+                           {fetchData.otherProduce && fetchData.otherProduce.length > 0 && fetchData.otherProduce.map((otherProduce,index) => (
+                               <div key={index}>
+                                <div className='image-slider'>
+                                <ImageSlider images={otherProduce.Image}/>
+                                </div>
+                                   <main>
+                                       <div>
+                                       <h3>{otherProduce.title}</h3>
+                                       <h4>{otherProduce.price}</h4>
+                                       <a></a>
+                                       </div>
+                                       <p>{otherProduce.description}</p>
+                                       <ul>
+                                           <li>{otherProduce.quantity}</li>
+                                           <li>{otherProduce.location}</li>
+                                            <li>{new Date(otherProduce.date).toLocaleDateString('en-US', { weekday: 'long',
+                                           year: 'numeric',
+                                           month: 'long',
+                                           day: 'numeric',})}</li>
+                                       </ul>
+                                       <button onClick={() => bookMark(otherProduce._id)}>Bookmark</button>
+                                   </main>
+                               </div>
+                           ))}
+                       </main>
+                       </>
+                   )}
+               </aside>
+       </section>
     )}
     {review && (
         <Review back={showProduceInfo} produce={fetchData}/>

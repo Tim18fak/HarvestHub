@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Socket, UserContext, UserData } from '../../../../hooks/useContext/ConsumerInfo'
 import { Axios } from '../../../../configs/default__configs/axios.config'
-
-
+import './profile.css'
+import { Dashboard } from '../../../../data/consumer/data'
 
 const updateValue = {
 /* Personal Information */
@@ -85,45 +85,56 @@ const ConsumerProfile = () => {
   }
   console.log(consumerDataUpdata)
   return (
-    <div>
-      <form onSubmit={submitUpdated}>
-      <h2>Your Profile</h2>
-        <div>
-          <img src={consumerDataUpdata.profileImage ? consumerDataUpdata.profileImage : userData.profileImage} alt="" />
+    <>
+    <section className='profile-jumbostron' style={{
+      backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0.6), rgba(239, 243, 13, 0.6)),url(${Dashboard.profileImage})`
+    }}>
+    </section>
+    <form className='consumer-data'>
+      <div className='consumer-data-profileimage'>
+        <img src={consumerDataUpdata.profileImage ? consumerDataUpdata.profileImage : userData.profileImage} alt="" width={80} height={80} />
+        <aside>
+          <h2>{userData.fullname}</h2>
+          <p>Role: <span>Consumer</span></p>
           <input type="file" onChange={captureUpdatedPImage} />
-        </div>
-          <h3>Personal Information</h3>
+        </aside>
+      </div>
+      <div className='consumer-data-basic-info'>
+        <h4>Basic Info</h4>
+        <main className='data-user-info'>
         <div>
+        <label htmlFor="username">Username</label>
           <input type="text" name='username'  value={consumerDataUpdata.username ? consumerDataUpdata.username : userData.username} onChange={getUpdatedBio}/>
-          <label htmlFor="username">Username</label>
         </div>
         <div>
-          <input type="text"  name='fullname' onChange={getUpdatedBio} value={consumerDataUpdata.fullname ? consumerDataUpdata.fullname : userData.fullname}/>
           <label htmlFor="fullname">Fullname</label>
+          <input type="text"  name='fullname' onChange={getUpdatedBio} value={consumerDataUpdata.fullname ? consumerDataUpdata.fullname : userData.fullname}/>
         </div>
         <div>
+        <label htmlFor="address">Address</label>
           <input type="text" name='address' onChange={getUpdatedBio} value={consumerDataUpdata.address ? consumerDataUpdata.address : userData.address} />
-          <label htmlFor="address">Address</label>
         </div>
         <div>
+        <label htmlFor="email">Email</label>
           <input type="text" name='email' onChange={getUpdatedBio} value={consumerDataUpdata.email ? consumerDataUpdata.email : userData.email} />
-          <label htmlFor="email">Email</label>
         </div>
         <div>
+        <label htmlFor="password">Password</label>
           <input type="password" name='password' onChange={getUpdatedBio} value={consumerDataUpdata.password ? consumerDataUpdata.password : ''} />
-          <label htmlFor="password">Password</label>
         </div>
         <div>
+        <label htmlFor="phoneNumber">PhoneNumber</label>
           <input type="number" name='phoneNumber' onChange={getUpdatedBio} value={consumerDataUpdata.phoneNumber ? consumerDataUpdata.phoneNumber : userData.phoneNumber}/>
-          <label htmlFor="phoneNumber">PhoneNumber</label>
         </div>
         <div>
+        <label htmlFor="phoneNumber">AboutYourself</label>
           <textarea name="aboutYourself" id="" cols="30" rows="10"  onChange={getUpdatedBio} value={consumerDataUpdata.aboutYourself ? consumerDataUpdata.aboutYourself : userData.aboutYourself} ></textarea>
-          <label htmlFor="phoneNumber">AboutYourself</label>
         </div>
-        <button>Update Bio</button>
-      </form>
-    </div>
+        </main>
+        <a className='submit' onClick={submitUpdated} >Update Bio</a>
+      </div>
+    </form>
+    </>
   )
 }
 
