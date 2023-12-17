@@ -1,0 +1,135 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.category-option{
+    background-color: aqua;
+}
+.category-option h3{
+    text-align: center;
+    padding: .5rem;
+
+}
+.category-option aside{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    background-color: azure;
+    column-gap: 10px;
+    row-gap: 10px;
+    text-align: center;
+    min-height: 40px;
+    
+}
+.category-option aside p:nth-child(even){
+    display: inline-flex;
+    background-color: rgb(30, 255, 0);
+    max-width: 120px;
+    padding: .5rem;
+    margin: .3rem .5rem;
+    border-radius: 5px;
+    column-gap: 3px;
+    justify-content: space-between;
+    
+}
+.category-option aside p:nth-child(odd){
+    display: inline-flex;
+    background-color: green;
+    max-width: 120px;
+    padding: .5rem;
+    margin: .3rem .5rem;
+    border-radius: 5px;
+    column-gap: 3px;
+    color: white;
+    justify-content: space-between;
+}
+.category-option aside p:nth-child(odd) span i:hover{
+    color: aqua;
+}
+.image-constainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[image='produceImage']{
+    width:  90%;
+    height: 300px;
+    margin-left: 50px;
+}
+.produce-category{
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+/*     background-color: brown; */
+    column-gap: 30px;
+}
+.produce-category main{
+    background-color: lime;
+    border-radius: 10px;
+
+}
+.produce-category main h3{
+    padding: 1rem;
+    text-align: center;
+    color: brown;
+}
+.produce-category main div{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    background-color: green;
+    margin: .5rem;
+    min-height: 100px;
+    border-radius: 20px;
+    
+}
+.produce-category main div li{
+    margin: .6rem;
+    padding: .6rem;
+    background-color: antiquewhite;
+    max-height: 30px;
+    display: inline-flex;
+    justify-content: space-between;
+    border-radius: 4px;
+    transition: all 500ms ease-in-out;
+}
+.produce-category main div li:hover{
+    background-color: aqua;
+}
+.produce-category main div li span i{
+    font-size: 1.2rem;
+    position: relative;
+    top: -4px;
+}
+.add-produce-data main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+.add-produce-data main div{
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 0 1rem;
+}
+[type="file"]{
+    margin: 0 1rem;
+    color: white;
+}
+.add-produce-data main .input-options{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    margin: .5rem 0;
+}
+.add-produce-data main div label{
+    color: white;
+    padding: .5rem;
+}
+
+.add-produce-data main div input{
+    padding: .5rem;
+}
+.add-produce{
+    border: transparent;
+    padding: .5rem;
+    margin: 1rem;
+}

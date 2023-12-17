@@ -31,7 +31,9 @@ console.log(images)
    )}
     <ul>
         {images && images.map((image,index) => {
-            
+            <li key={index} className='carousel-dot'>
+                
+            </li>
         })}
         </ul>
         </div>

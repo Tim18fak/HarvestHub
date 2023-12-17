@@ -1,0 +1,43 @@
+.panel-options{
+    text-align: center;
+    width: 100%;
+    background-color: aqua;
+    position: relative;
+    top: 10px;
+    min-height: 230px;
+    border-radius:  0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+}
+[id='links']{
+    text-decoration: none;
+    transition: color 400ms ease-in-out;
+}
+[id='links']:hover{
+    color: white;
+}
+/* hr{
+    width: 100%;
+    height: 20px;
+    background-color: rgb(38, 0, 255);
+} */
+[id='panelOption']{
+    padding: 1.01rem 0;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    transition: all 400ms;
+}
+[id='panelOption']:hover{
+    background-color: green;
+    color: white;
+}
+[last='true']{
+    border-radius: 0 0 10px 10px;
+}
+.panel-options ul{
+    display: flex;
+    flex-direction: column;
+}
+.panel-options aside ul{
+   
+}

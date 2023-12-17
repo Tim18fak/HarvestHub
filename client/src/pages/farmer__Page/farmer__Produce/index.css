@@ -1,0 +1,59 @@
+:root{
+    --primary-color: rgb(5, 80, 5);
+    --light-primary-color: rgb(14, 231, 14);
+    --secondary-color: white;
+    --accent-color: brown;
+}
+.produce-body{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 97%;
+    position: relative;
+    column-gap: 20px;
+}
+.produce-body .produce-filter{
+    width: 250px;
+    min-height: 500px;
+    background-color: white;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 5;
+}
+.fProduce-grid{
+    display: grid;
+    margin-left: 265px;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 20px;
+    row-gap: 30px;
+    width: 100%;
+
+}
+.fProduce-grid div{
+    background-color: limegreen;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px var(--secondary-color);
+}
+.image-slider{
+    display: inline-flex;
+    align-items: center;
+    margin: 0 1.5rem;
+}
+.fProduce-grid div aside{
+    display: flex;
+    justify-content: space-between;
+    margin: .3rem;
+    
+}
+.fProduce-grid div .delete-produce{
+    width: 100%;
+    padding: .5rem;
+    border: transparent;
+    border-radius:  0 0 10px 10px;
+}

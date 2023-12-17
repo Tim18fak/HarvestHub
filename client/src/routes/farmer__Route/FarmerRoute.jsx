@@ -9,6 +9,7 @@ import { GetProduce, GetProfile } from '../../../configs/farmer_configs/fetch';
 import { Socket, UserContext } from '../../../hooks/useContext/ConsumerInfo';
 import {io} from 'socket.io-client'
 import Notification from '../../pages/farmer__Page/Notification/Notification';
+import { data } from '../../../data/default/data';
 const FarmerRoute = () => {
   const [resState,setResState] =  useState(true)
   const [produce,setProduce] =  useState([])
@@ -16,6 +17,7 @@ const FarmerRoute = () => {
   const [notificationResponse,setNotificationResponse] = useState('')
   const [hideNotification,setHideNotification] = useState(true)
   const [notification,setNotification] = useState(null)
+  const [navBtn,setNavBtn] = useState(false)
   const [menu,setMenu] =  useState('')
   const socket  = useContext(Socket)
   const userInfo =  useContext(UserContext)
@@ -34,6 +36,7 @@ const FarmerRoute = () => {
   }
 
   const getprofile= async(userInfo) => {
+    setMenu(data.profileMenu)
     const results = await GetProfile(userInfo)
     console.log(results)
     if(results){
@@ -46,6 +49,7 @@ const FarmerRoute = () => {
     
   }
   const getproduce = async(userInfo) =>{
+    setMenu(data.getProduce)
     const results =  await GetProduce(userInfo)
     console.log(results)
     if(results){
@@ -56,18 +60,26 @@ const FarmerRoute = () => {
       setProduce([])
     }
   }
+  /*  */
+  const navbtn = () => {
+    setNavBtn(!navBtn)
+  }
   console.log(produce)
   return (
     <Router>
-      <input type="checkbox" id='fnavBtn'/>
-      <body className='fDashboard'>
-      <header>
+      <input type="checkbox"  id='navBtn' onChange={navbtn} />
+      <body className='dashboard'>
+      <header className='dashboard_header'>
       <main>
-          <span>{menu}</span>
-          <label htmlFor="navBtn" id='fBtn'></label>
+          <span><i class="fa-solid fa-house" style={{
+            color: 'brown'
+          }}></i> {menu}</span>
+          <label htmlFor="navBtn" id='btn'></label>
         </main>
         <aside>
-        <Link to={'/fM/notification'}><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
+        <ul>
+          <li>
+          <Link to={'/fM/notification'}><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
           color: 'red',
           fontSize: '30px'
         } : {
@@ -81,17 +93,24 @@ const FarmerRoute = () => {
             <button onClick={hideNotify}>Hide</button>
             </>
           )}
+          </li>
+          <li>Set</li>
+        </ul>
         </aside>
       </header>
-      <FarmerSidePanel  getProfile={() => getprofile(userInfo)} getProduce={() => getproduce(userInfo)}/>
+      <section className='body' id='header_body'>
+          <nav  className='side_panel'>
+          <FarmerSidePanel  getProfile={() => getprofile(userInfo)} getProduce={() => getproduce(userInfo)}menu={setMenu}  navBtn={navBtn}/> 
+          </nav>
+      <main className='main_body'>
       <Routes>
-        <Route path="/fM/dashboard" element={<FarmerDashboard />} />
         <Route path='/fM/profile' element={<FarmerProfile state={resState} farmerProfile={profile}/>}/>
-        <Route path='/fM/produce' element={<FarmerProduce state={resState} farmerProduce={produce}/>}/>
-        <Route path='/fM/upload_produce' element={<FarmerAddProduce/>}/>
-        <Route path=''/>
+        <Route path='/fM/produce' element={<FarmerProduce state={resState} farmerProduce={produce} menu={navBtn}/>}/>
+        <Route path='/fM/upload_produce' element={<FarmerAddProduce menu={setMenu}/>}/>
         <Route path='/fM/notification' element={<Notification/>}/>
       </Routes>
+      </main>
+      </section>
       </body>
     </Router>
   )

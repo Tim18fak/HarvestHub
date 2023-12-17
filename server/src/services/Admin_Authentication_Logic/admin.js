@@ -276,6 +276,7 @@ const sendResetPass = (email,new_password,res) => {
             const resetPass_Paswword = await bcrypt.hash(new_password,15)
             console.log(resetPass_Paswword)
             const admin = await Admin.findOne({email: email});
+            console.log(admin)
             admin.password = resetPass_Paswword;
             await admin.save()
             console.log(new_password)
@@ -285,7 +286,7 @@ const sendResetPass = (email,new_password,res) => {
 
     
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
             
         }
         

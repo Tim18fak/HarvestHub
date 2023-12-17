@@ -6,7 +6,7 @@ fetch(url,{
         'Content-Type': 'application/json',
       },
     body: JSON.stringify({
-        'email':'timothy.avell.olatunde@gmail.com'})
+        'email':'admin@gmail.com'})
 })
 .then((response) => {
     if(!response){

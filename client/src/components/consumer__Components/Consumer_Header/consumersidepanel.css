@@ -54,10 +54,16 @@
     margin: .5rem;
     text-align: center;
 }
+.client-sidepanel figure img{
+    border: 3px solid white;
+}
 .client-sidepanel figure h1{
     text-align: center;
     margin: .5rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    letter-spacing: 5px;
+    -webkit-text-stroke: 2px var(--accent-color); /* WebKit browsers like Chrome and Safari */
+    color: transparent;
 }
 .sidepanel-component{
     min-height: 274px;
