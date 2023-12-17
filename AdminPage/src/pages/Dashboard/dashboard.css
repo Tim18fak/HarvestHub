@@ -1,0 +1,19 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#btn{
+    display: none;
+}
+.admin_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem 0;
+    background-color: aquamarine;
+}
+.admin-mainpage{
+    display: grid;
+    grid-template-columns: 15% 85%;
+}

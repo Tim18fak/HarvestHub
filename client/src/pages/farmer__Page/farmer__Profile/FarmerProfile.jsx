@@ -1,152 +1,167 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../../../hooks/useContext/ConsumerInfo';
-const farmerBio = {
-  name: '',
-  email: '',
+import React, {useState,useContext} from 'react'
+import { Socket, UserData,UserContext } from '../../../../hooks/useContext/ConsumerInfo'
+import { Axios } from '../../../../configs/default__configs/axios.config'
+import {data} from '../../../../data/farmer/data'
+import './fProfile.css'
+const updateValue = {
+  /* Personal Information */
+  username: '',
+  fullname:'',
   address: '',
-  nationalId: '',
+  email: '',
+  NIN: '',
   phoneNumber: '',
-  driverLicence: '',
-  farmingExperience: '',
-};
-
-const farm = {
-  type: '',
-  location: '',
-};
-
-const FarmerProfile = ({state, farmerProfile}) => {
-  const [profile,setProfile] = useState(farmerProfile)
-  const [bio, setBio] = useState(farmerBio);
-  const [farmBio,setFarmBio] = useState(farm)
-  const [bioImage, setBioImage] = useState('');
-  const userInfo = useContext(UserContext);
-
-  useEffect(() => {
-    setProfile(farmerProfile)
-  },[farmerProfile])
-
- /*  useEffect(() => {
-    console.log(bio)
-    console.log(farmBio)
-  },[farmBio,bio]) */
-
- 
-  /* Get Profile image from user */
-  const getBioImage = (e) => {
-    const { files } = e.target;
-    setBioImage();
-    const bioFile =  new FileReader()
-    bioFile.onload = (e) => {
-      const processedBioImage = e.target.result;
-      setBioImage(processedBioImage)
-      console.log(bioImage)
-    }
-    bioFile.readAsDataURL(files[0]);
-  };
-  console.log(bioImage)
-  const getInfo = (e) => {
-    const {name,value} = e.target;
-    setBio({...bio,[name]: value})
+  aboutYourself: '',
+  password:'',
+  profileImage: '',
+  
+  /* Other Information */
+  comeAbout: '',
   }
 
-  const farmInfo = (e) => {
-    const {name,value} = e.target;
-    setFarmBio({...farmBio,[name]: value})
-    console.log(farmBio)
+const FarmerProfile = () => {
+  const [farmerDataUpdate,setFarmerDataUpdate] = useState(updateValue)
+  const userData = useContext(UserData)
+  const socket = useContext(Socket)
+  const userInfo =  useContext(UserContext)
+
+  const getUpdatedBio = (e) => {
+    const {name,value} = e.target
+    setFarmerDataUpdate({...farmerDataUpdate,[name] : value})
   }
 
-  /* Submit BioData */
-  const bioSubmit = async (e) => {
-    e.preventDefault();
-    console.log(userInfo)
+  /* submit updated bio */
+  const submitUpdated = async(e) => {
+    e.preventDefault()
+    console.log('update')
     try {
-      const bioUrl = `http://localhost/farmerUser/updateprofile/${userInfo._id}`;
-      fetch(bioUrl,{
-        method: 'PUT',
+      const url = `http://localhost/auth/uP/${userData._id}/${userData.isFarmer}`
+      const {username,
+        fullname,
+        address,
+        email,
+        NIN,
+        phoneNumber,
+        aboutYourself,
+        password,
+        comeAbout,profileImage} = farmerDataUpdate
+
+      const result  = await Axios.put(url,{
+        username,
+        fullname,
+        address,
+        email,
+        NIN,
+        phoneNumber,
+        aboutYourself,
+        password,
+        profileImage,
+
+/* Other Information */
+        comeAbout
+      },{
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${profile.accessToken}`
-        },
-        body: JSON.stringify({
-          bioImage:bioImage,
-          bio: bio,
-          farm: farmBio
-        })
+          Authorization: `Bearer ${userData.accessToken}`
+        }
       })
-      .then((response) => {
-
-      })
-      .catch((err) => {
-        
-      })
+      if(result.status === 200){
+        setTimeout(() => {
+          const message = 'You updated your Profile'
+              const result =  null;
+              socket.emit('notification',{userInfo,result,message})
+        },7000)
+      }
+    } catch (error) {
       
-    } catch (err) {
-      console.error(err.message);
     }
-  };
-
-  // Check if userInfo is available before calling getBio
-  if (!state) {
-    // Handle the case when userInfo is not available
-    return <div>Loading...</div>;
   }
+
+  const captureUpdatedPImage = (e) => {
+    const { files } = e.target;
+    const profileImage = new FileReader()
+    profileImage.onload = (e) => {
+      setFarmerDataUpdate({...farmerDataUpdate,profileImage: e.target.result})
+    }
+    profileImage.readAsDataURL(files[0])
+  }
+
   return (
     <>
-      <section>
-    <aside>
-            <img src={!bioImage ? 'https://img.freepik.com/free-vector/farmer-using-technology-digital-agriculture_53876-113813.jpg?size=626&ext=jpg&ga=GA1.1.222711603.1699046896&semt=ais' : bioImage} width={200} height={200} alt="" />
-      </aside>
-      <form action="" onSubmit={bioSubmit}>
-        <main>
-        <div>
-          <input type="file" onChange={getBioImage} />
+    <section className='profile-jumbostron' style={{
+      backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0.6), rgba(239, 243, 13, 0.6)),url(${data.profileBackgroundImage})`
+    }}></section>
+    <form onSubmit={submitUpdated} className='farmer-data'>
+        <div className='farmer-data-profileimage'>
+          <img src={farmerDataUpdate.profileImage ? farmerDataUpdate.profileImage : userData.profileImage} alt="" />
+          <aside>
+          <h2>{userData.fullname}</h2>
+          <p>Role: <span>Farmer</span></p>
+          <input type="file" onChange={captureUpdatedPImage} />
+        </aside>
         </div>
-        <div>
-          <input type="text" name='name' onChange={getInfo} required />
-          <label htmlFor="name">Your Fullname</label>
+        <div className='farmer-data-basic-info'>
+          <h4>Basic Info</h4>
+          <main className='data-user-info'>
+            <div>
+          <input type="text" name='username'  value={farmerDataUpdate.username ? farmerDataUpdate.username : userData.username} onChange={getUpdatedBio}/>
+          <label htmlFor="username">Username</label>
+          </div>
+
+          <div>
+          <input type="text"  name='fullname' onChange={getUpdatedBio} value={farmerDataUpdate.fullname ? farmerDataUpdate.fullname : userData.fullname}/>
+          <label htmlFor="fullname">Fullname</label>
         </div>
+
         <div>
-          <input type="text" name='email' value={!bio.email ? profile.email : bio.email} onChange={getInfo} required/>
+          <input type="text" name='address' onChange={getUpdatedBio} value={farmerDataUpdate.address ? farmerDataUpdate.address : userData.address} />
+          <label htmlFor="address">Address</label>
+        </div>
+
+        <div>
+          <input type="text" name='email' onChange={getUpdatedBio} value={userData.email} />
           <label htmlFor="email">Email</label>
         </div>
-        <div>
-          <input type="text" name='address' onChange={getInfo} required/>
-          <label htmlFor="address">Your Address</label>
-        </div>
-        <div>
-          <input type="text" name='nationalId' onChange={getInfo} required />
-          <label htmlFor="nationalId">National_ID Number</label>
-        </div>
-        <div>
-          <input type="text" name='phoneNumber' onChange={getInfo} required/>
-          <label htmlFor="phoneNumber">Your Phone Number</label>
-        </div>
-        <div>
-          <input type="text" name='driverLicence' onChange={getInfo}/>
-          <label htmlFor="driverLicence"> Your Driver's Licence</label>
-          <strong>This is not required</strong>
-        </div>
-        <div>
-          <input type="text" name='farmingExperience' onChange={getInfo}/>
-          <label htmlFor="farmingExperience">How long have you been in the farming business</label>
-        </div>
-        </main>
 
-       <main>
-        <h3>Farm Information</h3>
-       <div>
-          <input type="text" name='type' onChange={farmInfo} />
-          <label htmlFor="type" required>What Type Of Farming Are You Currently Practicing??</label>
-        </div>
         <div>
-          <input type="text" name='location' onChange={farmInfo} required />
-          <label htmlFor="location">Where is your farm located??</label>
+          <input type="password" name='password' onChange={getUpdatedBio} value={farmerDataUpdate.password ? farmerDataUpdate.password : ''} />
+          <label htmlFor="password">Password</label>
         </div>
-       </main>
-       <button>Update Your Bio</button>
+
+        <div>
+          <input type="number" name='phoneNumber' onChange={getUpdatedBio} value={farmerDataUpdate.phoneNumber ? farmerDataUpdate.phoneNumber : userData.phoneNumber}/>
+          <label htmlFor="phoneNumber">PhoneNumber</label>
+        </div>
+
+        <div>
+          <label htmlFor="phoneNumber">AboutYourself</label>
+          <textarea name="aboutYourself" id="" cols="30" rows="10"  onChange={getUpdatedBio} value={farmerDataUpdate.aboutYourself ? farmerDataUpdate.aboutYourself : userData.aboutYourself} ></textarea>
+          
+        </div>
+          </main>
+
+          <aside className='data-user-farm-info'>
+          <h3>Farming Information</h3>
+            <article>
+          <div>
+          <input type="text" name='farmType' onChange={getUpdatedBio} value={userData.farmType} />
+          <label htmlFor="farmType">Farm Type</label>
+        </div>
+
+        <div>
+          <input type="text" name='farm_Address' onChange={getUpdatedBio} value={ 
+            userData.farm_Address} />
+          <label htmlFor="farm_Address">Farm Address</label>
+        </div>
+
+        <div>
+          <input type="number" name='farmingExperience' onChange={getUpdatedBio} value={userData.farmingExperience} />
+          <label htmlFor="farmingExperience">Farming Experience</label>
+        </div>
+            </article>
+          </aside>
+          <button className='submit-profile'>Update Bio</button>
+        </div>
       </form>
-    </section>
     </>
   )
 }

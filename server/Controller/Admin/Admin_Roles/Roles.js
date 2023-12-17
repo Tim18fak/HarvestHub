@@ -69,4 +69,5 @@ const blockConsumer = async (req,res) => {
         console.log(error.message)
     }
 }
+
 module.exports = {getAllFarmer,getAllConsumer,BlockFarmer,blockConsumer}

@@ -2,15 +2,18 @@ import React, { useEffect, useState,useContext } from 'react'
 import { GetFarmerInfo, deleteBookMrk } from '../../../../configs/consumer__configs/configs'
 import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
-import { UserContext } from '../../../../hooks/useContext/ConsumerInfo'
-
+import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
+import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
+import './bookmark.css'
 const ClientBookmarks = ({bookmarks}) => {
     const [clientBookmarks,setClientBookmarks] = useState([])
     const [farmerInformation,setFarmerInformation] = useState(null)
     const [triggerAnimation,setTriggerAnimation] = useState(false)
     const [showFarmerInfo, setFarmerInfo] = useState(false)
     const userInfo  = useContext(UserContext)
+    const socket = useContext(Socket)
     /*  */
+    console.log(bookmarks)
     useEffect(() => {
         if(bookmarks){
             console.log(bookmarks)
@@ -34,7 +37,10 @@ const ClientBookmarks = ({bookmarks}) => {
     }
     const deleteBookmark = async(userInfo,id) => {
         const result = await deleteBookMrk(userInfo, id);
-        alert(result)
+        const message =  `you deleted a bookmarked  produce with this id ${result}`
+        if(socket){
+            socket.emit('notification',{userInfo,result,message})
+        }
         const updateBookmark =  clientBookmarks.filter((bookmark) => bookmark._id !== id)
         setClientBookmarks(updateBookmark)
     }
@@ -48,31 +54,40 @@ const ClientBookmarks = ({bookmarks}) => {
     )}
    {triggerAnimation && !showFarmerInfo && (
         <>
-        <section>
+        <section className='bookmark-grid'>
         {clientBookmarks && clientBookmarks.length > 0 && clientBookmarks.map((bookmark,index) => (
-            <section key={index}>
+            <section key={index} className='bookmark'>
                 <aside>
-                    <figure>
-                        {bookmark.Image.map((image,index) => (
-                            <img src={image} alt="" key={index}/>
-                        ))}
-                    </figure>
+                <div style={{
+                    width: '100%',
+                    height: '250px'
+                }}>
+                <ImageSlider images={bookmark.Image}/>
+                </div>
+                    
                 </aside>
-                <main>
+               
+               {bookmark !== null && (
+                <>
+                 <main className='bookmark-produce'>
+                    <div>
                     <h2>{bookmark.title}</h2>
+                    <h3>#{bookmark.price}</h3>
+                    </div>
                     <p>{bookmark.description}</p>
                     <ul>
-                    <li>{bookmark.price}</li>
-                    <li>{bookmark.quantity}</li>
-                    <li>{bookmark.location}</li>
-                    <li>{new Date(bookmark.date).toLocaleDateString('en-US', { weekday: 'long',
+                    <li>Quantity: {bookmark.quantity}</li>
+                    <li><i class="fa-solid fa-location-dot"></i>{bookmark.location}</li>
+                    </ul>
+                    <p>{new Date(bookmark.date).toLocaleDateString('en-US', { weekday: 'long',
                                         year: 'numeric',
                                         month: 'long',
-                                        day: 'numeric',})}</li>
-                    </ul>
+                                        day: 'numeric',})}</p>
                 </main>
                 <button onClick={() => farmerInfo(bookmark._id)}>Get Farmer Information</button>
                 <button onClick={() => deleteBookmark(userInfo,bookmark._id)}>Delete Bookmark</button>
+                </>
+               )}
             </section>
         ))}
     </section>

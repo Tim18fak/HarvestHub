@@ -12,7 +12,7 @@ const clientUser = require('./Routes/Consumer')
 const admin = require('./Routes/admin')
 const {cors,corsOptions} = require('./middlewares/cors')
 const app = express();
-app.use(express.json()); // This is important to be able to send info from the client to my server
+app.use(express.json({limit: '6mb'})); // This is important to be able to send info from the client to my server
 app.use(cors(corsOptions))
 // Routes
 const chat = require('./Routes/Chat');

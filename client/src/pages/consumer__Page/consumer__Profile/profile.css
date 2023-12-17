@@ -1,0 +1,98 @@
+*{
+    scroll-behavior: smooth;
+}
+
+:root{
+    
+}
+
+
+.profile-jumbostron{
+    width: 99.8%;
+    position: absolute;
+    top: -30px;
+    left: -7px;
+    height: 18.75rem;
+    background-color: rgb(10, 221, 151);
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.consumer-data{
+    top: 11rem;
+    position: absolute;
+    z-index: 99;
+    background-color: aquamarine;
+    width: 95%;
+    left: 20px;
+    min-height: 30rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.consumer-data-profileimage{
+    margin: 1rem;
+    width: 96%;
+    height: 100px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.consumer-data-profileimage img{
+    margin: 1rem;
+    border-radius: 50%;
+}
+.consumer-data-basic-info{
+    width: 97%;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    min-height: 45rem;
+    margin-bottom: 2rem;
+}
+.consumer-data-basic-info h4{
+    margin: .5rem;
+    padding: 1rem;
+    font-size: 18px;
+}
+.consumer-data-basic-info .data-user-info{
+    margin: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+.data-user-info div{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+.data-user-info div label{
+    padding: .5rem;
+}
+.data-user-info div input{
+    padding: 0.5rem;
+    border:transparent ;
+    
+   
+}
+.data-user-info div:last-child{
+    width: 99%;
+}
+.submit{
+    margin-left: 40px;
+    background-color: aqua;
+    padding: 1rem;
+    width: 100%;
+    transition: all 2s;
+}
+.submit:hover{
+    background-color: rgb(17, 204, 204);
+    border-radius: 10px;
+    box-shadow: 5px 5px 40px red;
+}
+@media screen and (min-width: 300px) and (max-width: 750px) {
+    
+}

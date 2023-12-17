@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SidePanel from '../../components/SidePanel/sidePanel'
 import Profile from '../Profile/Profile'
@@ -6,32 +6,105 @@ import Dashboard1 from '../MainPanel/Dashboard';
 import Product from '../DatabaseProduct/Product';
 import {io} from 'socket.io-client';
 import Cookies from 'universal-cookie';
+import Consumer from '../Consumer/Consumer';
+import Farmer from '../Farmer/Farmer';
+import './dashboard.css'
+import { Socket, adminInfo} from '../../../hooks/usecontext/useContext';
+import { getAllConsumer, getFarmer, getFarmerProduce } from '../../../config/getAllConsumer';
+import { admin } from '../../../data/adminData';
 
 const cookie  = new Cookies()
 
 const Dashboard = () => {
+  const [adminData,setAdminData] = useState('')
+  const [socket,setSocket] = useState(null)
+  const [state,setState] = useState(true)
+  const [HHFarmer,setHHFarmer] = useState([])
+  const [HHProduce,setHHProduce] = useState([])
+  const [HHConsumer,setHHConsumer] = useState([])
+  const [adminProfile,setAdminProfile] =  useState([])
+
   useEffect(() => {
-    const username =  cookie.get()
-    if(username){
-      const socket =  io('http://localhost')
+    const admin =  cookie.getAll()
+    if(admin){
+      setAdminData(admin)
+      const socket =  io('http://localhost',{
+        reconnection: true,          // Enable reconnection
+  reconnectionAttempts: 5,     // Number of attempts before giving up
+  reconnectionDelay: 1000,     // Time to wait between reconnection attempts (in milliseconds)
+  reconnectionDelayMax: 5000, 
+      })
       socket.on('connect', () => {
         console.log('Connected to the server');
       });
-      socket.emit('chat', 'hello')
+      socket.emit('activeAdmin',{admin})
+      socket.emit('adminLogin')
+      setSocket(socket)
     }
   },[])
+  const Dashboard = () => {
+    console.log('hello')
+
+    if(socket){
+      socket.emit('adminLogin')
+        window.location.reload()
+    }
+  }
+  const getProduce = async() => {
+    const produce =  await getFarmerProduce()
+    if(produce){
+      setHHProduce(produce)
+    }
+  }
+  const farmer = async() => {
+    const result = await getFarmer()
+    if(result){
+      setHHFarmer(result.AllFarmer)
+    }
+    console.log(result)
+  }
+  const consumer = async() => {
+    const result =  await getAllConsumer()
+    if(result){
+    setHHConsumer(result.AllConsumer)
+    console.log(result)
+  }
+}
+const getAdminProfile = async() => {
+  const url =  `http://localhost/admin/profile/${adminData.token}`
+  const data = await admin.Axios.get(url,{
+    headers: {
+      Authorization: `Bearer ${adminData.id}`
+    }
+  })
+  setAdminProfile(data.data)
+  console.log(data)
+}
   return (
     <>
+    <adminInfo.Provider value={adminData}>
+    <Socket.Provider value={socket}>
     <Router>
-  <div><SidePanel/></div>
-  <div>
+      <header className='admin_header'>
+        <h3>HarvestHub</h3>
+        <input type="checkbox"  id="btn" />
+        <label htmlFor="btn">hh</label>
+      </header>
+      <section className='admin-mainpage'>
+      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()} farmer={() => farmer()} consumer={consumer} profile={() => getAdminProfile()}/></nav>
+  <main>
   <Routes>
-    <Route path='/dashboard' element={<Dashboard1/>}/>
-    <Route path='/product' element={<Product/>}/>
-    <Route path='/profile' element={<Profile/>}/>
+    <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>
+    <Route path='/product' element={<Product HHProduce={HHProduce} state={state}/>}/>
+    <Route path='/profile' element={<Profile profile={adminProfile}/>}/>
+    <Route path='/consumer' element={<Consumer HHConsumer={HHConsumer} state={state}/>}/>
+    <Route path='/farmer' element={<Farmer HHFarmer={HHFarmer} state={state}/>}/>
   </Routes>
-  </div>
+  </main>
+      </section>
     </Router>
+    </Socket.Provider>
+    </adminInfo.Provider>
     </>
   )
 }

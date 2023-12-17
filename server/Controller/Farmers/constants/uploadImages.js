@@ -32,4 +32,24 @@ const uploadImages  = async(images) => {
         console.log(error.message);
       }
 }
-module.exports = {uploadImages}
+const uploadProfileImage = (image,isFarmer) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const folderName = isFarmer ? 'profileImages/farmerProfileImage': 'profileImages/consumerProfileImage';
+      cloudinary.uploader.upload(image, { folder: folderName }, (err, result) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          const URL = result.secure_url;
+          console.log('Image uploaded successfully. URL:', result.secure_url);
+          resolve(URL);
+        }
+      });
+    } catch (error) {
+      console.error(error.message);
+      reject(error);
+    }
+  });
+};
+module.exports = {uploadImages,uploadProfileImage}

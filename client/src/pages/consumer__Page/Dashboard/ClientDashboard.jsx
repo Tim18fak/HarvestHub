@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ProduceResponse from '../Produce_Response/ProduceResponse';
 
+import './dashboard.css'
 
 const cropType = {
   Cereals: '',
@@ -12,7 +13,7 @@ const cropType = {
   Spices: '',
 };
 
-const ClientDashboard = () => {
+const ClientDashboard = ({menu}) => {
   const [resProduct,setResProduct] = useState([])
   const [produceInfo, setProduceInfo] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -66,47 +67,14 @@ console.log(selectedCategories)
   }
   return (
     <>
-      <form onSubmit={submitSearch}>
+    <input type="checkbox" checked={menu} />
+      <form onSubmit={submitSearch} className='harvesthub_dashboard'>
+        <h3>Welcome To HarvestHub</h3>
+        <a className='search-product' onClick={submitSearch}><i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
         <input type="text" name="" placeholder="search produce" id="title" onChange={getproduceInfo} />
-        <main>
-          {selectedCategories.map((category,id) => (
-            <div key={id}>
-              {category}
-              <button type="button" onClick={() => removeProduceInfoUi(category)}>
-                +
-              </button>
-            </div>
-          ))}
-        </main>
-        <button onClick={submitSearch}>search Produce</button>
       </form>
-      <section>
-        <h2>Category</h2>
-        <aside>
-          <div>
-            <h3>Based on crop type</h3>
-            <div>
-              <ul>
-                {Object.keys(cropType).map((crop, index) => (
-                  <li key={index} onClick={() => addProduceInfoUi(crop)}>
-                    {crop}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div>
-            <h3>Livestock Products</h3>
-            <ul>
-              <li onClick={() => addProduceInfoUi('Meat')}>Meat</li>
-              <li onClick={() => addProduceInfoUi('Dairy')}>Dairy</li>
-              <li onClick={() => addProduceInfoUi('Eggs')}>Eggs</li>
-            </ul>
-          </div>
-          {/* Add more categories as needed */}
-        </aside>
-      </section>
-      <ProduceResponse produce={resProduct}/>
+      
+      <ProduceResponse produce={resProduct} menu={menu}/>
     </>
   );
 };

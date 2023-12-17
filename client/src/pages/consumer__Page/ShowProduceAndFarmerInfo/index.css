@@ -1,0 +1,19 @@
+.farmer-info_plus-produce{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+    position: relative;
+    margin: 1rem 0;
+}
+.farmer-info_plus-produce .farmer-info{
+    position: absolute;
+    top: 20px;
+    width: 30%;
+}
+.farmer-info_plus-produce img{
+    width: 100%;
+}
+.sub-images{
+    display: flex;
+    flex-direction: row;
+}

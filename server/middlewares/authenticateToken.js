@@ -10,9 +10,16 @@ const authenticateAdminToken = async(req,res,next) => {
         return  res.status(401)
     }
 jwt.verify(authHeaderToken,process.env.Admin_Authorization_Secret,async (err,data) =>{
-    if(err) return res.status(403).json({'messsage':'Your AuthToken is Was Not Signed By HarvestHub'})
+   
+    if(err){
+        console.log('Your AuthToken is Was Not Signed By HarvestHub')
+        return res.status(403).json({'messsage':'Your AuthToken is Was Not Signed By HarvestHub'})
+    } 
     const admin = await Admin.findById(id)
-    if(admin.authorizationToken !== authHeaderToken) return res.status(401).json({'message':'Please Logout and Login Again'})
+    if(admin.authorizationToken !== authHeaderToken){
+        console.log('Please Logout and Login Again')
+        return res.status(401).json({'message':'Please Logout and Login Again'})
+    } 
     req.authorizate = true
     next()
 })
@@ -20,6 +27,11 @@ jwt.verify(authHeaderToken,process.env.Admin_Authorization_Secret,async (err,dat
         console.log(error.message)
     }
 }
+
+const authenticate =() => {
+
+}
+
 
 const authenticateFarmerToken = async(req,res,next) => {
     try {
@@ -40,4 +52,4 @@ jwt.verify(farmerHeaderToken,process.env.Client_Authorization_Secret,async (err,
         console.log(error.message)
     }
 }
-module.exports = {authenticateAdminToken,authenticateFarmerToken} 
+module.exports = {authenticateAdminToken,authenticateFarmerToken,authenticate} 

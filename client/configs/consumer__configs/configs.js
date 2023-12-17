@@ -10,9 +10,9 @@ const getAccesToken =  () => {
     return cookie.get('accessToken')
 }
 export const GetFarmerInfo = async(id) => {
-    console.log(id)
     const url = `http://localhost/client/p/${id}`
     const info = await Axios.get(url)
+    console.log(info)
     return info.data
 }
 
@@ -57,7 +57,8 @@ export const getBookmark = async(userInfo) => {
 
         const bookmark = await response.json();
         console.log(bookmark.bookmark)
-        return bookmark.bookmark;
+        return bookmark.bookmark.filter((value) => value !== null)
+        
     } catch (error) {
         console.error('Error:', error.message);
         throw error; // Re-throw the error so it can be caught by the calling function
@@ -83,3 +84,49 @@ export const deleteBookMrk = (userInfo, id) => {
             throw error;
         });
 };
+
+export const consumerNotification = (data) => {
+    const {_id,accessToken} = data
+}
+export const ReviewProduce = async(produce,userData,review) => {
+    try {
+        console.log(produce,userData,review)
+        const {Image,description,title,username} = produce;
+        const {fullname} = userData
+        const url =  `http://localhost/client/review/${produce._id}/${userData._id}`
+        /* const result =  await Axios.post(url,{
+            Image,
+            description,
+            title,
+            username,
+            fullname,
+            review
+        },{
+            headers: {
+                Authorization: `Bearer ${userData.accessToken}`
+            }
+        }) */
+      const result = await fetch(url,{
+            method: "POST",
+            headers: {
+                 Authorization: `Bearer ${userData.accessToken}`,
+        'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Image,
+            description,
+            title,
+            username,
+            fullname,
+            review
+            })
+        })
+        const status =  result.status
+        const message =  await result.json()
+        console.log(message,status)
+        return {status,message};
+    } catch (error) {
+        
+    }
+   
+}
