@@ -1,54 +1,124 @@
 *{
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 .dashboard_active-userinfo{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding: 2.3rem;
-    column-gap: 25px;
-    width: 100%;
+   display: flex;
+   width: 100%;
+   justify-content: space-evenly;
+   margin: 1rem 0 ;
 }
-.dashboard_active-userinfo div:nth-child(1),
-.dashboard_active-userinfo div:nth-child(3){
-    background-color: blue;
-    height: 30vh;
-    width: 33%;
+.dashboard_active-userinfo div{
+    width: 300px;
+    height: 100%;
+    background-color: aqua;
     border-radius: 20px;
+    padding: 2rem;
+    display: inline-flex;
+    flex-direction: column-reverse;
+}
+.dashboard_active-userinfo div h3{
+    font-size: 1rem;
+    padding: .5rem;
+}
+.dashboard_active-userinfo div h1{
+    margin-left: 1rem;
+}
+.dashboard_active-userinfo div:first-child{
+    background-color: lime;
 }
 .dashboard_active-userinfo div:nth-child(2){
-    background-color: rgb(30, 255, 0);
-    height: 30vh;
-    width: 33%;
-    border-radius: 20px;
+    background-color: green;
+}
+.dashboard_active-userinfo div:nth-child(2) h1,
+.dashboard_active-userinfo div:nth-child(2) h3{
+    color: white;
+}
+.dashboard_active-userinfo div:last-child{
+    background-color: white;
+}
+.line-graph{
+    width: 98%;
+    min-height: 200px;
+    background-color: white;
+    margin: 2rem 0;
+    border-radius: 10px;
 }
 .active_user-info{
+    width: 98%;
     display: flex;
     flex-direction: column;
-    margin: 2rem;
-    background-color: aqua;
+
+}
+.active-user-data{
+    display: flex;
+    width: 100%;
+    column-gap: 20px;
+    justify-content: space-between;
     min-height: 200px;
-    border-radius: 20px;
-    justify-content: center;
-    
+    background-color: rgb(12, 221, 57);
+    border-radius: 10px;
+    margin: 1rem 0;
 }
-.active_user-info main h3{
-    padding: .5rem ;
+.active-user-data main{
+    width: 100%;
 }
-.active_user-info div{
-    max-width: 97%;
-}
-.active_user-info div:nth-child(1){
-    
-}
-.active_user-info div:nth-child(2){
-    text-align: center;
-}
+/* align the text  */
+th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  .active-user-data main h3{
+    font-size: 1rem;
+    padding: .5rem;
+    margin: .2rem;
+  }
 .active-user_table{
     width: 100%;
-    background-color: rgb(23, 238, 41);
-    margin: .5rem 1rem;
+    margin: 0 1rem;
+}
+
+.user-full-data{
+    width: 40%;
+    background-color: white;
+    border-radius: 20px;
+    margin: .5rem;
+    min-height: 200px;
+}
+.user-full-data a{
+    position: relative;
+    left: 20px;
+    top: 20px;
+    font-size: 1.2rem;
+}
+.user-full-data article{
+   display: flex;
+   align-items: center;
+   margin: 1rem;
+   width: -10%;
+}
+.user-full-data article figure{
+    margin: .2rem;
+    padding: .2rem;
+    position: relative;
+    
+}
+.user-full-data article figure img{
+    border-radius: 50%;
+    width: 100px;
+    height: auto;
+    float: right;
+}
+.user-full-data article main p{
+    padding: .2rem 0;
+    margin: .2rem 0;
+}
+.cc{
+    display: flex;
+
+}
+.consumer{
+    background-color: green;
 }

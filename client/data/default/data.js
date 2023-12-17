@@ -3,3 +3,7 @@ export const data = {
     getProduce: `/ produce`,
     addproduce: '/ Add produce'
 }
+
+export const url  = {
+    
+}

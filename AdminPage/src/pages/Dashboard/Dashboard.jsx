@@ -23,7 +23,9 @@ const Dashboard = () => {
   const [HHProduce,setHHProduce] = useState([])
   const [HHConsumer,setHHConsumer] = useState([])
   const [adminProfile,setAdminProfile] =  useState([])
-
+  const [linkName,setLinkName] =  useState('dashboard')
+  const [menu,setMenu] = useState("dashboard")
+  const [checked,setCheck] =  useState(false)
   useEffect(() => {
     const admin =  cookie.getAll()
     if(admin){
@@ -44,19 +46,24 @@ const Dashboard = () => {
   },[])
   const Dashboard = () => {
     console.log('hello')
-
+    setMenu('/ dashboard')
+    setLinkName('dashboard')
     if(socket){
       socket.emit('adminLogin')
         window.location.reload()
     }
   }
   const getProduce = async() => {
+    setLinkName('produce')
+    setMenu('produce')
     const produce =  await getFarmerProduce()
     if(produce){
       setHHProduce(produce)
     }
   }
   const farmer = async() => {
+    setLinkName('farmer')
+    setMenu('farmer')
     const result = await getFarmer()
     if(result){
       setHHFarmer(result.AllFarmer)
@@ -64,6 +71,8 @@ const Dashboard = () => {
     console.log(result)
   }
   const consumer = async() => {
+    setLinkName('consumer')
+    setMenu('consumer')
     const result =  await getAllConsumer()
     if(result){
     setHHConsumer(result.AllConsumer)
@@ -71,6 +80,8 @@ const Dashboard = () => {
   }
 }
 const getAdminProfile = async() => {
+  setLinkName('profile')
+  setMenu('profile')
   const url =  `http://localhost/admin/profile/${adminData.token}`
   const data = await admin.Axios.get(url,{
     headers: {
@@ -80,19 +91,36 @@ const getAdminProfile = async() => {
   setAdminProfile(data.data)
   console.log(data)
 }
+const navbtn = () => {
+  setCheck((prev) => !checked)
+}
   return (
     <>
     <adminInfo.Provider value={adminData}>
     <Socket.Provider value={socket}>
+      <input type="checkbox" id='navBtn' />
+    <body className='dashboard'>
     <Router>
       <header className='admin_header'>
-        <h3>HarvestHub</h3>
-        <input type="checkbox"  id="btn" />
-        <label htmlFor="btn">hh</label>
+        <main>
+         <article>
+         <p><i class="fa-solid fa-house"></i> / {menu}</p>
+          <h4 className='menu'>{menu}</h4>
+         </article>
+        <label htmlFor="navBtn" className='btnTrigger' onClick={navbtn}></label>
+        </main>
+        <aside>
+          <ul>
+            <li className='option'><i class="fa-solid fa-bell"></i></li>
+            <li className='option'><i class="fa-solid fa-gear"></i></li>
+          </ul>
+        </aside>
       </header>
       <section className='admin-mainpage'>
-      <nav><SidePanel dashboard={() => Dashboard()} produce={() => getProduce()} farmer={() => farmer()} consumer={consumer} profile={() => getAdminProfile()}/></nav>
-  <main>
+      <nav className='side_panel'>
+        <SidePanel dashboard={() => Dashboard()} produce={() => getProduce()} farmer={() => farmer()} consumer={consumer} profile={() => getAdminProfile()} linkName={linkName} navbtn={setCheck}/>
+      </nav>
+  <main className='main_body'>
   <Routes>
     <Route path='/dashboard' element={<Dashboard1 state={state}/>}/>
     <Route path='/product' element={<Product HHProduce={HHProduce} state={state}/>}/>
@@ -103,6 +131,7 @@ const getAdminProfile = async() => {
   </main>
       </section>
     </Router>
+    </body>
     </Socket.Provider>
     </adminInfo.Provider>
     </>

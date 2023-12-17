@@ -5,19 +5,38 @@
 }
 .admin_sidepanel{
     display: flex;
-    background-color: rgb(10, 247, 69);
+    background-color: rgb(255, 255, 255);
     flex-direction: column;
     width: 100%;
-    height: calc(94vh - 3rem);
-    position: ;
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px lime;
+}
+[link='links']{
+    text-decoration: none;
+}
+.admin_sidepanel main{
+    height: 50%;
+}
+.admin_sidepanel h3{
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 10px 10px  0 0;
+    color: green;
+}
+.admin_sidepanel h3 span{
+    color: brown;
 }
 .admin_sidepanel main ul{
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    align-items: center;
 }
-.admin_sidepanel aside ul{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+.admin_sidepanel main ul li{
+    width: 96%;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: all 1s;
 }
+/* sidepanel navbtn */

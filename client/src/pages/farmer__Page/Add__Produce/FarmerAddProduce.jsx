@@ -3,6 +3,7 @@ import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 import { Axios } from '../../../../configs/default__configs/axios.config'
 import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
 import './addindex.css'
+import './Carousel.css'
 const cropCategory = {
   Cereals: '',
   Pulses: '',
