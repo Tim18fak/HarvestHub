@@ -12,7 +12,6 @@ import './dashboard.css'
 import { Socket, adminInfo} from '../../../hooks/usecontext/useContext';
 import { getAllConsumer, getFarmer, getFarmerProduce } from '../../../config/getAllConsumer';
 import { admin } from '../../../data/adminData';
-
 const cookie  = new Cookies()
 
 const Dashboard = () => {
