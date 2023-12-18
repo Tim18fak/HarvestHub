@@ -67,7 +67,7 @@ console.log(selectedCategories)
   }
   return (
     <>
-    <input type="checkbox" checked={menu} />
+    <input type="checkbox" checked={menu} id='trigg' />
       <form onSubmit={submitSearch} className='harvesthub_dashboard'>
         <h3>Welcome To HarvestHub</h3>
         <a className='search-product' onClick={submitSearch}><i class="fa-solid fa-magnifying-glass fa-beat"></i></a>

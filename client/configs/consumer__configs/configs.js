@@ -42,7 +42,7 @@ export const Bookmark  = async(id) => {
 };
 export const getBookmark = async(userInfo) => {
     const { _id, accessToken } = userInfo;
-    const url = `hhttps://harvest-hub-pi.vercel.app/client/gT/bmrK/${_id}`;
+    const url = `https://harvest-hub-pi.vercel.app/client/gT/bmrK/${_id}`;
 
     try {
         const response = await fetch(url, {

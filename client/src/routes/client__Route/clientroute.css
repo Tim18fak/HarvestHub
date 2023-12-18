@@ -15,6 +15,7 @@ input#navBtn{
 .dashboard{
     background-color: var(--primary-color);
     min-height: 100vh;
+    scroll-behavior: smooth;
 }
 .dashboard_header{
     position: relative;
@@ -23,7 +24,7 @@ input#navBtn{
     padding: 0 2rem;
     background-color: var(--light-primary-color);
     margin-left: 250px;
-    width: 78%;
+    width: 74%;
     border-radius:0 0 10px 10px;
     display: flex;
     flex-direction: row;
@@ -52,10 +53,10 @@ header.dashboard_header aside ul{
     left: 20px;
 }
 #navBtn:checked ~ body .body .main_body{
-    margin-left: 10px;
+    margin-left: 5px;
     width: 95%;
     position: relative;
-    left: 20px;
+    left: 0px;
 }
 #btn{
     display: block;
@@ -113,7 +114,46 @@ header.dashboard_header aside ul{
     transition: margin-left 1s ease-in-out;
 }
 
-@media screen {
+
+@media screen and (min-width:300px)  and (max-width:1000px){
+    .side_panel{
+        z-index: 99;
+    }
+    .dashboard_header{
+        left: 0px;
+        margin: 0 10px;
+        width: 100%;
+        z-index: 3;
+    }
+    .main_body{
+        margin: 0 10px;
+        width: 100%;
+        left: 0px;
+    }
+
+    #navBtn:checked ~ body header.dashboard_header{
+    margin-left: 0px;
+    width: 100%;
+    position: relative;
+    left: 0px;
+    }
+}
+
+
+@media screen and (min-width:501px)  and (max-width:750px){
     
 }
 
+
+@media screen and (min-width:1000px)  and (max-width:1200px){
+    .main_body{
+        margin-left: 0 200px;
+        width: 90%;
+        left: 0px;
+    }
+}
+
+
+@media screen and (min-width:300px)  and (max-width:500px){
+    
+}
