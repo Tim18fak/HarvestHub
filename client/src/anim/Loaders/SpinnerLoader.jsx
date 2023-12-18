@@ -1,8 +1,9 @@
 import React from 'react'
 
 const SpinnerLoader = () => {
+  const letterArray = []
   return (
-    <div>SpinnerLoader</div>
+    <div></div>
   )
 }
 
