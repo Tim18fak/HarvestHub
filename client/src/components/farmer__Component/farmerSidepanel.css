@@ -13,7 +13,7 @@
     text-decoration: none;
     transition: color 400ms ease-in-out;
 }
-[id='links']:hover{
+[id='link']:hover{
     color: white;
 }
 /* hr{

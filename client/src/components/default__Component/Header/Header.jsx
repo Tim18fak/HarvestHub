@@ -10,7 +10,7 @@ const Header = () => {
     
     <label htmlFor="checkbox" id='navBtn' >
       </label>
-      <h3>HarvestHub</h3>
+      <h3>Harvest<span>Hub</span></h3>
     </aside>
     <nav>
           <li><Link to={'/'}  id='links'>Home <span></span></Link></li>

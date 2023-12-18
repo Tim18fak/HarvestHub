@@ -31,12 +31,12 @@ const FarmerSidePanel = ({ getProduce,getProfile,menu,navBtn}) => {
       </aside>
       <main className='panel-options'>
         <ul>
-            <li id='panelOption'><Link to='/fM/produce' onClick={getProduce} id='links'>Dashboard</Link></li> {/* Check produce and delete and may edit */}
-            <li id='panelOption'><Link to='/fM/upload_produce' onClick={() => menu(data.addproduce)}id='links'>Add Your Produce</Link></li>
+            <li id='panelOption'><Link to='/fM/produce' onClick={getProduce} id='link'>Dashboard</Link></li> {/* Check produce and delete and may edit */}
+            <li id='panelOption'><Link to='/fM/upload_produce' onClick={() => menu(data.addproduce)}id='link'>Add Your Produce</Link></li>
         </ul>
         <aside>
             <ul>
-                <li id='panelOption'><Link to='/fM/profile' onClick={getProfile} id='links'>Profile</Link></li>
+                <li id='panelOption'><Link to='/fM/profile' onClick={getProfile} id='link'>Profile</Link></li>
                 <li id='panelOption' last='true' onClick={() => Logout(socket,userData)}>Logout</li>    
             </ul>
         </aside>
