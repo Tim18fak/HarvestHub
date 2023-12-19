@@ -1,6 +1,6 @@
 import { Axios } from "../default__configs/axios.config"
 import Cookies from "universal-cookie"
-
+import { newUrl } from "../../data/default/data"
 const cookie = new Cookies()
 
 const getID = () => {
@@ -10,7 +10,7 @@ const getAccesToken =  () => {
     return cookie.get('accessToken')
 }
 export const GetFarmerInfo = async(id) => {
-    const url = `http://localhost/client/p/${id}`
+    const url = `https://harvest-hub-pi.vercel.app/client/p/${id}`
     const info = await Axios.get(url)
     console.log(info)
     return info.data
@@ -42,7 +42,7 @@ export const Bookmark  = async(id) => {
 };
 export const getBookmark = async(userInfo) => {
     const { _id, accessToken } = userInfo;
-    const url = `http://localhost/client/gT/bmrK/${_id}`;
+    const url = `https://harvest-hub-pi.vercel.app/client/gT/bmrK/${_id}`;
 
     try {
         const response = await fetch(url, {

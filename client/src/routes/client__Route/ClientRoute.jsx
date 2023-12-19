@@ -6,7 +6,7 @@ import ConsumerProfile from '../../pages/consumer__Page/consumer__Profile/Consum
 import ClientBookmarks from '../../pages/consumer__Page/Bookmarks/ClientBookmarks';
 import {getBookmark, consumerNotification} from '../../../configs/consumer__configs/configs'
 import { UserContext, Socket } from '../../../hooks/useContext/ConsumerInfo';
-import Review from '../../pages/consumer__Page/ReviewProduce/Review';
+import Reviewed from '../../pages/consumer__Page/Reviewed/Reviewed';
 import Notification from '../../pages/consumer__Page/Notification/Notification';
 import './clientroute.css'
 import { Axios } from '../../../configs/default__configs/axios.config';
@@ -115,7 +115,7 @@ const ClientRoute = () => {
       <Route path="/cN/profile" element={<ConsumerProfile menu={navBtn}/>} />
       <Route path='/cN/bokmarks' element={<ClientBookmarks bookmarks={bookMark} menu={navBtn}/>}/>
       <Route path='/cN/notification' element={<Notification notification={notification} menu={navBtn}/>}/>
-      <Route path='/cN/message' element={<Review review={getReview} menu={navBtn}/>}/>
+      <Route path='/cN/message' element={<Reviewed review={getReview} menu={navBtn}/>}/>
     </Routes>
     </main>
     </section>

@@ -2,6 +2,9 @@
     display: none;
 }
  */
+ #trigg{
+    display: none;
+ }
 form.harvesthub_dashboard{
     background-color: rgb(7, 112, 12);
     width: 100%;

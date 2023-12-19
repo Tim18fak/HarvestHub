@@ -91,17 +91,20 @@ const ShowProduceInfo = ({data,trigger}) => {
   return (
     <>
     {!review && (
+        <>
+         <a onClick={trigger}><i class="fa-solid fa-arrow-left fa-beat" id='fa-arraow-left' style={{
+            color: 'white'
+        }}>Back</i></a>
         <section className='farmer-info_plus-produce'>
         {/* produce info */}
-        <a onClick={trigger}><i class="fa-solid fa-arrow-left fa-beat">Back</i></a>
         {farmerExist && (
             <>
-            <main>
+            <main className='produce-data'>
             <figure >
                 {fetchData.Image && fetchData.Image.length > 0 && (
                     <>
                     <figure>
-                    <img src={fetchData.Image[imageIndex]} alt="Produce Image"  id='Jumbostron_image' height={350} width={100}/>
+                    <img src={fetchData.Image[imageIndex]} alt="Produce Image"  id='Jumbostron_image'/>
                     </figure>
                     </>
                 )}
@@ -111,28 +114,31 @@ const ShowProduceInfo = ({data,trigger}) => {
                         ))}
                 </aside>
             </figure>
+            <div className='produce-title'>
             <h3>{fetchData.title}</h3>
-            <div>
-            
-            <h4>{fetchData.price}</h4>
+            <h4>#{fetchData.price}</h4>
             </div>
-            <p>{fetchData.description}</p>
-            <ul>
-                <li>{fetchData.quantity}</li>
-                <li>{new Date(fetchData.date).toLocaleDateString('en-US', { weekday: 'long',
+            <p produce='data'>{fetchData.description}</p>
+            <ul className='produce_other-options'>
+                <li produce='data'>{fetchData.quantity}</li>
+                <li produce='data'><i class="fa-solid fa-location-dot"></i>{fetchData.location}</li>
+                <li produce='data'>{fetchData.quantity}</li>
+            </ul>
+            <li produce='data'>{new Date(fetchData.date).toLocaleDateString('en-US', { weekday: 'long',
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric',})}
                 </li>
-                <li>{fetchData.location}</li>
-                <li>{fetchData.quantity}</li>
-            </ul>
+            <div className='produce_button'>
             <button onClick={() => bookMark(fetchData._id)}>Bookmark</button>
             <button onClick={() => reviewProduce(fetchData)}>Review Produce</button>
+            </div>
         </main>
+
         {/* farmer info */}
         <aside className='farmer-info'>
             <main>
+            <article>
             <h3>Farmer Information</h3>
             <h2>Username: {fetchData.username}</h2>
             <ul>
@@ -142,6 +148,7 @@ const ShowProduceInfo = ({data,trigger}) => {
             <ul>
                 <li><span>Farm Type: </span>{fetchData.farmType}</li>
             </ul>
+            </article>
             <figure>
                 <img src={fetchData.profileImage} alt="" />
             </figure>
@@ -150,7 +157,7 @@ const ShowProduceInfo = ({data,trigger}) => {
         </>
         )}
         {!farmerExist && (
-            <aside>
+            <aside className='farmer-banned'>
                 <p>Farmer Info was not found on our database</p>
                 <p>Possible reasons</p>
                 <ul>
@@ -161,7 +168,11 @@ const ShowProduceInfo = ({data,trigger}) => {
         )}
         
     </section>
+    </>
     )}
+
+
+
     {/* other farmer produce */}
     {!review && (
        <section>
@@ -170,28 +181,14 @@ const ShowProduceInfo = ({data,trigger}) => {
                    {fetchData.otherProduce && fetchData.otherProduce.length > 0 && (
                        <>
                        <main >
-                           {fetchData.otherProduce && fetchData.otherProduce.length > 0 && fetchData.otherProduce.map((otherProduce,index) => (
+                           {fetchData.otherProduce.map((otherProduce,index) => (
                                <div key={index}>
-                                <div className='image-slider'>
+                                    <section>
+                                    <div className='image-slider'>
                                 <ImageSlider images={otherProduce.Image}/>
                                 </div>
-                                   <main>
-                                       <div>
-                                       <h3>{otherProduce.title}</h3>
-                                       <h4>{otherProduce.price}</h4>
-                                       <a></a>
-                                       </div>
-                                       <p>{otherProduce.description}</p>
-                                       <ul>
-                                           <li>{otherProduce.quantity}</li>
-                                           <li>{otherProduce.location}</li>
-                                            <li>{new Date(otherProduce.date).toLocaleDateString('en-US', { weekday: 'long',
-                                           year: 'numeric',
-                                           month: 'long',
-                                           day: 'numeric',})}</li>
-                                       </ul>
-                                       <button onClick={() => bookMark(otherProduce._id)}>Bookmark</button>
-                                   </main>
+                                   
+                                    </section>
                                </div>
                            ))}
                        </main>

@@ -3,6 +3,7 @@ import './dashboard1.css'
 import { Socket } from '../../../hooks/usecontext/useContext'
 import Cookies from 'universal-cookie'
 import Loader from '../../components/anims/loader/Loader'
+import TwoLineGraph from '../../components/LineGraph/TwoLIneGraph'
 const cookie =  new Cookies()
 
 
@@ -84,20 +85,21 @@ useEffect(() => {
       </div>
       <div>
         <h1>{cookie.get('activeConsumer')}</h1>
-        <h3>Total Active Consumer</h3>
+        <h3>Active Consumer</h3>
       </div>
       <div>
         <h1>{cookie.get('activeFarmer')}</h1>
-        <h3>Total Active Farmer</h3>
+        <h3>Active Farmer</h3>
       </div>
     </section>
-
+    <section className='line-graph'></section>
+    {/* active user graph plot */}
+    {/* <TwoLineGraph/> */}
     {/*  */}
     <section className='active_user-info'>
       {/* farmer information */}
-      <div>
-       {!leftDetail && (
-         <main>
+      <div className='active-user-data'>
+         <main >
              <h3>Active Farmers</h3>
       <table className='active-user_table'>
       <thead>
@@ -112,13 +114,13 @@ useEffect(() => {
       </thead>
       <tbody>
         {activeFarmerInfo && activeFarmerInfo.map((value,index) => (
-          <tr key={index} index={index} >
+          <tr key={index} index={index} className='.active-user_table'>
             <td>{index}</td>
             <td><img src={value.profileImage} alt="" width={50} height={50} /></td>
             <td>{value.username}</td>
             <td>{value.verificationStatus}</td>
             <td>{value.NIN}</td>
-            <td><a href="#"  onClick={() => showFarmerFullDetails(value)}>Details</a></td>
+            <td><a onClick={() => showFarmerFullDetails(value)}>Details</a></td>
           </tr>
         ))}
       </tbody>
@@ -129,39 +131,30 @@ useEffect(() => {
         )}
     </table>
          </main>
-       )}
         {leftDetail && (
-          <aside>
-            <a href="#"  onClick={backLeft}>Back</a>
-              <h3>Farmer Full Details</h3>
-              <figure>
+          <aside className='user-full-data'>
+            <a onClick={backLeft}>
+            <i class="fa-solid fa-x fa-beat" style={{
+      color: '#0a790b'
+     }}></i> 
+            </a>
+            <article>
+            <figure>
               <img src={maxDetailLeft.profileImage} alt="" />
-              <h2>{maxDetailLeft.fullname}</h2>
             </figure>
-            <h4>Personal Information</h4>
-            <ul>
-              <li>ID {maxDetailLeft.Id}</li>
-              <li><span>NIN</span>{maxDetailLeft.NIN}</li>
-<li><span>Activation Code Status: </span>{maxDetailLeft.activationCodeStatus}</li>
-              <li><span>Email: </span>{maxDetailLeft.email}</li>
-              <li>{maxDetailLeft.address}</li>
-              <li><span>Cell: </span>{maxDetailLeft.phoneNumber}</li>
-              <li><span>Verification Status: </span>{maxDetailLeft.verificationStatus}</li>
-              <h4>Farmer's Farm Information</h4>
-              <ul>
-            <li><span>Farm Type: </span>{maxDetailLeft.farmType}</li>
-            <li><span>Farm Address: </span>{maxDetailLeft.farm_Address}</li>
-            <li><span>Farmer's Experience: </span>{maxDetailLeft.farmingExperience}</li>
-          </ul>
-              <footer><span>Hear about:</span> {maxDetailLeft.comeAbout}</footer>
-            </ul>
+            <main>
+              <h2>{maxDetailLeft.fullname}</h2>
+              <p>NIN: {maxDetailLeft.NIN}</p>
+              <p>Email: {maxDetailLeft.email}</p>
+              <p>Status: {maxDetailLeft.verificationStatus}</p>
+            </main>
+            </article>
           </aside>
         )}
       </div>
 
       {/* consumer Information */}
-      <div>
-       {!rightDetail && (
+      <div className='active-user-data consumer'>
          <main>
             <h3>Active Consumers</h3>
       <table className='active-user_table'>
@@ -189,22 +182,23 @@ useEffect(() => {
       </tbody>
     </table>
          </main>
-       )}
         {rightDetail && (
-          <aside>
-            <a href="#" onClick={backRight}>Back</a>
-            <h3>Consumer Full Details</h3>
+          <aside className='user-full-data'>
+            <a onClick={backRight}>
+            <i class="fa-solid fa-x fa-beat" style={{
+      color: '#0a790b'
+     }}></i> </a>
+
+            <article>
             <figure>
               <img src={maxDetailRight.profileImage} alt="" />
-              <h2>{maxDetailRight.fullname}</h2>
             </figure>
-            <ul>
-              <li>{maxDetailRight.email}</li><br />
-              <li>{maxDetailRight.address}</li>
-              <li>{maxDetailRight.phoneNumber}</li>
-              <li>{maxDetailRight.NIN}</li>
-              <footer><span>Hear about</span> {maxDetailRight.comeAbout}</footer>
-            </ul>
+            <main>
+              <h2>{maxDetailRight.fullname}</h2>
+              <p>NIN: {maxDetailRight.NIN}</p>
+              <p>Email: {maxDetailRight.email}</p>
+            </main>
+            </article>
           </aside>
         )}
       </div>

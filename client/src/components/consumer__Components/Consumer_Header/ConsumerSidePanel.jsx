@@ -54,7 +54,9 @@ const ConsumerSidePanel = ({bookMrk,profile,message,review,menu,navBtn,NavBtn}) 
             }}></i><span>Reviewed</span></Link></li>
             <h4 onClick={() => Logout(socket,userData)}><i class="fa-solid fa-right-from-bracket fa-rotate-180" style={{
               color: "#0a790b"
-            }}></i><span>LogOut</span></h4>
+            }}></i>
+            <p className='logout' onClick={() => Logout(socket,userData)}>Logout</p>
+            </h4>
         </ul>
     </nav>
     </>

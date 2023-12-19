@@ -3,6 +3,7 @@ import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 import { Axios } from '../../../../configs/default__configs/axios.config'
 import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
 import './addindex.css'
+import './Carousel.css'
 const cropCategory = {
   Cereals: '',
   Pulses: '',
@@ -72,7 +73,13 @@ const FarmerAddProduce = () => {
   /*  to get the produce info from the user and store it in the useState variable */
   const addProduceInfo = (e) => {
     const  {name, value} =  e.target
+    if(name === 'title'){
+      setProduceInfo({...produce,[name]: value.toUpperCase()})
+    }else if(name === 'desccription' && name === 'location'){
+      setProduceInfo({...produce,[name]: value.toLowerCase()})
+    }
     setProduceInfo({...produce,[name]: value})
+    console.log(produceInfo)
   }
   /* the submit the produce info to the back end */
   const uploadProduce = async (e) => {

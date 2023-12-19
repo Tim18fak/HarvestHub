@@ -1,19 +1,109 @@
 *{
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-#btn{
+li{
+   list-style:none;
+   display: block; 
+}
+.dashboard{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(255, 255, 255),rgb(0, 255, 21));
+}
+
+.dashboard header{
+    padding: 1rem;
+    display: flex;
+    width: 80%;
+    margin-left: 270px;
+    background-color: aqua;
+    justify-content: space-between;
+    border-radius: 10px;
+    transition: margin-left 2s ease-in-out;
+}
+.dashboard header main p {
+    padding: 5px;
+}
+.dashboard header main{
+    display: flex;
+    column-gap: 10px;
+}
+.dashboard header main label{
+    margin: 4px;
+}
+.menu{
+    margin-left: 1px 1px 10px 1px;
+    padding: 2px 0 ;
+    color: rgb(4, 87, 4);
+
+    
+}
+.admin-mainpage {
+    display: flex;
+
+}
+.admin-mainpage .side_panel{
+    top: 10px;
+    width: 240px;
+    position: fixed;
+    min-height: 90vh;
+    margin: .5rem;
+    transition: transform 2s ease-in-out;
+    transform: translateX(0);
+
+}
+.admin-mainpage .main_body{
+    margin-left: 270px;
+    width: 81%;
+    transition: margin-left 2s ease-in-out;
+}
+
+/* nav btn */
+.btnTrigger{
+    width: 30px;
+    height: 3px;
+    border-radius: 4px;
+    transition: all 2s;
+    background-color: black;
+    position: relative;
+    top: 5px;
+}
+.btnTrigger::before,
+.btnTrigger::after{
+    content: '';
+    border-radius: 4px;
+    width: 30px;
+    height: 4px;
+    display: block;
+    transition:  all 1s;
+    background-color: blue;
+    position: relative;
+}
+.btnTrigger::before{
+    top: -10px;
+}
+.btnTrigger::after{
+    top: 5px;
+}
+#navBtn:checked ~ body .admin_header{
+    margin-left: 20px;
+    width: 98%;
+}
+#navBtn{
     display: none;
 }
-.admin_header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 2rem 0;
-    background-color: aquamarine;
+#navBtn:checked ~ .btnTrigger::before,
+#navBtn:checked ~ .btnTrigger::after{
+    width: 20px;
 }
-.admin-mainpage{
-    display: grid;
-    grid-template-columns: 15% 85%;
+#navBtn:checked ~ body .admin-mainpage .side_panel{
+    transform: translateX(-300px);
+}
+#navBtn:checked ~ body .admin-mainpage .main_body{
+    margin-left: 25px;
+    width: 97%;
 }

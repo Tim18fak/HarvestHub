@@ -1,7 +1,7 @@
 .farmer-data{
     top: 11rem;
     position: absolute;
-    z-index: 99;
+    z-index: 3;
     background-color: aquamarine;
     width: 95%;
     left: 20px;
@@ -91,4 +91,20 @@
     box-shadow: 1px 1px 3px;
     color: black;
     border-radius: 5px;
+}
+@media screen and (min-width:300px) and (max-width:500px) {
+    .farmer-data{
+        left: 0;
+    }
+}
+@media screen and (min-width:300px) and (max-width:1000px) {
+    .farmer-data-basic-info .data-user-info{
+        grid-template-columns: 1fr;
+        
+    }
+    .data-user-farm-info article{
+        display: flex;
+        flex-direction: column;
+        
+    }
 }

@@ -2,11 +2,14 @@ import React, { useContext, useState } from 'react'
 import { Socket, UserData } from '../../../../hooks/useContext/ConsumerInfo'
 import { ReviewProduce } from '../../../../configs/consumer__configs/configs'
 import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
+import './review.css'
+import ScaleAnim from '../../../anim/Loaders/ScaleAnim'
 const Review = ({produce,back}) => {
     const [review,setReview] =  useState('')
+    const [currentIndex,setCurrentIndex] = useState(0)
     const socket =  useContext(Socket)
     const userInfo =  useContext(UserData)
-
+  const [reviewInProgres,setProgress] = useState('addreview')
     const submitReview = async(produce,userData,e) => {
       e.preventDefault()
         try {
@@ -24,34 +27,66 @@ const Review = ({produce,back}) => {
     const getReview = (e) => {
       setReview(e.target.value)
     }
+
+
+    /* carousel trigger and control */
+
+    const prevBtn = () => {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + produce.Image.length) % produce.Image.length);
+    };
+  
+    const nextBtn = () => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) %  produce.Image.length);
+    };
   return (
     <>
-    <p onClick={back}><i class="fa-solid fa-arrow-left fa-beat">Back</i></p>
-    <section >
-        <h2>Lets Review this produce of Id {produce._id}</h2>
-        <figure>
-        <div style={{
-                    width: '100%',
-                    height: '250px'
-                }}>
-                <ImageSlider images={produce.Image}/>
-                </div>
-            {produce && produce.Image && produce.Image.length > 0 && produce.Image.map((image,index) => (
-                <img src={image} alt=""  key={index}/>
-            ))}
-            <h2><span>Produce Name </span> {produce.title}</h2>
-            <p><span>Produce Description <span>{produce.description}</span></span></p>
-            <h3><span>Produce Farmer name </span> {produce.fullname}</h3>
-        </figure>
-    </section>
-    <form  onSubmit={(e) => submitReview(produce,userInfo,e)}>
+    <p back='back' onClick={back}><i class="fa-solid fa-arrow-left fa-beat">Back</i></p>
+    {reviewInProgres === 'addreview' && (
+      <>
+      <section className='review-produce' id='blur-container'>
+        <h2 >Lets Review this produce of Id {produce._id}</h2>
+        <div className='image-container'>
+       <div className='carousel-wrapper'> 
+       {produce.Image.length > 1 && (
+        <i class="fa-solid fa-less-than nav-btn" onClick={prevBtn}></i>
+       )}
+       <figure className="carousel-image">
+       <img
+         src={produce.Image[currentIndex]}
+         alt={`Image ${currentIndex + 1}`}
+       />
+     </figure>
+     {produce.Image.length > 1 && (
+      <i class="fa-solid fa-greater-than nav-btn" onClick={nextBtn}></i>
+     )}
+       </div>
+    </div>
+          <aside className='produce-farmer-basic-info'> 
+          <h2><span>Produce Name </span> {produce.title}</h2>
+            <p><span>Produce Description: <span>{produce.description}</span></span></p>
+            <h3><span>Produce Farmer name: </span> {produce.fullname}</h3>
+          </aside>
+        {/* review */}
+        <form  onSubmit={(e) => submitReview(produce,userInfo,e)}>
       <h3>Review the produce</h3>
-      <div>
+      <div className='your-review'>
         <textarea name='review' id="" cols="30" rows="10" onChange={getReview}></textarea>
         <label htmlFor="review">What would you like the farmer to know about his/her services</label>
       </div>
-      <button >Submit review</button>
+      <button  className='review-button'>Submit review</button>
     </form>
+    </section>
+      </>
+    )}
+    {reviewInProgres === 'addingreview' && (
+      <ScaleAnim/>
+    )}
+    {reviewInProgres === 'reviewadded' && (
+      <section>
+        <h2>Thanks for your review</h2>
+        <p>Your review has been sent</p>
+      </section>
+    )}
     </>
   )
 }

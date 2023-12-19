@@ -4,7 +4,9 @@ import ShowProduceInfo from '../ShowProduceAndFarmerInfo/ShowProduceInfo'
 import SpinnerLoader from '../../../anim/Loaders/SpinnerLoader'
 import { Socket, UserContext } from '../../../../hooks/useContext/ConsumerInfo'
 import ImageSlider from '../../../components/default__Component/ImageSlider/ImageSlider'
+import Rotate from '../../../anim/Loaders/Rotate'
 import './bookmark.css'
+
 const ClientBookmarks = ({bookmarks}) => {
     const [clientBookmarks,setClientBookmarks] = useState([])
     const [farmerInformation,setFarmerInformation] = useState(null)
@@ -21,7 +23,7 @@ const ClientBookmarks = ({bookmarks}) => {
             console.log(clientBookmarks)
             setTimeout(() => {
                 setTriggerAnimation(true)
-            },5000)
+            },4000)
         }
     },[bookmarks])
     /*  */
@@ -50,7 +52,10 @@ const ClientBookmarks = ({bookmarks}) => {
   return (
     <>
     {!triggerAnimation && (
+        <>
         <SpinnerLoader/>
+        <Rotate/>
+        </>
     )}
    {triggerAnimation && !showFarmerInfo && (
         <>
@@ -84,8 +89,10 @@ const ClientBookmarks = ({bookmarks}) => {
                                         month: 'long',
                                         day: 'numeric',})}</p>
                 </main>
+                <div className='produce_button'>
                 <button onClick={() => farmerInfo(bookmark._id)}>Get Farmer Information</button>
                 <button onClick={() => deleteBookmark(userInfo,bookmark._id)}>Delete Bookmark</button>
+                </div>
                 </>
                )}
             </section>

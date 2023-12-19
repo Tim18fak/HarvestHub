@@ -8,14 +8,13 @@
     --accent-color: brown;
 }
 .client-sidepanel{
-    top: 0;
+    top: 25px;
     position: fixed;
     background-color:var(--light-primary-color);
     width: 260px;
     margin: 1rem;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-    height: 93%;
+
+    height: 90%;
     border-radius: 10px;
     /* display: flex;
     flex-direction: column;
@@ -66,7 +65,7 @@
     color: transparent;
 }
 .sidepanel-component{
-    min-height: 274px;
+    min-height: 250px;
     background-color: var(--secondary-color);
     border-radius: 0 0 10px 10px;
 }
@@ -75,6 +74,7 @@
     width: 100%;
     padding: .4rem 0;
     text-align: center;
+    display: block;
 }
 .sidepanel-component li span{
     color: var(--primary-color);
@@ -118,6 +118,41 @@ display: none;
     color: var(--light-primary-color);
     font-size: 1.5rem;
 }
+.logout{
+    display: none;
+}
+.sidepanel-component h4:hover .logout {
+    display: block;
+    padding: 1rem;
+    background-color: white;
+    position: absolute;
+    top: 5px;
+    left: 160px;
+    border-radius: 5px;
+  }
 .sidepanel-component h4 span{
     display: none;
+}
+
+
+@media screen and (min-width:300px)  and (max-width:500px){
+    
+}
+
+
+@media screen and (min-width:501px)  and (max-width:750px){
+    
+}
+
+
+@media screen and (min-width:1000px)  and (max-width:1200px){
+   .client-sidepanel{
+    margin: .5rem;
+    z-index: 99;
+   }
+}
+
+
+@media screen and (min-width:300px)  and (max-width:500px){
+    
 }

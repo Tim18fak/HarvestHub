@@ -84,7 +84,7 @@ const Auth2 = () => {
     if(userInfo.username && !isLogin){
       const {username} = userInfo
       const value = checkBox ? 'Farmer' : 'Consumer'
-      const URL = `http://localhost/auth/fS/${username}/${value}`
+      const URL = `https://harvest-hub-pi.vercel.app/auth/fS/${username}/${value}`
       fetch(URL)
       .then((response) => {
         if(!response.ok){
@@ -115,7 +115,7 @@ const Auth2 = () => {
 
   const Auth = (e) => {
     e.preventDefault()
-    const url =  isLogin ? "http://localhost/auth/login" : "http://localhost/auth/signup"
+    const url =  isLogin ? "https://harvest-hub-pi.vercel.app/auth/login" : "https://harvest-hub-pi.vercel.app/auth/signup"
     console.log(checkBox)
       const {email,username,password,confirm__password,fullname} = userInfo
     fetch(url,{
