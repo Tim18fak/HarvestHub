@@ -65,6 +65,7 @@ nav .login-btn{
 nav .login-btn a{
     text-decoration: none;
     color : #fff;
+<<<<<<< HEAD
 }
 
 nav .menu-btn{
@@ -137,4 +138,6 @@ nav .menu .menu-container ul{
 }
 .element-nav-d-block{
     display: block;
+=======
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
 }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import {Link} from 'react-router-dom'
 const Reset = () => {
     const [email,setEmail] = useState('')
     const [isFarmer,setIsFarmer] =  useState(false)
@@ -33,7 +33,7 @@ const Reset = () => {
 
   return (
     <>
-<a href="/auth">Back</a>
+<Link to={'/auth'}><a>Back</a></Link>
 <section>
     {!emailSent && (
         <form onSubmit={submitResetPassRequest}>

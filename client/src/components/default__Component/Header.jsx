@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import '../default__Component/style/Header.css';
 import '../default__Component/style/Header_Media_Queries.css';
+=======
+import '../default__Component/style/Header.css'
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
 
 const Header = () => {
   
@@ -14,6 +18,7 @@ const Header = () => {
   let classMenu = menuStatus ? ' element-nav-d-block':' element-nav-d-none'; //false to hide mobile menu 
 
   return (
+<<<<<<< HEAD
     <>
       <nav>
         <div className='logo'><span className='letter-green'>Harvest</span><span className='letter-yellow'>Hub</span></div>
@@ -41,6 +46,18 @@ const Header = () => {
         </div>
       </nav>
     </>
+=======
+    <nav>
+      <div className='logo'><span className='letter-green'>Harvest</span><span className='letter-yellow'>Hub</span></div>
+      
+        <ul>
+          <li><Link to={'/'}>Home</Link></li>
+          <li><Link to={'/about'}>About</Link></li>
+          <li><Link to={'/contact'}>Contact</Link></li>
+        </ul>
+      <button className='login-btn'><Link to={'/auth'}>Login</Link></button>
+    </nav>
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
   )
 }
 

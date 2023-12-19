@@ -1,6 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react'
+<<<<<<< HEAD
 import '../default__Pages/styles/About.css'
+=======
+import './About.css'
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
 
 const About = () => {
   return (
@@ -57,7 +61,11 @@ const About = () => {
 
             </div>
             <div className="card-footer">
+<<<<<<< HEAD
               <div className="names">KINI Honoré</div>
+=======
+              <div className="names">KINI Biè Honoré</div>
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
               <div className="job">Our Front Developer</div>
               <div className="buttons">
                 <button>More</button>
@@ -69,8 +77,13 @@ const About = () => {
 
             </div>
             <div className="card-footer">
+<<<<<<< HEAD
               <div className="names"></div>
               <div className="job"></div>
+=======
+              <div className="names"> Timothy Avell</div>
+              <div className="job"> Our Backend Developer</div>
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
               <div className="buttons">
                 <button>More</button>
               </div>
@@ -81,8 +94,13 @@ const About = () => {
 
             </div>
             <div className="card-footer">
+<<<<<<< HEAD
               <div className="names"></div>
               <div className="job"></div>
+=======
+              <div className="names">Timothy and Honoré</div>
+              <div className="job"> Both are partners</div>
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
               <div className="buttons">
                 <button>More</button>
               </div>
