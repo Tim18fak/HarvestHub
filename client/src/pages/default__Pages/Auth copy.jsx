@@ -159,65 +159,50 @@ const isFarmerCheckBox = (e) => {
   return (
     <>
     {!accountCreated && (
-      <form className="authForm" style={{height : (window.innerHeight - 125)}} method="post" onSubmit={Auth}>
-      <div className='form-header'>
-        <div className='title'>HarvestHub Admin</div>
-        <div className='sub-title'>Welcome Back</div>
+      <form method="post" onSubmit={Auth}>
+      <div>
+        <input type="text" name='username' value={userInfo.username} onChange={getUserInfo}/>
+        <label htmlFor="username">Username</label>
       </div>
-
-      <div className='form-body'>
-        <div className='form-group'>
-          <input type="text" className='form-control' name='username' placeholder='username' value={userInfo.username} onChange={getUserInfo}/>
-          
-        </div>
-        {!isLogin && (
-          <div className='form-group'>
-          <input type="text" className='form-control' name='fullname' placeholder='fullname' value={userInfo.fullname} onChange={getUserInfo}/>
-          
-        </div>
-        )}
-        {!isLogin && (
-        <div className='form-group'>
-          <input type="text" className='form-control' name='email' placeholder='email' value={userInfo.email} onChange={getUserInfo}/>
-          
-        </div>
-        )}
-        <div className='form-group'>
-          <input type="text" className='form-control' name='password' placeholder='password' value={userInfo.password} onChange={getUserInfo}/>
-          
-        </div>
-        {!isLogin && (
-          <div className='form-group'>
-          <input type="text" className='form-control' name='confirm__password' placeholder='confirm password' value={userInfo.confirm__password} onChange={getUserInfo}/>
-          
-        </div>
-        )}
-        <div className='form-group'>
-          <button className='auth-button' disabled={!isLogin && comparePass ? true : false}>{isLogin ? "Login In" : "Sign In"}</button>
-        </div>
-        
+      {!isLogin && (
         <div>
-          {
-            accountCreated && (<ActivationCode res={succesRes} />)
-          }
-          <p style={{
-            color: 'red',
-          }}>{usernameTaken}</p>
-          <p style={{
-            color: 'red',
-          }}>{err_Res}</p>
-          {!isLogin && (
-          <p style={{color : 'white'}} onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
-          )}<p style={{color : 'white'}}>Forgotten your password, <a style={{color : 'white'}} href="/reset">reset password</a></p>
-        </div>
-        
+        <input type="text" name='fullname' value={userInfo.fullname} onChange={getUserInfo}/>
+        <label htmlFor="fullname">Fullname</label>
       </div>
-     
+      )}
+      <div>
+        <input type="text" name='email' value={userInfo.email} onChange={getUserInfo}/>
+        <label htmlFor="email">Email</label>
+      </div>
+      <div>
+        <input type="text" name='password' value={userInfo.password} onChange={getUserInfo}/>
+        <label htmlFor="">Password</label>
+      </div>
+      {!isLogin && (
+        <div>
+        <input type="text" name='confirm__password' value={userInfo.confirm__password} onChange={getUserInfo}/>
+        <label htmlFor="confirm__password">Confirm Password</label>
+      </div>
+      )}
+         <div>
+         <input type="checkbox" name='isFarmer' checked={checkBox} onChange={isFarmerCheckBox}/>
+         <label htmlFor="isFarmer">Are You A Farmer</label>
+       </div>
 
-      
+      <button disabled={!isLogin && comparePass ? true : false}>{isLogin ? "Login In" : "Sign In"}</button>
       </form>
     )}
-    
+    {
+      accountCreated && (<ActivationCode res={succesRes} />)
+    }
+    <p style={{
+      color: 'red',
+    }}>{usernameTaken}</p>
+    <p style={{
+      color: 'red',
+    }}>{err_Res}</p>
+    <p onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
+    <p>Forgotten your password,<a href="/reset">Reset</a></p>
     </>
   )
 }

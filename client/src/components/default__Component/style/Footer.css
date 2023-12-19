@@ -1,0 +1,131 @@
+.footer{
+    background: #D9D9D9;    
+    padding : 3.75rem 4.5rem;
+}
+
+.footer .footer-up{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: 'Inter';
+}
+
+.footer .footer-up .logo{
+    font-family: 'Inter';
+}
+
+.footer .footer-up .logo .letter-green{
+    font-size: 16px;
+    color : #21A01E;
+}
+
+.footer .footer-up .logo .letter-yellow{
+    font-size: 20px;
+    color : #CEB219;
+}
+
+.footer .footer-up .left div:nth-child(2){
+    font-size: 16px;
+}
+
+.footer .footer-up .site-map .title-map{
+    text-align: center;
+    margin-bottom: 0.45rem;
+}
+
+.footer .footer-up .site-map .map{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap : 1rem;
+}
+
+.footer .footer-up .site-map .map a{
+    text-decoration: none;
+    color : #000;
+}
+
+.footer .footer-up .site-social-network .title-social-network{
+    text-align: center;
+    margin-bottom: 0.45rem;
+}
+
+.footer .footer-up .site-social-network .social-network{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 12px;
+}
+
+.footer .footer-up .site-social-network .social-network .item{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #5B5353;
+}
+
+.footer .footer-down{
+    padding : 3rem 0;
+    font-family: 'Dubai';
+}
+
+.footer-down .title{
+    font-size: 38px;
+    text-align: center;
+    color: #000;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer-down .sub-title{
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.footer-down .input-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.2rem;
+}
+
+.footer-down .input-container .input{
+    box-sizing: border-box;
+    margin : 0;
+    padding : 0;
+    display: flex;
+    border-radius: 30px;
+    background: #837D7D;
+    gap : 0;
+}
+
+.footer-down .input-container .input input{
+    background: transparent;
+    border-color: transparent;
+    color : #000;
+    font-family: 'Inter';
+    padding : 0.75rem;
+    font-size: 16px;
+    text-align: center;
+    outline: 0;
+}
+.footer-down .input-container .input input::placeholder{
+    color : rgba(0, 0, 0, 0.59);
+}
+
+.footer-down .input-container .input button{
+    border-radius: 30px;
+    background: #18EC46;
+    border-color: transparent;
+    padding : 0.75rem 1.3rem;
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 16px;
+}
