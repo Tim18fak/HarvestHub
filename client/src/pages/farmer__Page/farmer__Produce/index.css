@@ -36,9 +36,10 @@
 
 }
 .fProduce-grid div{
-    background-color: limegreen;
-    border-radius: 10px;
-    box-shadow: 1px 1px 5px var(--secondary-color);
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 1px 1px 10px rgb(30, 255, 0);
 }
 .image-slider{
     display: inline-flex;
