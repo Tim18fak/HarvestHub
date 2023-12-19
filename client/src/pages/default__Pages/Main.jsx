@@ -1,20 +1,14 @@
-<<<<<<< HEAD
+import React from 'react';
 import '../default__Pages/styles/Main.css';
 import '../default__Pages/styles/Main_Media_Queries.css';
 
 const liste = [0, 1, 2, 3, 4];
-=======
-import './Main.css';
->>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
+
 
 const Main = () => {
   return (
     <>
-<<<<<<< HEAD
       <section className="main-header">
-=======
-      <section className="main-header" style={{height : (window.innerHeight - 83)}}>
->>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
         <div className="row-1">
           <span>Connecting Farmer's</span>
           <button className="btn"></button>
@@ -28,12 +22,9 @@ const Main = () => {
             <div className="card-header"></div>
           </div>
           <div className="col-2 col">
-<<<<<<< HEAD
             <div className="card-header">
               Harvesting a bounty of creativity, our UI design blossoms with vibrant colors and intuitive interfaces, cultivating seamless user experiences.
             </div>
-=======
->>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
             <div className="card-header"></div>
           </div>
           <div className="col-3 col">
@@ -41,8 +32,6 @@ const Main = () => {
           </div>
         </div>
       </section>
-<<<<<<< HEAD
-
       <section className="about">
         <div className="about-header">
           <div className="title">About Us</div>
@@ -153,8 +142,6 @@ const Main = () => {
         <button className='faq-question'></button>
         <button className='faq-question'></button>
       </section>
-=======
->>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Reset from './Reset'
-'../default__Pages/styles/Auth.css'
+import Reset from './Reset' 
+import '../default__Pages/styles/Auth.css'
 import { cookie } from '../../../configs/default__configs/cookies'
 import ActivationCode from './ActivationCode'
 import { Link } from 'react-router-dom'
@@ -218,9 +218,6 @@ const isFarmerCheckBox = (e) => {
       
       </form>
     )}
-<<<<<<< HEAD
-    
-=======
     {
       accountCreated && (<ActivationCode res={succesRes} />)
     }
@@ -232,7 +229,6 @@ const isFarmerCheckBox = (e) => {
     }}>{err_Res}</p>
     <p onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
     <p>Forgotten your password,<Link to='/reset'><a>Reset</a></Link></p>
->>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
     </>
   )
 }
