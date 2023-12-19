@@ -13,7 +13,7 @@ const Reviewed = ({review}) => {
                 }}>
                 <ImageSlider images={val.produceImage}/>
                 </div>
-          <h2><span>Produce Name: </span>{val.produceTitle}</h2>
+          <h2><span>Produce Name:</span>{val.produceTitle}</h2>
           <p><h4>Produce Description:</h4>{val.produceDescription}</p>
           <p><h3>Seller Name:</h3>{val.produceSellerUsername}</p>
           <p><strong>Your Review:</strong> {val.review}</p>

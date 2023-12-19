@@ -57,11 +57,7 @@
 .produce-card button:hover{
     background-color: brown;
 }
-.farmer-info{
-    background-color: aqua;
-    border-radius: 30px;
-    min-height: 21rem;
-}
+
 .farmer-info main h3{
     text-align: center;
     padding: 1rem;

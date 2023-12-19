@@ -51,7 +51,7 @@ const ClientBookmarks = ({bookmarks}) => {
       }
   return (
     <>
-    {triggerAnimation && (
+    {!triggerAnimation && (
         <>
         <SpinnerLoader/>
         <Rotate/>
@@ -89,8 +89,10 @@ const ClientBookmarks = ({bookmarks}) => {
                                         month: 'long',
                                         day: 'numeric',})}</p>
                 </main>
+                <div className='produce_button'>
                 <button onClick={() => farmerInfo(bookmark._id)}>Get Farmer Information</button>
                 <button onClick={() => deleteBookmark(userInfo,bookmark._id)}>Delete Bookmark</button>
+                </div>
                 </>
                )}
             </section>

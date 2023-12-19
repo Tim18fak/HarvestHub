@@ -118,13 +118,13 @@ const ShowProduceInfo = ({data,trigger}) => {
             <h3>{fetchData.title}</h3>
             <h4>#{fetchData.price}</h4>
             </div>
-            <p>{fetchData.description}</p>
+            <p produce='data'>{fetchData.description}</p>
             <ul className='produce_other-options'>
-                <li>{fetchData.quantity}</li>
-                <li>{fetchData.location}</li>
-                <li>{fetchData.quantity}</li>
+                <li produce='data'>{fetchData.quantity}</li>
+                <li produce='data'><i class="fa-solid fa-location-dot"></i>{fetchData.location}</li>
+                <li produce='data'>{fetchData.quantity}</li>
             </ul>
-            <li>{new Date(fetchData.date).toLocaleDateString('en-US', { weekday: 'long',
+            <li produce='data'>{new Date(fetchData.date).toLocaleDateString('en-US', { weekday: 'long',
                                         year: 'numeric',
                                         month: 'long',
                                         day: 'numeric',})}
@@ -138,6 +138,7 @@ const ShowProduceInfo = ({data,trigger}) => {
         {/* farmer info */}
         <aside className='farmer-info'>
             <main>
+            <article>
             <h3>Farmer Information</h3>
             <h2>Username: {fetchData.username}</h2>
             <ul>
@@ -147,6 +148,7 @@ const ShowProduceInfo = ({data,trigger}) => {
             <ul>
                 <li><span>Farm Type: </span>{fetchData.farmType}</li>
             </ul>
+            </article>
             <figure>
                 <img src={fetchData.profileImage} alt="" />
             </figure>
@@ -155,7 +157,7 @@ const ShowProduceInfo = ({data,trigger}) => {
         </>
         )}
         {!farmerExist && (
-            <aside>
+            <aside className='farmer-banned'>
                 <p>Farmer Info was not found on our database</p>
                 <p>Possible reasons</p>
                 <ul>

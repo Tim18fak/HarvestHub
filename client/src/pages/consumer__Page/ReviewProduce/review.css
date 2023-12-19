@@ -1,0 +1,49 @@
+[back='back']{
+    color: white;
+}
+
+.review-produce{
+    margin: 1rem;
+    background-color: white;
+}
+#blur-container{
+   
+}
+.review-produce h2:first-child{
+    margin: .4rem;
+    padding: .5rem;
+    text-align: center;
+}
+.review-produce figure div{
+    min-width: 80%;
+}
+.produce-farmer-basic-info h2,
+.produce-farmer-basic-info p,
+.produce-farmer-basic-info h3{
+    margin: .4rem;
+}
+.your-review{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.your-review label{
+    padding: .5rem;
+}
+.your-review textarea{
+    margin: .5rem;
+}
+.your-review textarea:focus{
+    box-shadow: 5px 5px 5px green;
+}
+.review-button{
+    width: 100%;
+    padding: 1rem;
+    border: transparent;
+    color: white;
+    background-color: green;
+    transition: background 1s ease-out;
+}
+.review-button:hover,
+.review-button:focus{
+    background-color: brown;
+}

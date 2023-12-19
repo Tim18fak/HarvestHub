@@ -79,7 +79,7 @@ const FarmerRoute = () => {
         <aside>
         <ul>
           <li>
-          <Link to={'/fM/notification'}><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
+          <Link to='/fM/notification'><i className={!hideNotification ? "fa-solid fa-bell fa-bounce" : "fa-solid fa-bell"} style={!hideNotification ? {
           color: 'red',
           fontSize: '30px'
         } : {

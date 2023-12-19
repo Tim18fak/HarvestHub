@@ -17,6 +17,7 @@ const ProduceResponse = ({produce}) => {
     const [filterState,setFilterState] = useState('')
     const [filterInput,setfilterInput] = useState(produceFilter)
     const [priceFilter,setPriceFilter] = useState(false)
+    const [filter,setFilter] =  useState(true)
     useEffect(() => {
         if(produce){
             setSearchProduce(produce)
@@ -33,6 +34,7 @@ const ProduceResponse = ({produce}) => {
       if(results){
         console.log(results)
         setFarmerData(results)
+        setFilter(false)
         setTimeout(() => {
           setFarmerInfo(true)
         },200)
@@ -91,7 +93,7 @@ const ProduceResponse = ({produce}) => {
     }
   return (
     <>
-    {searchProduce.length > 0 && (
+    {searchProduce.length > 0 && filter &&(
       <>
       <a href="#" onClick={refresh} className='refresh-search'>Back</a>
        <section className='filter-query'>

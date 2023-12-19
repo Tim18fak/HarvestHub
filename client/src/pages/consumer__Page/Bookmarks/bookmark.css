@@ -4,8 +4,10 @@
     column-gap: 20px;
 }
 .bookmark{
-    background-color: aqua;
-    position: relative;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 1px 1px 10px rgb(30, 255, 0);
 }
 .bookmark button{
     width: 50%;
@@ -31,4 +33,33 @@
 }
 i{
     margin-right: 10px;
+}
+
+@media screen and (min-width:300px) and (max-width:500px) {
+    .bookmark-grid{
+        grid-template-columns: 1fr;
+        left: 0;
+        row-gap: 20px;
+    }
+}
+@media screen and (min-width:300px) and (max-width:750px) {
+    
+}
+
+@media screen and (min-width:501px)  and (max-width:750px){
+    .bookmark-grid{
+        grid-template-columns: 1fr 1fr;
+        left: 0;
+        row-gap: 20px;
+    }
+}
+
+
+@media screen and (min-width:751px)  and (max-width:1200px){
+   
+}
+
+
+@media screen and (min-width:300px)  and (max-width:500px){
+    
 }
