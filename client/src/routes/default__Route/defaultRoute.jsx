@@ -4,6 +4,7 @@ import FarmerRoute from '../farmer__Route/FarmerRoute';
 import ClientRoute from '../client__Route/ClientRoute';
 import { UserContext,Socket,UserData} from '../../../hooks/useContext/ConsumerInfo';
 import io from 'socket.io-client'
+import ScaleAnim from '../../anim/Loaders/ScaleAnim';
 import Preloader from '../../components/default__Component/preloader/Preloader';
 import { Axios } from '../../../configs/default__configs/axios.config';
 import './defaultroute.css'
@@ -52,7 +53,7 @@ const DefaultRoute = () => {
   },[])
 
   const isFarmer =  cookie.get('isFarmer')
-  if(!gotUserData) return <Preloader/>
+  if(!gotUserData) return <ScaleAnim/>
 
   return(
     <UserContext.Provider value={userInfo}>

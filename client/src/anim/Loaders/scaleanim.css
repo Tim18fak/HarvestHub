@@ -1,0 +1,30 @@
+.scale-anim{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 300px;
+    animation: Scale 2s  infinite ease-in;
+}
+.scale-anim p {
+    color: green;
+}
+.sub{
+    color: brown;
+}
+@keyframes Scale {
+    0%{
+        transform: scale(1);
+    }
+    25%{
+        transform: scale(1.3);
+    }
+    50%{
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(1.3);
+    }
+    100%{
+        transform: scale(.8);
+    }
+}

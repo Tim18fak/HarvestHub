@@ -1,19 +1,90 @@
 .farmer-info_plus-produce{
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    column-gap: 20px;
-    position: relative;
-    margin: 1rem 0;
+    width: 100%;
+    grid-template-columns: 2fr 1fr;
 }
-.farmer-info_plus-produce .farmer-info{
-    position: absolute;
-    top: 20px;
-    width: 30%;
+.farmer-info_plus-produce{
+
 }
-.farmer-info_plus-produce img{
+.other-produce main{
+    display: flex;
+    justify-content: space-evenly;
     width: 100%;
 }
 .sub-images{
-    display: flex;
-    flex-direction: row;
+    position: relative;
+
+}
+.produce-details{
+    /* display: flex;
+    flex-direction: column; */
+}
+
+@media screen and (min-width:300px) and (max-width:750px) {
+
+    .farmer-info_plus-produce{
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+    .produce-data{
+        background-color: white;
+    }
+    #Jumbostron_image{
+        min-width: 100%;
+        max-height: 300px;
+    }
+    .sub-images img{
+        width: 50px;
+        height: 50px;
+        
+    }
+    .sub-images{
+        left: 10px;
+        margin: .5rem;
+    }
+    .produce-title{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin: .5rem;
+    }
+    .produce_other-options{
+        display: flex;
+        justify-content: space-between;
+        padding: .2rem;
+    }
+    .produce-button{
+        display: flex;
+        min-width: 100%;
+    }
+    .produce_button{
+        display: flex;
+        width: 100%;
+        margin: .5rem 0;
+        column-gap: 5px;  
+        
+    }
+    .produce_button button{
+        width: 100%;
+        padding: .5rem;
+        border: transparent;
+        background-color: green;
+        color: white;
+    }
+    .produce_button button:hover,
+    .produce_button button:focus{
+        background-color: brown;
+    }
+}
+@media screen and (min-width:300px) and (max-width:500px) {
+    .farmer-info_plus-produce{
+        font-size: 1rem;
+    }
+}
+@media screen and (min-width:501px) and (max-width:750px) {
+    .farmer-info_plus-produce{
+        font-size: 1.2rem;
+    }
 }

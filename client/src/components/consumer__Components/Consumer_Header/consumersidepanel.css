@@ -118,6 +118,18 @@ display: none;
     color: var(--light-primary-color);
     font-size: 1.5rem;
 }
+.logout{
+    display: none;
+}
+.sidepanel-component h4:hover .logout {
+    display: block;
+    padding: 1rem;
+    background-color: white;
+    position: absolute;
+    top: 5px;
+    left: 160px;
+    border-radius: 5px;
+  }
 .sidepanel-component h4 span{
     display: none;
 }
