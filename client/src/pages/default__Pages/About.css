@@ -5,15 +5,17 @@
 .about-container .about-head{
     position: relative;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    min-height: 85vh;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: auto;
+    grid-gap: 2.5rem;
 }
 
 .about-head .about-col{
     position: relative;
-    width: 30%;
-    height: 100%;
+    height: 75vh;
     display: flex;
     justify-content: space-between;
     
@@ -27,9 +29,10 @@
 .about-head .about-col h1{
     color: #000;
     font-family: Inter;
-    font-size: 80px;
+    font-size: clamp(3rem, 4.4rem, 5.2rem);
     font-style: normal;
     font-weight: 500;
+    text-align: center;
     line-height: normal;
     padding-top: 0;
     padding-left: 0;
@@ -65,13 +68,14 @@
 
 .about-mission .mission-card{
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: auto;
+    grid-gap: 2.5rem;
 }
 
 .about-mission .mission-card .mission-card-left{
-    width: 40%;
+    
 }
 
 .about-mission .mission-card .mission-card-left .title{
@@ -97,7 +101,7 @@
 }
 
 .about-mission .mission-card .mission-card-right{
-    width: 40%;
+    
 }
 
 .about-mission .mission-card .mission-card-right .mission-text{
@@ -119,7 +123,7 @@
 
 .about-mission .mission-big-card{
     width: 100%;
-    height: 387px;
+    height: 60vh;
     border-radius: 47px;
     margin : 1.5rem 0;
     background: #A39F9F;
@@ -128,15 +132,15 @@
 .about-mission .mission-small-card{
     position: relative;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 1.5rem;
 }
 
 .about-mission .mission-small-card .sml-card{
     border-radius: 47px;
     background: #D9D9D9;
-    grid-row: 1 / 3;
+    height: 35vh;
 }
 
 .about-team{
@@ -163,16 +167,16 @@
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(100px, auto);
-    grid-gap: 39px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 1.75rem;
     margin : 1rem 0;
 }
 
 .about-team .team .card-team{
     overflow: hidden;
     position: relative;
-    grid-row: 1 / 4;
+    height: 60vh;
     border-radius: 30px;
     background: #D9D9D9;
     display: flex;
@@ -190,9 +194,11 @@
     width: 100%;
     height: 30%;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     gap : 0.5rem;
-    padding : 0.75rem;
+    padding : 1rem;
 }
 
 .about-team .team .card-team .card-footer .names{
@@ -226,10 +232,7 @@
 
 .about-join-us{
     width: 100%;
-    display: grid;
     margin : 2rem 0;
-    grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: minmax(100px, auto);
 }
 
 .about-join-us .card-join-us{
@@ -240,12 +243,12 @@
     gap : 1.5rem;
     border-radius: 150px;
     background: #A39F9F;
-    grid-row: 1 / 5;
+    height: 80vh;
 }
 
 .about-join-us .card-join-us .title{
     font-family: 'Inter';
-    font-size: 28px;
+    font-size: clamp(1.2rem, 1.7rem, 2.5rem);
     font-weight: 400;
     text-align: center;
 }

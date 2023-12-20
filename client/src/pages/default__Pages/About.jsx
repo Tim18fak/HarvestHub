@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react'
-import '../default__Pages/styles/About.css'
+import React from 'react';
+import '../default__Pages/styles/About.css';
 const About = () => {
   return (
     <div className="about-container">
-      <section className='about-head' style={{height : (window.innerHeight - 125)}}>
+      <section className='about-head'>
         <div className="about-col1 about-col">
           <h1>About Us</h1>
           <div className="about-card"></div>
@@ -17,6 +17,7 @@ const About = () => {
           <div className="about-card"></div>
         </div>
       </section>
+      
       <section className="about-mission">
         <div className="mission-card">
           <div className="mission-card-left">
@@ -45,6 +46,7 @@ const About = () => {
           <div className="sml-card"></div>
         </div>
       </section>
+
       <section className="about-team">
         <div className="head">
           <div className="title">Our Team</div>
@@ -56,7 +58,7 @@ const About = () => {
 
             </div>
             <div className="card-footer">
-              <div className="names">KINI Honoré</div>
+              <div className="names">KINI Biè Honoré</div>
               <div className="job">Our Front Developer</div>
               <div className="buttons">
                 <button>More</button>
@@ -68,8 +70,8 @@ const About = () => {
 
             </div>
             <div className="card-footer">
-              <div className="names"> Timothy Avell</div>
-              <div className="job"> Our Backend Developer</div>
+              <div className="names">Names</div>
+              <div className="job">Job</div>
               <div className="buttons">
                 <button>More</button>
               </div>
@@ -80,8 +82,8 @@ const About = () => {
 
             </div>
             <div className="card-footer">
-              <div className="names">Timothy and Honoré</div>
-              <div className="job"> Both are partners</div>
+              <div className="names">Names</div>
+              <div className="job">Job</div>
               <div className="buttons">
                 <button>More</button>
               </div>

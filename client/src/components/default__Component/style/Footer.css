@@ -4,9 +4,11 @@
 }
 
 .footer .footer-up{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-rows: auto;
+    place-items: center;
+    grid-gap: 2rem;
     font-family: 'Inter';
 }
 
@@ -15,17 +17,17 @@
 }
 
 .footer .footer-up .logo .letter-green{
-    font-size: 16px;
+    font-size: clamp(0.6rem, 1.2rem, 1rem);
     color : #21A01E;
 }
 
 .footer .footer-up .logo .letter-yellow{
-    font-size: 20px;
+    font-size: clamp(0.8rem, 1.2rem, 1.6rem);
     color : #CEB219;
 }
 
 .footer .footer-up .left div:nth-child(2){
-    font-size: 16px;
+    font-size: clamp(0.6rem, 1.2rem, 1rem);
 }
 
 .footer .footer-up .site-map .title-map{
