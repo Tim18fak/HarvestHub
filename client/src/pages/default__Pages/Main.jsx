@@ -1,6 +1,7 @@
 import React from 'react';
 import '../default__Pages/styles/Main.css';
 import '../default__Pages/styles/Main_Media_Queries.css';
+import '../default__Pages/faqScript.jsx';
 
 const liste = [0, 1, 2, 3, 4];
 
@@ -132,16 +133,47 @@ const Main = () => {
           </div>
         </div>
       </section>
-
+{/* Changes from here */}
       <section className="faq">
-        <h1>FAQ</h1>
+        <h1>Frequently Asked Questions</h1>
 
-        <button className='faq-question'>What Is HarvestHub ?</button>
-        <button className='faq-question'></button>
-        <button className='faq-question'></button>
-        <button className='faq-question'></button>
-        <button className='faq-question'></button>
+        <div className="faq-item">
+          <button className='faq-question'>What Is HarvestHub?</button>
+          <div className="faq-answer">
+            <p>HarvestHub is an online farming marketplace connecting consumers directly with local farmers. It provides a platform for buying fresh, locally sourced produce.</p>
+          </div>
+        </div>
+
+        <div className="faq-item">
+          <button className='faq-question'>How Does HarvestHub Support Local Farmers?</button>
+          <div className="faq-answer">
+            <p>HarvestHub supports local farmers by providing them with a platform to showcase and sell their products directly to consumers, fostering a sustainable and direct farmer-consumer relationship.</p>
+          </div>
+        </div>
+
+        <div className="faq-item">
+          <button className='faq-question'>Can I Buy Fresh Produce Directly from Farmers on HarvestHub?</button>
+          <div className="faq-answer">
+            <p>Yes, HarvestHub allows you to purchase fresh produce directly from local farmers. It's a convenient way to support local agriculture and enjoy high-quality, farm-fresh products.</p>
+          </div>
+        </div>
+
+        <div className="faq-item">
+          <button className='faq-question'>Can I Leave Reviews for Farmers and Products on HarvestHub?</button>
+          <div className="faq-answer">
+            <p>Yes, HarvestHub allows you to review local farmers.</p>
+          </div>
+        </div>
+
+        <div className="faq-item">
+          <button className='faq-question'>Is HarvestHub Available Nationwide?</button>
+          <div className="faq-answer">
+            <p>Yes, HarvestHub is available nationwide.</p>
+          </div>
+        </div>
+
       </section>
+
     </>
   )
 }
