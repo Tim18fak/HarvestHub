@@ -32,7 +32,7 @@ const SidePanel = ({dashboard,produce,profile,farmer,consumer,linkName,navbtn}) 
         } : {}}><Link to='/farmer' link='links'>Farmer</Link></li>
       </ul>
       </main>
-      <aside>
+      <aside className='aside-side-panel_options'>
         <ul>
           <li onClick={profile} style={linkName === 'profile'? {
           backgroundColor: 'aqua'

@@ -1,0 +1,84 @@
+.profile-jumbostron{
+    width: 97%;
+    height: 250px;
+    background-color: green;
+    border-radius: 10px;
+    margin: 2rem 1rem;
+    box-shadow: 3px 3px 10px white;
+}
+.profile-form{
+    position: relative;
+}
+.profile-form button{
+
+}
+.profile-image-section{
+    width: 93%;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 2rem 2.4rem;
+    box-shadow: 3px 3px 10px orange;
+    position: relative;
+    top: -100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile-image-section figure{
+    display: flex;
+    flex-direction: column;
+    margin:0 1rem ;
+    row-gap: 5px;
+}
+.profile-image-section figure img{
+    border-radius: 50%;
+}
+.profile-image-section  label{
+    margin-left: 15rem;
+}
+.profile-image-section div{
+    margin: 0 1rem;
+}
+.profile-image-section div h3,
+.profile-image-section div h4,
+.profile-image-section div p{
+    padding: .2rem;
+}
+.profile-input{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 93%;
+    column-gap: 20px;
+    background-color: green;
+    position: absolute;
+    top: 30px;
+    margin: 2rem 2.4rem;
+    padding: 3rem;
+    border-radius: 10px;
+    row-gap: 30px;
+    
+
+}
+.profile-input div{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.profile-input div label{
+    margin: .2rem;
+    color: white;
+}
+.profile-input div input{
+    padding: .5rem;
+}
+.profile-input button{
+    padding: .4rem;
+    width: 50%;
+    border: transparent;
+    border-radius: 5px;
+}
+.profile-input button:hover,
+.profile-input button:focus{
+    background-color: orange;
+    color: white;
+}

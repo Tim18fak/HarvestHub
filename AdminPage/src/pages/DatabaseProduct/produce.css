@@ -1,0 +1,170 @@
+#profile-card:checked ~ .profile-card{
+    transition: transform 2s ease-in-out;
+    transform: translateX(0px);
+}
+#profile-card{
+    display: none;
+}
+.profile-card{
+    background-color: white;
+    width: 400px;
+    height: 500px;
+    border-radius: 20px;
+    position: fixed;
+    right: 0px;
+    top: 10%;
+    transform: translateY(5%);
+    transform: translateX(500px);
+    transition: transform 2s ease-in-out;
+    z-index: 5;
+}
+.profile-card nav{
+    width: 100%;
+    height: 150px;
+    background-color: #ffb300;
+    border-radius: 20px 20px 0 0;
+}
+.profile-card nav label{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    color: white;
+    font-size: 1.5rem;
+}
+.profile-card main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top:-50px;
+   
+}
+.profile-card main div{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+[alt="profileImage"]{
+    width: 150px;
+    height: 150px;
+    position: relative;
+    top: -15%;
+    transform: translateY(-50%);
+    transform: translateX(75%);
+    border-radius: 50%;
+    border: 10px solid orange;
+    box-shadow: 3px 3px 9px wheat;
+}
+[ data='data']{
+    padding: .5rem;
+}
+.contact{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.contact a i{
+    font-size: 1.5rem;
+}
+.profile{
+    
+}
+.produce-filter{
+    background-color: green;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+.produce-filter aside{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.produce-filter aside input{
+    padding: .5rem;
+}
+.produce-filter aside label{
+    padding: .5rem;
+    text-align: center;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 2s ease-in-out;
+}
+.produce-filter aside label:hover{
+    background-color: brown;
+    color: white;
+}
+.produce-filter aside .price-filter{
+    display: flex;
+    column-gap: 10px;
+}
+[type="number"]{
+    
+}
+.produce-filter div h4{
+    margin: .5rem;
+    color: white;
+}
+.produce-filter div ul{
+    display: flex;
+    column-gap: 8px;
+}
+.produce-filter div ul p{
+    color: white;
+}
+.produce-data{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 10px;
+    row-gap: 20px;
+    width: 90%;
+    margin: 0 .5rem;
+}
+.produce-data div{
+    background-color: brown;
+    border-radius:  0 0 10px 10px;
+}
+.produce-card{
+    width: 100%;
+    box-shadow: 2px 3px 10px white;
+    border-radius: 0 0 10px 10px;
+}
+.produce-card main .basic-info{
+    display: flex;
+    justify-content: space-between;
+    margin: .5rem;
+}
+.produce-card main div h2{
+    color: #00FF02;
+}
+.produce-card main div b{
+    color: white;
+}
+.produce-card main p{
+    text-align: center;
+    margin: .4rem;
+    color: wheat;
+}
+.produce-card main ul{
+    display: flex;
+    justify-content: space-between;
+    margin: .5rem;
+}
+.produce-card main ul li{
+    color: white;
+}
+.getFarmerInfo{
+    width: 100%;
+    padding: 1rem;
+    border: transparent;
+    background-color: green;
+    color: white;
+    border-radius: 0 0 10px 10px;
+}
+.getFarmerInfo:hover,
+.getFarmerInfo:focus{
+    background-color: ;
+}

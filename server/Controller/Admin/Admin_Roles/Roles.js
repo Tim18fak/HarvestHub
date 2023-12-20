@@ -1,4 +1,4 @@
-const {User,Farmer,BlockedUser} = require('../../../Model/DB_structure')
+const {User,Farmer,BlockedUser, Product} = require('../../../Model/DB_structure')
 
 const getAllFarmer = async(req,res) =>{
     const AllFarmer = await Farmer.find({})
@@ -7,6 +7,14 @@ const getAllFarmer = async(req,res) =>{
 const getAllConsumer  = async(req,res) => {
     const AllConsumer = await User.find({})
     res.status(200).json({AllConsumer})
+}
+const deleteProduce = async(producesId) => {
+   producesId.forEach(id => {
+        const deletedProduce = Product.findByIdAndDelete()
+        
+    });
+    console.log('done')
+    return 
 }
 const BlockFarmer = async(req,res) => {
     try {
@@ -27,6 +35,7 @@ const BlockFarmer = async(req,res) => {
         if(!data){
             console.log("Farmer Has Not Been Banned, Code Not Working")
         }
+        const removeFarmerProduce =  await deleteProduce(blockFarmerInfo.products)
         const deleteFarmer = await Farmer.findByIdAndDelete(blockFarmerId)
         if(!deleteFarmer){
             console.log(`${blockFarmerId} has not been deleted`)
@@ -41,7 +50,8 @@ const blockConsumer = async (req,res) => {
     try {
         const bannedConsumerId =  req.params.banConsumerId;
         console.log(bannedConsumerId)
-    const bannedConsumerInfo =  await User({_id: bannedConsumerId});
+    const bannedConsumerInfo =  await User.findOne({_id: bannedConsumerId});
+    console.log(bannedConsumerInfo)
     if(!bannedConsumerId){
         throw new Error(`${bannedConsumerId} is not found on the User Database Collection`)
     }

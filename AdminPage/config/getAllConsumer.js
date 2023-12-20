@@ -106,3 +106,33 @@ export const getFarmerinfo = (id) => {
         })
     })
 }
+
+export const DeactivateF = (id) => {
+    const url = `http://localhost/admin/banFarmer/${id}/${token}`
+    return new Promise((resolve,reject) => {
+        fetch(url,{
+            method:'POST',
+            headers:{
+                Authorization: `Bearer ${auth}`
+            }
+        })
+        .then(res => {
+            console.log(res)
+            resolve(res.status)
+        }) 
+    })
+}
+export const DeactivateC = (id) => {
+    const url = `http://localhost/admin/banConsumer/${id}/${token}`
+    return new Promise((resolve,reject) => {
+        fetch(url,{
+            method:'POST',
+            headers:{
+                Authorization: `Bearer ${auth}`
+            }
+        })
+        .then((res) => {
+
+        })
+    })
+}

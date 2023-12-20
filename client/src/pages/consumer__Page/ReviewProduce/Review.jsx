@@ -45,22 +45,7 @@ const Review = ({produce,back}) => {
       <>
       <section className='review-produce' id='blur-container'>
         <h2 >Lets Review this produce of Id {produce._id}</h2>
-        <div className='image-container'>
-       <div className='carousel-wrapper'> 
-       {produce.Image.length > 1 && (
-        <i class="fa-solid fa-less-than nav-btn" onClick={prevBtn}></i>
-       )}
-       <figure className="carousel-image">
-       <img
-         src={produce.Image[currentIndex]}
-         alt={`Image ${currentIndex + 1}`}
-       />
-     </figure>
-     {produce.Image.length > 1 && (
-      <i class="fa-solid fa-greater-than nav-btn" onClick={nextBtn}></i>
-     )}
-       </div>
-    </div>
+        
           <aside className='produce-farmer-basic-info'> 
           <h2><span>Produce Name </span> {produce.title}</h2>
             <p><span>Produce Description: <span>{produce.description}</span></span></p>

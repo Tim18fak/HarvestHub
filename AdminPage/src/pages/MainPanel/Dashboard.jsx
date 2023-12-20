@@ -80,14 +80,19 @@ useEffect(() => {
     <>
     <section className='dashboard_active-userinfo'>
       <div>
+      <p progress='bar'><span></span></p>
         <h1>{cookie.get('activeConsumer') + cookie.get('activeFarmer')}</h1>
         <h3>Total Active User</h3>
       </div>
       <div>
+      <p progress='bar'><span style={{
+        width: `cal(${cookie.get('activeConsuemr')} *  * 20px)`
+      }}></span></p>
         <h1>{cookie.get('activeConsumer')}</h1>
         <h3>Active Consumer</h3>
       </div>
       <div>
+      <p progress='bar'><span></span></p>
         <h1>{cookie.get('activeFarmer')}</h1>
         <h3>Active Farmer</h3>
       </div>
@@ -156,16 +161,16 @@ useEffect(() => {
       {/* consumer Information */}
       <div className='active-user-data consumer'>
          <main>
-            <h3>Active Consumers</h3>
+            <h3 table='header'>Active Consumers</h3>
       <table className='active-user_table'>
       <thead>
         <tr>
-          <th>#</th>
-          <th>Image</th>
-          <th>Username</th>
-          <th>VerificationStatus</th>
-          <th>NIN</th>
-          <th>View</th>
+          <th table='header'>#</th>
+          <th table='header'>Image</th>
+          <th table='header'>Username</th>
+          <th table='header'>VerificationStatus</th>
+          <th table='header'>NIN</th>
+          <th table='header'>View</th>
         </tr>
       </thead>
       <tbody>
