@@ -64,11 +64,11 @@ const ConsumerProfile = () => {
       })
       if(result.status === 200){
         console.log(result.status)
-        window.location.reload()
-        setTimeout(() => {
-          const message = 'You updated your Profile'
+        const message = 'You updated your Profile'
               const result =  null;
               socket.emit('notification',{userInfo,result,message})
+        setTimeout(() => {
+          window.location.reload()
         },7000)
       }
     } catch (error) {

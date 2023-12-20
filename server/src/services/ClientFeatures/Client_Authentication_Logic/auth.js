@@ -113,7 +113,6 @@ const signUp = async (arg, ip, res) => {
   const blockUser = await BlockedUser.findOne({ $or: [{ username }, { email }, { ip }] });
   const user = isFarmer ? await Farmer.findOne({$or : [{ email },{username}] }) : await User.findOne({$or : [{ email },{username}] });
   console.log(isFarmer)
-  console.log(user)
   if (blockUser) {
     return res.status(403).json({ 'message': 'Either email or IP has been banned' });
   }
