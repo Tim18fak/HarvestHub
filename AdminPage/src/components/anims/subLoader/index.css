@@ -1,0 +1,45 @@
+#subloader:checked + .subLoader{
+    right: 0px;
+}
+.subLoader{
+    position: fixed;
+    right: -300px;
+    top: 90px;
+    box-shadow: 2px 4px 10px ;
+    transition: right 2s ease-in-out;
+}
+.subLoader div{
+    width: 300px;
+    min-height: 80px;
+    border-radius: 10px;
+    background-color: '';
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.subLoader div p{
+    font-size: .8rem;
+    padding: .3rem;
+}
+.sub-spinner{
+    width: 50px;
+  height: 50px;
+  border: 6px solid #34db34; /* Set your spinner color */
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  padding: .3rem;
+}
+
+/* animation */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

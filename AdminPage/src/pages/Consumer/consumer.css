@@ -1,0 +1,79 @@
+.filter-farmer{
+    min-height: 50px;
+    background-color: orange;
+    border-radius: 10px;
+    position: relative;
+    margin: .5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    left: 30%;
+}
+.filter-farmer input{
+    padding: .5rem;
+}
+.filter-farmer a{
+    margin: .3rem;
+    padding: .4rem;
+    text-decoration: none;
+    background-color: white;
+    border-radius: 2px;
+
+}
+
+.consumer-list{
+   display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 10px;
+    row-gap: 20px;
+}
+.consumer-individual{
+    background-color: brown;
+}
+.consumer-individual figure{
+    width: 100%;
+    background-color: '';
+}
+.consumer-individual figure img{
+    width: 100%;
+}
+.consumer-individual h2{
+    text-align: center;
+    margin: .5rem;
+    padding: .4rem;
+    color: white;
+}
+.consumer-individual h4{
+    text-align: center;
+    margin: .2rem;
+    padding: .4rem;
+}
+.consumer-individual ul{
+    display: flex;
+    flex-direction: column;
+}
+.consumer-individual ul li{
+    margin: .2rem;
+}
+.consumer-individual ul li b{
+    margin: .2rem;
+    padding: .2rem;
+    color: white;
+}
+.action-button{
+   display: flex;
+   column-gap: 10px;
+}
+.action-button button{
+    width: 100%;
+    border: transparent;
+    padding: .5rem;
+    background-color: green;
+    color: white;
+}
+.action-button button:hover{
+    background-color: orange;
+}

@@ -17,15 +17,23 @@
 .admin_sidepanel main{
     height: 50%;
 }
-.admin_sidepanel h3{
+.admin_sidepanel aside h3{
     text-align: center;
     padding: 1rem;
     width: 100%;
     border-radius: 10px 10px  0 0;
     color: green;
 }
-.admin_sidepanel h3 span{
+.admin_sidepanel aside h3 span{
     color: brown;
+}
+.admin_sidepanel aside {
+    display: flex;  
+}
+.admin_sidepanel aside i{
+    position: relative;
+    right: 30px;
+    top: 20px;
 }
 .admin_sidepanel main ul{
     height: 100%;
@@ -40,3 +48,12 @@
     transition: all 1s;
 }
 /* sidepanel navbtn */
+.aside-side-panel_options ul{
+    display: flex;
+    flex-direction: column;
+}
+.aside-side-panel_options ul li{
+    padding: 1rem;
+    margin: 0 10px;
+    border-radius: 10px;
+}

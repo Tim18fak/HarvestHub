@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { cookie } from '../../../configs/default__configs/cookies'
 import ActivationCode from './ActivationCode'
 import { Link } from 'react-router-dom'
+import './styles/Auth2.css'
+import { data } from '../../../data/farmer/data'
 const signInInfo = {
   fullname:'',
   username:'',
@@ -84,7 +86,7 @@ const Auth2 = () => {
     if(userInfo.username && !isLogin){
       const {username} = userInfo
       const value = checkBox ? 'Farmer' : 'Consumer'
-      const URL = `https://harvest-hub-pi.vercel.app/auth/fS/${username}/${value}`
+      const URL = `http://localhost/auth/fS/${username}/${value}`
       fetch(URL)
       .then((response) => {
         if(!response.ok){
@@ -115,7 +117,7 @@ const Auth2 = () => {
 
   const Auth = (e) => {
     e.preventDefault()
-    const url =  isLogin ? "https://harvest-hub-pi.vercel.app/auth/login" : "https://harvest-hub-pi.vercel.app/auth/signup"
+    const url =  isLogin ? "http://localhost/auth/login" : "http://localhost/auth/signup"
     console.log(checkBox)
       const {email,username,password,confirm__password,fullname} = userInfo
     fetch(url,{
@@ -227,9 +229,12 @@ const getExtraInfo = (e) => {
 }
   return (
     <>
-    {!accountCreated && quenstionaireLength === 0 &&(
+    <section className='auth-body'>
+      <main className='auth-logic'>
+      {!accountCreated && quenstionaireLength === 0 &&(
     <>
-      <form method="post" onSubmit={Auth}>
+      <form method="post" onSubmit={Auth} className='auth-form'>
+        <h2 className='auth-topic'>{isLogin ? "Login" : "SignIN"}</h2>
       <div>
         <input type="text" name='username' value={userInfo.username} onChange={getUserInfo}/>
         <label htmlFor="username">Username</label>
@@ -254,29 +259,30 @@ const getExtraInfo = (e) => {
         <label htmlFor="confirm__password">Confirm Password</label>
       </div>
       )}
-         <div>
+         <article style={{
+          marginTop: '10px'
+         }}>
          <input type="checkbox" name='isFarmer' checked={checkBox} onChange={isFarmerCheckBox}/>
          <label htmlFor="isFarmer">Are You A Farmer</label>
-       </div>
+       </article>
 
       {isLogin && (
-        <button disabled={!isLogin && comparePass ? true : false}>{isLogin ? "Login In" : "Sign In"}</button>
+        <button className='auth-button' disabled={!isLogin && comparePass ? true : false}>{isLogin ? "Login In" : "Sign In"}</button>
+      )}
+       {!isLogin && quenstionaireLength === 0 &&(
+        <button className='auth-button' onClick={questionaireInfo} disabled={comparePass}>Next</button>
       )}
       </form>
-      {!isLogin && quenstionaireLength === 0 &&(
-        <button onClick={questionaireInfo} disabled={comparePass}>Next</button>
-      )}
     </>
     )}
     {quenstionaireLength === 1 && checkBox &&(
-        <form>
+        <form className='auth-question1'>
         
             <h1>Tell us About Yourself</h1>
-            <div>
-              <img src={farmerInfo.profileImage ? `${farmerInfo.profileImage}` : ''} width={200} height={200} alt="" />
+            <figure>
+              <img src={farmerInfo.profileImage ? `${farmerInfo.profileImage}` : 'https://img.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_632498-855.jpg?size=626&ext=jpg&ga=GA1.1.222711603.1699046896&semt=ais'} width={200} height={200} alt="" />
                 <input type="file" onChange={getProfileImage}/>
-                <label htmlFor="">Profile Image</label>
-            </div>
+            </figure>
             <div>
               <input type="text" name='address' onChange={getExtraInfo} value={farmerInfo.address} required/>
                 <label htmlFor="address">Home Address</label>
@@ -293,19 +299,20 @@ const getExtraInfo = (e) => {
               <input type="text" name='driverLicence' onChange={getExtraInfo} value={farmerInfo.driverLicence} />
                 <label htmlFor="driverLicence">Driver Licence</label>
             </div>
-            <aside>
-             <p onClick={questionaireInfoBack}>Back</p>
+            <aside className='next-question'>
+             <p onClick={questionaireInfoBack}><a href="#">Back</a></p>
              <button onClick={questionaireInfo}>Next</button>
              </aside>
+             
         </form>
     )}
     {quenstionaireLength === 2 && checkBox &&(
-        <form>
-          <h2>Tell us more about your farming profession</h2>
+        <form className='auth-question1'>
+          <h2 className='auth-question2'>Tell us more about your farming profession</h2>
             
           <div>
             <input type="text" name='type' onChange={getExtraInfo} value={farmerInfo.type} required/>
-            <label htmlFor="type">What Type of Farming Are you currently practicing</label>
+            <label htmlFor="type">What Type of Farming are you currently practicing</label>
           </div>
           <div>
               <input type="number" name='farmingExperience' required onChange={getExtraInfo} value={farmerInfo.farmingExperience}/>
@@ -319,20 +326,19 @@ const getExtraInfo = (e) => {
             <input type="text" name='comeabout' onChange={getExtraInfo} value={farmerInfo.comeabout} required/>
             <label htmlFor="comeabout">Where did you hear about us</label>
           </div>
-          <aside>
-            <p onClick={questionaireInfoBack}>Back</p>
+          <aside className='next-question'>
+            <p onClick={questionaireInfoBack}><a href="#">Back</a></p>
             <button onClick={questionaireInfo}>Next</button>
           </aside>
         </form>
     )}
     {quenstionaireLength === 1 && !checkBox &&(
-        <form>
+        <form className='auth-question1'>
              <h1>Tell us About Yourself</h1>
-             <div>
-              <img src={consumerInfo.profileImage ? `${consumerInfo.profileImage}` : ``} width={200} height={200} alt="" />
+             <figure>
+              <img src={consumerInfo.profileImage ? `${consumerInfo.profileImage}` : `https://img.freepik.com/free-vector/isolated-young-handsome-man-different-poses-white-background-illustration_632498-855.jpg?size=626&ext=jpg&ga=GA1.1.222711603.1699046896&semt=ais`} width={200} height={200} alt="" />
                 <input type="file" name='profileImage' onChange={getProfileImage}/>
-                <label htmlFor="profileImage"><i class="fa-solid fa-user"></i><span>Profile Image</span></label>
-             </div>
+             </figure>
              <div>
                 <input type="number" name='phoneNumber' onChange={getExtraInfo} value={consumerInfo.phoneNumber}/>
                 <label htmlFor="phoneNumber"><i class="fa-solid fa-location-dot"></i><span>PhoneNumber</span></label>
@@ -346,32 +352,33 @@ const getExtraInfo = (e) => {
                 <input type="text" name='nationalId' onChange={getExtraInfo} value={consumerInfo.nationalId}/>
                 <label htmlFor="nationalId"><i class="fa-solid fa-id-card"></i><span>NationalId</span></label>
              </div>
-             <aside>
-             <p onClick={questionaireInfoBack}>Back</p>
+             <aside className='next-question'>
+             <p onClick={questionaireInfoBack}><a href="#">Back</a></p>
              <button onClick={questionaireInfo} disabled={next}>Next</button>
              </aside>
         </form>
     )}
     {quenstionaireLength === 2 && !checkBox &&(
-        <form>
+        <form className='auth-question1'>
              <div>
-                <label htmlFor="comeabout" >How did you hear about us</label><em>Not Important</em>
                 <input type="text" name='comeabout' onChange={getExtraInfo} value={consumerInfo.comeabout}/>
+                <label htmlFor="comeabout" >How did you hear about us<em>Not Important</em></label>
              </div>
-             <aside>
-             <p onClick={questionaireInfoBack}>Back</p>
+             <aside className='next-question'>
+             <p onClick={questionaireInfoBack}><a href="#">Back</a></p>
              <button onClick={questionaireInfo}>Next</button>
              </aside>
         </form>
     )}
-    {quenstionaireLength === 3 && <div>
+    {quenstionaireLength === 3 && !accountCreated&&
+    <div className='auth-done'>
         <h2>Finished Set Up</h2>
         <p style={{
       color: 'red',
     }}>{err_Res}</p>
-     <p onClick={questionaireInfoBack}>Back</p>
-        <button onClick={Auth}>Done</button>
-        </div>}
+     <p onClick={questionaireInfoBack}><a href="#" id='prev-question'>Back</a></p>
+        <button className='sigin-button' onClick={Auth}>Done</button>
+      </div>}
     {
       accountCreated && (<ActivationCode res={succesRes} />)
     }
@@ -379,14 +386,20 @@ const getExtraInfo = (e) => {
     <>
      <p style={{
       color: 'red',
-    }}>{usernameTaken}</p>
+    }} def='def'>{usernameTaken}</p>
     <p style={{
       color: 'red',
     }}>{err_Res}</p>
-    <p onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
-    <p>Forgotten your password,<Link to='/reset'><a>Reset</a></Link></p>
+    <p def='def' onClick={Change__Form}>{isLogin ? "Don't have account": 'Already have an account'}&nbsp;&nbsp;<a href='#'>{isLogin ? "Sign In": 'Login Now'}</a></p>
+    <p def='def' >Forgotten your password,<Link to='/reset'><a>Reset</a></Link></p>
     </>
    )}
+      </main>
+      <figure className='auth-banner-image'  style={{
+      backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0.6), rgba(239, 243, 13, 0.6)),url(${data.profileBackgroundImage})`
+    }}>
+      </figure>
+    </section>
     </>
   )
 }

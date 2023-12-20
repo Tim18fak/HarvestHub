@@ -1,6 +1,6 @@
 import Header from './components/default__Component/Header/Header'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Main from "./pages/default__Pages/Main/Main";
+import Main from './pages/default__Pages/Main';
 import Contact from "./pages/default__Pages/Contact";
 import About from './pages/default__Pages/About'
 import Auth from './pages/default__Pages/Auth'
@@ -21,13 +21,12 @@ const  App = () =>  {
       <Router >
     <div><Header /></div>
     <Routes>
-    <Route  path='/' element={<Main/>}/>
-    <Route  path='/contact' element={<Contact/>}/>
-    <Route  path='/about' element={<About/>}/>
+    <Route  path='/' element={<><Main /><Footer /></>}/>
+    <Route  path='/contact' element={<><Contact /></>}/>
+    <Route  path='/about' element={<><About /><Footer /></>}/>
     <Route  path='/auth' element={<Auth2/>}/>
     <Route path="/reset" element={<Reset/>}/>
     </Routes>
-    <Footer/>
     </Router>
     </>
   )

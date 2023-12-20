@@ -1,0 +1,143 @@
+*{
+    box-sizing: border-box;
+}
+
+nav{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin : 0;
+    padding : 1rem 2.5rem;
+    background: #fff;
+}
+
+nav .logo{
+    font-family: 'Inter';
+}
+
+nav .logo .letter-green{
+    font-size: 14px;
+    color : #21A01E;
+}
+
+nav .logo .letter-yellow{
+    font-size: 18px;
+    color : #CEB219;
+}
+
+nav ul{
+    width: 30%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap : 0.75rem;
+    margin : 0;
+    padding : 0;
+}
+
+nav ul li{
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Inter';
+}
+
+nav ul li a{
+    color : #000;
+    text-decoration: none;
+}
+
+nav .login-btn{
+    background: linear-gradient(180deg, #65FE08 0%, rgba(249, 160, 63, 0.92) 100%);
+    background-clip: padding-box;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Inter';
+    line-height: 1.5;
+    padding : 0.8rem 1.5rem;
+    margin : 0;
+    border : 1px solid transparent;
+    border-radius: 60px;
+    outline: 0 !important;
+}
+
+nav .login-btn a{
+    text-decoration: none;
+    color : #fff;
+<<<<<<< HEAD
+}
+
+nav .menu-btn{
+    cursor: pointer;
+    display: none;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-color: transparent;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+}
+
+nav .menu-btn svg{
+    width: 50px;
+    height: 50px;
+}
+
+nav .menu-overlay{
+    position: fixed;
+    left:0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1999;
+}
+
+@keyframes menu-slide{
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+}
+
+nav .menu{
+    position: fixed;
+    right: 0; /*-50%*/
+    top: 0;
+    bottom:0;
+    width: 50%;
+    background: #fff;
+    z-index: 2001;
+    padding : 1.2rem;
+    transform: translateX(100%);
+    animation: menu-slide 0.4s ease-in-out forwards;
+}
+
+nav .menu .menu-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+nav .menu .menu-container ul{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.element-nav-d-none{
+    display: none;
+}
+.element-nav-d-block{
+    display: block;
+=======
+>>>>>>> bed6a0b713db0c91438fe0ddbd1dd41e328dcf2f
+}

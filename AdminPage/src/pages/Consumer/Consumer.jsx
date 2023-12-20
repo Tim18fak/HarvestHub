@@ -2,6 +2,8 @@ import React,{useState,useEffect, useContext} from 'react'
 import Loader from '../../components/anims/loader/Loader'
 import { activateUser } from '../../../config/getAllConsumer'
 import { Socket } from '../../../hooks/usecontext/useContext'
+import { DeactivateC } from '../../../config/getAllConsumer'
+import './consumer.css'
 
 const Consumer = ({HHConsumer,state}) => {
   const [triggerAnim,setTriggerAnim] = useState(state)
@@ -18,10 +20,14 @@ const Consumer = ({HHConsumer,state}) => {
    },[HHConsumer])
 
    /* block consumer logic */
-   const blockConsumer = (id) => {
-
+   const blockConsumer = async(id,isFarmer) => {
+    const result =  await DeactivateC(id,isFarmer)
+    if(result){
+      const updateConsumer = consumer.filter((value) => value._id !== id)
+      setConsumer(updateConsumer)
+    }
    }
-   const activatedConsumer = async(id,isFarmer) => {
+   const activateFarmer = async(id,isFarmer) => {
     console.log(id, isFarmer)
     const result =  await activateUser(id,isFarmer)
     console.log(result)
@@ -57,29 +63,38 @@ const Consumer = ({HHConsumer,state}) => {
   return (
     <>
     <a href="#" onClick={refresh}>Refresh</a>
-    <section>
+    <section className='filter-farmer'>
       <input type="text" name='username' placeholder='search Farmer Username' onChange={getInputValue}/>
       <a href="#" onClick={searchLogic}>Filter By Email</a>
     </section>
-    <section>
+    <section className='consumer-list'>
       {consumer && consumer.length > 0 && consumer.map((value,index) => (
-        <main key={index}>
+        <main key={index} className='consumer-individual'>
           <figure>
           <img src={value.profileImage} alt="" />
           <h2>{value.fullname}</h2>
         </figure>
         <h4>Personal Information</h4>
           <ul>
-            <li>ID {value.Id}</li>
-            <li><span>NIN</span>{value.NIN
+            <li><b>ID:</b> {value.Id}</li>
+            <li><b>NIN:</b>{value.NIN
 }</li>
-            <li><span>Activation Code Status: </span>{value.activationCodeStatus}</li>
-            <li><span>Email: </span>{value.email}</li>
-            <li><span>Cell: </span>{value.phoneNumber}</li>
-            <li><span>Verification Status: </span>{value.verificationStatus
+            <li><b>Activation Code Status: </b>{value.activationCodeStatus}</li>
+            <li> <a href={`tel:+${value.phoneNumber}`}><i class="fa-solid fa-phone fa-shake" style={{
+              fontSize: '1.5rem',
+              color: 'white',
+              margin: '5px'
+            }}></i></a> {value.phoneNumber}</li>
+            <li><a href={`mailto:${value.email}`}><i class="fa-solid fa-envelope fa-shake" style={{
+              fontSize: '1.5rem',
+              color: 'white',
+              margin: '5px'
+            }}></i></a>{value.email}</li>
+            
+            <li><b>Verification Status:  </b>{value.verificationStatus
 }</li>
           </ul>
-          <aside>
+          <aside className='action-button'>
           {value.verificationStatus === 'Fullfilled' && (
             <button onClick={() => activateFarmer(value._id,value.isFarmer)}>Activate Farmer</button>
           )}

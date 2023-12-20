@@ -23,6 +23,22 @@
     font-size: 1rem;
     padding: .5rem;
 }
+[progress='bar']{
+    width: 200px;
+    height: 10px;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    top: 20px;
+    margin: .5rem .2rem;
+}
+[progress='bar'] span{
+    display: block;
+    height: 100%;
+    width: 30px;
+    background-color: green;
+    border-radius: 10px;
+}
 .dashboard_active-userinfo div h1{
     margin-left: 1rem;
 }
@@ -79,7 +95,9 @@ th, td {
     width: 100%;
     margin: 0 1rem;
 }
-
+[table='header']{
+    color: white;
+}
 .user-full-data{
     width: 40%;
     background-color: white;

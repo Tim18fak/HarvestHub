@@ -3,7 +3,8 @@ import Loader from '../../components/anims/loader/Loader'
 import Progress from '../../components/anims/progressbar/Progress'
 import { admin } from '../../../data/adminData'
 import { adminInfo } from '../../../hooks/usecontext/useContext'
-
+import './profile.css'
+import { data } from '../../../data/adminData'
 const updateAmdinProfile ={
   profileImage: '',
   fulllname: '',
@@ -25,6 +26,7 @@ const Profile = ({profile}) => {
     setTimeout(() => {
       setTriggerAnim(false)
     },3000)
+    console.log(profile)
   },[profile])
 
   const getAdminInfo  =(e) => {
@@ -74,12 +76,28 @@ const Profile = ({profile}) => {
     {subProfileUpdateAnim && (
       <Progress/>
     )}
-    <form onSubmit={updateProfile}>
-    <figure>
+    <section className='profile-jumbostron' style={{
+      backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0.6), rgba(239, 243, 13, 0.6)),url(${data.profileBackgroundImage})`
+    }} >
+
+    </section>
+    <form onSubmit={updateProfile} className='profile-form'>
+      <section className='profile-image-section' style={{
+      backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0.6), rgba(239, 243, 13, 0.6))`
+    }}>
+      <figure>
       <img src={adminProfile.profileImage ? adminProfile.profileImage : initalProfile} alt="" width={100} height={100} />
+      <input type="file"  onChange={getAdminProfileImage}/>
     </figure>
-    <input type="file"  onChange={getAdminProfileImage}/>
     <div>
+        <h3>{profile.username}</h3>
+        <h4>Role: <span>Admin</span></h4>
+        <p>Id: <span>{profile.adminId}</span></p>
+      </div>
+      </section>
+
+      <section className='profile-input'>
+      <div>
       <input type="text" name='fulllname'  onChange={(e) => getAdminInfo(e)} />
       <label htmlFor="fullname">Fullname</label>
     </div>
@@ -92,6 +110,8 @@ const Profile = ({profile}) => {
       <label htmlFor="password">password</label>
     </div>
     <button>Update</button>
+      </section>
+   
     </form>
     
     </>
