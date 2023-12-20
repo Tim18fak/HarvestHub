@@ -1,8 +1,169 @@
-body{
-    margin : 0;
-    padding : 0;
+:root{
+    --desktop-padding: 1rem 6rem;
+}
+.header___homepage{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: var(--desktop-padding);
+    background-color: rgb(3, 94, 26);
+}
+.header___homepage aside{
+    
+}
+#checkbox{
+    display: none;
+}
+.header___homepage h3{
+    font-size: 1.2rem;
+    color: rgb(7, 240, 7);
+}
+.header___homepage h3 span{
+    font-size: 1.4rem;
+    color: rgb(182, 30, 30);
+}
+.header___homepage nav{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: all 2s ease-in-out;
+}
+.header___homepage nav h3{
+    padding: 1rem;
+    background-color: lime;
+    border-radius: 10px;
+    transition: border-radius 0.5s, box-shadow 2s;
+    position: relative;
+    top: 0px;
+}
+.header___homepage nav li{
+    transition: font-size 0.5s;
+    position: relative;
+    top: 10px;
+}
+.header___homepage nav li:hover{
+    font-size: 1.5rem;
+}
+.header___homepage nav h3:hover{
+    border-radius: 25px;
+    box-shadow: 1px 5px 10px brown,
+                1px -5px 10px rgb(216, 9, 9),
+                10px 5px 10px brown,
+                -10px -5px 10px rgb(216, 9, 9);
+    background-color: greenyellow;
+}
+#get-started,
+#links{
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: white;
+}
+@media screen and (min-width:300px) and (max-width:500px) {
+    body{
+        font-size: medium;
+    }
+    .header___homepage h3{
+        font-size:medium;
+    }
+    .header___homepage{
+        padding: 1rem;
+    }
+    .header___homepage aside{
+        padding: .5rem;
+    }
+    .header___homepage aside h3{}
+    .header___homepage aside label{
+        position: relative;
+        top: 35px;
+    }
+}
+@media screen and (min-width:501px) and (max-width:1000px) {
+    .header___homepage{
+        padding: 1.2rem;
+    }
+    .header___homepage aside{
+        padding: .5rem;
+    }
+    .header___homepage aside h3{}
+    .header___homepage aside label{
+        position: relative;
+        top: 35px;
+    }
+}
+@media screen and (min-width: 300px) and (max-width: 1000px) {
+    :root{
+
+    }
+   .header___homepage nav{
+        display: none;
+    }
+    #navBtn{
+        width: 30px;
+        height: 5px;
+        display: block;
+        background-color: black;
+        position: absolute;
+        border-radius: 90px;
+        right: 70px;
+        transition: all 3s;
+    }
+    #navBtn::before,
+    #navBtn::after{
+        content: "";
+        width: 30px;
+        height: 5px;
+        display: block;
+        position: absolute;
+        border-radius: 90px;
+        background-color: rgb(250, 6, 6);
+        transition: all 3s;
+    }
+
+    #navBtn::before{
+        top: -10px;
+    }
+    #navBtn::after{
+        top: 8px;
+    }
+    #checkbox:checked ~ .header___homepage #navBtn::after{
+        position: absolute;
+        transform: rotate(90deg);
+        top: -10px;
+        left: 4.9px;
+        width: 15px;
+    }
+    #checkbox:checked ~ .header___homepage #navBtn{
+        transform: rotate(90deg);
+        position: absolute;
+    }
+    #checkbox:checked ~ .header___homepage #navBtn::before{
+        position: absolute;
+        top: -21.4px;
+        transform: rotate(0deg);
+    }
+    #checkbox:checked ~ .header___homepage nav{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 2rem;
+        min-height: 400px;
+        transition: display 2s ease-in-out;
+    }
+    .header___homepage nav li,
+    .header___homepage nav h3{
+        text-align: center;
+        transition: background 1s ease-in-out;
+    }
+    .header___homepage nav li:hover{
+        background-color: rgb(58, 184, 0);
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    [id='links']{
+         color: white;
+         text-align: center;
+    }
+   
+    
 }
 
-*{
-    box-sizing: border-box;
-}

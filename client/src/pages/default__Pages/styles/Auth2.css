@@ -1,0 +1,117 @@
+.auth-body{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+}
+.auth-logic{
+    width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+.auth-button{
+    margin: 10px;
+}
+.auth-form{
+    background-color:green;
+    width: 500px;
+    min-height: 300px;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.auth-topic{
+    text-align: center;
+    color: white;
+}
+.auth-form div{
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: 3px;
+}
+.auth-form div label{
+    margin: .3rem;
+}
+.auth-form div input{
+    padding: .5rem;
+}
+.auth-banner-image{
+    width: 100%;
+}
+
+/* auth-question1 */
+.auth-question1{
+    background-color: green;
+    border-radius: 10px;
+    width: 400px;
+}
+.auth-question1 h1{
+    padding: 1rem;
+    text-align: center;
+    color: white;
+}
+.auth-question1 figure{
+    display: flex;
+    flex-direction: column;
+}
+.auth-question1 figure img{
+    width: 100%;
+}
+.auth-question1 figure input{
+    margin: .3rem;
+}
+.auth-question1 div{
+    display: flex;
+    flex-direction: column-reverse;
+    padding: .4rem;
+}
+.auth-question1 div input{
+    padding: .2rem;
+    width: 80%;
+    margin-left: 1rem;
+}
+.auth-question1 div label{
+    margin: .1rem;
+    margin-left: 1rem;
+}
+.next-question button{
+    width: 100%;
+    background-color: brown;
+    border: transparent;
+    padding: .5rem;
+    color: white;
+}
+.next-question a{
+    color: white;
+    padding: .2rem;
+}
+.auth-question2{
+    padding: 1rem;
+    font-size: 1.3rem;
+    color: white;
+}
+/* last question */
+.auth-done{
+    width: 300px;
+    background-color: green;
+    border-radius: 10px;
+}
+.auth-done h2{
+    padding: 1rem;
+    color: white;
+}
+#prev-question{
+    color: wheat;
+}
+.sigin-button{
+    margin: 1rem;
+    width: 100px;
+    padding: .6rem;
+    border: transparent;
+}
+
+/*  */
+[def='def']{
+    margin: .4rem;
+}

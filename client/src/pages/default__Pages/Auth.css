@@ -95,4 +95,5 @@
     border: 1px solid transparent;
     border-radius: 0.5rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    
 }
