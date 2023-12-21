@@ -4,6 +4,19 @@
     --secondary-color: white;
     --accent-color: brown;
 }
+#filter-btn{
+    display: none;
+}
+#filter-btn:checked ~ .produce-body .produce-filter{
+    opacity: 0;
+}
+#filter-btn:checked ~ .produce-body .fProduce-grid{
+    margin-left: 10px;
+}
+.filter-trig{
+    color: white;
+    padding: .4rem;
+}
 .no-produce{
     display: flex;
     flex-direction: column;
@@ -30,7 +43,7 @@
 }
 .produce-body .produce-filter{
     width: 250px;
-    min-height: 500px;
+    min-height: 300px;
     background-color: rgb(9, 211, 36);
     position: fixed;
     margin: 0;
@@ -103,4 +116,28 @@
     padding: .5rem;
     border: transparent;
     border-radius:  0 0 10px 10px;
+}
+/* style for price filter  */
+.price-filter{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+.price-filter input{
+    margin: .5rem;
+    padding: .5rem;
+}
+.price-filter button{
+    margin: .5rem;
+    padding: .4rem;
+    border: transparent;
+    background-color: green;
+    font-size: 1rem;
+    color: white;
+    transition: background 2s ease-out;
+}
+.price-filter button:hover{
+    background-color: white;
+    color: green;
 }

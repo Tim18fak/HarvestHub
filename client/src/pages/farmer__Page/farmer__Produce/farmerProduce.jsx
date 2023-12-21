@@ -36,8 +36,15 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
   }
 
   const filterByPrice = () => {
-    const filterProduce = produces.filter((value) => value.price >= filterinput.minprice && value.price <= filterinput.maxprice)
-    console.log(filterProduce,filterinput)
+    const produceFilter = []
+    produces.map((value) => {
+      const minprice =  parseInt(filterinput.minprice)
+      const maxprice = parseInt(filterinput.maxprice)
+      if(value.price >= minprice && value.price <=maxprice){
+        produceFilter.push(value)
+      } 
+    })
+    setProduces(produceFilter)
     /* setProduces(update) */
   }
   const filterByTitle = () => {
@@ -69,8 +76,15 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
   if(!state) return <Animation/>
   return (
     <>
+    <input type="checkbox" name="" id="filter-btn" />
+    <label htmlFor="filter-btn" className='filter-trig' style={{
+      textDecoration: 'underline'
+    }}>Filter</label>
     {produces.length === 0  && (
       <>
+      <a href="#" onClick={() => setProduces(farmerProduce)}
+      className='refresh-search'>Refresh</a>
+      
       <div className='no-produce'>
         <p>No Produce</p>
       </div>
@@ -91,7 +105,7 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
         )}
         {!showOptionInput && (
           <>
-          <div>
+          <div className='price-filter'>
           <input type="number" placeholder='min-price' name='minprice' value={filterinput.minprice} onChange={filterInput} required/>
           <input type="number" placeholder='max-price' name='maxprice' value={filterinput.maxprice} onChange={filterInput} required/>
           <button htmlFor="" onClick={filterByPrice} disabled={!filterinput.minprice && !filterinput.maxprice? true : false}>Filter</button>
@@ -100,7 +114,7 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
         )}
          <article className='filter-catergory'>
          <div>
-         <input type="radio" name='filter' onChange={() => getFilterOption('name')} checked={filterValue === 'nmae'? true : false}/>
+         <input type="radio" name='filter' onChange={() => getFilterOption('name')} checked={filterValue === 'name'? true : false}/>
          <label htmlFor="filter" onClick={() => getFilterOption('name')}>Name</label>
          </div>
          <div>
@@ -112,7 +126,6 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
          <label htmlFor="filter" onClick={() => getFilterOption('location')}>Location</label>
          </div>
          </article>
-
         </aside>
         <main className='fProduce-grid'>
       {produces.map((produce,index) => (
