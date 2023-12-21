@@ -1,7 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 import '../default__Pages/styles/About.css'
-import missionImage from 'client/src/pages/default__Pages/images/mission-image1.jpeg';
+
 const About = () => {
   return (
     <div className="about-container">
@@ -38,7 +37,7 @@ const About = () => {
           </div>
         </div>
         <div className="mission-big-card">
-         <img src={missionImage} alt="Mission image1" />
+         <img src={''} alt="Mission image1" />
         </div>
         <div className="mission-small-card">
           <div className="sml-card"></div>

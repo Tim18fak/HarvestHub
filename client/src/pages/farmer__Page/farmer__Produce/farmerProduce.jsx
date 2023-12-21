@@ -71,18 +71,22 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
     <>
     {produces.length === 0  && (
       <>
-       <a href="#" onClick={() => setProduces(farmerProduce)}>Refresh</a>
-      <div>No Produce</div>
+      <div className='no-produce'>
+        <p>No Produce</p>
+      </div>
       </>
     )}
     {produces.length > 0 && (
       <>
+      <a href="#" onClick={() => setProduces(farmerProduce)} className='refresh-search'>Refresh</a>
       <section className='produce-body'>
         <aside className='produce-filter'>
         {showOptionInput && (
           <>
+          <div className='price-location-filter'>
           <input type="text" placeholder='filter' name='title' onChange={filterInput} />
           <label htmlFor="" onClick={filterByTitle}>Filter</label>
+          </div>
           </>
         )}
         {!showOptionInput && (
@@ -94,6 +98,7 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
           </div>
           </>
         )}
+         <article className='filter-catergory'>
          <div>
          <input type="radio" name='filter' onChange={() => getFilterOption('name')} checked={filterValue === 'nmae'? true : false}/>
          <label htmlFor="filter" onClick={() => getFilterOption('name')}>Name</label>
@@ -106,6 +111,7 @@ const FarmerProduce = ({state,farmerProduce,menu}) => {
          <input type="radio" name='filter' onChange={() => getFilterOption('location')} checked={filterValue === 'location'? true : false}/>
          <label htmlFor="filter" onClick={() => getFilterOption('location')}>Location</label>
          </div>
+         </article>
 
         </aside>
         <main className='fProduce-grid'>
