@@ -40,9 +40,9 @@ This will start the development server, and you can access HarvestHub in your br
 
 If you encounter any issues or have questions about HarvestHub, please [open an issue](https://github.com/your-username/harvesthub/issues) on our GitHub repository. For general inquiries, contact the project maintainers:
 
-- Timothy (timothy@harvesthub.com)
-- Ezinne (ezinne@harvesthub.com)
-- KIni (kini@harvesthub.com)
+- Timothy (timothy.avell.olatunde@gmail.com)
+- Ezinne (ekalu.fk@gmail.com)
+- KIni (hkini48@gmail.com)
 
 ## License
 
