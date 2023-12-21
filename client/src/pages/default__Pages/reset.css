@@ -1,0 +1,48 @@
+.reset-password{
+    display: flex;
+    margin: 3rem;
+    background-color: green;
+    width: 500px;
+    height: 200px;
+    border-radius: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.reset-pass-form{
+    position: absolute;
+    top: 0px;
+    left: 30px;
+    padding: 3rem;
+}
+.reset-pass-form div{
+    margin: .5rem;
+    
+}
+.reset-pass-form div input{
+    border: transparent;
+    padding: .4rem;
+    font-size: 1rem;
+    
+}
+.submit-reset{
+    width: 100%;
+    padding: .5rem;
+    border: transparent;
+    color: white;
+    background-color: rgb(66, 107, 5);
+}
+.submit-reset:hover,
+.submit-reset:focus{
+    border-radius: 10px;
+    background-color: brown;
+
+}
+#back{
+    color: white;
+    margin: .5rem;
+}
+.email-sent{
+    margin: 4rem 2rem;
+    color: white;
+}

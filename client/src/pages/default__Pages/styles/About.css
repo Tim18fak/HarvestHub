@@ -1,62 +1,13 @@
-.about-container{
-    padding : 1.2rem 2.5rem;
-}
-
-.about-container .about-head{
-    position: relative;
-    width: 100%;
+.about-jumbostron{
+    background-color: red;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 }
-
-.about-head .about-col{
-    position: relative;
-    width: 30%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    
-    flex-direction: column;
+.about-jumbostron h1{
+    font-size: 4rem;
+    color: white;
 }
-
-.about-head .about-col2{
-    justify-content: flex-end;
-}
-
-.about-head .about-col h1{
-    color: #000;
-    font-family: Inter;
-    font-size: 80px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    padding-top: 0;
-    padding-left: 0;
-    margin-top: 0;
-    margin-left: 0;
-}
-
-.about-head .about-col .about-card{
-    width: 100%;
-    height: calc(50% - 0.5rem);
-    border-radius: 47px;
-    background: #D9D9D9;
-}
-
-.about-head .about-col3 .about-card:nth-child(1){
-    position: absolute;
-    height: 70%;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.about-head .about-col3 .about-card:nth-child(2){
-    position: absolute;
-    bottom : 0;
-    z-index: 1999;
-    background: #A39F9F;
-}
-
 /* ABOUT */
 .about-mission{
     width: 100%;
@@ -75,11 +26,12 @@
 }
 
 .about-mission .mission-card .mission-card-left .title{
-    font-size: 15px;
+    font-size: 35px;
     font-weight: bold;
     text-align: center;
     font-family: Inter;
     margin-bottom : 1rem;
+    color: rgb(218, 186, 10);
 }
 
 .about-mission .mission-card .mission-card-left .response-title{
@@ -104,8 +56,12 @@
     font-size: 14px;
     font-weight: 400;
     font-family: Inter;
+    line-height: 150%;
 }
-
+.mission-text b{
+    font-size: 1rem;
+    letter-spacing: .1rem;
+}
 .about-mission .mission-card .mission-card-right button{
     cursor: pointer;
     background: transparent;
@@ -117,13 +73,24 @@
     font-family: Inter;
 }
 
-.about-mission .mission-big-card{
+.about-mission .mission-big-card {
     width: 100%;
     height: 387px;
     border-radius: 47px;
-    margin : 1.5rem 0;
-    background: #A39F9F;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    position: relative; /* Ensure the container has a position context for absolute positioning */
 }
+
+.about-mission .mission-big-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute; /* Position the image within the container */
+    top: 0;
+    left: 0;
+}
+
 
 .about-mission .mission-small-card{
     position: relative;
@@ -149,14 +116,17 @@
 }   
 
 .about-team .head .title{
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 1.3rem;
+    font-weight: 600;
     margin : 0 0 1.5rem 0;
+    color: rgb(214, 183, 7);
+
 }
 
 .about-team .head .sub-title{
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: .3rem 1rem;
 }
 
 .about-team .team{
@@ -180,13 +150,16 @@
     align-items: center;
     flex-direction: column;
 }
-
+.card-team img{
+    width: 100%;
+    height: 70%;
+}
 .about-team .team .card-team .card-head{
     height: 70%;
 }
 
 .about-team .team .card-team .card-footer{
-    background: #ADAAAA;
+    background: rgba(0, 128, 0, 0.664);
     width: 100%;
     height: 30%;
     display: flex;
@@ -198,17 +171,19 @@
 .about-team .team .card-team .card-footer .names{
     text-align: center;
     font-family: 'Inter';
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 2rem;
 }
 
 .about-team .team .card-team .card-footer .job{
     text-align: center;
     font-family: 'Inter';
-    font-size: 16px;
     font-weight: 400;
 }
-
+.job h2{
+    padding: .5rem;
+}
 .about-team .team .card-team .card-footer .buttons{
     width: 100%;
     display: flex;
@@ -230,6 +205,7 @@
     margin : 2rem 0;
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: minmax(100px, auto);
+    
 }
 
 .about-join-us .card-join-us{
@@ -239,7 +215,7 @@
     flex-direction: column;
     gap : 1.5rem;
     border-radius: 150px;
-    background: #A39F9F;
+    background-color: green;
     grid-row: 1 / 5;
 }
 
@@ -248,6 +224,7 @@
     font-size: 28px;
     font-weight: 400;
     text-align: center;
+    color: whitesmoke;
 }
 
 .about-join-us .card-join-us .text{
@@ -255,6 +232,8 @@
     font-size: 15px;
     font-weight: 500;
     text-align: center;
+    color: ghostwhite;
+    line-height: 150%;
 }
 
 .about-join-us .card-join-us button{
@@ -267,4 +246,7 @@
     font-family: 'Inter';
     font-size: 18px;
     margin-bottom: 3.75rem;
+}
+[join='get-started']{
+    text-decoration: none;
 }

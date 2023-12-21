@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
+import './reset.css'
 const Reset = () => {
     const [email,setEmail] = useState('')
     const [isFarmer,setIsFarmer] =  useState(false)
@@ -33,25 +34,29 @@ const Reset = () => {
 
   return (
     <>
-<Link to={'/auth'}><a>Back</a></Link>
-<section>
+<section className='reset-password'>
     {!emailSent && (
-        <form onSubmit={submitResetPassRequest}>
+        <form onSubmit={submitResetPassRequest} className='reset-pass-form'>
+            <Link to={'/auth'} id='back'>Back</Link>
         <div>
-           <input type="text" name='email' onChange={ResetPass} />
+           <input type="text" name='email' onChange={ResetPass} placeholder=' reset email' />
             <label htmlFor="email" ></label>
             </div>
             <div>
             <input type="checkbox" name='isFarmer' checked={isFarmer} onChange={isFarmerCheckBox}/>
             <label htmlFor="isFarmer" onClick={isFarmerCheckBox}>Are you a farmer</label>
             </div>
-        <button>Reset Password</button>
+        <button className='submit-reset'>Reset Password</button>
     </form>
     )}
     {emailSent && (
-        <main>
+        <>
+        <Link to={'/auth'} id='back'>Back</Link>
+        <main className='email-sent'>
+           
             <p>We will check to see if your email exist, if so please check you email for your temporary password</p>
         </main>
+        </>
     )}
 </section>
 </>
