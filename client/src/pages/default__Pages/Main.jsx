@@ -2,7 +2,8 @@ import React from 'react';
 import '../default__Pages/styles/Main.css';
 import '../default__Pages/styles/Main_Media_Queries.css';
 import '../default__Pages/faqScript.jsx';
-
+import { content } from './Main/main';
+import {Link} from 'react-router-dom'
 const liste = [0, 1, 2, 3, 4];
 
 
@@ -12,31 +13,48 @@ const Main = () => {
       <section className="main-header">
         <div className="row-1">
           <span>Connecting Farmer's</span>
-          <button className="btn"></button>
+          <button className="btn" style={{
+            backgroundImage: `url(${content.image})`
+          }}></button>
           <span>To Their Consumer's</span>
         </div>
         <div className="row-2">
           <span>Through Modern Technology</span>
         </div>
         <div className="row-3">
-          <div className="col-1 col">
-            <div className="card-header"></div>
+          <div className="col-1 col" style={{
+              backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0.6), rgba(239, 243, 13, 0.6)),url(${content.jumbo1})`
+            }}>
+            <div className="card-header" >
+              <h2>Connecting Farmer to Consumer Through Modern Technology</h2>
+              <p>We believe that incorporating technology in agriculture can really make a difference in the <b>Agricultural Sector </b>in Africa</p>
+              <Link to={'/auth'} style={{
+                color: 'wheat',
+                padding: '10px'
+              }}>Learn more</Link>
+            </div>
           </div>
           <div className="col-2 col">
             <div className="card-header">
               Harvesting a bounty of creativity, our UI design blossoms with vibrant colors and intuitive interfaces, cultivating seamless user experiences.
             </div>
-            <div className="card-header"></div>
+            <div className="card-header" style={{
+              backgroundImage: `linear-gradient(195deg, rgba(16, 236, 34, 0), rgba(239, 243, 13, 0)),url(${content.jumbo2})`
+            }}></div>
           </div>
-          <div className="col-3 col">
-            <div className="card-header"></div>
+          <div className="col-3 col" style={{
+              backgroundImage: `url(${content.jumbo1})`
+            }} >
+           <div className="card-header">
+            </div>
           </div>
         </div>
       </section>
       <section className="about">
         <div className="about-header">
+          <img src="" alt="" />
           <div className="title">About Us</div>
-          <div className="sub-title">Cultivating a Sustainable Future In Modern Agriculture</div>
+          <div className="sub-title">Cultivating a Sustainable Future In Modern Agriculture By Modern Technology</div>
         </div>
         <div className="about-contain">
           <div className="big-card">
