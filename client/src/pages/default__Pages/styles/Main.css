@@ -202,7 +202,7 @@
 .wcu-contain .row .col{
     height: 50vh;
     border-radius: 30px;
-    background: #D9D9D9;
+    background: #C7F6B6; /*fixing the background ash*/
 }
 
 .wcu-contain .row-1 .col-2{
@@ -231,13 +231,19 @@
 .wcu-contain .row-1 .col-2 .wcu-sml-cards .wcu-sml-card{
     grid-row: 1/2;
     border-radius: 30px;
-    background: #D9D9D9;
+    background: #C7F6B6; /*changed color here as well*/
 }
 
 .wcu-contain .row-2 .col-1{
     overflow: hidden;
     border-radius: 47px;
     padding : 1.75rem;
+    
+}
+
+.wcu-contain .row-2 .col-1:hover {
+    background-color: #46973B; /* hover icon */
+    
 }
 
 .wcu-contain .row-2 .col-1 .card-header{
@@ -250,7 +256,7 @@
 }
 
 .wcu-contain .row-2 .col-1 .card-header .arrow{
-    background: #BAB5B5;
+    background: #46973B;
     padding : 20px;
     border: 1px solid transparent;
     border-radius: 50%;
@@ -281,7 +287,7 @@
     height: 100px;
     border: 1px solid transparent;
     border-radius: 50%;
-    background: #AAA4A4;
+    background: #46973B;
     z-index: 1999;
 }
 
@@ -299,7 +305,12 @@
 .wcu-contain .row-2 .col-1 .card-contain .text{
     font-size: clamp(0.75rem, 1rem, 1.2rem);
     font-weight: 500;
+    color: #555;
 }   
+
+.wcu-contain .row-2 .col-1 .card-contain .text:hover{
+    color: #ddd;
+}
 
 
 /**         EMPOWER         **/
