@@ -164,8 +164,15 @@
     font-family: Inter;
     padding : 1.5rem 0;
     margin: 0 2rem;
+    position: relative;
 }
+.about-header .about-header-icon{
+    position: absolute;
+    left: 110px;
+    transform: rotate(10deg);
+    top: -1px;
 
+}
 .about-header .title{
     font-size: 18px;
     margin: .5rem;
@@ -204,9 +211,24 @@
 .about-contain .sml-card-container .sml-card{
     border-radius: 47px;    
     background: #D9D9D9;
-    height: 35vh;
+    min-height: 35vh;
+    padding:2rem 1rem;
 }
-
+.sml-card h2{
+    padding:1rem;
+    font-size: 2rem;
+}
+.sml-card h5{
+    font-size: .9rem;
+    padding: .6rem;
+}
+.sml-card p{
+    font-size: .9rem;
+}
+#sml-card-2{
+    background-color: green;
+    color: white;
+}
 
 /**         WHY CHOOSE US           **/
 .why-choose-us{
@@ -223,10 +245,17 @@
     place-items: center;
     font-family: Inter;
     padding : 1.5rem 0;
+    position: relative;
 }
-
+.wcu-header #wcu-header-icon{
+    position: relative;
+    left: 110px;
+    top: 70px;
+}
 .wcu-header .title{
     font-size: 18px;
+    font-weight: 600;
+    color: rgb(199, 171, 14);
 }
 
 .wcu-header .sub-title{

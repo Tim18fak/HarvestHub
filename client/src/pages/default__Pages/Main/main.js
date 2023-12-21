@@ -9,6 +9,7 @@ export const content = {
     aboutUs_p: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod facilisis velit, ac hendrerit purus vestibulum ut. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Learn more`,
     jumbo1: `https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YWZyaWNhbiUyMGZhcm1lcnxlbnwwfHwwfHx8MA%3D%3D`,
     jumbo2: '"https://media.istockphoto.com/id/1378159183/photo/young-african-farmer-on-his-plantain-plantation-has-just-collected-a-bunch-of-plantains.webp?b=1&s=170667a&w=0&k=20&c=FaoHXb9bX98amDndxSD3or6_HYLaLhAiUv_PpLoBthY="',
-    jumb03:`https://images.unsplash.com/photo-1509099381441-ea3c0cf98b94?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YWZyaWNhbiUyMGZhcm1lcnxlbnwwfHwwfHx8MA%3D%3D`
+    jumb03:`https://images.unsplash.com/photo-1509099381441-ea3c0cf98b94?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YWZyaWNhbiUyMGZhcm1lcnxlbnwwfHwwfHx8MA%3D%3D`,
+    aboutjumbo: 'https://media.istockphoto.com/id/1303739162/photo/the-easiest-way-to-connect-with-a-wider-agricultural-community.jpg?s=612x612&w=0&k=20&c=gQlGuago1GVDsjg_jrs-hYzUjRHd_rLaixPsiQ8Ul-I='
 
 }

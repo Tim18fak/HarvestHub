@@ -3,7 +3,9 @@
    --prirmay-color: #65fe08;
    --seccondary-color: '';
 }
-
+body{
+    font-family: ;
+}
 
 li{
     list-style-type: none;

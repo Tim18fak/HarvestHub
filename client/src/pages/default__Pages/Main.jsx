@@ -52,31 +52,52 @@ const Main = () => {
       </section>
       <section className="about">
         <div className="about-header">
-          <img src="" alt="" />
+          <img src="https://img.freepik.com/free-vector/green-leaves-logo_78370-2096.jpg?size=626&ext=jpg&ga=GA1.2.222711603.1699046896&semt=ais" width={50} height={50} className='about-header-icon' alt="" />
           <div className="title">About Us</div>
           <div className="sub-title">Cultivating a Sustainable Future In Modern Agriculture By Modern Technology</div>
         </div>
         <div className="about-contain">
-          <div className="big-card">
+          <div className="big-card" style={{
+            backgroundImage: `url(${content.aboutjumbo})`,
+          }}>
 
           </div>
           <div className="sml-card-container">
-            <div className="sml-card"></div>
-            <div className="sml-card"></div>
-            <div className="sml-card"></div>
-            <div className="sml-card"></div>
+            <div className="sml-card">
+              <h2>90%</h2>
+              <h5>Client Satifaction</h5>
+              <p>Our clients are happy about the simplicity of our platform, with very basic educational knowledge anyone can use our platform</p>
+            </div>
+            <div className="sml-card" id='sml-card-2'>
+              <h2>50<span>+</span></h2>
+              <h5>Farmers</h5>
+              <p>We have currently 50 active farmer's using our platform</p>
+            </div>
+            <div className="sml-card">
+              <h2>100<span>+</span></h2>
+              <h5>Consumers</h5>
+              <p>A weekly increase of consumers by 20%</p>
+            </div>
+            <div className="sml-card">
+              <h2>100%</h2>
+              <h5>Fresh produce</h5>
+              <p>We encourage organic produce for our farmer's</p>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="why-choose-us">
         <div className="wcu-header">
+          <img src="https://img.freepik.com/free-vector/botanical-leaf-doodle-wildflower-line-art_361591-2719.jpg?size=626&ext=jpg&ga=GA1.2.222711603.1699046896&semt=ais" width={60} height={60} alt="" id='wcu-header-icon'/>
           <div className="title">Why Choose Us</div>
           <div className="sub-title">Marketplace for Seamless Transactions</div>
         </div>
         <div className="wcu-contain">
           <div className="row row-1">
-            <div className="col col-1"></div>
+            <div className="col col-1" style={{
+              backgroundImage: `linear-gradient(220deg, rgba(16, 236, 34, 0), rgba(239, 243, 13, .8)),url(${content.aboutjumbo})`
+            }}></div>
             <div className="col col-2">
               <div className="text">Join our marketplace to buy and sell  agricultural products with ease. Connect directly with buyers and sellers, fostering a community-driven approach to agricultural commerce.</div>
               <div className="wcu-sml-cards">
