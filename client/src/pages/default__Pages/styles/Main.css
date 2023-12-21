@@ -260,6 +260,18 @@
     width: 24px; height: 24px;
 }
 
+.wcu-contain .row-2 .col-1 .card-header:hover {
+    background-color: #46973B; /* hover icon */
+}
+
+.wcu-contain .row-2 .col-1 .card-header:hover .arrow {
+    background: #46973B;
+    border: 1px solid #111; 
+
+.wcu-contain .row-2 .col-1 .card-header:hover::before {
+    background: #46973B; 
+}
+
 .wcu-contain .row-2 .col-1 .card-header::before{
     content: '';
     position: absolute;
@@ -502,4 +514,3 @@
   .faq .faq-item.open .faq-answer {
     display: block;
   }
-  

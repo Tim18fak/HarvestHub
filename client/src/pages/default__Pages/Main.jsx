@@ -82,8 +82,35 @@ const Main = () => {
                 <div className="text">Discover a diverse range of fresh, locally sourced produce. From farm-fresh vegetables to organic fruits, our marketplace offers a curated selection of quality products straight from the hands of dedicated farmers.</div>
               </div>
             </div>
-            <div className="col col-2"></div>
-            <div className="col col-3"></div>
+            {/*<div className="col col-2"></div> commented the old*/}
+            <div className="col col-1">
+              <div className="card-header">
+                <i className="arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                  <path d="M30 2C30 0.895429 29.1046 -1.14894e-06 28 1.04269e-06L10 -5.31252e-08C8.89543 -7.27475e-07 8 0.89543 8 2C8 3.10457 8.89543 4 10 4L26 4L26 20C26 21.1046 26.8954 22 28 22C29.1046 22 30 21.1046 30 20L30 2ZM3.41421 29.4142L29.4142 3.41421L26.5858 0.585786L0.585786 26.5858L3.41421 29.4142Z" fill="black"/>
+                </svg>
+                </i>
+              </div>
+              <div className="card-contain">
+                <div className="title">Sustainable Agriculture</div>
+                <div className="text">Explore sustainable agricultural practices and support farmers committed to environmentally friendly farming. Our marketplace showcases a variety of eco-conscious products, from pesticide-free vegetables to ethically raised livestock, ensuring a positive impact on the planet.</div>
+              </div>
+            </div>
+            {/**end of change card 2. Start of card 3 */}
+            <div className="col col-1">
+              <div className="card-header">
+                <i className="arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                  <path d="M30 2C30 0.895429 29.1046 -1.14894e-06 28 1.04269e-06L10 -5.31252e-08C8.89543 -7.27475e-07 8 0.89543 8 2C8 3.10457 8.89543 4 10 4L26 4L26 20C26 21.1046 26.8954 22 28 22C29.1046 22 30 21.1046 30 20L30 2ZM3.41421 29.4142L29.4142 3.41421L26.5858 0.585786L0.585786 26.5858L3.41421 29.4142Z" fill="black"/>
+                </svg>
+                </i>
+              </div>
+              <div className="card-contain">
+                <div className="title">Farm-to-Table Delights</div>
+                <div className="text">Indulge in the goodness of farm-to-table delights. Our marketplace brings you a delightful selection of freshly harvested goods directly from local farms to your table. Experience the flavors of the season with our carefully curated range of farm-fresh produce and gourmet treats.</div>
+              </div>
+            </div>
+            {/**end for card 3 */}
           </div>
         </div>
       </section>
@@ -133,6 +160,8 @@ const Main = () => {
           </div>
         </div>
       </section>
+
+
 {/* Changes from here */}
       <section className="faq">
         <h1>Frequently Asked Questions</h1>
@@ -172,7 +201,7 @@ const Main = () => {
           </div>
         </div>
 
-      </section>
+              </section>
 
     </>
   )

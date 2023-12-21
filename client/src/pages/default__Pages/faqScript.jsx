@@ -1,11 +1,13 @@
 console.log('Script loaded');
+
 document.addEventListener("DOMContentLoaded", function () {
-    const faqQuestions = document.querySelectorAll('.faq .faq-question');
+    const faqItems = document.querySelectorAll(".faq-item");
   
-    faqQuestions.forEach(function (question) {
-      question.addEventListener('click', function () {
-        const faqItem = this.closest('.faq-item');
-        faqItem.classList.toggle('open');
+    faqItems.forEach(function (item) {
+      const questionButton = item.querySelector(".faq-question");
+  
+      questionButton.addEventListener("click", function () {
+        item.classList.toggle("open");
       });
     });
   });
