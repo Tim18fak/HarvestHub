@@ -1,0 +1,16 @@
+.code{
+    padding: 2rem;
+    background-color: green;
+    border-radius: 10px;
+}
+.code div{
+    margin: .4rem;
+}
+.code div span{
+    font-size: 1.2rem;
+    color: white;
+}
+.code button{
+    padding: .5rem;
+    border: transparent; 
+}

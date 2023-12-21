@@ -4,7 +4,29 @@ import '../default__Pages/styles/Main_Media_Queries.css';
 import '../default__Pages/faqScript.jsx';
 import { content } from './Main/main';
 import {Link} from 'react-router-dom'
-const liste = [0, 1, 2, 3, 4];
+const liste = [{
+profile: `${content.testmoniesprofile4}`,
+name: 'Tunde Oladeji',
+role:'Farmer',
+experience: 'The platform is very easy to use has a farmer, very easy to add my produce up for sale'
+},
+{
+  profile: `${content.testmoniesprofile3}`,
+  name: 'Anu Mathis',
+  role:'Consumer',
+  experience: 'I am able to get cheap produce'
+},{
+  profile: `${content.testmoniesprofile2}`,
+  name: 'Victor Success',
+  role:'Farmer',
+  experience: "I don't have to pay anyone to market my produce for me, because this platform make it easy to do so"
+},
+{
+  profile: `${content.testmoniesprofile1}`,
+  name: 'Victoria elizabeth',
+  role:'Consumer',
+  experience: 'It makes grocery shopping much easier for me has a married woman'
+}];
 
 
 const Main = () => {
@@ -101,11 +123,21 @@ const Main = () => {
             <div className="col col-2">
               <div className="text">Join our marketplace to buy and sell  agricultural products with ease. Connect directly with buyers and sellers, fostering a community-driven approach to agricultural commerce.</div>
               <div className="wcu-sml-cards">
-                <div className="wcu-sml-card"></div>
-                <div className="wcu-sml-card"></div>
+                <div className="wcu-sml-card" id='wcu-sml-card-first'>
+                  <h1>100%</h1>
+                  <h5>Organic farm produce</h5>
+                </div>
+                <div className="wcu-sml-card" id='wcu-sml-card-second'>
+                    <h1>90%</h1>
+                    <h5>
+                      Assurance
+                    </h5>
+                </div>
               </div>
             </div>
-            <div className="col col-3"></div>
+            <div className="col col-3" style={{
+              backgroundImage: `linear-gradient(50deg,rgba(16, 236, 34, 1), rgba(239, 243, 13, 0)),url(${content.whyus})`
+            }}></div>
           </div>
           <div className="row row-2">
             <div className="col col-1">
@@ -160,11 +192,13 @@ const Main = () => {
             <div className="left">Empower Farmers & Connect Buyers</div>
             <div className="right">
               <p>Choose our platform to empower farmers by connecting them directly with consumers, supporting local agriculture.</p>
-              <button className="empower-header-btn"></button>
+              <button className="empower-header-btn"><Link to={'/auth'}>Learn more</Link></button>
             </div>
           </div>
           <div className="empower-cards">
-            <div className="main-card">
+            <div className="main-card" style={{
+              backgroundImage: `url(${content.empowerusMainImage})`
+            }}>
 
             </div>
             <div className="sml-card-contain">
@@ -173,21 +207,24 @@ const Main = () => {
                 {
                   liste.map(value => (
                     <>
-                    <div className="sml-card">
+                    <div className="sml-card" >
                       <div className="sml-card-header">
-                        <div className="circle">  
+                        <div className="circle" style={{
+                      backgroundImage: `url(${value.profile})`,
+                      backgroundPosition: 'top'
+                    }}>  
                           
                         </div>
                         <div className="texts">
-                          <div className="title">Timothy Avell</div>
-                          <div className="sub-title">West-East CatFish Farmer</div>
+                          <div className="title">{value.name}</div>
+                          <div className="sub-title">Role: <span>{value.role}</span></div>
                         </div>
                       </div>
                       <div className="sml-card-footer">
                         <span>“</span>
-                        <p className="text">Loved the Experience HarvestHub Offers</p>
+                        <p className="text">{value.experience}</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 219" fill="none">
-                          <path d="M0 52.9986C69.1401 14.8231 83 103 225 25C367 -53.0001 383 78.9987 600 78.9988C600 109.309 600 143.443 600 170.418C600 187.773 600 196.45 596.513 203.036C593.699 208.351 589.353 212.697 584.038 215.511C577.452 218.998 568.768 218.998 551.4 218.998H48.6C31.232 218.998 22.548 218.998 15.9621 215.511C10.6474 212.697 6.30103 208.351 3.48703 203.036C0 196.45 0 187.766 0 170.398V52.9986Z" fill="#8F8989"/>
+                          <path d="M0 52.9986C69.1401 14.8231 83 103 225 25C367 -53.0001 383 78.9987 600 78.9988C600 109.309 600 143.443 600 170.418C600 187.773 600 196.45 596.513 203.036C593.699 208.351 589.353 212.697 584.038 215.511C577.452 218.998 568.768 218.998 551.4 218.998H48.6C31.232 218.998 22.548 218.998 15.9621 215.511C10.6474 212.697 6.30103 208.351 3.48703 203.036C0 196.45 0 187.766 0 170.398V52.9986Z" fill="rgb(223, 191, 10)"/>
                         </svg>
                       </div>
                     </div>  
@@ -204,44 +241,72 @@ const Main = () => {
 {/* Changes from here */}
       <section className="faq">
         <h1>Frequently Asked Questions</h1>
-
+ 
         <div className="faq-item">
-          <button className='faq-question'>What Is HarvestHub?</button>
-          <div className="faq-answer">
+          <input type="checkbox" name="" id="question" />
+          <main>
+            <div>
+            <h2 className='faq-question'>What Is HarvestHub?</h2>
+            <label htmlFor="question">kk</label>
+            </div>
+            <div className="faq-answer">
             <p>HarvestHub is an online farming marketplace connecting consumers directly with local farmers. It provides a platform for buying fresh, locally sourced produce.</p>
           </div>
+          </main>
         </div>
 
         <div className="faq-item">
-          <button className='faq-question'>How Does HarvestHub Support Local Farmers?</button>
+          <input type="checkbox" name="" id="question1" />
+          <main>
+          <div>
+          <h2 className='faq-question'>How Does HarvestHub Support Local Farmers?</h2>
+                <label htmlFor="question1">jj</label>
+          </div>
           <div className="faq-answer">
             <p>HarvestHub supports local farmers by providing them with a platform to showcase and sell their products directly to consumers, fostering a sustainable and direct farmer-consumer relationship.</p>
           </div>
+          </main>
         </div>
 
         <div className="faq-item">
-          <button className='faq-question'>Can I Buy Fresh Produce Directly from Farmers on HarvestHub?</button>
+          <input type="checkbox" name="" id="question2" />
+         <main>
+        <div>
+        <h2 className='faq-question'>Can I Buy Fresh Produce Directly from Farmers on HarvestHub?</h2>
+         <label htmlFor="question2"></label>
+        </div>
           <div className="faq-answer">
             <p>Yes, HarvestHub allows you to purchase fresh produce directly from local farmers. It's a convenient way to support local agriculture and enjoy high-quality, farm-fresh products.</p>
           </div>
+         </main>
         </div>
 
         <div className="faq-item">
-          <button className='faq-question'>Can I Leave Reviews for Farmers and Products on HarvestHub?</button>
+          <input type="checkbox" name="" id="question3" />
+          <main>
+          <div>
+          <h2 className='faq-question'>Can I Leave Reviews for Farmers and Products on HarvestHub?</h2>
+          <label htmlFor="question3"></label>
+          </div>
           <div className="faq-answer">
             <p>Yes, HarvestHub allows you to review local farmers.</p>
           </div>
+          </main>
         </div>
 
         <div className="faq-item">
-          <button className='faq-question'>Is HarvestHub Available Nationwide?</button>
+          <input type="checkbox" name="" id="question4" />
+          <main>
+          <div>
+          <h2 className='faq-question'>Is HarvestHub Available Nationwide?</h2>
+          <label htmlFor="question4"></label>
+          </div>
           <div className="faq-answer">
             <p>Yes, HarvestHub is available nationwide.</p>
           </div>
+          </main>
         </div>
-
-              </section>
-
+    </section>
     </>
   )
 }

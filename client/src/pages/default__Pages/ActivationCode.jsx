@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import './styles/activationCode.css'
 const ActivationCode = ({ res }) => {
     const [confirmCode,setConfirmCode] = useState('')
     console.log(res)
@@ -25,7 +25,7 @@ const ActivationCode = ({ res }) => {
         setConfirmCode(value)
     }
   return (
-    <form onSubmit={submitActivationCode}>
+    <form onSubmit={submitActivationCode} className='code'>
         <div>
            <span>HHB-</span> <input type="number" onChange={activeCode}/>
         </div>

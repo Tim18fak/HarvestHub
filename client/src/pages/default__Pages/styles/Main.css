@@ -259,7 +259,7 @@
 }
 
 .wcu-header .sub-title{
-    font-size: clamp(1rem, 1.2rem, 2rem);
+    font-size: clamp(1rem, 2rem, 2.3rem);
 }
 
 .wcu-contain{
@@ -292,9 +292,10 @@
 }
 
 .wcu-contain .row-1 .col-2 .text{
-    font-family: Inter;
     font-size: 16px;
     font-weight: 400;
+    margin-top: 1rem;
+    line-height: 150%;
 }
 
 .wcu-contain .row-1 .col-2 .wcu-sml-cards{
@@ -304,11 +305,31 @@
     grid-auto-rows: minmax(150px, 1fr);
     grid-gap: 0.75rem;
 }
-
+#wcu-sml-card-first{
+    background-color: rgb(6, 163, 6);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+#wcu-sml-card-first h1{
+    margin: .3rem;
+}
+#wcu-sml-card-second{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: goldenrod;
+    color: white;
+}
 .wcu-contain .row-1 .col-2 .wcu-sml-cards .wcu-sml-card{
     grid-row: 1/2;
     border-radius: 30px;
     background: #C7F6B6; /*changed color here as well*/
+    /* seen the change */
 }
 
 .wcu-contain .row-2 .col-1{
@@ -344,7 +365,7 @@
 }
 
 .wcu-contain .row-2 .col-1 .card-header:hover {
-    background-color: #46973B; /* hover icon */
+    /* hover icon */
 }
 
 .wcu-contain .row-2 .col-1 .card-header:hover .arrow {
@@ -402,9 +423,9 @@
     width: 100%;
     min-height: 65vh;
     height: auto;
-    background: #A39F9F;
+    background: green;
     border: 1px solid transparent;
-    border-radius: 47px;
+    border-radius: 20px;
     padding : 2.1rem 2.75rem;
 }
 
@@ -421,16 +442,20 @@
     font-size: clamp(1.5rem, 1.8rem, 2.1rem);
     font-family: Inter;
     text-align: center;
+    color: white;
 }
 
 .empower .empower-header .right{
-    width: minmax(40%, 100%);
-    text-align: center;
+    width: 50ch;
+    text-align: left;
+    line-height: 150%;
+    margin: .5rem;
 }
 
 .empower .empower-header .right p{
-    font-size: clamp(1rem, 1.2rem, 1.5rem);
+    font-size: clamp(1rem, 1.1rem, 1.5rem);
     font-weight: 500;
+    padding: .5rem;
 }
 
 .empower .empower-header .right .empower-header-btn{
@@ -440,6 +465,8 @@
     background: #D9D9D9;
     padding : 1.2rem 3.75rem;
     outline: 0;
+    font-size: 1rem;
+    background-color: #1eff00;
 }
 
 .empower .empower-cards{
@@ -454,8 +481,20 @@
     border: 1px solid transparent;
     border-radius: 30px;
     background: #D9D9D9;
+    position: relative;
 }
-
+.main-card::after{
+    content: '';
+    width: 60px;
+    height: 60px;
+    border-radius:0px 19px 0px 0;
+    display: block;
+    background-color: green;
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
+    background-position: '';
+}
 .empower .empower-cards .sml-card-contain{
     display: flex;
     justify-content: space-between;
@@ -466,6 +505,7 @@
     font-family: Inter;
     font-size: 20px;
     text-align: center;
+    color: white;
 }
 
 .empower .empower-cards .sml-card-container{
@@ -494,7 +534,7 @@
     overflow: hidden;
     position: relative;
     border-radius: 30px;
-    background: #D9D9D9;
+    background: #C7F6B6;;
     grid-row: 1/5;
     padding: 1.75rem;
 }
@@ -543,11 +583,11 @@
     left:0;
     top : 50%;
     bottom: -50%;
-    fill: #8F8989;
+    
 }
 
 .empower .empower-cards .sml-card-container .sml-card .sml-card-footer span{
-
+    font-size: 1rem;
 }
 
 .empower .empower-cards .sml-card-container .sml-card .sml-card-footer p{
@@ -556,15 +596,16 @@
     left: 0;
     right: 0;
     z-index: 1999;
-    font-size: 15px;
+    font-size: .8rem;
     font-weight: 600;
-    font-family: 'Candara';
+    font-family: 'Inter';
     text-align: center;
+    color: #111;
 }
 
 
 /**             FAQ             **/
-.faq {
+/* .faq {
     position: relative;
     width: 100%;
     padding: 2.1rem 2.75rem;
@@ -601,4 +642,42 @@
   
   .faq .faq-item.open .faq-answer {
     display: block;
+  } */
+  .faq{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: center;
+    margin: 0 4rem;
+  }
+  .faq h1{
+    text-align: center;
+    font-size: 1.3rem;
+    color: rgb(219, 189, 15);
+  }
+  .faq .faq-item{
+    background-color: #1eff00;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 100%;
+    height: 100px;
+    
+  }
+  .faq .faq-item div:first-child {
+    text-align: center;
+  }
+  .faq .faq-item div:first-child{
+  
+  }
+  .faq .faq-item div:first-child h2{
+    font-size: 1.3rem;
+  }
+  .faq-item .faq-answer{
+    text-align: center;
+    line-height: 150%;
+    opacity: 0;
+    transition: opacity 2s;
+  }
+  #question:checked {
+
   }

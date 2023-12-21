@@ -1,5 +1,5 @@
 .footer{
-    background: #D9D9D9;    
+    background: rgba(172, 255, 47, 0.63);    
     padding : 3.75rem 4.5rem;
 }
 
@@ -7,21 +7,22 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    font-family: 'Inter';
 }
 
 .footer .footer-up .logo{
-    font-family: 'Inter';
+    margin: .5rem;
 }
 
 .footer .footer-up .logo .letter-green{
-    font-size: 16px;
+    font-size: 1.3rem;
     color : #21A01E;
+    font-weight: 600;
 }
 
 .footer .footer-up .logo .letter-yellow{
-    font-size: 20px;
+    font-size: 1.5rem;
     color : #CEB219;
+    font-weight: 800;
 }
 
 .footer .footer-up .left div:nth-child(2){
@@ -31,6 +32,8 @@
 .footer .footer-up .site-map .title-map{
     text-align: center;
     margin-bottom: 0.45rem;
+    font-size: 1.5rem;
+    padding: .5rem;
 }
 
 .footer .footer-up .site-map .map{
@@ -77,6 +80,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    padding: .5rem;
 }
 
 .footer-down .sub-title{
@@ -101,15 +105,15 @@
     margin : 0;
     padding : 0;
     display: flex;
-    border-radius: 30px;
-    background: #837D7D;
+    border-radius: 10px;
+    background: white;
     gap : 0;
 }
 
 .footer-down .input-container .input input{
     background: transparent;
     border-color: transparent;
-    color : #000;
+    color : #07d329;
     font-family: 'Inter';
     padding : 0.75rem;
     font-size: 16px;
@@ -117,11 +121,11 @@
     outline: 0;
 }
 .footer-down .input-container .input input::placeholder{
-    color : rgba(0, 0, 0, 0.59);
+    color : black;
 }
 
 .footer-down .input-container .input button{
-    border-radius: 30px;
+    border-radius: 10px;
     background: #18EC46;
     border-color: transparent;
     padding : 0.75rem 1.3rem;
