@@ -267,7 +267,7 @@
 .wcu-contain .row-2 .col-1 .card-header:hover .arrow {
     background: #46973B;
     border: 1px solid #111; 
-
+}
 .wcu-contain .row-2 .col-1 .card-header:hover::before {
     background: #46973B; 
 }
