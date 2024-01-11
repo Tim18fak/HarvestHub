@@ -8,6 +8,7 @@ const { constants } = require('fs');
 const { uploadImages, uploadProfileImage } = require('../../../../Controller/Farmers/constants/uploadImages');
 
 
+
 ////////  authentication code analysis
 const sendResetPassword = async(email,new_password,res) => {
   const html = `  
