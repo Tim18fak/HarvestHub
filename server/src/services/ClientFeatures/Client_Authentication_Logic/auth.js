@@ -10,7 +10,62 @@ const { uploadImages, uploadProfileImage } = require('../../../../Controller/Far
 
 ////////  authentication code analysis
 const sendResetPassword = async(email,new_password,res) => {
-  const html = `${new_password}`
+  const html = `  
+  <!DOCTYPE html>
+<html lang="en" >
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+ <style>
+  *{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+  }
+  nav{
+   padding: 3rem;
+   background-color: green;
+   color: white;
+  }
+  section{
+   padding: 2rem ;
+  }
+  section p{
+   padding: .5rem 1rem;
+  }
+  footer{
+   display: flex;
+   justify-content: space-between;
+   padding: 2rem .5rem ;
+   background-color: rgb(2, 100, 2);
+   color: white;
+   align-items: center;
+  }
+ </style>
+</head>
+<body >
+ <nav>
+    <img src="https://t4.ftcdn.net/jpg/03/77/78/75/240_F_377787568_q9ElOtXZQnwNjyJ0W3o0La7E84gH8jPp.jpg" alt="">
+    <h2>Reset Your Password</h2>
+ </nav>
+ <section>
+  <p>Hello </p>
+  <p>Your request to change your password. <br>We have sent you a temporary password in response to your request </p>
+ <p>This is your temporary password <span><b>${new_password}</b></span></p>
+ <strong>Do not share the password with anyone</strong>
+ </section>
+ <footer>
+  <main >
+   <h4>Contact</h4>
+   <p><a href="#">Phone</a></p>
+   <p><b>Mail:</b>harvestHub@gmail.com</p>
+   <p><b>Location</b>3,iju-street,Lagos-Nigeria</p>
+  </main>
+  <p>Company @ All Right Reserved </p>
+ </footer>
+</body>
+</html>`
 
   const transporter = nodemailer.createTransport({
     service: process.env.EmailService,
@@ -24,7 +79,7 @@ const sendResetPassword = async(email,new_password,res) => {
   });
 
   const sendInfo = {
-    from: `"HarvestHub 👻"` + process.env.HarvestHubGmail,
+    from: `"HarvestHub"` + process.env.HarvestHubGmail,
     to: email,
     subject: `Your Reset Password`,
     text: 'Hello world?',
@@ -56,7 +111,60 @@ const sendActivationCode = async (email,activationCode, res,_id,isFarmer) => {
   try {
     if (activationCode) {
       const html = `
-        <!-- Your HTML content ${activationCode} -->
+      <!DOCTYPE html>
+<html lang="en" >
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+ <style>
+  *{
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+  }
+  body{
+   text-align: center;
+  }
+  nav{
+   padding: 3rem;
+   background-color: rgba(0, 128, 0, 0.39);
+   color: white;
+   display: flex;
+   justify-content: center;
+  }
+.code{
+   padding: .5rem 2rem;
+  }
+
+
+  section p{
+   padding: .5rem 1rem;
+  }
+  footer{
+   display: flex;
+   justify-content: space-between;
+   padding: 2rem .5rem ;
+   background-color: rgb(2, 100, 2);
+   color: white;
+   align-items: center;
+  }
+ </style>
+</head>
+<body >
+ <nav>
+    <img src="https://cdn.templates.unlayer.com/assets/1701676201199-password.png" alt="">
+ </nav>
+ <section class="code">
+  <h2>Your One-Time Code</h2>
+  <p style="padding: 1rem 2rem;border: 3px solid;display: inline-block;margin: .5rem;">${activationCode}</p>
+ </section>
+ <section>
+  <p>Please verify you're really you <br> by entering this code to activate your account</p>
+ <strong>Do not share this code with anyone</strong>
+ </section>
+</body>
+</html>
       `;
 
       const transporter = nodemailer.createTransport({

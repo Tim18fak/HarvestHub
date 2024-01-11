@@ -108,9 +108,9 @@
 .main-header .row-3 .col-1 .card-header.card-header-link{
     color: white;
 }
-.main-header .row-3 .col-2{
+/* .main-header .row-3 .col-2{
     
-}
+} */
 
 .main-header .row-3 .col-2 .card-header:nth-child(1){
     background: #fff;
@@ -186,10 +186,10 @@
     line-height: 150%;
     font-weight: 600;
 }
-
+/* 
 .about .about-contain{
 
-}
+} */
 
 .about-contain .big-card{
     width: 90%;
@@ -364,9 +364,9 @@
     width: 24px; height: 24px;
 }
 
-.wcu-contain .row-2 .col-1 .card-header:hover {
+/* .wcu-contain .row-2 .col-1 .card-header:hover {
     /* hover icon */
-}
+/* }  */
 
 .wcu-contain .row-2 .col-1 .card-header:hover .arrow {
     background: #46973B;
@@ -666,9 +666,9 @@
   .faq .faq-item div:first-child {
     text-align: center;
   }
-  .faq .faq-item div:first-child{
+  /* .faq .faq-item div:first-child{
   
-  }
+  } */
   .faq .faq-item div:first-child h2{
     font-size: 1.3rem;
   }
@@ -678,6 +678,6 @@
     opacity: 0;
     transition: opacity 2s;
   }
-  #question:checked {
+  /* #question:checked {
 
-  }
+  } */
