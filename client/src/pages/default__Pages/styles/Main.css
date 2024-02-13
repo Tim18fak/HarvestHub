@@ -340,8 +340,7 @@
 }
 
 .wcu-contain .row-2 .col-1:hover {
-    background-color: #46973B; /* hover icon */
-    
+    background-color: #0e6303; /* hover icon */
 }
 
 .wcu-contain .row-2 .col-1 .card-header{
@@ -660,8 +659,8 @@
     border-radius: 10px;
     padding: 1rem;
     width: 100%;
-    height: 100px;
-    
+    height: 50px;
+    transition: all .2s ease-out;    
   }
   .faq .faq-item div:first-child {
     text-align: center;
@@ -676,8 +675,22 @@
     text-align: center;
     line-height: 150%;
     opacity: 0;
-    transition: opacity 2s;
+    transition: opacity .2s;
+    font-size: medium;
+    padding: 1rem;
   }
   /* #question:checked {
 
   } */
+
+
+  /* faq question */
+  .faq-item:hover{
+    height: fit-content;
+  }
+  .faq-item:hover .faq-answer{
+    opacity: 1;
+  }
+  .wcu-contain .row-2 .col-1:hover .text{
+    color: white;
+}

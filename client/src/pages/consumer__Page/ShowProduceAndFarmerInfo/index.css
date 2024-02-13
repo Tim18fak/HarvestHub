@@ -3,13 +3,17 @@
     width: 100%;
     grid-template-columns: 2fr 1fr;
     column-gap: 20px;
+    
 }
-.farmer-info_plus-produce{
-
+.farmer-info{
+    display: '';
+    max-height: 500px;
 }
 .produce-data{
     background-color: white;
     border-radius: 0 0 10px 10px;
+    max-height: 500px;
+  
 }
 .other-produce main{
     display: flex;
@@ -72,6 +76,7 @@
     padding: 0;
     margin: 0;
     border-radius: 0;
+    height: 300px;
 }
 
 @media screen and (min-width:300px) and (max-width:750px) {
@@ -82,9 +87,9 @@
         grid-template-columns: 1fr;
         row-gap: 20px;
     }
-    .produce-data{
+    /* .produce-data{
         background-color: white;
-    }
+    } */
     #Jumbostron_image{
         min-width: 100%;
         max-height: 300px;

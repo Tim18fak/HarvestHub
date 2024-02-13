@@ -4,6 +4,7 @@ import './reviewed.css'
 const Reviewed = ({review}) => {
   console.log(review)
   return (
+    <>
     <section className='review-container'>
       {review && review.length > 0 && review.map((val,index) => (
         <div key={index} className='review-cards'>
@@ -20,7 +21,17 @@ const Reviewed = ({review}) => {
           <button>Delete Review</button>
         </div>
       ))}
+     
     </section>
+     {
+      <aside>
+        <h2 style={{
+          color:'white',
+          textAlign:'center'
+        }}>No produces has been reviewed by you</h2>
+      </aside>
+    }
+   </>
   )
 }
 

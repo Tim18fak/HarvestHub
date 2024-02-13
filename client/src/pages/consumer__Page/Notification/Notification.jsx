@@ -3,10 +3,16 @@ import { UserData } from '../../../../hooks/useContext/ConsumerInfo'
 
 const Notification = () => {
   const userData = useContext(UserData)
- if(userData.notification.length === 0) return <div>No Notification</div> 
+ if(userData.notification.length === 0) return <div  style={{
+  color:'white',
+  textAlign:'center'
+}}><h2>No Notification</h2></div> 
 return (
   <>
-  <h2>Notification</h2>
+  <h2 style={{
+  color:'white',
+  textAlign:'center'
+}}>Notification</h2>
 
 <table>
   <thead>

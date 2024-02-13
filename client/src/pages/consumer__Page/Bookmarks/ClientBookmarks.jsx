@@ -54,7 +54,6 @@ const ClientBookmarks = ({bookmarks}) => {
     {!triggerAnimation && (
         <>
         <SpinnerLoader/>
-        <Rotate/>
         </>
     )}
    {triggerAnimation && !showFarmerInfo && (
@@ -100,7 +99,11 @@ const ClientBookmarks = ({bookmarks}) => {
     </section>
     {clientBookmarks.length === 0 && (
         <div>
-            <h1>No Bookmark</h1>
+            <h1 style={{
+                color: 'white',
+                textAlign:'center',
+
+            }}>No Bookmark</h1>
         </div>
     )}
     </>

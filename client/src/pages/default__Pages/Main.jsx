@@ -243,11 +243,11 @@ const Main = () => {
         <h1>Frequently Asked Questions</h1>
  
         <div className="faq-item">
-          <input type="checkbox" name="" id="question" />
+        
           <main>
             <div>
             <h2 className='faq-question'>What Is HarvestHub?</h2>
-            <label htmlFor="question">kk</label>
+            
             </div>
             <div className="faq-answer">
             <p>HarvestHub is an online farming marketplace connecting consumers directly with local farmers. It provides a platform for buying fresh, locally sourced produce.</p>
@@ -256,11 +256,10 @@ const Main = () => {
         </div>
 
         <div className="faq-item">
-          <input type="checkbox" name="" id="question1" />
           <main>
           <div>
           <h2 className='faq-question'>How Does HarvestHub Support Local Farmers?</h2>
-                <label htmlFor="question1">jj</label>
+               
           </div>
           <div className="faq-answer">
             <p>HarvestHub supports local farmers by providing them with a platform to showcase and sell their products directly to consumers, fostering a sustainable and direct farmer-consumer relationship.</p>
@@ -268,7 +267,7 @@ const Main = () => {
           </main>
         </div>
 
-        <div className="faq-item">
+        {/* <div className="faq-item">
           <input type="checkbox" name="" id="question2" />
          <main>
         <div>
@@ -279,14 +278,13 @@ const Main = () => {
             <p>Yes, HarvestHub allows you to purchase fresh produce directly from local farmers. It's a convenient way to support local agriculture and enjoy high-quality, farm-fresh products.</p>
           </div>
          </main>
-        </div>
+        </div> */}
 
         <div className="faq-item">
-          <input type="checkbox" name="" id="question3" />
+         
           <main>
           <div>
           <h2 className='faq-question'>Can I Leave Reviews for Farmers and Products on HarvestHub?</h2>
-          <label htmlFor="question3"></label>
           </div>
           <div className="faq-answer">
             <p>Yes, HarvestHub allows you to review local farmers.</p>
@@ -295,11 +293,9 @@ const Main = () => {
         </div>
 
         <div className="faq-item">
-          <input type="checkbox" name="" id="question4" />
           <main>
           <div>
           <h2 className='faq-question'>Is HarvestHub Available Nationwide?</h2>
-          <label htmlFor="question4"></label>
           </div>
           <div className="faq-answer">
             <p>Yes, HarvestHub is available nationwide.</p>

@@ -114,7 +114,7 @@ const Auth2 = () => {
       })
     }
   },[userInfo.username,checkBox])
-
+  console.log(document.styleSheets)
   const Auth = (e) => {
     e.preventDefault()
     const url =  isLogin ? "http://localhost/auth/login" : "http://localhost/auth/signup"

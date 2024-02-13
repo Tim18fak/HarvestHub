@@ -3,6 +3,7 @@ import './styles/activationCode.css'
 const ActivationCode = ({ res }) => {
     const [confirmCode,setConfirmCode] = useState('')
     console.log(res)
+    
     const { _id,isFarmer} = res
     const submitActivationCode = (e) => {
         e.preventDefault()
@@ -15,9 +16,11 @@ const ActivationCode = ({ res }) => {
             body: JSON.stringify({'code': confirmCode,'isFarmer': isFarmer})
         })
         .then((response) => {
+            console.log(response)
             if(response.status === 200){
                 window.location.replace('/auth')
             }
+            alert('your verification code is not valid')
         })
     }
     const activeCode =  (e) => {

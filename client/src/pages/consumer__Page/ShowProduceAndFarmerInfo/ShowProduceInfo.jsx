@@ -9,6 +9,7 @@ import ImageSlider from '../../../components/default__Component/ImageSlider/Imag
 const ShowProduceInfo = ({data,trigger}) => {
     const [fetchData,setFetchData] = useState([])
     const [phoneNum,setPhoneNum] = useState('Call Farmer')
+    const [hideNum,setHideNum] = useState(false)
     const [triggerAnimation,setTriggerAnimation] = useState(false)
     const [farmerExist,setFarmerExist] = useState(true)
     const [imageIndex,setImageIndex] = useState(0)
@@ -29,14 +30,15 @@ const ShowProduceInfo = ({data,trigger}) => {
             setFarmerExist(false)
         }
     },[data])
-    /* call farmer logi */
-    const callFarmer = (num) => {
+    const PhoneNum =(num) => {
+        console.log(num)
+        setHideNum(!hideNum)
+        if(!hideNum){
+            setPhoneNum('Call Farmer')
+        }
         setPhoneNum(num)
     }
-    /* hide farmer number */
-    const hideFarmerNum = () => {
-        setPhoneNum('Call Farmer')
-    }
+  
     /* change image */
     const changeImage = (index) => {
         const image = document.querySelector('#Jumbostron_image');
@@ -143,10 +145,36 @@ const ShowProduceInfo = ({data,trigger}) => {
             <h2>Username: {fetchData.username}</h2>
             <ul>
                 <li><span>Verification Status</span>: {fetchData.verificationStatus}</li>
+               
             </ul>
             <h4>Farmer's Farm Information</h4>
             <ul>
                 <li><span>Farm Type: </span>{fetchData.farmType}</li>
+                <li>
+                    <>
+                    {
+                    !hideNum && (
+                        <p style={{
+                            padding: '.3rem',
+                            backgroundColor:'green',
+                            color: 'white'
+                        }} onClick={() => PhoneNum(fetchData.phoneNumber)}>Call Farmer</p>
+                    )
+                }
+                {
+                    hideNum && (
+                       <p style={{
+                        padding: '.3rem',
+                        backgroundColor:'green',
+                        color: 'white'
+                    }} onClick={() => PhoneNum(fetchData.phoneNumber)}><a href={`tel:+234${phoneNum}`} style={{
+                        backgroundColor:'transparent',
+                        color:"white"
+                    }}>{phoneNum}</a></p>
+                    )
+                }
+                </>
+                </li>
             </ul>
             </article>
             <figure>
@@ -174,9 +202,11 @@ const ShowProduceInfo = ({data,trigger}) => {
 
 
     {/* other farmer produce */}
-    {!review && (
+    {/* {!review && (
        <section>
-        <h4 className='other-produce-h2'><span>Other Produce</span></h4>
+         {fetchData.otherProduce && fetchData.otherProduce.length > 0 && (
+            <h4 className='other-produce-h2'><span>Other Produce</span></h4>
+         )}
        <aside className='other-produce'>
                    {fetchData.otherProduce && fetchData.otherProduce.length > 0 && (
                        <>
@@ -196,7 +226,7 @@ const ShowProduceInfo = ({data,trigger}) => {
                    )}
                </aside>
        </section>
-    )}
+    )} */}
     {review && (
         <Review back={showProduceInfo} produce={fetchData}/>
     )}

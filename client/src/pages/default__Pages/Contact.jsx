@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './contact.css'
+const emailTemplate = {
+  senderEmail:'',
+  message:'',
+  fullname:''
+} 
 const Contact = () => {
+  const [form,setForm] = useState()
   return (
     <>
     <section className='contact-us-jumbostron'>
@@ -12,7 +18,7 @@ const Contact = () => {
     <p>You can reach out to use through the following means</p>
     <main className='contact-section'>
       <div>
-        <a href="tel:+23490"><i class="fa-solid fa-phone fa-beat"></i></a>
+        <a href="tel:++23490234567"><i class="fa-solid fa-phone fa-beat"></i></a>
         <article>
           <h2>Phone</h2>
           <p>+2349023456789</p>
